@@ -1,0 +1,14 @@
+GET http://localhost:9999/api/v1/send
+Accept: application/json
+
+###
+POST http://localhost:9999/api/v1/send/topic-3
+Content-Type: application/json
+
+{}
+
+###
+DELETE http://localhost:9999/api/v1/send/topic-3
+Accept: application/json
+
+###

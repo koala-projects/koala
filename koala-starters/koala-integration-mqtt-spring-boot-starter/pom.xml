@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
+  <description>Koala Integration Mqtt 集成启动类, 自动装配</description>
+  <parent>
+    <groupId>cn.houtaroy.koala</groupId>
+    <artifactId>koala-parent</artifactId>
+    <version>${revision}</version>
+    <relativePath>../../koala-parent</relativePath>
+  </parent>
+  <dependencies>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-support-integration-mqtt</artifactId>
+    </dependency>
+  </dependencies>
+</project>
