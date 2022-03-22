@@ -82,6 +82,12 @@
         <artifactId>koala-checkstyle</artifactId>
         <version>${revision}</version>
       </dependency>
+      <!--核心-->
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-models</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--支撑依赖-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>

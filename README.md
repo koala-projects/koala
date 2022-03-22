@@ -6,12 +6,12 @@ Use Spring Boot Like A Koala
 
 ### 核心功能
 
-- [ ] 中文枚举
-- [ ] 基础模型
-- [ ] 基础服务
+- [x] 基础模型
+- [x] 基础服务
 - [ ] MyBatis
 - [ ] Spring Security
 - [ ] MySQL实现
+- [ ] Swagger3
 - [ ] CRUD低代码
 
 ### 拓展模块
