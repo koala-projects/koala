@@ -58,7 +58,7 @@
   <distributionManagement>
     <repository>
       <id>Houtaroy Local</id>
-      <url>file:D:/Document/.m2/repository</url>
+      <url>file:D:/Document/maven-repositories</url>
     </repository>
   </distributionManagement>
 
