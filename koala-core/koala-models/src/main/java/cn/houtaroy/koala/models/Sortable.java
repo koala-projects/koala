@@ -10,5 +10,5 @@ public interface Sortable {
    *
    * @return 排序索引
    */
-  Long getSortIndex();
+  Integer getSortIndex();
 }

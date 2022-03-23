@@ -16,5 +16,7 @@
 
   <modules>
     <module>koala-support-integration-mqtt</module>
+    <module>koala-support-mybatis</module>
+    <module>koala-support-repositories-mybatis</module>
   </modules>
 </project>

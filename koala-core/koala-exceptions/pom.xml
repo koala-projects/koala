@@ -3,21 +3,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-core</artifactId>
-  <packaging>pom</packaging>
-  <version>${revision}</version>
-  <description>Koala Core</description>
+  <artifactId>koala-exceptions</artifactId>
+  <description>Koala Exceptions</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
-    <artifactId>koala</artifactId>
+    <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath>../../koala-parent</relativePath>
   </parent>
-
-  <modules>
-    <module>koala-exceptions</module>
-    <module>koala-models</module>
-    <module>koala-services</module>
-    <module>koala-utils</module>
-  </modules>
 </project>
