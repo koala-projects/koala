@@ -15,6 +15,7 @@
   </parent>
 
   <modules>
+    <module>koala-sample-oauth2</module>
     <module>mqtt</module>
   </modules>
 </project>

@@ -8,14 +8,15 @@ Use Spring Boot Like A Koala
 
 - [x] 基础模型
 - [x] 基础服务
-- [ ] MyBatis
-- [ ] Spring Security
-- [ ] MySQL实现
+- [x] MyBatis
+- [ ] Spring Security OAuth2(因Spring Authorization Server 0.2.2不支持Spring Boot 3问题暂时搁置)
 - [ ] Swagger3
 - [ ] CRUD低代码
+- [ ] MySQL实现
 
-### 拓展模块
+### 启动类
 
+- [ ] OAuth2(因Spring Authorization Server 0.2.2不支持Spring Boot 3问题暂时搁置)
 - [x] [Mqtt](https://github.com/Houtaroy/koala/tree/main/koala-starters/koala-integration-mqtt-spring-boot-starter)
 - [ ] 微信小程序
 - [ ] 钉钉
