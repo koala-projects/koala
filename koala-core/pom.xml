@@ -19,5 +19,6 @@
     <module>koala-models</module>
     <module>koala-services</module>
     <module>koala-utils</module>
+    <module>koala-web</module>
   </modules>
 </project>
