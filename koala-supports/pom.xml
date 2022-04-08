@@ -15,6 +15,7 @@
   </parent>
 
   <modules>
+    <module>koala-support-authorization-server</module>
     <module>koala-support-integration-mqtt</module>
     <module>koala-support-mybatis</module>
     <module>koala-support-repositories-mybatis</module>

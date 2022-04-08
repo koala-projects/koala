@@ -4,12 +4,12 @@ server:
     context-path: /
 spring:
   main:
-    allow-bean-definition-overriding: true #允许spring bean 定义覆盖
+    allow-bean-definition-overriding: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver #数据库驱动
-    url: jdbc:mysql://10.10.10.13:3308/koala-sample-oauth2?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/koala-sample-oauth2?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: koala
-    password: hyh282038
+    password: koala
   druid: #druid连接池配置
     initial-size: 5
     min-idle: 5
@@ -53,6 +53,7 @@ spring:
 
 logging:
   level:
-    cn.houtaroy.koala: DEBUG
+    org.springframework.security: debug
+    cn.houtaroy.koala: debug
   file:
     name: koala-sample-oauth2.log

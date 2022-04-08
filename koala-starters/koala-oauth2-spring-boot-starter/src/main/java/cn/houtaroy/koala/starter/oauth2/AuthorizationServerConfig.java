@@ -10,12 +10,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -46,7 +52,25 @@ public class AuthorizationServerConfig {
    */
   @Bean
   public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-    return new JdbcRegisteredClientRepository(jdbcTemplate);
+    JdbcRegisteredClientRepository result = new JdbcRegisteredClientRepository(jdbcTemplate);
+    RegisteredClient registeredClient = RegisteredClient.withId("client")
+      .clientId("client")
+      .clientSecret(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("123456"))
+      .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+      .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+      .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+      .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+      .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+      .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+      .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
+      .redirectUri("http://127.0.0.1:8080/authorized")
+      .scope(OidcScopes.OPENID)
+      .scope("message.read")
+      .scope("message.write")
+      .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+      .build();
+    result.save(registeredClient);
+    return result;
   }
 
   /**
