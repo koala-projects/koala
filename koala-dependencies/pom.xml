@@ -19,12 +19,12 @@
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
     <mybatis.version>3.5.7</mybatis.version>
-    <mybatis-springboot.version>2.2.0</mybatis-springboot.version>
+    <mybatis-springboot.version>2.2.2</mybatis-springboot.version>
     <mysql-connector.version>8.0.27</mysql-connector.version>
     <pagehelper.version>5.3.0</pagehelper.version>
     <pagehelper-spring-boot-starter.version>1.4.1</pagehelper-spring-boot-starter.version>
     <p3c-pmd.version>2.1.1</p3c-pmd.version>
-    <spring-boot.version>3.0.0-M1</spring-boot.version>
+    <spring-boot.version>2.6.6</spring-boot.version>
     <spring-security-oauth2-authorization-server.version>0.2.2</spring-security-oauth2-authorization-server.version>
     <swagger.version>2.1.2</swagger.version>
   </properties>

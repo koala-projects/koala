@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.SuperBuilder;
 
 /**
  * @param <T> 返回数据类型
@@ -13,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder(toBuilder = true)
 public class DataResponse<T> extends Response {
 
   private T data;
