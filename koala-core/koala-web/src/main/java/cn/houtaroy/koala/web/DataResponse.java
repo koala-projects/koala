@@ -1,9 +1,10 @@
-package cn.houtaroy.koala.rest;
+package cn.houtaroy.koala.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @param <T> 返回数据类型
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class DataResponse<T> extends Response {
 
   private T data;

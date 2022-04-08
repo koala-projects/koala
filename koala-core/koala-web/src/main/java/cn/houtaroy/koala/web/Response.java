@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.rest;
+package cn.houtaroy.koala.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
