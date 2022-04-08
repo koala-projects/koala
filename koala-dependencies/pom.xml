@@ -26,6 +26,7 @@
     <p3c-pmd.version>2.1.1</p3c-pmd.version>
     <spring-boot.version>2.6.6</spring-boot.version>
     <spring-security-oauth2-authorization-server.version>0.2.2</spring-security-oauth2-authorization-server.version>
+    <springdoc.version>1.6.7</springdoc.version>
     <swagger.version>2.1.2</swagger.version>
   </properties>
 
@@ -84,9 +85,9 @@
         <version>${spring-security-oauth2-authorization-server.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.swagger.core.v3</groupId>
-        <artifactId>swagger-annotations</artifactId>
-        <version>${swagger.version}</version>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.version}</version>
       </dependency>
       <!--代码规范检查-->
       <dependency>
@@ -95,6 +96,11 @@
         <version>${revision}</version>
       </dependency>
       <!--核心-->
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-apis</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-exceptions</artifactId>
@@ -115,6 +121,11 @@
         <artifactId>koala-utils</artifactId>
         <version>${revision}</version>
       </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-web</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--支撑依赖-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
@@ -130,6 +141,11 @@
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-oauth2-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-system-management-starter</artifactId>
         <version>${revision}</version>
       </dependency>
     </dependencies>

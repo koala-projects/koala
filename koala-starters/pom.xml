@@ -17,5 +17,6 @@
   <modules>
     <module>koala-integration-mqtt-spring-boot-starter</module>
     <module>koala-oauth2-spring-boot-starter</module>
+    <module>koala-system-management-starter</module>
   </modules>
 </project>

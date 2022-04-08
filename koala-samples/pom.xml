@@ -16,6 +16,7 @@
 
   <modules>
     <module>koala-sample-oauth2</module>
+    <module>koala-sample-system-management</module>
     <module>mqtt</module>
   </modules>
 </project>
