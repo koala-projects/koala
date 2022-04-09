@@ -1,5 +1,6 @@
 package cn.houtaroy.koala.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,13 +13,24 @@ import java.util.Optional;
 /**
  * @author Houtaroy
  */
+@Schema(description = "用户")
 public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
+
+  /**
+   * 获取用户名
+   *
+   * @return 用户名
+   */
+  @Override
+  @Schema(description = "用户名")
+  String getUsername();
 
   /**
    * 获取名称
    *
    * @return 名称
    */
+  @Schema(description = "名称")
   String getName();
 
   /**
@@ -26,6 +38,7 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
    *
    * @return 头像
    */
+  @Schema(description = "头像")
   String getAvatar();
 
   /**
@@ -33,6 +46,7 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
    *
    * @return 邮箱
    */
+  @Schema(description = "邮箱")
   String getEmail();
 
   /**
@@ -40,6 +54,7 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
    *
    * @return 手机号
    */
+  @Schema(description = "手机号")
   String getPhone();
 
   /**
@@ -47,6 +62,7 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
    *
    * @return 角色列表
    */
+  @Schema(description = "角色列表")
   List<? extends Role> getRoles();
 
   /**

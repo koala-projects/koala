@@ -1,6 +1,7 @@
 package cn.houtaroy.koala.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
  * @author Houtaroy
  */
 @Data
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public abstract class BaseEntity implements Idable<String>, Sortable, Stateable, Auditable {
 

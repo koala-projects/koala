@@ -15,7 +15,6 @@
   </parent>
 
   <modules>
-    <module>koala-apis</module>
     <module>koala-exceptions</module>
     <module>koala-models</module>
     <module>koala-services</module>

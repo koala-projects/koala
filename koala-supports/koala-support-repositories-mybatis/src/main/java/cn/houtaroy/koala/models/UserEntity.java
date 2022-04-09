@@ -2,6 +2,7 @@ package cn.houtaroy.koala.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class UserEntity extends BaseEntity implements User {
 

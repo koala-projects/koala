@@ -27,7 +27,7 @@
     <spring-boot.version>2.6.6</spring-boot.version>
     <spring-security-oauth2-authorization-server.version>0.2.2</spring-security-oauth2-authorization-server.version>
     <springdoc.version>1.6.7</springdoc.version>
-    <swagger.version>2.1.2</swagger.version>
+    <swagger.version>2.1.13</swagger.version>
   </properties>
 
   <dependencyManagement>
@@ -89,6 +89,11 @@
         <artifactId>springdoc-openapi-ui</artifactId>
         <version>${springdoc.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-core</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
       <!--代码规范检查-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
@@ -96,11 +101,6 @@
         <version>${revision}</version>
       </dependency>
       <!--核心-->
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-apis</artifactId>
-        <version>${revision}</version>
-      </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-exceptions</artifactId>
@@ -129,7 +129,17 @@
       <!--支撑依赖-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-support-apis-mybatis</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-support-integration-mqtt</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-support-repositories-mybatis</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--自定义starter-->

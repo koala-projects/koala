@@ -1,5 +1,7 @@
 package cn.houtaroy.koala.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * @author Houtaroy
  */
@@ -10,5 +12,6 @@ public interface Sortable {
    *
    * @return 排序索引
    */
+  @Schema(description = "排序索引")
   Integer getSortIndex();
 }
