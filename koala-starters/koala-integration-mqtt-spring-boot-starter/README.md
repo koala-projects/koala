@@ -79,4 +79,4 @@ public class SendController {
 }
 ```
 
-其它可参照[示例项目](https://github.com/Houtaroy/koala/tree/main/koala-samples/mqtt)
+其它可参照[示例项目](https://github.com/Houtaroy/koala/tree/main/koala-samples/koala-sample-mqtt)
