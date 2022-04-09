@@ -3,10 +3,10 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-supports</artifactId>
+  <artifactId>koala-infrastructures</artifactId>
   <packaging>pom</packaging>
   <version>${revision}</version>
-  <description>Koala Supports</description>
+  <description>Koala 基础设施</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala</artifactId>
@@ -15,8 +15,6 @@
   </parent>
 
   <modules>
-    <module>koala-support-authorization-server</module>
-    <module>koala-support-integration-mqtt</module>
-    <module>koala-support-mybatis</module>
+    <module>koala-infrastructure-mybatis</module>
   </modules>
 </project>

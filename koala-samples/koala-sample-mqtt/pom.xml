@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-support-mybatis</artifactId>
-  <description>MyBatis 支持</description>
+  <artifactId>koala-sample-mqtt</artifactId>
+  <description>Mqtt示例项目</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala-parent</artifactId>
@@ -14,11 +14,11 @@
   <dependencies>
     <dependency>
       <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-domain</artifactId>
+      <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
   </dependencies>
 </project>

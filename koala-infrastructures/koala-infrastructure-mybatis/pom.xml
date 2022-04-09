@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-support-mybatis</artifactId>
-  <description>MyBatis 支持</description>
+  <artifactId>koala-infrastructure-mybatis</artifactId>
+  <description>Koala 基础设施MyBatis实现</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala-parent</artifactId>
@@ -19,6 +19,10 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
     </dependency>
   </dependencies>
 </project>

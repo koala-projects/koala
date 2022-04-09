@@ -100,46 +100,28 @@
         <artifactId>koala-checkstyle</artifactId>
         <version>${revision}</version>
       </dependency>
-      <!--核心-->
+      <!--领域-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-exceptions</artifactId>
+        <artifactId>koala-domain</artifactId>
         <version>${revision}</version>
       </dependency>
+      <!--基础设施-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-models</artifactId>
+        <artifactId>koala-infrastructure-mybatis</artifactId>
         <version>${revision}</version>
       </dependency>
+      <!--接口-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-services</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-utils</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-web</artifactId>
+        <artifactId>koala-interface</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--支撑依赖-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-support-apis-mybatis</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-support-integration-mqtt</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-support-repositories-mybatis</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--自定义starter-->

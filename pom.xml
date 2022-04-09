@@ -57,9 +57,11 @@
 
   <modules>
     <module>koala-checkstyle</module>
-    <module>koala-core</module>
     <module>koala-dependencies</module>
+    <module>koala-domain</module>
     <module>koala-parent</module>
+    <module>koala-infrastructures</module>
+    <module>koala-interface</module>
     <module>koala-samples</module>
     <module>koala-starters</module>
     <module>koala-supports</module>

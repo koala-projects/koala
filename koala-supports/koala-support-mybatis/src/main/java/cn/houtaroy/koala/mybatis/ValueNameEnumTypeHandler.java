@@ -1,7 +1,7 @@
 package cn.houtaroy.koala.mybatis;
 
 
-import cn.houtaroy.koala.models.ValueNameEnum;
+import cn.houtaroy.koala.domain.models.ValueNameEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
