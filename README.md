@@ -9,9 +9,9 @@ Use Spring Boot Like A Koala
 - [x] 基础模型
 - [x] 基础服务
 - [x] MyBatis
-- [ ] Swagger3
-- [ ] 系统管理接口
+- [x] Swagger3
 - [ ] CRUD低代码
+- [ ] 系统管理接口
 - [ ] Authorization Server
 
 ### 启动类

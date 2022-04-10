@@ -87,8 +87,13 @@ public interface UserApi {
    * @param user 用户
    * @return 操作结果
    */
+  @Operation(summary = "更新用户", tags = {"user"})
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") String id, UserEntity user);
+  Response update(@PathVariable("id") String id, @RequestBody UserEntity user);
 
   /**
    * 删除用户
@@ -96,6 +101,11 @@ public interface UserApi {
    * @param id 用户id
    * @return 操作结果
    */
+  @Operation(summary = "删除用户", tags = {"user"})
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
   @DeleteMapping("{id}")
   Response delete(@PathVariable("id") String id);
 
