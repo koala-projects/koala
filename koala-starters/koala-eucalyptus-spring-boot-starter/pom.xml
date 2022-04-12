@@ -3,18 +3,18 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-component-eucalyptus</artifactId>
-  <packaging>pom</packaging>
-  <version>${revision}</version>
-  <description>Koala桉树组件, 可定制低代码平台</description>
+  <artifactId>koala-eucalyptus-spring-boot-starter</artifactId>
+  <description>Koala桉树启动类, 自动装配</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
-  <modules>
-    <module>koala-component-eucalyptus-domain</module>
-    <module>koala-component-eucalyptus-infrastructure</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-component-eucalyptus-infrastructure</artifactId>
+    </dependency>
+  </dependencies>
 </project>

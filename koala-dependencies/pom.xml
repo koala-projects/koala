@@ -15,6 +15,7 @@
   <properties>
     <checkstyle.version>10.0</checkstyle.version>
     <druid-springboot.version>1.2.8</druid-springboot.version>
+    <freemarker.version>2.3.31</freemarker.version>
     <jackson.version>2.13.1</jackson.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
@@ -36,6 +37,11 @@
         <groupId>com.alibaba</groupId>
         <artifactId>druid-spring-boot-starter</artifactId>
         <version>${druid-springboot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>${freemarker.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
@@ -118,6 +124,22 @@
         <artifactId>koala-interface</artifactId>
         <version>${revision}</version>
       </dependency>
+      <!--组件-->
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-component-eucalyptus-domain</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-component-eucalyptus-infrastructure</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-component-jdbc</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--支撑依赖-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
@@ -125,6 +147,11 @@
         <version>${revision}</version>
       </dependency>
       <!--自定义starter-->
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-eucalyptus-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>

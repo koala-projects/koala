@@ -15,6 +15,7 @@
   </parent>
 
   <modules>
+    <module>koala-sample-eucalyptus</module>
     <module>koala-sample-mqtt</module>
     <module>koala-sample-oauth2</module>
     <module>koala-sample-system-management</module>
