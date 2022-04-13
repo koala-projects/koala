@@ -1,20 +1,18 @@
 package cn.houtaroy.koala.component.eucalyptus.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author Houtaroy
  */
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class Domain {
-
+@SuperBuilder(toBuilder = true)
+public class GenerateResult {
   protected String name;
-  protected String description;
-  protected List<Property> properties;
-  protected List<Parameter> parameters;
-  protected List<Order> orders;
+  protected String code;
 }

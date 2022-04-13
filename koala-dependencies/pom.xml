@@ -14,6 +14,7 @@
   </parent>
   <properties>
     <checkstyle.version>10.0</checkstyle.version>
+    <commons-io.version>2.11.0</commons-io.version>
     <druid-springboot.version>1.2.8</druid-springboot.version>
     <freemarker.version>2.3.31</freemarker.version>
     <jackson.version>2.13.1</jackson.version>
@@ -33,6 +34,11 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>druid-spring-boot-starter</artifactId>

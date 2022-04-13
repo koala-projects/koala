@@ -1,5 +1,7 @@
 package cn.houtaroy.koala.component.eucalyptus.domain;
 
+import java.util.List;
+
 /**
  * @author Houtaroy
  */
@@ -13,16 +15,11 @@ public interface Template {
   String getName();
 
   /**
-   * 获取领域定义转换器
+   * 生成代码
    *
-   * @return 领域定义转换器
+   * @param domain 领域定义
+   * @return 生成结果
+   * @throws Exception 异常
    */
-  Converter getConverter();
-
-  /**
-   * 获取代码生成器
-   *
-   * @return 代码生成器
-   */
-  Generator getGenerator();
+  List<GenerateResult> generate(Domain domain) throws Exception;
 }
