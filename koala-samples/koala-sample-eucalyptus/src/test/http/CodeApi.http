@@ -1,0 +1,116 @@
+POST http://localhost:9999/code/test/generate
+Content-Type: application/json
+
+{
+  "name": "Api",
+  "description": "接口",
+  "properties": [
+    {
+      "name": "id",
+      "type": "String",
+      "description": "ID"
+    },
+    {
+      "name": "parentId",
+      "type": "String",
+      "description": "上级ID"
+    },
+    {
+      "name": "resourceId",
+      "type": "String",
+      "description": "资源ID"
+    },
+    {
+      "name": "code",
+      "type": "String",
+      "description": "接口代码"
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "接口名称"
+    },
+    {
+      "name": "url",
+      "type": "String",
+      "description": "URL地址"
+    },
+    {
+      "name": "method",
+      "type": "String",
+      "description": "请求方式，GET,POST,PUT,DELETE..."
+    },
+    {
+      "name": "isPermitAll",
+      "type": "Integer",
+      "description": "是否允许所有人访问"
+    },
+    {
+      "name": "description",
+      "type": "String",
+      "description": "接口描述"
+    },
+    {
+      "name": "sortIndex",
+      "type": "Integer",
+      "description": "排序索引"
+    },
+    {
+      "name": "isEnable",
+      "type": "Integer",
+      "description": "是否启用，1：是，0：否"
+    },
+    {
+      "name": "isDelete",
+      "type": "Integer",
+      "description": "是否删除，1：是，0：否"
+    },
+    {
+      "name": "createTime",
+      "type": "LocalDateTime",
+      "description": "创建时间"
+    },
+    {
+      "name": "createUserId",
+      "type": "String",
+      "description": "创建人ID"
+    },
+    {
+      "name": "createUserName",
+      "type": "String",
+      "description": "创建人名称"
+    },
+    {
+      "name": "lastModifyTime",
+      "type": "LocalDateTime",
+      "description": "最后修改时间"
+    },
+    {
+      "name": "lastModifyUserId",
+      "type": "String",
+      "description": "最后修改人ID"
+    },
+    {
+      "name": "lastModifyUserName",
+      "type": "String",
+      "description": "最后修改人名称"
+    },
+    {
+      "name": "deleteTime",
+      "type": "LocalDateTime",
+      "description": "删除时间"
+    },
+    {
+      "name": "deleteUserId",
+      "type": "String",
+      "description": "删除人ID"
+    },
+    {
+      "name": "deleteUserName",
+      "type": "String",
+      "description": "删除人名称"
+    }
+  ]
+}
+
+###
