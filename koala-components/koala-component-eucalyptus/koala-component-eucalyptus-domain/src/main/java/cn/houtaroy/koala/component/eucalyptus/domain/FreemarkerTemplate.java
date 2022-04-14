@@ -4,12 +4,15 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Houtaroy
@@ -21,6 +24,13 @@ public class FreemarkerTemplate implements Template {
   protected Configuration cfg;
   protected List<String> files;
 
+  /**
+   * 构造函数
+   *
+   * @param name  模板名称
+   * @param cfg   freemarker配置
+   * @param files 模板文件列表
+   */
   public FreemarkerTemplate(String name, Configuration cfg, List<String> files) {
     Assert.hasLength(name, "模板名称不能为空");
     Assert.notNull(cfg, "Freemarker配置不能为空");
@@ -31,18 +41,19 @@ public class FreemarkerTemplate implements Template {
   }
 
   @Override
-  public List<GenerateResult> generate(Domain domain) throws TemplateException, IOException {
-    List<GenerateResult> result = new ArrayList<>(files.size());
+  public Map<String, String> generate(Domain domain) throws TemplateException, IOException {
+    Map<String, String> result = new HashMap<>(files.size());
     for (String file : files) {
-      result.add(generate(file, domain));
+      result.put(FilenameUtils.getPath(file) + StringUtils.capitalize(domain.getName()) + FilenameUtils.getName(file),
+        generate(file, domain));
     }
     return result;
   }
 
-  protected GenerateResult generate(String file, Domain domain) throws IOException, TemplateException {
+  protected String generate(String file, Domain domain) throws IOException, TemplateException {
     freemarker.template.Template template = cfg.getTemplate(file);
     StringWriter writer = new StringWriter();
     template.process(domain, writer);
-    return new GenerateResult(domain.getName(), writer.toString());
+    return writer.toString();
   }
 }

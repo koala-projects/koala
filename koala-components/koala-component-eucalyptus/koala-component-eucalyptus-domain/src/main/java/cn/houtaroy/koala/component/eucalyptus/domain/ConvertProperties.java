@@ -3,16 +3,15 @@ package cn.houtaroy.koala.component.eucalyptus.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Houtaroy
  */
 @Data
 @NoArgsConstructor
-public class Domain {
+public class ConvertProperties {
 
-  protected String name;
-  protected String description;
-  protected List<Property> properties;
+  private String prefix = "t_";
+  private Map<String, String> typeMap = Constant.TYPE_MAP;
 }

@@ -1,6 +1,6 @@
 package cn.houtaroy.koala.component.eucalyptus.domain;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Houtaroy
@@ -21,5 +21,5 @@ public interface Template {
    * @return 生成结果
    * @throws Exception 异常
    */
-  List<GenerateResult> generate(Domain domain) throws Exception;
+  Map<String, String> generate(Domain domain) throws Exception;
 }

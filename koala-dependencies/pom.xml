@@ -17,6 +17,7 @@
     <commons-io.version>2.11.0</commons-io.version>
     <druid-springboot.version>1.2.8</druid-springboot.version>
     <freemarker.version>2.3.31</freemarker.version>
+    <guava.version>31.1-jre</guava.version>
     <jackson.version>2.13.1</jackson.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
@@ -48,6 +49,11 @@
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
         <version>${freemarker.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
