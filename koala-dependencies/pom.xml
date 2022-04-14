@@ -139,12 +139,7 @@
       <!--组件-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-component-eucalyptus-domain</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-component-eucalyptus-infrastructure</artifactId>
+        <artifactId>koala-component-eucalyptus</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

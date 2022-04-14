@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.component.eucalyptus.domain;
+package cn.houtaroy.koala.component.eucalyptus;
 
 import java.sql.JDBCType;
 import java.util.Map;
@@ -21,6 +21,8 @@ public class Constant {
       Map.entry(JDBCType.DECIMAL.getName(), "Long"),
       Map.entry(JDBCType.BINARY.getName(), "Object"),
       Map.entry(JDBCType.BOOLEAN.getName(), "Boolean"),
+      Map.entry(JDBCType.DATE.getName(), "LocalDate"),
+      Map.entry(JDBCType.TIMESTAMP.getName(), "LocalDateTime"),
       Map.entry(JDBCType.NCLOB.getName(), "Object"),
       Map.entry(JDBCType.BLOB.getName(), "Object")
     );

@@ -4,17 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>koala-component-eucalyptus</artifactId>
-  <packaging>pom</packaging>
-  <version>${revision}</version>
-  <description>Koala桉树组件, 可定制低代码平台</description>
+  <description>Koala桉树组件, 用于定制低代码平台</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
-  <modules>
-    <module>koala-component-eucalyptus-domain</module>
-    <module>koala-component-eucalyptus-infrastructure</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-component-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+  </dependencies>
 </project>

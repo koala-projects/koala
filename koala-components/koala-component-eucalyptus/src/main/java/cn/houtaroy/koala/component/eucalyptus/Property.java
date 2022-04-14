@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.component.eucalyptus.domain;
+package cn.houtaroy.koala.component.eucalyptus;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Property {
-
   protected String name;
   protected String type;
   protected String description;

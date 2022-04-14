@@ -1,30 +1,28 @@
-package cn.houtaroy.koala.component.eucalyptus.infrastructure;
-
-import cn.houtaroy.koala.component.eucalyptus.domain.Template;
+package cn.houtaroy.koala.component.eucalyptus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * @author Houtaroy
  */
 public interface TemplateService {
-
   /**
    * 查询模板列表
    *
-   * @param name 模板名称
+   * @param params 查询条件
    * @return 模板列表
    */
-  List<Template> list(String name);
+  List<Template> list(Map<String, Object> params);
 
   /**
-   * 根据名称查询模板
+   * 根据代码查询模板
    *
-   * @param name 模板名称
+   * @param code 模板代码
    * @return 模板
    */
-  Optional<Template> loadByName(String name);
+  Optional<Template> loadByCode(String code);
 
   /**
    * 新增模板
@@ -37,7 +35,7 @@ public interface TemplateService {
   /**
    * 删除模板
    *
-   * @param name 模板名称
+   * @param template 模板
    */
-  void delete(String name);
+  void delete(Template template);
 }

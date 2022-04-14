@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.component.eucalyptus.domain;
+package cn.houtaroy.koala.component.eucalyptus;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

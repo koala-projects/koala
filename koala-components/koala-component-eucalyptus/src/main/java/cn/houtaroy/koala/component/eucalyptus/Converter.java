@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.component.eucalyptus.domain;
+package cn.houtaroy.koala.component.eucalyptus;
 
 import cn.houtaroy.koala.component.jdbc.Table;
 import com.google.common.base.CaseFormat;
