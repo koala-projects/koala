@@ -4,12 +4,12 @@ Content-Type: application/json
 {
   "name": "Api",
   "description": "接口",
+  "id": {
+    "name": "id",
+    "type": "String",
+    "description": "ID"
+  },
   "properties": [
-    {
-      "name": "id",
-      "type": "String",
-      "description": "ID"
-    },
     {
       "name": "parentId",
       "type": "String",

@@ -1,8 +1,8 @@
 package cn.houtaroy.koala.sample.eucalyptus.apis;
 
-import cn.houtaroy.koala.component.eucalyptus.Domain;
 import cn.houtaroy.koala.component.eucalyptus.Template;
 import cn.houtaroy.koala.component.eucalyptus.TemplateService;
+import cn.houtaroy.koala.sample.eucalyptus.models.KoalaDomain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +34,7 @@ public class CodeApi {
    * @return 生成的代码
    */
   @PostMapping("{templateCode}/generate")
-  public List<String> generate(@PathVariable("templateCode") String templateCode, @RequestBody Domain domain) {
+  public List<String> generate(@PathVariable("templateCode") String templateCode, @RequestBody KoalaDomain domain) {
     Optional<Template> optional = templateService.loadByCode(templateCode);
     if (optional.isEmpty()) {
       LOGGER.info("模板[代码: {}]不存在", templateCode);
@@ -44,7 +44,7 @@ public class CodeApi {
     List<String> result = new ArrayList<>(template.getGenerators().size());
     for (var generator : template.getGenerators()) {
       try {
-        result.add(generator.generate(domain, Map.of("package", "cn.houtaroy.koala")));
+        result.add(generator.generate(domain, Map.of("package", "cn.houtaroy.koala.test")));
       } catch (Exception e) {
         LOGGER.error("代码生成失败: {}", e.getMessage());
       }

@@ -4,8 +4,6 @@ import cn.houtaroy.koala.component.jdbc.Table;
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,20 +27,17 @@ public class Converter {
    * @param table 数据库表
    * @return 领域定义
    */
-  public Domain convert(Table table) {
-    Domain result = new Domain();
-    result.setName(tableName2DomainName(table.getName()));
-    result.setDescription(tableComment2DomainDescription(table.getComment()));
-    List<Property> domainProperties = new ArrayList<>(table.getColumns().size());
+  public Domain convert(Table table, Domain domain) {
+    domain.setName(tableName2DomainName(table.getName()));
+    domain.setDescription(tableComment2DomainDescription(table.getComment()));
     table.getColumns().forEach(column -> {
       Property property = new Property();
       property.setName(columnName2PropertyName(column.getName()));
       property.setType(columnType2PropertyType(column.getType()));
       property.setDescription(column.getComment());
-      domainProperties.add(property);
+      domain.addProperties(property);
     });
-    result.setProperties(domainProperties);
-    return result;
+    return domain;
   }
 
   protected String columnName2PropertyName(String columnName) {

@@ -3,6 +3,7 @@ package cn.houtaroy.koala.component.eucalyptus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,5 +14,9 @@ import java.util.List;
 public class Domain {
   protected String name;
   protected String description;
-  protected List<Property> properties;
+  protected List<Property> properties = new ArrayList<>();
+
+  public void addProperties(Property property) {
+    properties.add(property);
+  }
 }
