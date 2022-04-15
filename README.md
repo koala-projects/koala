@@ -20,7 +20,7 @@ Use Spring Boot Like A Koala
 - [x] [Druid拓展](https://github.com/Houtaroy/koala/tree/main/koala-starters/koala-druid-spring-boot-starter)
 - [x] [Mqtt](https://github.com/Houtaroy/koala/tree/main/koala-starters/koala-integration-mqtt-spring-boot-starter)
 - [ ] 微信小程序
-- [ ] 钉钉
+- [x] [钉钉](https://github.com/Houtaroy/koala/tree/main/koala-starters/koala-dingtalk-spring-boot-starter)
 
 ## 如何使用
 

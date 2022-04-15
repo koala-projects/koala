@@ -16,6 +16,7 @@
 
   <modules>
     <module>koala-component-constant</module>
+    <module>koala-component-dingtalk</module>
     <module>koala-component-druid</module>
     <module>koala-component-eucalyptus</module>
     <module>koala-component-jdbc</module>

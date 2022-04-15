@@ -1,4 +1,4 @@
-# koala-druid-mqtt-spring-boot-starter
+# koala-druid-spring-boot-starter
 
 基于Druid拓展启动类, 提供查询语句解析和SQL检查功能
 

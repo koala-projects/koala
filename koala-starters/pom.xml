@@ -15,6 +15,7 @@
   </parent>
 
   <modules>
+    <module>koala-dingtalk-spring-boot-starter</module>
     <module>koala-druid-spring-boot-starter</module>
     <module>koala-eucalyptus-spring-boot-starter</module>
     <module>koala-integration-mqtt-spring-boot-starter</module>
