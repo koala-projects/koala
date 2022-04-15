@@ -16,6 +16,11 @@ public class Domain {
   protected String description;
   protected List<Property> properties = new ArrayList<>();
 
+  /**
+   * 新增属性
+   *
+   * @param property 属性
+   */
   public void addProperties(Property property) {
     properties.add(property);
   }

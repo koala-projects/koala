@@ -17,6 +17,7 @@ Use Spring Boot Like A Koala
 ### 启动类
 
 - [ ] Authorization Server
+- [x] [Druid拓展](https://github.com/Houtaroy/koala/tree/main/koala-starters/koala-druid-spring-boot-starter)
 - [x] [Mqtt](https://github.com/Houtaroy/koala/tree/main/koala-starters/koala-integration-mqtt-spring-boot-starter)
 - [ ] 微信小程序
 - [ ] 钉钉

@@ -12,15 +12,17 @@
     <version>${revision}</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+
   <properties>
+    <!--依赖版本-->
     <checkstyle.version>10.0</checkstyle.version>
     <commons-io.version>2.11.0</commons-io.version>
+    <druid.version>1.2.9</druid.version>
     <druid-springboot.version>1.2.8</druid-springboot.version>
     <freemarker.version>2.3.31</freemarker.version>
     <guava.version>31.1-jre</guava.version>
     <jackson.version>2.13.1</jackson.version>
-    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-    <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
+    <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <mybatis.version>3.5.7</mybatis.version>
     <mybatis-springboot.version>2.2.2</mybatis-springboot.version>
     <mysql-connector.version>8.0.27</mysql-connector.version>
@@ -31,6 +33,10 @@
     <spring-security-oauth2-authorization-server.version>0.2.2</spring-security-oauth2-authorization-server.version>
     <springdoc.version>1.6.7</springdoc.version>
     <swagger.version>2.1.13</swagger.version>
+    <!--Maven插件版本-->
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -39,6 +45,11 @@
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
       </dependency>
       <dependency>
         <groupId>com.alibaba</groupId>
@@ -59,6 +70,11 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit-jupiter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis</groupId>
@@ -139,6 +155,16 @@
       <!--组件-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-component-constant</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-component-druid</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-component-eucalyptus</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -154,6 +180,11 @@
         <version>${revision}</version>
       </dependency>
       <!--自定义starter-->
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-druid-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-eucalyptus-spring-boot-starter</artifactId>
@@ -183,4 +214,15 @@
       <artifactId>lombok</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
