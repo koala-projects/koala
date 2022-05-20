@@ -1,8 +1,8 @@
 package cn.houtaroy.koala.infrastructure.services;
 
-import cn.houtaroy.koala.domain.models.Role;
-import cn.houtaroy.koala.domain.services.RoleService;
 import cn.houtaroy.koala.infrastructure.repositories.RoleRepository;
+import cn.koala.system.models.Role;
+import cn.koala.system.services.RoleService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;

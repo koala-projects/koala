@@ -1,8 +1,8 @@
 package cn.houtaroy.koala.infrastructure.services;
 
-import cn.houtaroy.koala.domain.models.Permission;
-import cn.houtaroy.koala.domain.services.PermissionService;
 import cn.houtaroy.koala.infrastructure.repositories.PermissionRepository;
+import cn.koala.system.models.Permission;
+import cn.koala.system.services.PermissionService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;

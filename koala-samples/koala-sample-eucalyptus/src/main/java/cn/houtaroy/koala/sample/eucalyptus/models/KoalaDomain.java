@@ -1,7 +1,7 @@
 package cn.houtaroy.koala.sample.eucalyptus.models;
 
-import cn.houtaroy.koala.component.eucalyptus.Domain;
-import cn.houtaroy.koala.component.eucalyptus.Property;
+import cn.koala.eucalyptus.Domain;
+import cn.koala.eucalyptus.Property;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

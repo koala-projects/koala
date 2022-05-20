@@ -1,13 +1,13 @@
 package cn.houtaroy.koala.infrastructure.services;
 
-import cn.houtaroy.koala.domain.entities.BaseEntity;
-import cn.houtaroy.koala.domain.exceptions.NoSuchDataException;
-import cn.houtaroy.koala.domain.models.Idable;
-import cn.houtaroy.koala.domain.models.User;
-import cn.houtaroy.koala.domain.services.CrudService;
-import cn.houtaroy.koala.domain.utils.PropertyUtil;
-import cn.houtaroy.koala.domain.utils.SpringSecurityUtil;
 import cn.houtaroy.koala.infrastructure.repositories.CrudRepository;
+import cn.koala.system.entities.BaseEntity;
+import cn.koala.system.exceptions.NoSuchDataException;
+import cn.koala.system.models.Idable;
+import cn.koala.system.models.User;
+import cn.koala.system.services.CrudService;
+import cn.koala.system.utils.PropertyUtil;
+import cn.koala.system.utils.SpringSecurityUtil;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

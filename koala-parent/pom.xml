@@ -10,7 +10,7 @@
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala-dependencies</artifactId>
     <version>${revision}</version>
-    <relativePath>../koala-dependencies/pom.xml</relativePath>
+    <relativePath>../koala-infrastructures/koala-dependencies/pom.xml</relativePath>
   </parent>
 
   <build>

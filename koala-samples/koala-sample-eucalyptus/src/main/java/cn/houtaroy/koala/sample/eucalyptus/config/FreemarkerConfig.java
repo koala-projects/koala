@@ -12,6 +12,12 @@ import java.io.IOException;
 @Configuration
 public class FreemarkerConfig {
 
+  /**
+   * freemarker配置
+   *
+   * @return freemarker配置
+   * @throws IOException IOException
+   */
   @Bean
   public freemarker.template.Configuration configuration() throws IOException {
     freemarker.template.Configuration configuration =

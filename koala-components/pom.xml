@@ -15,10 +15,10 @@
   </parent>
 
   <modules>
-    <module>koala-component-constant</module>
-    <module>koala-component-dingtalk</module>
-    <module>koala-component-druid</module>
-    <module>koala-component-eucalyptus</module>
-    <module>koala-component-jdbc</module>
+    <module>koala-dingtalk-spring-boot-starter</module>
+    <module>koala-druid-spring-boot-starter</module>
+    <module>koala-eucalyptus-spring-boot-starter</module>
+    <module>koala-integration-mqtt-spring-boot-starter</module>
+    <module>koala-system-management-starter</module>
   </modules>
 </project>

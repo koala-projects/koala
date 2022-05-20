@@ -1,6 +1,6 @@
 package cn.houtaroy.koala.sample.mqtt;
 
-import cn.houtaroy.koala.mqtt.MqttTemplate;
+import cn.koala.mqtt.MqttTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package cn.houtaroy.koala.infrastructure.repositories;
 
-import cn.houtaroy.koala.domain.models.Permission;
+import cn.koala.system.models.Permission;
 
 /**
  * @author Houtaroy

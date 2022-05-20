@@ -56,16 +56,12 @@
   </distributionManagement>
 
   <modules>
-    <module>koala-checkstyle</module>
     <module>koala-components</module>
-    <module>koala-dependencies</module>
-    <module>koala-domain</module>
+    <module>koala-domains</module>
+    <module>koala-facades</module>
     <module>koala-parent</module>
     <module>koala-infrastructures</module>
-    <module>koala-interface</module>
     <module>koala-samples</module>
-    <module>koala-starters</module>
-    <module>koala-supports</module>
   </modules>
 
   <build>

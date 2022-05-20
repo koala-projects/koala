@@ -1,8 +1,8 @@
 package cn.houtaroy.koala.sample.eucalyptus.apis;
 
-import cn.houtaroy.koala.component.eucalyptus.Template;
-import cn.houtaroy.koala.component.eucalyptus.TemplateService;
 import cn.houtaroy.koala.sample.eucalyptus.models.KoalaDomain;
+import cn.koala.eucalyptus.Template;
+import cn.koala.eucalyptus.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;

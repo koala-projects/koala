@@ -15,6 +15,11 @@
   </parent>
 
   <modules>
+    <module>koala-checkstyle</module>
+    <module>koala-constant</module>
+    <module>koala-dependencies</module>
+    <module>koala-enum</module>
     <module>koala-infrastructure-mybatis</module>
+    <module>koala-mybatis</module>
   </modules>
 </project>

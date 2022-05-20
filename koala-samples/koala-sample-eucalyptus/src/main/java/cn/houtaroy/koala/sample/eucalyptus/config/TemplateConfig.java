@@ -1,9 +1,9 @@
 package cn.houtaroy.koala.sample.eucalyptus.config;
 
-import cn.houtaroy.koala.component.eucalyptus.FreemarkerGenerator;
-import cn.houtaroy.koala.component.eucalyptus.SimpleTemplate;
-import cn.houtaroy.koala.component.eucalyptus.TemplateConfigurer;
-import cn.houtaroy.koala.component.eucalyptus.TemplateService;
+import cn.koala.eucalyptus.FreemarkerGenerator;
+import cn.koala.eucalyptus.SimpleTemplate;
+import cn.koala.eucalyptus.TemplateConfigurer;
+import cn.koala.eucalyptus.TemplateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 

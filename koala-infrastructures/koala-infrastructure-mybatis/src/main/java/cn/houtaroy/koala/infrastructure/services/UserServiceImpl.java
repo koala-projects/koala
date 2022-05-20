@@ -1,8 +1,8 @@
 package cn.houtaroy.koala.infrastructure.services;
 
-import cn.houtaroy.koala.domain.models.User;
-import cn.houtaroy.koala.domain.services.UserService;
 import cn.houtaroy.koala.infrastructure.repositories.UserRepository;
+import cn.koala.system.models.User;
+import cn.koala.system.services.UserService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
