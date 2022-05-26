@@ -1,7 +1,7 @@
 package cn.houtaroy.koala.starter.system;
 
-import cn.houtaroy.koala.api.UserApi;
-import cn.houtaroy.koala.api.UserApiImpl;
+import cn.koala.system.UserApi;
+import cn.koala.system.UserApiImpl;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.OAuthFlow;

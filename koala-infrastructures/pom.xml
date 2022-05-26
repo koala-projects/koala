@@ -19,7 +19,8 @@
     <module>koala-constant</module>
     <module>koala-dependencies</module>
     <module>koala-enum</module>
-    <module>koala-infrastructure-mybatis</module>
     <module>koala-mybatis</module>
+    <module>koala-swagger</module>
+    <module>koala-web</module>
   </modules>
 </project>

@@ -14,7 +14,7 @@
   <dependencies>
     <dependency>
       <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-interface</artifactId>
+      <artifactId>koala-system-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

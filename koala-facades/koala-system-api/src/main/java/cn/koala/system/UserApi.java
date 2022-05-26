@@ -2,8 +2,8 @@ package cn.koala.system;
 
 import cn.koala.system.entities.UserEntity;
 import cn.koala.system.models.User;
-import cn.koala.system.web.DataResponse;
-import cn.koala.system.web.Response;
+import cn.koala.web.DataResponse;
+import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
