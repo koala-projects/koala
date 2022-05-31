@@ -24,7 +24,7 @@
     <freemarker.version>2.3.31</freemarker.version>
     <guava.version>31.1-jre</guava.version>
     <jackson.version>2.13.1</jackson.version>
-    <junit-jupiter.version>5.8.2</junit-jupiter.version>
+    <junit.version>5.8.2</junit.version>
     <mybatis.version>3.5.7</mybatis.version>
     <mybatis-springboot.version>2.2.2</mybatis-springboot.version>
     <mysql-connector.version>8.0.27</mysql-connector.version>
@@ -33,7 +33,7 @@
     <p3c-pmd.version>2.1.1</p3c-pmd.version>
     <slf4j.version>1.7.36</slf4j.version>
     <spring-boot.version>2.6.6</spring-boot.version>
-    <spring-security-oauth2-authorization-server.version>0.2.2</spring-security-oauth2-authorization-server.version>
+    <spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
     <springdoc.version>1.6.7</springdoc.version>
     <swagger.version>2.1.13</swagger.version>
     <!--Maven插件版本-->
@@ -44,6 +44,14 @@
 
   <dependencyManagement>
     <dependencies>
+      <!--Bom-->
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>com.aliyun</groupId>
         <artifactId>alibaba-dingtalk-service-sdk</artifactId>
@@ -83,11 +91,6 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${jackson.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>${junit-jupiter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis</groupId>
