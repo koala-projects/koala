@@ -3,9 +3,9 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-system-api</artifactId>
+  <artifactId>koala-security</artifactId>
   <version>${revision}</version>
-  <description>Koala 系统管理接口</description>
+  <description>Koala 安全基础设施</description>
 
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
@@ -16,12 +16,17 @@
 
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-system-model</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-authorization-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-core</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

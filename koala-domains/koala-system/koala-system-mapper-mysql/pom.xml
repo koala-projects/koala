@@ -3,21 +3,21 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-samples</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>koala-system-mapper-mysql</artifactId>
   <version>${revision}</version>
-  <description>Koala Samples</description>
+  <description>Koala系统管理MySQL Mapper</description>
+
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
-    <artifactId>koala</artifactId>
+    <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath>../../../koala-parent</relativePath>
   </parent>
 
-  <modules>
-    <module>koala-sample-eucalyptus</module>
-    <module>koala-sample-mqtt</module>
-    <module>koala-sample-security</module>
-    <module>koala-sample-system-management</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-system-model</artifactId>
+    </dependency>
+  </dependencies>
 </project>

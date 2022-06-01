@@ -4,44 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>koala-system</artifactId>
+  <packaging>pom</packaging>
   <version>${revision}</version>
   <description>Koala 系统管理领域模型</description>
-
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
-    <artifactId>koala-parent</artifactId>
+    <artifactId>koala</artifactId>
     <version>${revision}</version>
-    <relativePath>../../koala-parent</relativePath>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <dependencies>
-    <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-enum</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-swagger</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper-spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-oauth2-resource-server</artifactId>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>koala-system-mapper-mysql</module>
+    <module>koala-system-model</module>
+  </modules>
 </project>

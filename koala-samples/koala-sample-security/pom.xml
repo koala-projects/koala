@@ -3,25 +3,26 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-system-api</artifactId>
-  <version>${revision}</version>
-  <description>Koala 系统管理接口</description>
-
+  <artifactId>koala-sample-security</artifactId>
+  <description>Koala安全示例</description>
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
-
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-system-model</artifactId>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-security-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-system-mapper-mysql</artifactId>
     </dependency>
   </dependencies>
 </project>
