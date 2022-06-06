@@ -8,6 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -48,7 +49,8 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
       .subject(userPrincipal.getName())
       .issuedAt(issuedAt)
       .expiresAt(issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive()))
-      .notBefore(issuedAt);
+      .notBefore(issuedAt)
+      .claim(OAuth2ParameterNames.SCOPE, authorities);
 
 //    JwtEncodingContext context = JwtEncodingContext
 //      .with(JwsHeader.with(SignatureAlgorithm.RS256), claimBuilder)

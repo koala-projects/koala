@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- cn.koala.security.WebSecurityConfiguration,\
-  cn.koala.security.AuthorizationServerConfig
+  cn.koala.security.AuthorizationServerConfig,\
+  cn.koala.security.SwaggerConfig,\
+  cn.koala.security.WebSecurityConfiguration

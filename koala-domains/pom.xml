@@ -20,6 +20,6 @@
     <module>koala-eucalyptus</module>
     <module>koala-jdbc</module>
     <module>koala-mqtt</module>
-    <module>koala-system</module>
+    <module>koala-system-management</module>
   </modules>
 </project>

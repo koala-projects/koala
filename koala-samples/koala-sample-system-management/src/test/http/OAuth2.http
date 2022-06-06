@@ -1,0 +1,38 @@
+### 管理员登录
+POST http://127.0.0.1:9999/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=admin&password=123456&client_id=vue&client_secret=123456
+
+> {% client.global.set("token", "Bearer " + response.body.access_token) %}
+
+### 授权码模式
+POST http://authorization-server:9000/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&client_id=sample-unified-identity&client_secret=123456&redirect_uri=http://www.baidu.com&code=TEwa8mPuTO49BWlYk1RxKThoXeTRSrxuezpeDlcQPKVxcm5cbwboHpydMlhqjne1AtRKPUOg0HqO2-SNU6ZYhyPFKZq2mRgyDLUPdXF62gOITWW70Pn4LNUfXIv7tFm-
+
+> {% client.global.set("token", "Bearer " + response.body.access_token) %}
+
+### 客户端凭证模式
+POST http://authorization-server:9000/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=client&client_secret=123456
+
+> {% client.global.set("token", "Bearer " + response.body.access_token) %}
+
+### token信息
+GET http://authorization-server:9301/api/token
+Cookie: SAMPLE-UNIFIED-IDENTITY-CLIENT-SESSIONID=881E7B6D6AD0F543536F8C9726A23FAD
+
+> {% client.global.set("token", "Bearer " + response.body.data.details.tokenValue) %}
+
+### 获取用户信息
+GET http://authorization-server:9000/unified-identity-server/api/user
+Authorization: {{token}}
+Content-Type: application/json
+
+### 测试
+GET http://127.0.0.1:9999/oauth2/jwks
+Accept: application/json

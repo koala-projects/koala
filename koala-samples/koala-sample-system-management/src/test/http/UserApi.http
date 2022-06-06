@@ -1,0 +1,9 @@
+### 分页查询
+GET http://127.0.0.1:9999/users
+Authorization: {{token}}
+Accept: application/json
+
+### 根据id查看
+GET http://127.0.0.1:9999/users/1
+Authorization: {{token}}
+Accept: application/json

@@ -213,18 +213,18 @@
       </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-system-mapper-mysql</artifactId>
+        <artifactId>koala-system-management-mapper-mysql</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-system-model</artifactId>
+        <artifactId>koala-system-management-model</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-system-api</artifactId>
+        <artifactId>koala-system-management-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--基础设施-->

@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- cn.houtaroy.koala.starter.system.ApiConfig
+ cn.houtaroy.koala.starter.system.ApiConfig,\
+  cn.houtaroy.koala.starter.system.ServiceConfig
