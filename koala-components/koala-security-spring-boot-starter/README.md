@@ -15,6 +15,15 @@
 </dependencies>
 ```
 
+## 提供者配置
+
+```yaml
+koala:
+  security:
+    # 默认为http://127.0.0.1:9999
+    issuer: http://服务地址:服务端口
+```
+
 ## 权限注解
 
 ```java

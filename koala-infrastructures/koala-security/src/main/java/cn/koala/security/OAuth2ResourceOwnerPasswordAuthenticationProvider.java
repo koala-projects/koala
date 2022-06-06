@@ -34,6 +34,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
   protected final AuthenticationManager authenticationManager;
   protected final JwtEncoder jwtEncoder;
   protected final OAuth2AuthorizationService oAuth2AuthorizationService;
+  protected final ProviderProperties providerProperties;
 
   @Override
   public OAuth2AccessTokenAuthenticationToken authenticate(Authentication authentication)
@@ -45,7 +46,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
     Set<String> authorities = getAuthorities(userPrincipal);
     Instant issuedAt = Instant.now();
     JwtClaimsSet.Builder claimBuilder = JwtClaimsSet.builder()
-      .issuer("http://authorization-server:9001")
+      .issuer(providerProperties.getIssuer())
       .subject(userPrincipal.getName())
       .issuedAt(issuedAt)
       .expiresAt(issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive()))

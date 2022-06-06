@@ -2,6 +2,7 @@ package cn.koala.security;
 
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -26,6 +27,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  *
  * @author Houtaroy
  */
+@EnableConfigurationProperties(ProviderProperties.class)
 public class AuthorizationServerConfig {
   /**
    * 认证授权服务的bean
@@ -44,13 +46,17 @@ public class AuthorizationServerConfig {
   /**
    * 认证服务安全过滤链的bean
    *
-   * @param http HttpSecurity
+   * @param http                       HttpSecurity
+   * @param oauth2AuthorizationService 认证授权服务
+   * @param providerProperties         提供者配置
    * @return 认证服务安全过滤链
    * @throws Exception 异常
    */
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                 OAuth2AuthorizationService oauth2AuthorizationService,
+                                                 ProviderProperties providerProperties) throws Exception {
     OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer =
       new OAuth2AuthorizationServerConfigurer<>();
     authorizationServerConfigurer
@@ -67,7 +73,8 @@ public class AuthorizationServerConfig {
     http.authenticationProvider(new OAuth2ResourceOwnerPasswordAuthenticationProvider(
       http.getSharedObject(AuthenticationManager.class),
       http.getSharedObject(JwtEncoder.class),
-      http.getSharedObject(OAuth2AuthorizationService.class)
+      oauth2AuthorizationService,
+      providerProperties
     ));
     return result;
   }
@@ -112,8 +119,8 @@ public class AuthorizationServerConfig {
    * @return 提供者配置
    */
   @Bean
-  public ProviderSettings providerSettings() {
-    return ProviderSettings.builder().issuer("http://127.0.0.1:9999").build();
+  public ProviderSettings providerSettings(ProviderProperties properties) {
+    return ProviderSettings.builder().issuer(properties.getIssuer()).build();
   }
 
   /**
