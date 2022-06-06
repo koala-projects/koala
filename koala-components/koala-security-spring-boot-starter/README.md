@@ -5,6 +5,7 @@
 ## 引入依赖
 
 ```xml
+
 <dependencies>
   <dependency>
     <groupId>cn.houtaroy.koala</groupId>
@@ -17,10 +18,13 @@
 ## 权限注解
 
 ```java
+
 @RequestMapping("/users")
+@RestController
+@SecurityRequirement(name = "spring-security")
 public interface UserApi {
-    @PreAuthorize("hasAuthority('api:users:page')")
-    DataResponse<Page<User>> page(@RequestParam Map<String, Object> parameters, Pageable pageable);
+  @PreAuthorize("hasAuthority('api:users:page')")
+  DataResponse<Page<User>> page(@RequestParam Map<String, Object> parameters, Pageable pageable);
 }
 ```
 
