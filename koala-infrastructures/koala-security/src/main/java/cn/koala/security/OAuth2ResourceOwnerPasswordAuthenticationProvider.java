@@ -44,14 +44,6 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
     RegisteredClient registeredClient = token.getRegisteredClientOrThrowException();
     Authentication userPrincipal = authenticationManager.authenticate(token.getUsernamePasswordAuthenticationToken());
     Set<String> authorities = getAuthorities(userPrincipal);
-    Instant issuedAt = Instant.now();
-    JwtClaimsSet.Builder claimBuilder = JwtClaimsSet.builder()
-      .issuer(providerProperties.getIssuer())
-      .subject(userPrincipal.getName())
-      .issuedAt(issuedAt)
-      .expiresAt(issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive()))
-      .notBefore(issuedAt)
-      .claim(OAuth2ParameterNames.SCOPE, authorities);
 
 //    JwtEncodingContext context = JwtEncodingContext
 //      .with(JwsHeader.with(SignatureAlgorithm.RS256), claimBuilder)
@@ -61,9 +53,18 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
 //      .tokenType(OAuth2TokenType.ACCESS_TOKEN)
 //      .authorizationGrantType(AuthorizationGrantType.PASSWORD)
 //      .authorizationGrant(token).build();
-
+    Instant issuedAt = Instant.now();
     Jwt jwt = jwtEncoder.encode(
-      JwtEncoderParameters.from(JwsHeader.with(SignatureAlgorithm.RS256).build(), claimBuilder.build())
+      JwtEncoderParameters.from(
+        JwsHeader.with(SignatureAlgorithm.RS256).build(),
+        JwtClaimsSet.builder().issuer(providerProperties.getIssuer())
+          .subject(userPrincipal.getName())
+          .issuedAt(issuedAt)
+          .expiresAt(issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive()))
+          .notBefore(issuedAt)
+          .claim(OAuth2ParameterNames.SCOPE, authorities)
+          .build()
+      )
     );
 
     OAuth2AccessToken accessToken = new OAuth2AccessToken(
@@ -74,15 +75,15 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
       authorities
     );
 
-    OAuth2Authorization authorization = OAuth2Authorization.withRegisteredClient(registeredClient)
-      .principalName(userPrincipal.getName())
-      .authorizationGrantType(AuthorizationGrantType.PASSWORD)
-      .token(accessToken, (metadata) -> metadata.put(OAuth2Authorization.Token.CLAIMS_METADATA_NAME, jwt.getClaims()))
-      .attribute(OAuth2Authorization.AUTHORIZED_SCOPE_ATTRIBUTE_NAME, authorities)
-      .attribute(Principal.class.getName(), userPrincipal)
-      .build();
-
-    oAuth2AuthorizationService.save(authorization);
+    oAuth2AuthorizationService.save(
+      OAuth2Authorization.withRegisteredClient(registeredClient)
+        .principalName(userPrincipal.getName())
+        .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+        .token(accessToken, (metadata) -> metadata.put(OAuth2Authorization.Token.CLAIMS_METADATA_NAME, jwt.getClaims()))
+        .attribute(OAuth2Authorization.AUTHORIZED_SCOPE_ATTRIBUTE_NAME, authorities)
+        .attribute(Principal.class.getName(), userPrincipal)
+        .build()
+    );
 
     return new OAuth2AccessTokenAuthenticationToken(registeredClient, userPrincipal, accessToken);
   }
