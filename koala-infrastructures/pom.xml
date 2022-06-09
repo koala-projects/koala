@@ -22,6 +22,7 @@
     <module>koala-mybatis</module>
     <module>koala-security</module>
     <module>koala-swagger</module>
+    <module>koala-utils</module>
     <module>koala-web</module>
   </modules>
 </project>
