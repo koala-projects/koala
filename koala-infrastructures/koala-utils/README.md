@@ -50,8 +50,6 @@ public class Test {
 ### 压缩文件夹下所有图片
 
 ```java
-import net.coobird.thumbnailator.name.Rename;
-
 public class Test {
   public static void main(String[] args) {
     try {
