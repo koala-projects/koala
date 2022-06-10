@@ -18,7 +18,6 @@
     <module>koala-dingtalk</module>
     <module>koala-druid</module>
     <module>koala-eucalyptus</module>
-    <module>koala-jdbc</module>
     <module>koala-mqtt</module>
     <module>koala-system-management</module>
   </modules>

@@ -1,12 +1,12 @@
-package cn.koala.jdbc;
+package cn.koala.utils;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * @author Houtaroy
  */
-@Data
+@Getter
 @NoArgsConstructor
 public class ConnectionProperties {
   protected String url;

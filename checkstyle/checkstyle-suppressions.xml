@@ -8,4 +8,5 @@
   <!--<suppress checks="ReturnCount" files="DepartmentServiceImpl.java"/>-->
   <!--<suppress checks=".*" files="SocialJdbcConnectionRepository.java"/>-->
   <suppress checks="ParameterNumber" files="ImageUtil.java"/>
+  <suppress checks="InterfaceIsType" files=".*\.java"/>
 </suppressions>
