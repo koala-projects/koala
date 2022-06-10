@@ -1,18 +1,11 @@
 package cn.koala.eucalyptus;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Houtaroy
  */
 public interface Template {
-  /**
-   * 获取模板代码
-   *
-   * @return 模板代码
-   */
-  String getCode();
-
   /**
    * 获取模板名称
    *
@@ -21,9 +14,17 @@ public interface Template {
   String getName();
 
   /**
-   * 获取生成器列表
+   * 获取模板编码
    *
-   * @return 生成器列表
+   * @return 模板编码
    */
-  List<Generator> getGenerators();
+  String getCode();
+
+  /**
+   * 生成代码
+   *
+   * @param domain 领域模型
+   * @return 代码
+   */
+  Map<String, String> process(Domain domain);
 }

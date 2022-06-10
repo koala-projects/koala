@@ -1,27 +1,38 @@
 package cn.koala.eucalyptus;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 领域模型
+ *
  * @author Houtaroy
  */
-@Data
-@NoArgsConstructor
-public class Domain {
-  protected String name;
-  protected String description;
-  protected List<Property> properties = new ArrayList<>();
+public interface Domain {
+  /**
+   * 获取领域编码
+   *
+   * @return 领域编码
+   */
+  String getCode();
 
   /**
-   * 新增属性
+   * 获取领域名称
    *
-   * @param property 属性
+   * @return 领域名称
    */
-  public void addProperties(Property property) {
-    properties.add(property);
-  }
+  String getName();
+
+  /**
+   * 获取Id属性
+   *
+   * @return Id属性
+   */
+  DomainProperty getIdProperty();
+
+  /**
+   * 获取属性列表
+   *
+   * @return 属性列表
+   */
+  List<? extends DomainProperty> getProperties();
 }
