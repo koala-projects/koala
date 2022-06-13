@@ -16,6 +16,11 @@ public class InMemoryTemplateManager implements TemplateManager {
   private final List<Template> templates;
   private final Map<String, Template> templateMap;
 
+  /**
+   * 构造函数
+   *
+   * @param templates 模板列表
+   */
   public InMemoryTemplateManager(@NonNull List<Template> templates) {
     Objects.requireNonNull(templates);
     this.templates = templates;

@@ -173,12 +173,12 @@
       </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-eucalyptus-spring-boot-starter</artifactId>
+        <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
+        <artifactId>koala-jdbc-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -228,6 +228,11 @@
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-jdbc-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-system-management-api</artifactId>
