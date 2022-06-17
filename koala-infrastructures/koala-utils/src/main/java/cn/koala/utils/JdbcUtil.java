@@ -64,17 +64,17 @@ public final class JdbcUtil {
    * 获取数据库表
    *
    * @param properties 连接属性
-   * @param tableCode  表编码
+   * @param tableName  表名称
    * @return 表
    * @throws SQLException SQL异常
    */
-  public static JdbcTable table(ConnectionProperties properties, String tableCode) throws SQLException {
+  public static JdbcTable table(ConnectionProperties properties, String tableName) throws SQLException {
     for (JdbcTable table : tables(properties)) {
-      if (tableCode.equals(table.getCode())) {
+      if (tableName.equals(table.getName())) {
         return table;
       }
     }
-    return new JdbcTable(tableCode);
+    return new JdbcTable(tableName);
   }
 
   /**

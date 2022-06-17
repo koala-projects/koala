@@ -1,6 +1,6 @@
 package cn.koala.utils;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.sql.JDBCType;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * @author Houtaroy
  */
-@Getter
+@Data
 public class JdbcColumn {
   protected String name;
   protected String type;
@@ -30,7 +30,7 @@ public class JdbcColumn {
     nullable = rs.getBoolean(JdbcLabels.IS_NULLABLE);
     comment = rs.getString(JdbcLabels.COMMENT);
   }
-  
+
   public boolean isId() {
     return "id".equals(name);
   }

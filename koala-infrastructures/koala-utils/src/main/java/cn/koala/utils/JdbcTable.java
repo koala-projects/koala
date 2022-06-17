@@ -11,16 +11,16 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class JdbcTable {
-  protected String code;
   protected String name;
+  protected String comment;
   protected List<JdbcColumn> columns;
 
   /**
    * 构造函数
    *
-   * @param code 表编码
+   * @param name 表名称
    */
-  public JdbcTable(String code) {
-    this.code = code;
+  public JdbcTable(String name) {
+    this.name = name;
   }
 }
