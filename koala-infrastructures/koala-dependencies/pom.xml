@@ -230,6 +230,11 @@
       <!--外观层 -->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-eucalyptus-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-jdbc-api</artifactId>
         <version>${revision}</version>
       </dependency>
