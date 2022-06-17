@@ -6,6 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * 正则单词复数转换器
+ * 利用正则表达式判断是否符合转换要求
+ *
  * @author Houtaroy
  */
 @RequiredArgsConstructor

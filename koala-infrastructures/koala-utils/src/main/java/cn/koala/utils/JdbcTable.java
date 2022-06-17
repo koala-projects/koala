@@ -6,6 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * jdbc表
+ *
  * @author Houtaroy
  */
 @AllArgsConstructor

@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 指定单词复数转换器
+ * 指定单词的复数形式, 从文本中读取
+ * 例如: 文本内容为"person,people", 则将单词person转换为复数时结果为people
+ *
  * @author Houtaroy
  */
 @RequiredArgsConstructor

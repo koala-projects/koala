@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * jdbc连接参数
+ *
  * @author Houtaroy
  */
 @Data

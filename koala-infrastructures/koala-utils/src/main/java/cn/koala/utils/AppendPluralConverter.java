@@ -1,6 +1,10 @@
 package cn.koala.utils;
 
 /**
+ * 追加单词复数转换器
+ * 符合规则时, 在单词末尾进行追加
+ * 例如: application -> applications
+ *
  * @author Houtaroy
  */
 public class AppendPluralConverter extends RegularPluralConverter {

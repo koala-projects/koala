@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
+ * 资源工具类
+ *
  * @author Houtaroy
  */
 public final class ResourceUtil {

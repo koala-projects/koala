@@ -1,13 +1,13 @@
 package cn.koala.utils;
 
 /**
- * 复数转换器
+ * 单词复数转换器
  *
  * @author Houtaroy
  */
 public interface PluralConverter {
   /**
-   * 是否符合转换规则
+   * 是否符合转换要求
    *
    * @param singular 单数
    * @return 结果

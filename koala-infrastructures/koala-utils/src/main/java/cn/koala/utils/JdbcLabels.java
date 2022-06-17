@@ -1,6 +1,8 @@
 package cn.koala.utils;
 
 /**
+ * jdbc labels
+ *
  * @author Houtaroy
  */
 public interface JdbcLabels {

@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
+ * 图片工具类
+ *
  * @author Houtaroy
  */
 public final class ImageUtil {

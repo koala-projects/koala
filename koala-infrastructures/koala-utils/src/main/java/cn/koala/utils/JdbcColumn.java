@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * jdbc列
+ *
  * @author Houtaroy
  */
 @Data

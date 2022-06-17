@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * jdbc工具类
+ *
  * @author Houtaroy
  */
 public final class JdbcUtil {
