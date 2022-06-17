@@ -32,8 +32,4 @@ public class JdbcColumn {
     nullable = rs.getBoolean(JdbcLabels.IS_NULLABLE);
     comment = rs.getString(JdbcLabels.COMMENT);
   }
-
-  public boolean isId() {
-    return "id".equals(name);
-  }
 }

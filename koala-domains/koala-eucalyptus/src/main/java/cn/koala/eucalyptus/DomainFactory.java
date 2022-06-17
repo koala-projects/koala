@@ -9,8 +9,8 @@ public interface DomainFactory {
   /**
    * 根据参数生成领域模型
    *
-   * @param parameter 参数
+   * @param data 数据
    * @return 领域模型
    */
-  Domain create(Object parameter);
+  Domain create(Object data);
 }

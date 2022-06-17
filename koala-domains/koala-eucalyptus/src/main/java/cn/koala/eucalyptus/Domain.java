@@ -23,13 +23,6 @@ public interface Domain {
   String getName();
 
   /**
-   * 获取Id属性
-   *
-   * @return Id属性
-   */
-  DomainProperty getIdProperty();
-
-  /**
    * 获取属性列表
    *
    * @return 属性列表

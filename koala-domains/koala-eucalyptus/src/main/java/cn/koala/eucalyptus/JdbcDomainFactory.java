@@ -1,13 +1,13 @@
 package cn.koala.eucalyptus;
 
-import cn.koala.utils.JdbcColumn;
 import cn.koala.utils.JdbcTable;
+import cn.koala.utils.WordUtil;
 import com.google.common.base.CaseFormat;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * @author Houtaroy
@@ -17,11 +17,11 @@ public class JdbcDomainFactory implements DomainFactory {
   private final String tablePrefix;
 
   @Override
-  public SimpleDomain create(Object parameter) {
-    if (parameter instanceof JdbcTable table) {
+  public JdbcDomain create(Object data) {
+    if (data instanceof JdbcTable table) {
       return create(table);
     }
-    return new SimpleDomain();
+    return new JdbcDomain();
   }
 
   /**
@@ -30,29 +30,23 @@ public class JdbcDomainFactory implements DomainFactory {
    * @param table 数据库表
    * @return 领域模型
    */
-  protected SimpleDomain create(JdbcTable table) {
-    SimpleDomain result = new SimpleDomain();
-    result.setCode(tableCode2DomainCode(table.getCode()));
-    result.setName(tableName2DomainName(table.getName()));
-    List<JdbcColumn> columns = table.getColumns();
-    List<SimpleDomainProperty> properties = new ArrayList<>(columns.size());
-    columns.forEach(column -> {
-      SimpleDomainProperty property = column2DomainProperty(column);
-      Consumer<SimpleDomainProperty> consumer = column.isId() ? result::setIdProperty : properties::add;
-      consumer.accept(property);
+  protected JdbcDomain create(JdbcTable table) {
+    JdbcDomain result = new JdbcDomain();
+    result.setTableName(table.getName());
+    result.setCode(tableName2DomainCode(table.getName()));
+    result.setClassName(StringUtils.capitalize(result.getCode()));
+    result.setPluralCode(WordUtil.plural(result.getCode()));
+    result.setName(tableComment2DomainName(table.getName()));
+    List<JdbcDomainProperty> properties = new ArrayList<>(table.getColumns().size());
+    table.getColumns().forEach(column -> {
+      JdbcDomainProperty property = new JdbcDomainProperty(column);
+      properties.add(property);
+      if (property.isId()) {
+        result.setIdProperty(property);
+      }
     });
     result.setProperties(properties);
     return result;
-  }
-
-  /**
-   * 数据库列转换为领域属性
-   *
-   * @param column 数据库列
-   * @return 领域属性
-   */
-  protected SimpleDomainProperty column2DomainProperty(JdbcColumn column) {
-    return new SimpleDomainProperty(column.getName(), column.getComment(), column.getType());
   }
 
   /**
@@ -61,9 +55,9 @@ public class JdbcDomainFactory implements DomainFactory {
    * @param tableCode 数据库表代码
    * @return 领域代码
    */
-  protected String tableCode2DomainCode(String tableCode) {
-    return CaseFormat.UPPER_UNDERSCORE.to(
-      CaseFormat.UPPER_CAMEL,
+  protected String tableName2DomainCode(String tableCode) {
+    return CaseFormat.LOWER_UNDERSCORE.to(
+      CaseFormat.LOWER_CAMEL,
       tableCode.substring(tablePrefix.length()).toLowerCase()
     );
   }
@@ -74,7 +68,7 @@ public class JdbcDomainFactory implements DomainFactory {
    * @param tableName 数据库表名称
    * @return 领域名称
    */
-  protected String tableName2DomainName(String tableName) {
+  protected String tableComment2DomainName(String tableName) {
     return tableName.endsWith("表") ? tableName.substring(0, tableName.length() - 1) : tableName;
   }
 }

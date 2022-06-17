@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
+ * 内存模板管理器
+ *
  * @author Houtaroy
  */
 public class InMemoryTemplateManager implements TemplateManager {
@@ -33,7 +35,7 @@ public class InMemoryTemplateManager implements TemplateManager {
   }
 
   @Override
-  public Map<String, String> process(String code, Domain domain) {
-    return Optional.ofNullable(templateMap.get(code)).map(t -> t.process(domain)).orElse(new HashMap<>(0));
+  public Map<String, String> process(String code, DomainContext context) {
+    return Optional.ofNullable(templateMap.get(code)).map(t -> t.process(context)).orElse(new HashMap<>(0));
   }
 }

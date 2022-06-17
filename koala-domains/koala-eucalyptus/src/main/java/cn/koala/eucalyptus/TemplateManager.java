@@ -17,9 +17,9 @@ public interface TemplateManager {
   /**
    * 使用指定模板生成代码
    *
-   * @param code   模板编码
-   * @param domain 领域模型
+   * @param code    模板编码
+   * @param context 领域上下文
    * @return 代码
    */
-  Map<String, String> process(String code, Domain domain);
+  Map<String, String> process(String code, DomainContext context);
 }

@@ -25,6 +25,10 @@
     </dependency>
     <dependency>
       <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-enum</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
       <artifactId>koala-utils</artifactId>
     </dependency>
     <dependency>

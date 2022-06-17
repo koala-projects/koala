@@ -23,8 +23,8 @@ public interface Template {
   /**
    * 生成代码
    *
-   * @param domain 领域模型
+   * @param context 领域上下文
    * @return 代码
    */
-  Map<String, String> process(Domain domain);
+  Map<String, String> process(DomainContext context);
 }
