@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Schema(description = "${domain.name}数据实体类")
 @SuperBuilder(toBuilder = true)
-public class ${domain.className}Entity {
+public class ${domain.code.capitalize}Entity {
 <#list domain.properties as property>
   @Schema(description = "${property.name}")
   private ${property.type} ${property.code};

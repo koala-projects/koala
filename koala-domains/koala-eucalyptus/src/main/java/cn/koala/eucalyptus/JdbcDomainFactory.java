@@ -1,10 +1,9 @@
 package cn.koala.eucalyptus;
 
 import cn.koala.utils.JdbcTable;
-import cn.koala.utils.WordUtil;
+import cn.koala.utils.Word;
 import com.google.common.base.CaseFormat;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +33,6 @@ public class JdbcDomainFactory implements DomainFactory {
     JdbcDomain result = new JdbcDomain();
     result.setTableName(table.getName());
     result.setCode(tableName2DomainCode(table.getName()));
-    result.setClassName(StringUtils.capitalize(result.getCode()));
-    result.setPluralCode(WordUtil.plural(result.getCode()));
     result.setName(tableComment2DomainName(table.getName()));
     List<JdbcDomainProperty> properties = new ArrayList<>(table.getColumns().size());
     table.getColumns().forEach(column -> {
@@ -55,11 +52,11 @@ public class JdbcDomainFactory implements DomainFactory {
    * @param tableCode 数据库表代码
    * @return 领域代码
    */
-  protected String tableName2DomainCode(String tableCode) {
-    return CaseFormat.LOWER_UNDERSCORE.to(
+  protected Word tableName2DomainCode(String tableCode) {
+    return new Word(CaseFormat.LOWER_UNDERSCORE.to(
       CaseFormat.LOWER_CAMEL,
       tableCode.substring(tablePrefix.length()).toLowerCase()
-    );
+    ));
   }
 
   /**

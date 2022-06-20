@@ -1,6 +1,6 @@
 package ${packageName}.apis;
 
-import ${packageName}.entities.${domain.className}Entity;
+import ${packageName}.entities.${domain.code.capitalize}Entity;
 
 import cn.koala.swagger.PageableAsQueryParam;
 import cn.koala.web.DataResponse;
@@ -31,11 +31,11 @@ import java.util.Map;
 /**
  * @author Koala Eucalyptus
  */
-@RequestMapping("/${domain.pluralCode}")
+@RequestMapping("/${domain.code.plural}")
 @RestController
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "${domain.pluralCode}", description = "${domain.name}管理")
-public interface ${domain.className}Api {
+@Tag(name = "${domain.code.plural}", description = "${domain.name}管理")
+public interface ${domain.code.capitalize}Api {
   /**
    * 根据条件分页查询${domain.name}
    *
@@ -43,17 +43,17 @@ public interface ${domain.className}Api {
    * @param pageable   分页条件
    * @return ${domain.name}列表
    */
-  @PreAuthorize("hasAuthority('api:${domain.pluralCode}:page')")
-  @Operation(summary = "根据条件分页查询${domain.name}", tags = {"${domain.pluralCode}"})
+  @PreAuthorize("hasAuthority('api:${domain.code.plural}:page')")
+  @Operation(summary = "根据条件分页查询${domain.name}", tags = {"${domain.code.plural}"})
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ${domain.className}PageResult.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ${domain.code.capitalize}PageResult.class))}
   )
   <#list searchParameters as parameter>
   @Parameter(in = ParameterIn.QUERY, name = "${parameter.code}", description = "${parameter.name}", schema = @Schema(type = "${parameter.type}"))
   </#list>
   @PageableAsQueryParam
   @GetMapping
-  DataResponse<Page<${domain.className}Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters, @Parameter(hidden = true) Pageable pageable);
+  DataResponse<Page<${domain.code.capitalize}Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters, @Parameter(hidden = true) Pageable pageable);
   <#if domain.idProperty??>
 
   /**
@@ -62,14 +62,14 @@ public interface ${domain.className}Api {
    * @param id ${domain.idProperty.name}
    * @return ${domain.name}对象
    */
-  @PreAuthorize("hasAuthority('api:${domain.pluralCode}:loadById')")
-  @Operation(summary = "根据id查询${domain.name}", tags = {"${domain.pluralCode}"})
+  @PreAuthorize("hasAuthority('api:${domain.code.plural}:loadById')")
+  @Operation(summary = "根据id查询${domain.name}", tags = {"${domain.code.plural}"})
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ${domain.className}Result.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ${domain.code.capitalize}Result.class))}
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "${domain.idProperty.name}", schema = @Schema(type = "${domain.idProperty.type}"))
   @GetMapping("{id}")
-  DataResponse<${domain.className}Entity> loadById(@PathVariable("id") ${domain.idProperty.type} id);
+  DataResponse<${domain.code.capitalize}Entity> loadById(@PathVariable("id") ${domain.idProperty.type} id);
   </#if>
 
   /**
@@ -78,13 +78,13 @@ public interface ${domain.className}Api {
    * @param user ${domain.name}对象
    * @return ${domain.name}对象
    */
-  @PreAuthorize("hasAuthority('api:${domain.pluralCode}:add')")
-  @Operation(summary = "创建${domain.name}", tags = {"${domain.pluralCode}"})
+  @PreAuthorize("hasAuthority('api:${domain.code.plural}:add')")
+  @Operation(summary = "创建${domain.name}", tags = {"${domain.code.plural}"})
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ${domain.className}Result.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ${domain.code.capitalize}Result.class))}
   )
   @PostMapping
-  DataResponse<${domain.className}Entity> create(@RequestBody ${domain.className}Entity entity);
+  DataResponse<${domain.code.capitalize}Entity> create(@RequestBody ${domain.code.capitalize}Entity entity);
 
   <#if domain.idProperty??>
   /**
@@ -94,14 +94,14 @@ public interface ${domain.className}Api {
    * @param user ${domain.name}对象
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('api:${domain.pluralCode}:updateById')")
-  @Operation(summary = "更新${domain.name}", tags = {"${domain.pluralCode}"})
+  @PreAuthorize("hasAuthority('api:${domain.code.plural}:updateById')")
+  @Operation(summary = "更新${domain.name}", tags = {"${domain.code.plural}"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "${domain.idProperty.name}", schema = @Schema(type = "${domain.idProperty.type}"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") ${domain.idProperty.type} id, @RequestBody ${domain.className}Entity entity);
+  Response update(@PathVariable("id") ${domain.idProperty.type} id, @RequestBody ${domain.code.capitalize}Entity entity);
 
   /**
    * 删除${domain.name}
@@ -109,8 +109,8 @@ public interface ${domain.className}Api {
    * @param id ${domain.idProperty.name}
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('api:${domain.pluralCode}:deleteById')")
-  @Operation(summary = "删除${domain.name}", tags = {"${domain.pluralCode}"})
+  @PreAuthorize("hasAuthority('api:${domain.code.plural}:deleteById')")
+  @Operation(summary = "删除${domain.name}", tags = {"${domain.code.plural}"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -119,11 +119,11 @@ public interface ${domain.className}Api {
   Response delete(@PathVariable("id") ${domain.idProperty.type} id);
   </#if>
 
-  class ${domain.className}PageResult extends DataResponse<Page<${domain.className}Entity>> {
+  class ${domain.code.capitalize}PageResult extends DataResponse<Page<${domain.code.capitalize}Entity>> {
 
   }
 
-  class ${domain.className}Result extends DataResponse<${domain.className}Entity> {
+  class ${domain.code.capitalize}Result extends DataResponse<${domain.code.capitalize}Entity> {
 
   }
 }

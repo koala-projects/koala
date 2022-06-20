@@ -1,13 +1,13 @@
 package ${packageName}.repositories;
 
-import ${packageName}.entities.${domain.className}Entity;
+import ${packageName}.entities.${domain.code.capitalize}Entity;
 
 /**
  * ${domain.name}存储库类
  *
  * @author Koala Eucalyptus
  */
-public interface ${domain.className}Repository {
+public interface ${domain.code.capitalize}Repository {
   /**
   * 查询全部
   *
@@ -15,7 +15,7 @@ public interface ${domain.className}Repository {
   * @param pageable   分页参数
   * @return 数据列表
   */
-  List<${domain.className}Entity> findAll(@Param("parameters") Map<String, Object> parameters, Pageable pageable);
+  List<${domain.code.capitalize}Entity> findAll(@Param("parameters") Map<String, Object> parameters, Pageable pageable);
   <#if domain.idProperty??>
 
   /**
@@ -24,7 +24,7 @@ public interface ${domain.className}Repository {
   * @param id id
   * @return 数据实体
   */
-  Optional<${domain.className}Entity> findById(${domain.idProperty.type} id);
+  Optional<${domain.code.capitalize}Entity> findById(${domain.idProperty.type} id);
   </#if>
 
   /**
@@ -32,19 +32,19 @@ public interface ${domain.className}Repository {
   *
   * @param entity 数据实体
   */
-  void add(${domain.className}Entity entity);
+  void add(${domain.code.capitalize}Entity entity);
 
   /**
   * 更新
   *
   * @param entity 数据实体
   */
-  void update(${domain.className}Entity entity);
+  void update(${domain.code.capitalize}Entity entity);
 
   /**
   * 删除
   *
   * @param entity 数据实体
   */
-  void delete(${domain.className}Entity entity);
+  void delete(${domain.code.capitalize}Entity entity);
 }
