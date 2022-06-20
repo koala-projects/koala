@@ -18,7 +18,7 @@ public class Word {
    * @param value 单词
    */
   public Word(String value) {
-    this.value = value.toLowerCase();
+    this.value = value;
     this.plural = WordUtil.plural(value);
     this.capitalize = StringUtils.capitalize(value);
   }
