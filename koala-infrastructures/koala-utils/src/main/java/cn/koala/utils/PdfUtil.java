@@ -21,30 +21,9 @@ import java.util.List;
  * @author Houtaroy
  */
 public final class PdfUtil {
+  public static final int DEFAULT_ENCRYPTION_KEY_LENGTH = 128;
+
   private PdfUtil() {
-  }
-
-  /**
-   * 读取pdf文件
-   *
-   * @param filePathName 文件路径名
-   * @return PDDocument对象
-   * @throws IOException IO异常
-   */
-  public static PDDocument load(String filePathName) throws IOException {
-    return PDDocument.load(new File(filePathName));
-  }
-
-  /**
-   * 读取pdf文件
-   *
-   * @param filePathName 文件路径名
-   * @param password     文件密码
-   * @return PDDocument对象
-   * @throws IOException IO异常
-   */
-  public static PDDocument load(String filePathName, String password) throws IOException {
-    return PDDocument.load(new File(filePathName), password);
   }
 
   /**
@@ -55,7 +34,7 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static String read(String filePathName) throws IOException {
-    return read(filePathName, false);
+    return read(filePathName, "");
   }
 
   /**
@@ -67,10 +46,35 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static String read(String filePathName, boolean chomp) throws IOException {
-    PDDocument document = load(filePathName);
-    String result = new PDFTextStripper().getText(document);
-    document.close();
-    return chomp ? ArticleUtil.chomp(result) : result;
+    return read(filePathName, "", chomp);
+  }
+
+  /**
+   * 读取pdf文本内容
+   *
+   * @param filePathName 文件路径名
+   * @param password     文件密码
+   * @return pdf文本内容
+   * @throws IOException IO异常
+   */
+  public static String read(String filePathName, String password) throws IOException {
+    return read(filePathName, password, false);
+  }
+
+  /**
+   * 读取pdf文本内容
+   *
+   * @param filePathName 文件路径名
+   * @param password     文件密码
+   * @param chomp        是否去除换行符
+   * @return pdf文本内容
+   * @throws IOException IO异常
+   */
+  public static String read(String filePathName, String password, boolean chomp) throws IOException {
+    try (PDDocument pdf = PDDocument.load(new File(filePathName), password)) {
+      String result = new PDFTextStripper().getText(pdf);
+      return chomp ? ArticleUtil.chomp(result) : result;
+    }
   }
 
   /**
@@ -81,14 +85,26 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static List<BufferedImage> images(String filePathName) throws IOException {
-    PDDocument document = load(filePathName);
-    PDFRenderer renderer = new PDFRenderer(document);
-    List<BufferedImage> result = new ArrayList<>(document.getNumberOfPages());
-    for (int i = 0; i < document.getNumberOfPages(); i++) {
-      result.add(renderer.renderImage(i));
+    return images(filePathName, "");
+  }
+
+  /**
+   * 将pdf文件内容读取为图片列表
+   *
+   * @param filePathName 文件路径名
+   * @param password     文件密码
+   * @return 图片列表
+   * @throws IOException IO异常
+   */
+  public static List<BufferedImage> images(String filePathName, String password) throws IOException {
+    try (PDDocument pdf = PDDocument.load(new File(filePathName), password)) {
+      PDFRenderer renderer = new PDFRenderer(pdf);
+      List<BufferedImage> result = new ArrayList<>(pdf.getNumberOfPages());
+      for (int i = 0; i < pdf.getNumberOfPages(); i++) {
+        result.add(renderer.renderImage(i));
+      }
+      return result;
     }
-    document.close();
-    return result;
   }
 
   /**
@@ -111,16 +127,29 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static void saveAsImages(String filePathName, String destinationPath) throws IOException {
-    PDDocument document = load(filePathName);
-    PDFRenderer renderer = new PDFRenderer(document);
-    FileUtils.forceMkdir(new File(destinationPath));
-    String imageNameTemplate = destinationPath + "/" + FilenameUtils.getName(filePathName) + "-%d.png";
-    for (int i = 0; i < document.getNumberOfPages(); i++) {
-      ImageIO.write(
-        renderer.renderImage(i),
-        "png",
-        new File(String.format(imageNameTemplate, i + 1))
-      );
+    saveAsImages(filePathName, "", destinationPath);
+  }
+
+  /**
+   * 将PDF文件中的每一页另存为图片
+   * 例如: test/test.pdf有两页, 则生成: test/images/test-1.png, test/images/test-2.png
+   *
+   * @param filePathName    文件路径名
+   * @param destinationPath 目标路径
+   * @throws IOException IO异常
+   */
+  public static void saveAsImages(String filePathName, String password, String destinationPath) throws IOException {
+    try (PDDocument pdf = PDDocument.load(new File(filePathName), password)) {
+      PDFRenderer renderer = new PDFRenderer(pdf);
+      FileUtils.forceMkdir(new File(destinationPath));
+      String imageNameTemplate = destinationPath + "/" + FilenameUtils.getName(filePathName) + "-%d.png";
+      for (int i = 0; i < pdf.getNumberOfPages(); i++) {
+        ImageIO.write(
+          renderer.renderImage(i),
+          "png",
+          new File(String.format(imageNameTemplate, i + 1))
+        );
+      }
     }
   }
 
@@ -144,12 +173,12 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static void encrypt(String filePathName, String password, String destination) throws IOException {
-    PDDocument pdf = load(filePathName);
-    StandardProtectionPolicy spp = new StandardProtectionPolicy(password, password, new AccessPermission());
-    spp.setEncryptionKeyLength(128);
-    pdf.protect(spp);
-    pdf.save(destination);
-    pdf.close();
+    try (PDDocument pdf = PDDocument.load(new File(filePathName))) {
+      StandardProtectionPolicy spp = new StandardProtectionPolicy(password, password, new AccessPermission());
+      spp.setEncryptionKeyLength(DEFAULT_ENCRYPTION_KEY_LENGTH);
+      pdf.protect(spp);
+      pdf.save(destination);
+    }
   }
 
   /**
@@ -172,9 +201,9 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static void decrypt(String filePathName, String password, String destination) throws IOException {
-    PDDocument pdf = load(filePathName, password);
-    pdf.setAllSecurityToBeRemoved(true);
-    pdf.save(destination);
-    pdf.close();
+    try (PDDocument pdf = PDDocument.load(new File(filePathName, password))) {
+      pdf.setAllSecurityToBeRemoved(true);
+      pdf.save(destination);
+    }
   }
 }
