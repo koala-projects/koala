@@ -3,6 +3,8 @@ package cn.koala.utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -31,6 +33,18 @@ public final class PdfUtil {
    */
   public static PDDocument load(String filePathName) throws IOException {
     return PDDocument.load(new File(filePathName));
+  }
+
+  /**
+   * 读取pdf文件
+   *
+   * @param filePathName 文件路径名
+   * @param password     文件密码
+   * @return PDDocument对象
+   * @throws IOException IO异常
+   */
+  public static PDDocument load(String filePathName, String password) throws IOException {
+    return PDDocument.load(new File(filePathName), password);
   }
 
   /**
@@ -108,5 +122,59 @@ public final class PdfUtil {
         new File(String.format(imageNameTemplate, i + 1))
       );
     }
+  }
+
+  /**
+   * 将PDF文件加密
+   *
+   * @param filePathName 文件路径名
+   * @param password     密码
+   * @throws IOException IO异常
+   */
+  public static void encrypt(String filePathName, String password) throws IOException {
+    encrypt(filePathName, password, filePathName);
+  }
+
+  /**
+   * 将PDF文件加密
+   *
+   * @param filePathName 文件路径名
+   * @param password     密码
+   * @param destination  目标文件名
+   * @throws IOException IO异常
+   */
+  public static void encrypt(String filePathName, String password, String destination) throws IOException {
+    PDDocument pdf = load(filePathName);
+    StandardProtectionPolicy spp = new StandardProtectionPolicy(password, password, new AccessPermission());
+    spp.setEncryptionKeyLength(128);
+    pdf.protect(spp);
+    pdf.save(destination);
+    pdf.close();
+  }
+
+  /**
+   * 将PDF文件解密
+   *
+   * @param filePathName 文件路径名
+   * @param password     密码
+   * @throws IOException IO异常
+   */
+  public static void decrypt(String filePathName, String password) throws IOException {
+    decrypt(filePathName, password, filePathName);
+  }
+
+  /**
+   * 将PDF文件解密
+   *
+   * @param filePathName 文件路径名
+   * @param password     密码
+   * @param destination  目标文件名
+   * @throws IOException IO异常
+   */
+  public static void decrypt(String filePathName, String password, String destination) throws IOException {
+    PDDocument pdf = load(filePathName, password);
+    pdf.setAllSecurityToBeRemoved(true);
+    pdf.save(destination);
+    pdf.close();
   }
 }
