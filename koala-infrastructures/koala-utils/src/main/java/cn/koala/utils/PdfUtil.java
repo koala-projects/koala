@@ -41,24 +41,12 @@ public final class PdfUtil {
    * 读取pdf文本内容
    *
    * @param filePathName 文件路径名
-   * @param chomp        是否去除换行符
-   * @return pdf文本内容
-   * @throws IOException IO异常
-   */
-  public static String read(String filePathName, boolean chomp) throws IOException {
-    return read(filePathName, "", chomp);
-  }
-
-  /**
-   * 读取pdf文本内容
-   *
-   * @param filePathName 文件路径名
    * @param password     文件密码
    * @return pdf文本内容
    * @throws IOException IO异常
    */
   public static String read(String filePathName, String password) throws IOException {
-    return read(filePathName, password, false);
+    return read(new File(filePathName), password, false);
   }
 
   /**
@@ -71,7 +59,43 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static String read(String filePathName, String password, boolean chomp) throws IOException {
-    try (PDDocument pdf = PDDocument.load(new File(filePathName), password)) {
+    return read(new File(filePathName), password, chomp);
+  }
+
+  /**
+   * 读取pdf文本内容
+   *
+   * @param file 文件对象
+   * @return pdf文本内容
+   * @throws IOException IO异常
+   */
+  public static String read(File file) throws IOException {
+    return read(file, "");
+  }
+
+  /**
+   * 读取pdf文本内容
+   *
+   * @param file     文件对象
+   * @param password 文件密码
+   * @return pdf文本内容
+   * @throws IOException IO异常
+   */
+  public static String read(File file, String password) throws IOException {
+    return read(file, password, false);
+  }
+
+  /**
+   * 读取pdf文本内容
+   *
+   * @param file     文件对象
+   * @param password 文件密码
+   * @param chomp    是否去除换行符
+   * @return pdf文本内容
+   * @throws IOException IO异常
+   */
+  public static String read(File file, String password, boolean chomp) throws IOException {
+    try (PDDocument pdf = PDDocument.load(file, password)) {
       String result = new PDFTextStripper().getText(pdf);
       return chomp ? ArticleUtil.chomp(result) : result;
     }
@@ -97,7 +121,30 @@ public final class PdfUtil {
    * @throws IOException IO异常
    */
   public static List<BufferedImage> images(String filePathName, String password) throws IOException {
-    try (PDDocument pdf = PDDocument.load(new File(filePathName), password)) {
+    return images(new File(filePathName), password);
+  }
+
+  /**
+   * 将pdf文件内容读取为图片列表
+   *
+   * @param file 文件对象
+   * @return 图片列表
+   * @throws IOException IO异常
+   */
+  public static List<BufferedImage> images(File file) throws IOException {
+    return images(file, "");
+  }
+
+  /**
+   * 将pdf文件内容读取为图片列表
+   *
+   * @param file     文件对象
+   * @param password 文件密码
+   * @return 图片列表
+   * @throws IOException IO异常
+   */
+  public static List<BufferedImage> images(File file, String password) throws IOException {
+    try (PDDocument pdf = PDDocument.load(file, password)) {
       PDFRenderer renderer = new PDFRenderer(pdf);
       List<BufferedImage> result = new ArrayList<>(pdf.getNumberOfPages());
       for (int i = 0; i < pdf.getNumberOfPages(); i++) {
@@ -135,6 +182,7 @@ public final class PdfUtil {
    * 例如: test/test.pdf有两页, 则生成: test/images/test-1.png, test/images/test-2.png
    *
    * @param filePathName    文件路径名
+   * @param password        密码
    * @param destinationPath 目标路径
    * @throws IOException IO异常
    */
