@@ -30,6 +30,7 @@
     <mysql-connector.version>8.0.27</mysql-connector.version>
     <pagehelper.version>5.3.0</pagehelper.version>
     <pagehelper-spring-boot-starter.version>1.4.1</pagehelper-spring-boot-starter.version>
+    <pdfbox.version>2.0.26</pdfbox.version>
     <p3c-pmd.version>2.1.1</p3c-pmd.version>
     <slf4j.version>1.7.36</slf4j.version>
     <spring-boot.version>2.6.6</spring-boot.version>
@@ -37,6 +38,7 @@
     <springdoc.version>1.6.7</springdoc.version>
     <swagger.version>2.1.13</swagger.version>
     <thumbnailator.version>0.4.17</thumbnailator.version>
+    <toolgood-words.version>3.0.3.1</toolgood-words.version>
     <!--Maven插件版本-->
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
@@ -124,6 +126,11 @@
         <version>${pagehelper-spring-boot-starter.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox</artifactId>
+        <version>${pdfbox.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
@@ -160,6 +167,11 @@
         <artifactId>thumbnailator</artifactId>
         <version>${thumbnailator.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.github.toolgood</groupId>
+        <artifactId>toolgood-words</artifactId>
+        <version>${toolgood-words.version}</version>
+      </dependency>
       <!--组件-->
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
@@ -184,6 +196,11 @@
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-security-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-sensitive-word-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -236,6 +253,11 @@
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
         <artifactId>koala-jdbc-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-sensitive-word</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

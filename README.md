@@ -16,10 +16,11 @@ Use Spring Boot Like A Koala
 
 ### 启动类
 
-- [x] [Spring Security](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-security-spring-boot-starter)
+- [x] [钉钉](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-dingtalk-spring-boot-starter)
 - [x] [Druid拓展](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-druid-spring-boot-starter)
 - [x] [Mqtt](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-integration-mqtt-spring-boot-starter)
-- [x] [钉钉](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-dingtalk-spring-boot-starter)
+- [x] [Spring Security](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-security-spring-boot-starter)
+- [x] [敏感词过滤](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-sensitive-word-spring-boot-starter)
 - [ ] 微信小程序
 
 ## 如何使用

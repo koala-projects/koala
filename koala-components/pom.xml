@@ -17,9 +17,11 @@
   <modules>
     <module>koala-dingtalk-spring-boot-starter</module>
     <module>koala-druid-spring-boot-starter</module>
+    <module>koala-eucalyptus-spring-boot-starter</module>
     <module>koala-integration-mqtt-spring-boot-starter</module>
     <module>koala-jdbc-spring-boot-starter</module>
     <module>koala-security-spring-boot-starter</module>
+    <module>koala-sensitive-word-spring-boot-starter</module>
     <module>koala-system-management-starter</module>
   </modules>
 </project>
