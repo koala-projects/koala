@@ -2,7 +2,7 @@ package cn.houtaroy.koala.starter.system;
 
 import cn.koala.system.UserApi;
 import cn.koala.system.UserApiImpl;
-import cn.koala.system.services.UserService;
+import cn.koala.system.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

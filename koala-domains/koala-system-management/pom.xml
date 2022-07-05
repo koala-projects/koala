@@ -4,18 +4,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>koala-system-management</artifactId>
-  <packaging>pom</packaging>
   <version>${revision}</version>
   <description>Koala 系统管理领域模型</description>
+
   <parent>
     <groupId>cn.houtaroy.koala</groupId>
-    <artifactId>koala</artifactId>
+    <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
-    <relativePath>../../pom.xml</relativePath>
+    <relativePath>../../koala-parent</relativePath>
   </parent>
 
-  <modules>
-    <module>koala-system-management-mapper-mysql</module>
-    <module>koala-system-management-model</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-enum</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.houtaroy.koala</groupId>
+      <artifactId>koala-swagger</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-authorization-server</artifactId>
+    </dependency>
+  </dependencies>
 </project>

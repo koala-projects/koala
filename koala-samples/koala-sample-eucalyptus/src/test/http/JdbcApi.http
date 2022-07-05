@@ -1,0 +1,2 @@
+### 查询数据库全部表
+GET http://localhost:9999/jdbc?username=root

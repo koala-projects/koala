@@ -236,12 +236,17 @@
       </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-system-management-mapper-mysql</artifactId>
+        <artifactId>koala-system-management</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-system-management-model</artifactId>
+        <artifactId>koala-system-management-mybatis-core</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.houtaroy.koala</groupId>
+        <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->

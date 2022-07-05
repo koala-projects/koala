@@ -24,6 +24,20 @@ koala:
     issuer: http://服务地址:服务端口
 ```
 
+## 实现UserDetailsService
+
+```java
+
+@Configuration
+public class BeanConfig {
+
+  @Bean
+  public UserDetailsService userDetailsService() {
+    return MyUserDetailsService();
+  }
+}
+```
+
 ## 权限注解
 
 ```java

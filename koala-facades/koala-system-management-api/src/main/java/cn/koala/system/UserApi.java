@@ -1,8 +1,7 @@
 package cn.koala.system;
 
 import cn.koala.swagger.PageableAsQueryParam;
-import cn.koala.system.entities.UserEntity;
-import cn.koala.system.models.User;
+import cn.koala.system.mybatis.UserEntity;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +35,7 @@ import java.util.Map;
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "user", description = "用户接口")
 public interface UserApi {
+  
   /**
    * 根据条件分页查询用户
    *

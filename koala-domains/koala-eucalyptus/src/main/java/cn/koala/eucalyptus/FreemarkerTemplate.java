@@ -4,6 +4,7 @@ import freemarker.template.Configuration;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.StringWriter;
 import java.util.Map;
@@ -25,7 +26,10 @@ public class FreemarkerTemplate implements Template {
 
   @Override
   public Map<String, String> process(DomainContext context) {
-    return files.keySet().stream().collect(Collectors.toMap(files::get, filename -> process(filename, context)));
+    return files.keySet().stream().collect(Collectors.toMap(
+      filename -> StringUtils.capitalize(context.getDomain().getCode()) + files.get(filename),
+      filename -> process(filename, context))
+    );
   }
 
   /**

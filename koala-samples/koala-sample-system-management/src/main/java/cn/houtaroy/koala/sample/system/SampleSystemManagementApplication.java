@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author Houtaroy
  */
-@MapperScan(basePackages = "cn.koala.system.repositories")
+@MapperScan(basePackages = "cn.koala.system.mybatis")
 @SpringBootApplication
 public class SampleSystemManagementApplication {
 

@@ -1,14 +1,10 @@
 package cn.koala.security;
 
-import cn.koala.system.repositories.UserRepository;
-import cn.koala.system.services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
@@ -23,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfiguration {
+  
   /**
    * 授权服务器默认安全过滤器链配置
    *
@@ -42,16 +39,5 @@ public class WebSecurityConfiguration {
       .oauth2ResourceServer(oauth2 ->
         oauth2.jwt(jwt -> jwt.decoder(jwtDecoder).jwtAuthenticationConverter(converter))
       ).build();
-  }
-
-  /**
-   * 用户信息服务配置
-   *
-   * @return 用户信息服务实例
-   */
-  @Bean
-  @ConditionalOnMissingBean
-  public UserDetailsService userDetailsService(UserRepository userRepository) {
-    return new UserServiceImpl(userRepository);
   }
 }

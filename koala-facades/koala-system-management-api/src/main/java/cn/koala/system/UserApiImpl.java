@@ -1,8 +1,6 @@
 package cn.koala.system;
 
-import cn.koala.system.entities.UserEntity;
-import cn.koala.system.models.User;
-import cn.koala.system.services.UserService;
+import cn.koala.system.mybatis.UserEntity;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +31,8 @@ public class UserApiImpl implements UserApi {
 
   @Override
   public DataResponse<User> create(UserEntity user) {
-    return null;
+    userService.add(user);
+    return DataResponse.ok(user);
   }
 
   @Override

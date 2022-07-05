@@ -17,7 +17,7 @@
   <dependencies>
     <dependency>
       <groupId>cn.houtaroy.koala</groupId>
-      <artifactId>koala-system-management-model</artifactId>
+      <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>

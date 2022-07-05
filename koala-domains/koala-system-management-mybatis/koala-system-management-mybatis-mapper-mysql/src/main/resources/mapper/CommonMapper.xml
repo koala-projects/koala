@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.system.mybatis.CommonRepository">
+  <sql id="auditColumns">
+    t.create_user_id as "createUser.id",
+    t.create_user_name as "createUser.name",
+    t.create_time,
+    t.last_modify_user_id as "lastModifyUser.id",
+    t.last_modify_user_name as "lastModifyUser.name",
+    t.last_modify_time,
+    t.delete_user_id as "deleteUser.id",
+    t.delete_user_name as "deleteUser.name",
+    t.delete_time
+  </sql>
+  <sql id="baseEntityColumns">
+    <include refid="cn.koala.system.mybatis.CommonRepository.sortColumn"/>,
+    <include refid="cn.koala.system.mybatis.CommonRepository.stateColumns"/>,
+    <include refid="cn.koala.system.mybatis.CommonRepository.auditColumns"/>
+  </sql>
+  <sql id="sortColumn">
+    t.sort_index
+  </sql>
+  <sql id="stateColumns">
+    t.is_system,
+    t.is_enable,
+    t.is_delete
+  </sql>
+</mapper>

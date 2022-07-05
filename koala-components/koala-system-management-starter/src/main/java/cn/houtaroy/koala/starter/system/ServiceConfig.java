@@ -1,8 +1,8 @@
 package cn.houtaroy.koala.starter.system;
 
-import cn.koala.system.repositories.UserRepository;
-import cn.koala.system.services.UserService;
-import cn.koala.system.services.UserServiceImpl;
+import cn.koala.system.UserService;
+import cn.koala.system.mybatis.MyBatisUserService;
+import cn.koala.system.mybatis.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +19,6 @@ public class ServiceConfig {
    */
   @Bean
   public UserService userService(UserRepository userRepository) {
-    return new UserServiceImpl(userRepository);
+    return new MyBatisUserService(userRepository);
   }
 }

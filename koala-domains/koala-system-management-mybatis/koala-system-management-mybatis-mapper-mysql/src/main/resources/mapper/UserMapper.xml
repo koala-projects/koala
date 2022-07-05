@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.system.mybatis.UserRepository">
+  <resultMap id="userDetailsResultMap" type="cn.koala.system.mybatis.UserEntity">
+    <id property="id" column="id"/>
+    <result property="username" column="username"/>
+    <result property="name" column="name"/>
+    <result property="password" column="password"/>
+    <result property="avatar" column="avatar"/>
+    <result property="email" column="email"/>
+    <result property="phone" column="phone"/>
+    <result property="isSystem" column="is_system"/>
+    <result property="isEnable" column="is_enable"/>
+    <result property="isDelete" column="is_delete"/>
+    <result property="createTime" column="createTime"/>
+    <result property="createUser.id" column="createUser.id"/>
+    <result property="createUser.name" column="createUser.name"/>
+    <result property="lastModifyTime" column="lastModifyTime"/>
+    <result property="lastModifyUser.id" column="lastModifyUser.id"/>
+    <result property="lastModifyUser.name" column="lastModifyUser.name"/>
+    <result property="deleteTime" column="deleteTime"/>
+    <result property="deleteUser.id" column="deleteUser.id"/>
+    <result property="deleteUser.name" column="deleteUser.name"/>
+    <collection property="roles" ofType="cn.koala.system.mybatis.RoleEntity">
+      <id property="id" column="role.id"/>
+      <result property="code" column="role.code"/>
+      <result property="name" column="role.name"/>
+      <collection property="permissions" ofType="cn.koala.system.mybatis.PermissionEntity">
+        <id property="id" column="permission.id"/>
+        <result property="code" column="permission.code"/>
+        <collection property="apis" ofType="cn.koala.system.mybatis.ApiEntity">
+          <id property="id" column="api.id"/>
+          <result property="code" column="api.code"/>
+        </collection>
+      </collection>
+    </collection>
+  </resultMap>
+
+  <sql id="selectUser">
+    select
+    t.id,
+    t.username,
+    t.name,
+    t.avatar,
+    t.email,
+    t.phone,
+    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    from k_user t
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.system.mybatis.UserEntity">
+    <include refid="selectUser"/>
+    <where>
+      t.is_delete = 0
+      <if test="parameters.name != null and parameters.name != ''">
+        and t.name = #{parameters.name}
+      </if>
+    </where>
+  </select>
+  <select id="findById" resultType="cn.koala.system.mybatis.UserEntity">
+    <include refid="selectUser"/>
+    where t.is_delete = 0 and t.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="add" parameterType="cn.koala.system.mybatis.UserEntity">
+    insert into k_user (id,
+                        username,
+                        password,
+                        name,
+                        avatar,
+                        email,
+                        phone,
+                        sort_index,
+                        create_user_id,
+                        create_user_name,
+                        create_time)
+    values (#{id},
+            #{username},
+            #{password},
+            #{name},
+            #{avatar},
+            #{email},
+            #{sortIndex},
+            #{createUser.id},
+            #{createUser.name},
+            #{createTime})
+  </insert>
+  <update id="update" parameterType="cn.koala.system.mybatis.UserEntity">
+    update k_user
+    set id                    = #{id},
+        username              = #{username},
+        password              = #{password},
+        name                  = #{name},
+        avatar                = #{avatar},
+        email                 = #{email},
+        sort_index            = #{sortIndex},
+        last_modify_user_id   = #{lastModifyUser.id},
+        last_modify_user_name = #{lastModifyUser.name},
+        last_modify_time      = #{lastModifyTime}
+    where id = #{id}
+  </update>
+  <update id="delete" parameterType="cn.koala.system.mybatis.UserEntity">
+    update k_user
+    set is_delete        = ${@cn.koala.system.models.YesNo@YES.value},
+        delete_user_id   = #{deleteUser.id},
+        delete_user_name = #{deleteUser.name},
+        delete_time      = #{deleteTime}
+    where id = #{id}
+  </update>
+
+  <select id="findByUsername" resultMap="userDetailsResultMap">
+    select t.id,
+    t.username,
+    t.password,
+    t.name,
+    t.avatar,
+    t.email,
+    t.phone,
+    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>,
+    r.id as "role.id",
+    r.code as "role.code",
+    r.name as "role.name",
+    p.id as "permission.id",
+    p.code as "permission.code",
+    a.id as "api.id",
+    a.code as "api.code"
+    from k_user t
+    left join k_user_role ur on ur.user_id = t.id
+    left join k_role r on r.id = ur.role_id
+    left join k_role_permission rp on r.id = rp.role_id
+    left join k_permission p on p.id = rp.permission_id
+    left join k_permission_api pa on p.id = pa.permission_id
+    left join k_api a on a.id = pa.api_id
+    where t.is_delete=0 and t.username=#{username,jdbcType=VARCHAR}
+  </select>
+</mapper>

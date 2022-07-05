@@ -21,5 +21,6 @@
     <module>koala-mqtt</module>
     <module>koala-sensitive-word</module>
     <module>koala-system-management</module>
+    <module>koala-system-management-mybatis</module>
   </modules>
 </project>
