@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.sample.system;
+package cn.koala.sample.system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

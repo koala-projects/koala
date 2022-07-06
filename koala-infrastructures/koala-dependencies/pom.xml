@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
   <description>Koala Dependencies</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala</artifactId>
     <version>${revision}</version>
     <relativePath>../../pom.xml</relativePath>
@@ -174,140 +174,135 @@
       </dependency>
       <!--组件-->
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-dingtalk-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-druid-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-jdbc-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-security-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-sensitive-word-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-system-management-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--领域-->
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-dingtalk</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-druid</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-eucalyptus</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
-        <artifactId>koala-jdbc</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-mqtt</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-system-management</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-system-management-mybatis-core</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-eucalyptus-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-jdbc-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-sensitive-word</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-system-management-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--基础设施-->
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-checkstyle</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-constant</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-enum</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-mybatis</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-security</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-swagger</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-utils</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
-        <groupId>cn.houtaroy.koala</groupId>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-web</artifactId>
         <version>${revision}</version>
       </dependency>

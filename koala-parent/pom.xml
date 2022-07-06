@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
   <description>Koala Parent</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-dependencies</artifactId>
     <version>${revision}</version>
     <relativePath>../koala-infrastructures/koala-dependencies/pom.xml</relativePath>
@@ -71,7 +71,7 @@
             <version>${checkstyle.version}</version>
           </dependency>
           <dependency>
-            <groupId>cn.houtaroy.koala</groupId>
+            <groupId>cn.koala</groupId>
             <artifactId>koala-checkstyle</artifactId>
             <version>${revision}</version>
           </dependency>

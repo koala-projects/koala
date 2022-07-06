@@ -8,7 +8,7 @@
   <description>Koala敏感词组件, 自动装配敏感词过滤器</description>
 
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
@@ -16,7 +16,7 @@
   
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-sensitive-word</artifactId>
     </dependency>
     <dependency>

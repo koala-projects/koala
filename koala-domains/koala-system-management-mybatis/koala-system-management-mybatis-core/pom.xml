@@ -8,7 +8,7 @@
   <description>Koala系统管理MyBatis核心实现</description>
 
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../../koala-parent</relativePath>
@@ -16,15 +16,15 @@
 
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-system-management</artifactId>
     </dependency>
     <dependency>

@@ -6,18 +6,18 @@
   <artifactId>koala-security-spring-boot-starter</artifactId>
   <description>系统管理启动类</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-security</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-swagger</artifactId>
     </dependency>
     <dependency>

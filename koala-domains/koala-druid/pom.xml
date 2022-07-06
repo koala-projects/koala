@@ -8,7 +8,7 @@
   <description>Koala Druid领域模型</description>
 
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
@@ -20,7 +20,7 @@
       <artifactId>druid</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-constant</artifactId>
     </dependency>
     <dependency>

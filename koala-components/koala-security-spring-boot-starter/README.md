@@ -8,7 +8,7 @@
 
 <dependencies>
   <dependency>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-security-spring-boot-starter</artifactId>
     <version>2022.0.0-SNAPSHOT</version>
   </dependency>

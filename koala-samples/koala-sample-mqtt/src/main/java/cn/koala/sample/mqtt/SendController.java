@@ -1,4 +1,4 @@
-package cn.houtaroy.koala.sample.mqtt;
+package cn.koala.sample.mqtt;
 
 import cn.koala.mqtt.MqttTemplate;
 import lombok.RequiredArgsConstructor;

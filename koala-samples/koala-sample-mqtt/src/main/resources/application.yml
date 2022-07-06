@@ -30,6 +30,6 @@ spring:
 
 logging:
   level:
-    cn.houtaroy.koala: DEBUG
+    cn.koala: DEBUG
   file:
     name: mqtt.log

@@ -8,7 +8,7 @@
   <description>Koala Eucalyptus领域模型</description>
 
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
@@ -24,11 +24,11 @@
       <artifactId>guava</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-enum</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-utils</artifactId>
     </dependency>
     <dependency>

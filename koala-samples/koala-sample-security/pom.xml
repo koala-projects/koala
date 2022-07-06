@@ -6,7 +6,7 @@
   <artifactId>koala-sample-security</artifactId>
   <description>Koala安全示例</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
@@ -21,11 +21,11 @@
       <artifactId>mysql-connector-java</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-security-spring-boot-starter</artifactId>
     </dependency>
     <!--    <dependency>-->
-    <!--      <groupId>cn.houtaroy.koala</groupId>-->
+    <!--      <groupId>cn.koala</groupId>-->
     <!--      <artifactId>koala-system-management-mapper-mysql</artifactId>-->
     <!--    </dependency>-->
   </dependencies>

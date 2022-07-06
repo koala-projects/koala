@@ -6,14 +6,14 @@
   <artifactId>koala-jdbc-spring-boot-starter</artifactId>
   <description>JDBC启动类</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-jdbc-api</artifactId>
     </dependency>
     <dependency>

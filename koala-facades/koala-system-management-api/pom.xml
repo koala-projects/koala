@@ -8,7 +8,7 @@
   <description>Koala 系统管理接口</description>
 
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
@@ -16,7 +16,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
     </dependency>
     <dependency>

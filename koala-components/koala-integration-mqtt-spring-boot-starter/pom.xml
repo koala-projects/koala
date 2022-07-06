@@ -6,14 +6,14 @@
   <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
   <description>Koala Integration Mqtt 集成启动类, 自动装配</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
   <dependencies>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-mqtt</artifactId>
     </dependency>
   </dependencies>

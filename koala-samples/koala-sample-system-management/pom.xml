@@ -6,7 +6,7 @@
   <artifactId>koala-sample-system-management</artifactId>
   <description>系统管理示例项目</description>
   <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
@@ -17,11 +17,11 @@
       <artifactId>druid-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.houtaroy.koala</groupId>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-system-management-starter</artifactId>
     </dependency>
     <dependency>

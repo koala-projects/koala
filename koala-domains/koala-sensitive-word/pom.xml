@@ -6,7 +6,7 @@
   <artifactId>koala-sensitive-word</artifactId>
   <description>Koala敏感词领域模型</description>
    <parent>
-    <groupId>cn.houtaroy.koala</groupId>
+    <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
