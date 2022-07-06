@@ -23,5 +23,6 @@
     <module>koala-security-spring-boot-starter</module>
     <module>koala-sensitive-word-spring-boot-starter</module>
     <module>koala-system-management-starter</module>
+    <module>koala-web-spring-boot-starter</module>
   </modules>
 </project>

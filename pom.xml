@@ -8,6 +8,7 @@
   <packaging>pom</packaging>
   <version>${revision}</version>
   <description>Koala</description>
+
   <properties>
     <revision>2022.0.0-SNAPSHOT</revision>
     <java.version>17</java.version>

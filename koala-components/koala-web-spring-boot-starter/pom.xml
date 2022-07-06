@@ -3,26 +3,25 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-system-management-starter</artifactId>
-  <description>系统管理启动类</description>
+  <artifactId>koala-web-spring-boot-starter</artifactId>
+  <packaging>jar</packaging>
+  <description>Koala Web服务组件</description>
+
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
+
   <dependencies>
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-security-spring-boot-starter</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-system-management-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web-spring-boot-starter</artifactId>
+      <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>
 </project>
