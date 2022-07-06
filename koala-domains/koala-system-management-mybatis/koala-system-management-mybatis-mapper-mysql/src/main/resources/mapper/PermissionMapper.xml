@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.system.mybatis.PermissionRepository">
+
+  <resultMap id="permissionResultMap" type="cn.koala.system.mybatis.PermissionEntity"
+             extends="cn.koala.system.mybatis.CommonRepository.abstractEntityResultMap">
+    <id property="id" column="id"/>
+    <result property="type" column="type"/>
+    <result property="code" column="code"/>
+    <result property="name" column="name"/>
+    <result property="description" column="description"/>
+    <result property="parent.id" column="parent.id"/>
+    <result property="parent.name" column="parent.name"/>
+    <collection property="apis" ofType="cn.koala.system.mybatis.ApiEntity">
+      <id property="id" column="api.id"/>
+      <result property="code" column="api.code"/>
+      <result property="name" column="api.name"/>
+    </collection>
+  </resultMap>
+
+  <sql id="selectPermission">
+    select
+    t.id,
+    t.type,
+    t.code,
+    t.name,
+    t.description,
+    parent.id as "paranet.id",
+    parent.name as "parent.name",
+    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    from k_permission t
+    left join k_permission parent on t.parent_id = parent.id
+  </sql>
+  <sql id="deleteApi">
+    delete
+    from k_permission_api
+    where permission_id = #{id};
+  </sql>
+  <sql id="addApi">
+    <foreach item="item" index="index" collection="roles" open="" separator="" close="">
+      insert into k_permission_api (permission_id, api_id) values (#{id}, #{item.id});
+    </foreach>
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.system.mybatis.PermissionEntity">
+    <include refid="selectPermission"/>
+    <where>
+      t.is_delete = 0
+      <if test="parameters.name != null and parameters.name != ''">
+        and t.name = #{parameters.name}
+      </if>
+    </where>
+  </select>
+  <select id="findById" resultType="cn.koala.system.mybatis.PermissionEntity">
+    select
+    t.id,
+    t.type,
+    t.code,
+    t.name,
+    t.description,
+    parent.id as "paranet.id",
+    parent.name as "parent.name",
+    api.id,
+    api.code,
+    api.name,
+    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    from k_permission t
+    left join k_permission parent on t.parent_id = parent.id
+    left join k_permission_api pa on pa.permission_id = t.id
+    left join k_api api on api.id = pa.api_id
+    where t.is_delete = 0 and t.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="add" parameterType="cn.koala.system.mybatis.PermissionEntity">
+    insert into k_permission (
+    id,
+    type,
+    code,
+    name,
+    description,
+    parent_id,
+    sort_index,
+    create_user_id,
+    create_user_name,
+    create_time
+    ) values (
+    #{id},
+    #{type},
+    #{code},
+    #{name},
+    #{description},
+    #{parent.id},
+    #{sortIndex},
+    #{createUser.id},
+    #{createUser.name},
+    #{createTime}
+    );
+    <include refid="addApi"/>
+  </insert>
+  <update id="update" parameterType="cn.koala.system.mybatis.PermissionEntity">
+    update k_permission
+    set id = #{id},
+    type = #{type},
+    code = #{password},
+    name = #{name},
+    description = #{description},
+    parent_id = #{parent.id},
+    sort_index = #{sortIndex},
+    last_modify_user_id = #{lastModifyUser.id},
+    last_modify_user_name = #{lastModifyUser.name},
+    last_modify_time = #{lastModifyTime}
+    where id = #{id};
+    <include refid="deleteApi"/>
+    <include refid="addApi"/>
+  </update>
+  <update id="delete" parameterType="cn.koala.system.mybatis.PermissionEntity">
+    update k_permission
+    set is_delete        = ${@cn.koala.system.models.YesNo@YES.value},
+        delete_user_id   = #{deleteUser.id},
+        delete_user_name = #{deleteUser.name},
+        delete_time      = #{deleteTime}
+    where id = #{id}
+  </update>
+</mapper>

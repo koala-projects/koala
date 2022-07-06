@@ -129,6 +129,7 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
    *
    * @return 接口列表
    */
+  @JsonIgnore
   default List<Api> getApis() {
     List<Api> result = new ArrayList<>();
     getPermissions().forEach(permission -> result.addAll(permission.getApis()));
@@ -140,6 +141,7 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
    *
    * @return 权限列表
    */
+  @JsonIgnore
   default List<Permission> getPermissions() {
     List<Permission> result = new ArrayList<>();
     Optional.ofNullable(getRoles())

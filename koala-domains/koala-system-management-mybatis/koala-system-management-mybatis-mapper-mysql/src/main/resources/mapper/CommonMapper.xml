@@ -3,6 +3,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.system.mybatis.CommonRepository">
+  <resultMap id="abstractEntityResultMap" type="cn.koala.system.mybatis.AbstractEntity">
+    <result property="sortIndex" column="sort_index"/>
+    <result property="isSystem" column="is_system"/>
+    <result property="isEnable" column="is_enable"/>
+    <result property="isDelete" column="is_delete"/>
+    <result property="createTime" column="createTime"/>
+    <result property="createUser.id" column="createUser.id"/>
+    <result property="createUser.name" column="createUser.name"/>
+    <result property="lastModifyTime" column="lastModifyTime"/>
+    <result property="lastModifyUser.id" column="lastModifyUser.id"/>
+    <result property="lastModifyUser.name" column="lastModifyUser.name"/>
+    <result property="deleteTime" column="deleteTime"/>
+    <result property="deleteUser.id" column="deleteUser.id"/>
+    <result property="deleteUser.name" column="deleteUser.name"/>
+  </resultMap>
   <sql id="auditColumns">
     t.create_user_id as "createUser.id",
     t.create_user_name as "createUser.name",
