@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://bj-cdb-9amt73r4.sql.tencentcdb.com:59997/koala?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: test
+    password: test@5015021301
