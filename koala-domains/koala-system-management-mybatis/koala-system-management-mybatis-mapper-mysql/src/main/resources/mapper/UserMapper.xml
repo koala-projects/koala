@@ -49,6 +49,16 @@
     <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
     from k_user t
   </sql>
+  <sql id="deleteUserRoleByUserId">
+    delete
+    from k_user_role
+    where user_id = #{id}
+  </sql>
+  <sql id="addUserRole">
+    <foreach item="item" index="index" collection="roles" open="" separator="" close="">
+      insert into k_user_role (user_id, role_id) values (#{id}, #{item.id});
+    </foreach>
+  </sql>
 
   <select id="findAll" resultType="cn.koala.system.mybatis.UserEntity">
     <include refid="selectUser"/>
@@ -64,41 +74,49 @@
     where t.is_delete = 0 and t.id = #{id,jdbcType=VARCHAR}
   </select>
   <insert id="add" parameterType="cn.koala.system.mybatis.UserEntity">
-    insert into k_user (id,
-                        username,
-                        password,
-                        name,
-                        avatar,
-                        email,
-                        phone,
-                        sort_index,
-                        create_user_id,
-                        create_user_name,
-                        create_time)
-    values (#{id},
-            #{username},
-            #{password},
-            #{name},
-            #{avatar},
-            #{email},
-            #{sortIndex},
-            #{createUser.id},
-            #{createUser.name},
-            #{createTime})
+    insert into k_user (
+    id,
+    username,
+    password,
+    name,
+    avatar,
+    email,
+    phone,
+    sort_index,
+    create_user_id,
+    create_user_name,
+    create_time
+    ) values (
+    #{id},
+    #{username},
+    #{password},
+    #{name},
+    #{avatar},
+    #{email},
+    #{phone},
+    #{sortIndex},
+    #{createUser.id},
+    #{createUser.name},
+    #{createTime}
+    );
+    <include refid="addUserRole"/>
   </insert>
   <update id="update" parameterType="cn.koala.system.mybatis.UserEntity">
     update k_user
-    set id                    = #{id},
-        username              = #{username},
-        password              = #{password},
-        name                  = #{name},
-        avatar                = #{avatar},
-        email                 = #{email},
-        sort_index            = #{sortIndex},
-        last_modify_user_id   = #{lastModifyUser.id},
-        last_modify_user_name = #{lastModifyUser.name},
-        last_modify_time      = #{lastModifyTime}
-    where id = #{id}
+    set id = #{id},
+    username = #{username},
+    password = #{password},
+    name = #{name},
+    avatar = #{avatar},
+    email = #{email},
+    phone = #{phone},
+    sort_index = #{sortIndex},
+    last_modify_user_id = #{lastModifyUser.id},
+    last_modify_user_name = #{lastModifyUser.name},
+    last_modify_time = #{lastModifyTime}
+    where id = #{id};
+    <include refid="deleteUserRoleByUserId"/>
+    <include refid="addUserRole"/>
   </update>
   <update id="delete" parameterType="cn.koala.system.mybatis.UserEntity">
     update k_user
