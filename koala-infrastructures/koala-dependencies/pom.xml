@@ -205,7 +205,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-system-management-starter</artifactId>
+        <artifactId>koala-system-management-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

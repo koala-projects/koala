@@ -3,7 +3,6 @@ package cn.koala.system.mybatis;
 import cn.koala.mybatis.PageRepository;
 import cn.koala.system.CrudService;
 import cn.koala.system.Idable;
-import cn.koala.system.SpringSecurityHelper;
 import cn.koala.web.NoSuchDataException;
 import cn.koala.web.PropertyHelper;
 import com.github.pagehelper.PageHelper;

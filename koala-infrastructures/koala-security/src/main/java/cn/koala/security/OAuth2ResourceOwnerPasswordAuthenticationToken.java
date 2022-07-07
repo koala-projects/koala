@@ -7,12 +7,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationGrantAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 
 import java.util.Map;
-import java.util.Optional;
 
 /**
+ * 密码模式认证Token
+ *
  * @author Houtaroy
  */
 @Getter
@@ -35,12 +35,5 @@ public class OAuth2ResourceOwnerPasswordAuthenticationToken extends OAuth2Author
                                                         @Nullable Map<String, Object> additionalParameters) {
     super(authorizationGrantType, clientPrincipal, additionalParameters);
     this.usernamePasswordAuthenticationToken = usernamePasswordAuthenticationToken;
-  }
-
-  public RegisteredClient getRegisteredClientOrThrowException() {
-    return Optional.ofNullable(getPrincipal())
-      .map(OAuth2ClientAuthenticationToken.class::cast)
-      .map(OAuth2ClientAuthenticationToken::getRegisteredClient)
-      .orElseThrow(() -> new NullPointerException("注册客户端不存在"));
   }
 }

@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,10 +20,11 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class PermissionEntity extends AbstractEntity implements Permission {
+  
   private PermissionType type;
   private String code;
   private String name;
   private String description;
   private PermissionEntity parent;
-  private List<ApiEntity> apis;
+  private List<ApiEntity> apis = new ArrayList<>();
 }

@@ -39,7 +39,7 @@
     where permission_id = #{id};
   </sql>
   <sql id="addApi">
-    <foreach item="item" index="index" collection="roles" open="" separator="" close="">
+    <foreach item="item" index="index" collection="apis" open="" separator="" close="">
       insert into k_permission_api (permission_id, api_id) values (#{id}, #{item.id});
     </foreach>
   </sql>

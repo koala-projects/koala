@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- cn.koala.system.ApiConfig,\
-  cn.koala.system.ServiceConfig
