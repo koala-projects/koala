@@ -1,5 +1,6 @@
 package cn.koala.system;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Slf4j
 public final class SpringSecurityHelper {
 
   private static AuthenticationUserConverter converter;
@@ -32,7 +34,10 @@ public final class SpringSecurityHelper {
    * @return 用户
    */
   public static Optional<User> currentUser() {
-    return Optional.ofNullable(converter)
-      .map(converter -> converter.apply(SecurityContextHolder.getContext().getAuthentication()));
+    if (converter == null) {
+      LOGGER.warn("未找到AuthenticationUserConverter, 请手动实现或设置");
+      return Optional.empty();
+    }
+    return Optional.of(converter.apply(SecurityContextHolder.getContext().getAuthentication()));
   }
 }
