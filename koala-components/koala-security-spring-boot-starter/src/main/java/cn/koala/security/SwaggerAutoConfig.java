@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author Houtaroy
  */
-public class SwaggerConfig {
+public class SwaggerAutoConfig {
   /**
    * OpenApi安全配置的bean
    *

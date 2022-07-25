@@ -24,6 +24,7 @@
     <freemarker.version>2.3.31</freemarker.version>
     <guava.version>31.1-jre</guava.version>
     <jackson.version>2.13.1</jackson.version>
+    <javax-servlet-api>4.0.1</javax-servlet-api>
     <junit.version>5.8.2</junit.version>
     <mybatis.version>3.5.7</mybatis.version>
     <mybatis-springboot.version>2.2.2</mybatis-springboot.version>
@@ -34,7 +35,8 @@
     <p3c-pmd.version>2.1.1</p3c-pmd.version>
     <slf4j.version>1.7.36</slf4j.version>
     <spring-boot.version>2.6.6</spring-boot.version>
-    <spring-security-oauth2-authorization-server.version>0.3.0</spring-security-oauth2-authorization-server.version>
+    <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
+    <spring-security-oauth2-authorization-server.version>0.3.1</spring-security-oauth2-authorization-server.version>
     <springdoc.version>1.6.7</springdoc.version>
     <swagger.version>2.1.13</swagger.version>
     <thumbnailator.version>0.4.17</thumbnailator.version>
@@ -96,6 +98,11 @@
         <version>${jackson.version}</version>
       </dependency>
       <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <scope>${jakarta-servlet-api.version}</scope>
+      </dependency>
+      <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
         <version>${mybatis.version}</version>
@@ -149,6 +156,11 @@
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-jwt</artifactId>
+        <version>${spring-security-jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-oauth2-authorization-server</artifactId>
         <version>${spring-security-oauth2-authorization-server.version}</version>
       </dependency>
@@ -191,6 +203,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-jdbc-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-oauth2-resource-server-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
