@@ -1,7 +1,6 @@
 package cn.koala.system.mybatis;
 
 import cn.koala.system.User;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class UserEntity extends AbstractEntity implements User {

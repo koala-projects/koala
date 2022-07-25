@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Houtaroy
@@ -119,21 +120,8 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
   @JsonIgnore
   @Override
   default Collection<? extends GrantedAuthority> getAuthorities() {
-    List<SimpleGrantedAuthority> result = new ArrayList<>();
-    getApis().forEach(api -> result.add(new SimpleGrantedAuthority(api.getCode())));
-    return result;
-  }
-
-  /**
-   * 获取接口列表
-   *
-   * @return 接口列表
-   */
-  @JsonIgnore
-  default List<Api> getApis() {
-    List<Api> result = new ArrayList<>();
-    getPermissions().forEach(permission -> result.addAll(permission.getApis()));
-    return result;
+    return getPermissions().stream().map(Codeable::getCode).map(SimpleGrantedAuthority::new)
+      .collect(Collectors.toList());
   }
 
   /**

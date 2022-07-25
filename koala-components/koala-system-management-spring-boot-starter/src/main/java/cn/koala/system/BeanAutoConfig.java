@@ -9,12 +9,16 @@ import cn.koala.system.mybatis.UserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
 /**
+ * Bean自动配置
+ *
  * @author Houtaroy
  */
 @Configuration
-public class ServiceConfig {
+public class BeanAutoConfig {
 
   /**
    * 用户服务的bean
@@ -50,5 +54,49 @@ public class ServiceConfig {
   @ConditionalOnMissingBean
   public PermissionService permissionService(PermissionRepository permissionRepository) {
     return new MyBatisPermissionService(permissionRepository);
+  }
+
+  /**
+   * 用户接口的Bean
+   *
+   * @return 用户接口
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public UserApi userApi(UserService userService) {
+    return new UserApiImpl(userService);
+  }
+
+  /**
+   * 用户接口的Bean
+   *
+   * @return 用户接口
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public RoleApi roleApi(RoleService roleService) {
+    return new RoleApiImpl(roleService);
+  }
+
+  /**
+   * 用户接口的Bean
+   *
+   * @return 用户接口
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PermissionApi permissionApi(PermissionService permissionService) {
+    return new PermissionApiImpl(permissionService);
+  }
+
+  /**
+   * Jwt定制器的bean
+   *
+   * @return Jwt定制器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
+    return new JwtCustomizer();
   }
 }

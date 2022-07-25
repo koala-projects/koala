@@ -21,18 +21,3 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=client_credentials&client_id=client&client_secret=123456
 
 > {% client.global.set("token", "Bearer " + response.body.access_token) %}
-
-### token信息
-GET http://authorization-server:9301/api/token
-Cookie: SAMPLE-UNIFIED-IDENTITY-CLIENT-SESSIONID=881E7B6D6AD0F543536F8C9726A23FAD
-
-> {% client.global.set("token", "Bearer " + response.body.data.details.tokenValue) %}
-
-### 获取用户信息
-GET http://authorization-server:9000/unified-identity-server/api/user
-Authorization: {{token}}
-Content-Type: application/json
-
-### 测试
-GET http://127.0.0.1:9999/oauth2/jwks
-Accept: application/json

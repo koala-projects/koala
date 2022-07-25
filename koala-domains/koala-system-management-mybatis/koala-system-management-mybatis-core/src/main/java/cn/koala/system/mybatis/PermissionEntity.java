@@ -2,7 +2,6 @@ package cn.koala.system.mybatis;
 
 import cn.koala.system.Permission;
 import cn.koala.system.PermissionType;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,11 +15,10 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class PermissionEntity extends AbstractEntity implements Permission {
-  
+
   private PermissionType type;
   private String code;
   private String name;

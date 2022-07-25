@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
  * @author Houtaroy
  */
 @Configuration
-@Import({ApiConfig.class, ServiceConfig.class})
+@Import(BeanAutoConfig.class)
 @MapperScan(basePackages = "cn.koala.system.mybatis")
 public class SystemManagementAutoConfig {
 

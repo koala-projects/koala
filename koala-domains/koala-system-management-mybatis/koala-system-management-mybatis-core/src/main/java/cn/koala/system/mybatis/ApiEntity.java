@@ -1,7 +1,6 @@
 package cn.koala.system.mybatis;
 
 import cn.koala.system.Api;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,6 @@ import lombok.experimental.SuperBuilder;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class ApiEntity extends AbstractEntity implements Api {

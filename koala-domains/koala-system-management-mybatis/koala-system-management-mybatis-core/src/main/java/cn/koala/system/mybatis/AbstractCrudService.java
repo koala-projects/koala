@@ -3,7 +3,6 @@ package cn.koala.system.mybatis;
 import cn.koala.mybatis.PageRepository;
 import cn.koala.system.CrudService;
 import cn.koala.system.Idable;
-import cn.koala.system.SpringSecurityHelper;
 import cn.koala.web.NoSuchDataException;
 import cn.koala.web.PropertyHelper;
 import com.github.pagehelper.PageHelper;
@@ -107,6 +106,6 @@ public abstract class AbstractCrudService<T, E> implements CrudService<T, E> {
 
   protected void audit(Consumer<LocalDateTime> timeConsumer, Consumer<UserEntity> userConsumer) {
     timeConsumer.accept(LocalDateTime.now());
-    SpringSecurityHelper.currentUser().map(UserEntity.class::cast).ifPresent(userConsumer);
+    JwtUtil.currentUser().map(UserEntity.class::cast).ifPresent(userConsumer);
   }
 }

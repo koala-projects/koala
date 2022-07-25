@@ -14,7 +14,6 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "@class": "cn.koala.system.mybatis.PermissionEntity",
   "type": "MENU",
   "code": "permissions",
   "name": "查询权限列表",
