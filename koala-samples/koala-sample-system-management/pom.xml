@@ -17,16 +17,21 @@
       <artifactId>druid-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-office-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-system-management-spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
     </dependency>
   </dependencies>
 
