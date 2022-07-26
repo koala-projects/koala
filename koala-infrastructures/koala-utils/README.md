@@ -60,3 +60,18 @@ public class Test {
   }
 }
 ```
+
+## MathUtil
+
+### 概率分布
+
+```java
+public class Test {
+
+  public static void main(String[] args) {
+    List<Item> data = new ArrayList<>();
+    // 根据概率(权重)随机获取一个元素
+    Item item = MathUtil.distribution(data, item -> item.getValue().doubleValue());
+  }
+}
+```
