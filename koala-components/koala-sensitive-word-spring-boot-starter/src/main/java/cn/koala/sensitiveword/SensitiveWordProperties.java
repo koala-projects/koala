@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Houtaroy
  */
-@ConfigurationProperties("hangar.sensitive-word")
+@ConfigurationProperties("koala.sensitive-word")
 @Data
 public class SensitiveWordProperties {
   private List<String> resourceLocations = new ArrayList<>();
