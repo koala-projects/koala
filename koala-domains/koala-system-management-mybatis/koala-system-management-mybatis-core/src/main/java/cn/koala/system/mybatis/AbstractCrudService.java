@@ -82,10 +82,8 @@ public abstract class AbstractCrudService<T, E> implements CrudService<T, E> {
   }
 
   protected E getPersistenceElseThrowException(T id) {
-    return getRepository().findById(id).orElseThrow(() -> {
-      LOGGER.error("数据[id={}]不存在", id);
-      throw new NoSuchDataException("数据不存在");
-    });
+    return getRepository().findById(id)
+      .orElseThrow(() -> new NoSuchDataException(id));
   }
 
   protected void auditUpdate(E entity) {
