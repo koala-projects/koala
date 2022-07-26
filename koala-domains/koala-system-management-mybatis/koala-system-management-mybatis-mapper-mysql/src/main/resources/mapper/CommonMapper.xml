@@ -3,6 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.system.mybatis.CommonRepository">
+
   <resultMap id="abstractEntityResultMap" type="cn.koala.system.mybatis.AbstractEntity">
     <result property="sortIndex" column="sort_index"/>
     <result property="isSystem" column="is_system"/>
@@ -18,6 +19,12 @@
     <result property="deleteUser.id" column="deleteUser.id"/>
     <result property="deleteUser.name" column="deleteUser.name"/>
   </resultMap>
+
+  <sql id="abstractEntityColumns">
+    <include refid="cn.koala.system.mybatis.CommonRepository.sortColumn"/>,
+    <include refid="cn.koala.system.mybatis.CommonRepository.stateColumns"/>,
+    <include refid="cn.koala.system.mybatis.CommonRepository.auditColumns"/>
+  </sql>
   <sql id="auditColumns">
     t.create_user_id as "createUser.id",
     t.create_user_name as "createUser.name",
@@ -29,10 +36,10 @@
     t.delete_user_name as "deleteUser.name",
     t.delete_time
   </sql>
-  <sql id="baseEntityColumns">
-    <include refid="cn.koala.system.mybatis.CommonRepository.sortColumn"/>,
-    <include refid="cn.koala.system.mybatis.CommonRepository.stateColumns"/>,
-    <include refid="cn.koala.system.mybatis.CommonRepository.auditColumns"/>
+  <sql id="codeColumns">
+    t.code,
+    t.name,
+    t.description
   </sql>
   <sql id="sortColumn">
     t.sort_index

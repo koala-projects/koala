@@ -23,7 +23,7 @@
     t.code,
     t.name,
     t.description,
-    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>
     from k_role t
   </sql>
   <sql id="deletePermission">
@@ -55,7 +55,7 @@
     permission.id,
     permission.code,
     permission.name,
-    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>
     from k_role t
     left join k_role_permission rp on rp.role_id = t.id
     left join k_permission permission on permission.id = rp.permission_id

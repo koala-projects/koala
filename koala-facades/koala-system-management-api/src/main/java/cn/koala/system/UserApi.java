@@ -35,7 +35,7 @@ import java.util.Map;
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "user", description = "用户接口")
 public interface UserApi {
-  
+
   /**
    * 根据条件分页查询用户
    *
@@ -43,7 +43,7 @@ public interface UserApi {
    * @param pageable   分页条件
    * @return 用户列表
    */
-  @PreAuthorize("hasAuthority('api:users:page')")
+  @PreAuthorize("hasAuthority('users:read')")
   @Operation(summary = "根据条件分页查询用户", tags = {"user"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserPageResult.class))}
@@ -62,7 +62,7 @@ public interface UserApi {
    * @param id 用户id
    * @return 用户
    */
-  @PreAuthorize("hasAuthority('api:users:loadById')")
+  @PreAuthorize("hasAuthority('users:read')")
   @Operation(summary = "根据id查询用户", tags = {"user"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResult.class))}
@@ -77,6 +77,7 @@ public interface UserApi {
    * @param user 用户
    * @return 用户
    */
+  @PreAuthorize("hasAuthority('users:write')")
   @Operation(summary = "创建用户", tags = {"user"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResult.class))}
@@ -91,6 +92,7 @@ public interface UserApi {
    * @param user 用户
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('users:write')")
   @Operation(summary = "更新用户", tags = {"user"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -105,6 +107,7 @@ public interface UserApi {
    * @param id 用户id
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('users:write')")
   @Operation(summary = "删除用户", tags = {"user"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -112,6 +115,21 @@ public interface UserApi {
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
   @DeleteMapping("{id}")
   Response delete(@PathVariable("id") String id);
+
+  /**
+   * 重置密码
+   *
+   * @param id 用户id
+   * @return 操作结果
+   */
+  @PreAuthorize("hasAuthority('users:write')")
+  @Operation(summary = "重置密码", tags = {"user"})
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
+  @PutMapping("{id}/reset-password")
+  Response resetPassword(@PathVariable("id") String id);
 
   class UserPageResult extends DataResponse<Page<User>> {
 

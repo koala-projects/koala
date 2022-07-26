@@ -1,9 +1,42 @@
 ### 分页查询
 GET http://127.0.0.1:9999/users
 Authorization: {{token}}
-Accept: application/json
 
 ### 根据id查看
 GET http://127.0.0.1:9999/users/1
 Authorization: {{token}}
-Accept: application/json
+
+### 创建用户
+POST http://127.0.0.1:9999/users
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "id": "2",
+  "username": "test",
+  "name": "测试用户",
+  "roles": [
+    {
+      "id": "1"
+    }
+  ]
+}
+
+### 更新用户
+PUT http://127.0.0.1:9999/users/2
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "username": "test",
+  "name": "测试用户"
+}
+
+### 删除用户
+DELETE http://127.0.0.1:9999/users/2
+Authorization: {{token}}
+
+### 重置密码
+PUT http://127.0.0.1:9999/users/2/reset-password
+Authorization: {{token}}
+Content-Type: application/json

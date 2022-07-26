@@ -19,10 +19,7 @@
       <collection property="permissions" ofType="cn.koala.system.mybatis.PermissionEntity">
         <id property="id" column="permission.id"/>
         <result property="code" column="permission.code"/>
-        <collection property="apis" ofType="cn.koala.system.mybatis.ApiEntity">
-          <id property="id" column="api.id"/>
-          <result property="code" column="api.code"/>
-        </collection>
+        <result property="name" column="permission.name"/>
       </collection>
     </collection>
   </resultMap>
@@ -31,17 +28,18 @@
     select
     t.id,
     t.username,
+    t.password,
     t.name,
     t.avatar,
     t.email,
     t.phone,
-    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>
     from k_user t
   </sql>
   <sql id="deleteUserRoleByUserId">
     delete
     from k_user_role
-    where user_id = #{id}
+    where user_id = #{id};
   </sql>
   <sql id="addUserRole">
     <foreach item="item" index="index" collection="roles" open="" separator="" close="">
@@ -109,7 +107,7 @@
   </update>
   <update id="delete" parameterType="cn.koala.system.mybatis.UserEntity">
     update k_user
-    set is_delete        = ${@cn.koala.system.models.YesNo@YES.value},
+    set is_delete        = ${@cn.koala.system.YesNo@YES.value},
         delete_user_id   = #{deleteUser.id},
         delete_user_name = #{deleteUser.name},
         delete_time      = #{deleteTime}
@@ -124,21 +122,17 @@
     t.avatar,
     t.email,
     t.phone,
-    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>,
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>,
     r.id as "role.id",
     r.code as "role.code",
     r.name as "role.name",
     p.id as "permission.id",
-    p.code as "permission.code",
-    a.id as "api.id",
-    a.code as "api.code"
+    p.code as "permission.code"
     from k_user t
     left join k_user_role ur on ur.user_id = t.id
     left join k_role r on r.id = ur.role_id
     left join k_role_permission rp on r.id = rp.role_id
     left join k_permission p on p.id = rp.permission_id
-    left join k_permission_api pa on p.id = pa.permission_id
-    left join k_api a on a.id = pa.api_id
     where t.is_delete=0 and t.username=#{username,jdbcType=VARCHAR}
   </select>
 </mapper>

@@ -61,41 +61,43 @@ public abstract class AbstractCrudService<T, E> implements CrudService<T, E> {
     getRepository().add(entity);
   }
 
+  protected void auditAdd(E entity) {
+    if (entity instanceof AbstractEntity base) {
+      base.setIdIfNotProvided(UUID.randomUUID().toString());
+      audit(base::setCreateTime, base::setCreateUser);
+    }
+  }
+
   @Override
   public void update(E entity) {
     if (entity instanceof Idable<?>) {
       Idable<T> idable = (Idable<T>) entity;
-      Optional<E> optionalDatabaseObject = getRepository().findById(idable.getId());
-      if (optionalDatabaseObject.isEmpty()) {
-        LOGGER.error("数据[id={}]不存在", idable.getId());
-        throw new NoSuchDataException("数据不存在");
-      }
-      E databaseObject = optionalDatabaseObject.get();
-      BeanUtils.copyProperties(entity, databaseObject,
+      E persistence = getPersistenceElseThrowException(idable.getId());
+      BeanUtils.copyProperties(entity, persistence,
         PropertyHelper.getNullProperty(entity).stream().map(FeatureDescriptor::getName).toArray(String[]::new));
-      entity = databaseObject;
+      entity = persistence;
     }
     auditUpdate(entity);
     getRepository().update(entity);
   }
 
-  @Override
-  public void delete(E entity) {
-    auditDelete(entity);
-    getRepository().delete(entity);
-  }
-
-  protected void auditAdd(E entity) {
-    if (entity instanceof AbstractEntity base) {
-      base.setId(UUID.randomUUID().toString());
-      audit(base::setCreateTime, base::setCreateUser);
-    }
+  protected E getPersistenceElseThrowException(T id) {
+    return getRepository().findById(id).orElseThrow(() -> {
+      LOGGER.error("数据[id={}]不存在", id);
+      throw new NoSuchDataException("数据不存在");
+    });
   }
 
   protected void auditUpdate(E entity) {
     if (entity instanceof AbstractEntity base) {
       audit(base::setLastModifyTime, base::setLastModifyUser);
     }
+  }
+
+  @Override
+  public void delete(E entity) {
+    auditDelete(entity);
+    getRepository().delete(entity);
   }
 
   protected void auditDelete(E entity) {

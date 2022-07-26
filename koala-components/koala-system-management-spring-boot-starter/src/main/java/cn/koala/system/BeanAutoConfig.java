@@ -9,6 +9,8 @@ import cn.koala.system.mybatis.UserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
@@ -21,6 +23,17 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 public class BeanAutoConfig {
 
   /**
+   * 密码编码器的bean
+   *
+   * @return 密码编码器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
+
+  /**
    * 用户服务的bean
    *
    * @param userRepository 用户存储库对象
@@ -28,8 +41,10 @@ public class BeanAutoConfig {
    */
   @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository) {
-    return new MyBatisUserService(userRepository);
+  public UserService userService(
+    UserRepository userRepository, PasswordEncoder passwordEncoder, SystemManagementProperties properties
+  ) {
+    return new MyBatisUserService(userRepository, passwordEncoder, properties);
   }
 
   /**

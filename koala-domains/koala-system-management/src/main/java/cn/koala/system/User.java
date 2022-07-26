@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author Houtaroy
@@ -26,6 +25,23 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
   @Override
   @Schema(description = "用户名")
   String getUsername();
+
+  /**
+   * 获取密码
+   *
+   * @return 密码
+   */
+  @Override
+  @JsonIgnore
+  @Schema(description = "密码")
+  String getPassword();
+
+  /**
+   * 设置密码
+   *
+   * @param password 密码
+   */
+  void setPassword(String password);
 
   /**
    * 获取名称
@@ -120,20 +136,12 @@ public interface User extends Idable<String>, Sortable, Stateable, UserDetails {
   @JsonIgnore
   @Override
   default Collection<? extends GrantedAuthority> getAuthorities() {
-    return getPermissions().stream().map(Codeable::getCode).map(SimpleGrantedAuthority::new)
-      .collect(Collectors.toList());
-  }
-
-  /**
-   * 获取权限列表
-   *
-   * @return 权限列表
-   */
-  @JsonIgnore
-  default List<Permission> getPermissions() {
-    List<Permission> result = new ArrayList<>();
-    Optional.ofNullable(getRoles())
-      .ifPresent(roles -> roles.forEach(role -> result.addAll(role.getPermissions())));
+    List<GrantedAuthority> result = new ArrayList<>();
+    Optional.ofNullable(getRoles()).ifPresent(roles -> roles.forEach(role ->
+      Optional.ofNullable(role.getPermissions()).ifPresent(permissions ->
+        result.addAll(permissions.stream().map(Codeable::getCode).map(SimpleGrantedAuthority::new).toList())
+      )
+    ));
     return result;
   }
 }

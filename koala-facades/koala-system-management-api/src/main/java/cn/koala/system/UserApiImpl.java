@@ -37,11 +37,20 @@ public class UserApiImpl implements UserApi {
 
   @Override
   public Response update(String id, UserEntity user) {
-    return null;
+    user.setId(id);
+    userService.update(user);
+    return Response.SUCCESS;
   }
 
   @Override
   public Response delete(String id) {
-    return null;
+    userService.delete(UserEntity.builder().id(id).build());
+    return Response.SUCCESS;
+  }
+
+  @Override
+  public Response resetPassword(String id) {
+    userService.resetPassword(UserEntity.builder().id(id).build());
+    return Response.SUCCESS;
   }
 }

@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +42,6 @@ public interface PermissionApi {
    * @param pageable   分页条件
    * @return 权限列表
    */
-  @PreAuthorize("hasAuthority('api:permissions:page')")
   @Operation(summary = "根据条件分页查询权限", tags = {"permission"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionPageResult.class))}
@@ -60,7 +58,6 @@ public interface PermissionApi {
    * @param id 权限id
    * @return 权限
    */
-  @PreAuthorize("hasAuthority('api:permissions:loadById')")
   @Operation(summary = "根据id查询权限", tags = {"permission"})
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionResult.class))}

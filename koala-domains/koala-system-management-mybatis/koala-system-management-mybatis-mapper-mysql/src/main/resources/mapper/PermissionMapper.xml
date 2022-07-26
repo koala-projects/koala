@@ -29,7 +29,7 @@
     t.description,
     parent.id as "paranet.id",
     parent.name as "parent.name",
-    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>
     from k_permission t
     left join k_permission parent on t.parent_id = parent.id
   </sql>
@@ -65,7 +65,7 @@
     api.id,
     api.code,
     api.name,
-    <include refid="cn.koala.system.mybatis.CommonRepository.baseEntityColumns"/>
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>
     from k_permission t
     left join k_permission parent on t.parent_id = parent.id
     left join k_permission_api pa on pa.permission_id = t.id

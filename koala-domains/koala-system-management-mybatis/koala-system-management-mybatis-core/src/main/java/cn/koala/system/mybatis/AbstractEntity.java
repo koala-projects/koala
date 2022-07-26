@@ -8,6 +8,7 @@ import cn.koala.system.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -29,4 +30,16 @@ public abstract class AbstractEntity implements Idable<String>, Sortable, Statea
   protected LocalDateTime lastModifyTime;
   protected UserEntity deleteUser;
   protected LocalDateTime deleteTime;
+
+  /**
+   * 如果未提供id则设置
+   *
+   * @param id id
+   */
+  public void setIdIfNotProvided(String id) {
+    if (StringUtils.hasText(id)) {
+      return;
+    }
+    this.id = id;
+  }
 }
