@@ -6,11 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Excel Web服务类
+ * Excel Web写入器
  *
  * @author Houtaroy
  */
-public interface WebExcelService extends ExcelService {
+public interface ExcelWebWriter extends ExcelWriter {
 
   /**
    * 向HttpServletResponse中写入Excel

@@ -2,29 +2,16 @@ package cn.koala.office;
 
 import com.alibaba.excel.EasyExcel;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * EasyExcel服务类
+ * EasyExcel写入器
  *
  * @author Houtaroy
  */
-@SuppressWarnings("PMD")
-public class EasyExcelService extends AbstractWebExcelService {
-
-  @Override
-  public <T> List<T> read(String filePathName, Class<T> tClass) {
-    return EasyExcel.read(filePathName, tClass, null).sheet().doReadSync();
-  }
-
-  @Override
-  public <T> List<T> read(InputStream inputStream, Class<T> tClass) {
-    return EasyExcel.read(inputStream, tClass, null).sheet().doReadSync();
-  }
-
+public class EasyExcelWriter extends AbstractExcelWebWriter {
   @Override
   public <T> void write(String filePathName, List<T> data, Class<T> tClass) {
     EasyExcel.write(filePathName, tClass).sheet().doWrite(data);

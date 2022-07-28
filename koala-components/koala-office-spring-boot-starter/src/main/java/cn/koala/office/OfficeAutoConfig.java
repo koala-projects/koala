@@ -28,13 +28,35 @@ public class OfficeAutoConfig {
   }
 
   /**
+   * Excel Web读取器的bean
+   *
+   * @return Excel Web读取器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public ExcelWebReader excelWebReader() {
+    return new EasyExcelReader();
+  }
+
+  /**
+   * Excel Web写入器的bean
+   *
+   * @return Excel Web写入器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public ExcelWebWriter excelWebWriter() {
+    return new EasyExcelWriter();
+  }
+
+  /**
    * office web服务类的bean
    *
    * @return office web服务类
    */
   @Bean
   @ConditionalOnMissingBean
-  public WebExcelService webExcelService() {
-    return new EasyExcelService();
+  public ExcelWebService excelWebService(ExcelWebReader reader, ExcelWebWriter writer) {
+    return new DefaultExcelWebService(reader, writer);
   }
 }

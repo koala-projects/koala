@@ -7,12 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Excel Web服务抽象实现类
+ * 抽象Excel写入器
  *
  * @author Houtaroy
  */
-public abstract class AbstractWebExcelService implements WebExcelService {
-
+public abstract class AbstractExcelWebWriter implements ExcelWebWriter {
   public static final String DOWNLOAD_EXTENSION = ".xlsx";
 
   @Override

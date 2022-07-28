@@ -28,25 +28,25 @@ public class ExcelServiceTest {
     Integer value;
   }
 
-  private final ExcelService excelService = new EasyExcelService();
+  private final ExcelService excelService = new DefaultExcelWebService(new EasyExcelReader(), new EasyExcelWriter());
   private final List<Item> data = data();
 
   @Test
   public void read() throws FileNotFoundException {
     File file = new File("src/test/resources/read.xlsx");
-    List<Item> data = excelService.read(file.getPath(), Item.class);
+    List<Item> data = excelService.getReader().read(file.getPath(), Item.class);
     Assertions.assertEquals(data.size(), 5);
-    data = excelService.read(new FileInputStream(file), Item.class);
+    data = excelService.getReader().read(new FileInputStream(file), Item.class);
     Assertions.assertEquals(data.size(), 5);
   }
 
   @Test
   public void write() throws FileNotFoundException {
     File file = new File("src/test/resources/temp.xlsx");
-    excelService.write(file.getPath(), data, Item.class);
+    excelService.getWriter().write(file.getPath(), data, Item.class);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
-    excelService.write(new FileOutputStream(file), data, Item.class);
+    excelService.getWriter().write(new FileOutputStream(file), data, Item.class);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
     List<List<String>> headers = new ArrayList<>();
@@ -56,7 +56,7 @@ public class ExcelServiceTest {
     for (int i = 1; i < 101; i++) {
       mapData.add(new LinkedHashMap<>(Map.of("name", "name-" + i, "value", i)));
     }
-    excelService.write(file.getPath(), headers, mapData);
+    excelService.getWriter().write(file.getPath(), headers, mapData);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
   }
@@ -65,10 +65,10 @@ public class ExcelServiceTest {
   @Test
   public void template() throws FileNotFoundException {
     File file = new File("src/test/resources/temp.xlsx");
-    excelService.template("src/test/resources/template.xlsx", file.getPath(), data, Item.class);
+    excelService.getWriter().template("src/test/resources/template.xlsx", file.getPath(), data, Item.class);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
-    excelService.template("src/test/resources/template.xlsx", new FileOutputStream(file), data, Item.class);
+    excelService.getWriter().template("src/test/resources/template.xlsx", new FileOutputStream(file), data, Item.class);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
   }

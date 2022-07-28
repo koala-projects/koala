@@ -1,10 +1,5 @@
 package cn.koala.office;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 /**
  * Excel服务类
  *
@@ -13,82 +8,16 @@ import java.util.List;
 public interface ExcelService {
 
   /**
-   * 读取Excel数据
+   * 获取Excel读取器
    *
-   * @param filePathName 文件全路径名
-   * @param tClass       数据类型
-   * @param <T>          数据类型
-   * @return 数据列表
+   * @return Excel读取器
    */
-  <T> List<T> read(String filePathName, Class<T> tClass);
+  ExcelReader getReader();
 
   /**
-   * 读取Excel数据
+   * 获取Excel读取器
    *
-   * @param inputStream 输入流
-   * @param tClass      数据类型
-   * @param <T>         数据类型
-   * @return 数据列表
+   * @return Excel读取器
    */
-  <T> List<T> read(InputStream inputStream, Class<T> tClass);
-
-  /**
-   * 写入Excel
-   *
-   * @param filePathName 文件全路径名
-   * @param data         数据列表
-   * @param tClass       数据类型
-   * @param <T>          数据类型
-   */
-  <T> void write(String filePathName, List<T> data, Class<T> tClass);
-
-  /**
-   * 写入Excel
-   *
-   * @param outputStream 输出流
-   * @param data         数据列表
-   * @param tClass       数据类型
-   * @param <T>          数据类型
-   */
-  <T> void write(OutputStream outputStream, List<T> data, Class<T> tClass);
-
-  /**
-   * 写入Excel
-   *
-   * @param filePathName 文件名
-   * @param headers      标头列表
-   * @param data         数据列表
-   */
-  void write(String filePathName, List<List<String>> headers, List<LinkedHashMap<String, Object>> data);
-
-  /**
-   * 写入Excel
-   *
-   * @param outputStream 输出流
-   * @param headers      标头列表
-   * @param data         数据列表
-   */
-  void write(OutputStream outputStream, List<List<String>> headers, List<LinkedHashMap<String, Object>> data);
-
-  /**
-   * 使用模板填充写入Excel
-   *
-   * @param templateFilePathName 模板全路径名
-   * @param filePathName         文件全路径名
-   * @param data                 数据列表
-   * @param tClass               数据类型
-   * @param <T>                  数据类型
-   */
-  <T> void template(String templateFilePathName, String filePathName, List<T> data, Class<T> tClass);
-
-  /**
-   * 使用模板填充写入Excel
-   *
-   * @param templateFilePathName 模板全路径名
-   * @param outputStream         输出流
-   * @param data                 数据列表
-   * @param tClass               数据类型
-   * @param <T>                  数据类型
-   */
-  <T> void template(String templateFilePathName, OutputStream outputStream, List<T> data, Class<T> tClass);
+  ExcelWriter getWriter();
 }
