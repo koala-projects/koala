@@ -5,7 +5,6 @@
 ## 引入依赖
 
 ```xml
-
 <dependencies>
   <dependency>
     <groupId>cn.koala</groupId>
@@ -24,18 +23,17 @@
 ### 读取
 
 ```java
-
 @Component
 @RequiredArgsConstructor
-public class ExcelServiceTest {
+public class excelWebServiceTest {
 
-  private final WebExcelService excelService;
+  private final WebexcelWebService excelWebService;
 
   public void read(MultipartFile uploadFile) throws IOException {
     // 读取文件
-    List<Item> fileData = excelService.read("/tmp/read.xlsx", Item.class);
+    List<Item> fileData = excelWebService.getReader().read("/tmp/read.xlsx", Item.class);
     // 读取上传文件
-    List<Item> uploadData = excelService.read(uploadFile.getInputStream(), Item.class);
+    List<Item> uploadData = excelWebService.getReader().read(uploadFile, Item.class);
   }
 }
 ```
@@ -46,17 +44,17 @@ public class ExcelServiceTest {
 
 @Component
 @RequiredArgsConstructor
-public class ExcelServiceTest {
+public class excelWebServiceTest {
 
-  private final WebExcelService excelService;
+  private final ExcelWebService excelWebService;
 
   public void write(HttpServletResponse response, List<Item> data) throws IOException {
     // 写入文件
-    excelService.write("/tmp/write.xlsx", data, Item.class);
+    excelWebService.getWriter().write("/tmp/write.xlsx", data, Item.class);
     // 写入响应
-    excelService.write(response.getOutputStream(), data, Item.class);
+    excelWebService.getWriter().write(response, "temp.xlsx", data, Item.class);
     // 使用模板写入
-    excelService.template("/tmp/template.xlsx", response.getOutputStream(), data, Item.class);
+    excelWebService.getWriter().template("/tmp/template.xlsx", response, "temp.xlsx", data, Item.class);
     // 不创建对象写入
     List<List<String>> headers = new ArrayList<>();
     headers.add(List.of("名称"));
@@ -65,7 +63,7 @@ public class ExcelServiceTest {
     for (int i = 1; i < 101; i++) {
       mapData.add(new LinkedHashMap<>(Map.of("name", "name-" + i, "value", i)));
     }
-    excelService.write(file.getPath(), headers, mapData);
+    excelWebService.getWriter().write("/tmp/template.xlsx", response, "temp.xlsx", headers, mapData);
   }
 }
 ```
