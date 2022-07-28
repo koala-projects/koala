@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -32,6 +33,18 @@ public class EasyExcelService extends AbstractWebExcelService {
   @Override
   public <T> void write(OutputStream outputStream, List<T> data, Class<T> tClass) {
     EasyExcel.write(outputStream, tClass).sheet().doWrite(data);
+  }
+
+  @Override
+  public void write(String filePathName, List<List<String>> headers, List<LinkedHashMap<String, Object>> data) {
+    EasyExcel.write(filePathName).head(headers).sheet()
+      .doWrite(data.stream().map(item -> item.values().stream().toList()).toList());
+  }
+
+  @Override
+  public void write(OutputStream outputStream, List<List<String>> headers, List<LinkedHashMap<String, Object>> data) {
+    EasyExcel.write(outputStream).head(headers).sheet()
+      .doWrite(data.stream().map(item -> item.values().stream().toList()).toList());
   }
 
   @Override

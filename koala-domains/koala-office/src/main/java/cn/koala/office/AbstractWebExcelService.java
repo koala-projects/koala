@@ -3,6 +3,7 @@ package cn.koala.office;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -18,6 +19,13 @@ public abstract class AbstractWebExcelService implements WebExcelService {
   public <T> void write(HttpServletResponse response, String filename, List<T> data, Class<T> tClass)
     throws IOException {
     write(prepareResponse(response, filename).getOutputStream(), data, tClass);
+  }
+
+  @Override
+  public void write(
+    HttpServletResponse response, String filename, List<List<String>> headers, List<LinkedHashMap<String, Object>> data
+  ) throws IOException {
+    write(prepareResponse(response, filename).getOutputStream(), headers, data);
   }
 
   @Override

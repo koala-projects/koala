@@ -12,11 +12,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExcelServiceTest {
-
-  private final ExcelService excelService = new EasyExcelService();
 
   @AllArgsConstructor
   @Data
@@ -28,32 +28,49 @@ public class ExcelServiceTest {
     Integer value;
   }
 
+  private final ExcelService excelService = new EasyExcelService();
+  private final List<Item> data = data();
+
   @Test
   public void read() throws FileNotFoundException {
-    List<Item> data = excelService.read("src/test/resources/read.xlsx", Item.class);
+    File file = new File("src/test/resources/read.xlsx");
+    List<Item> data = excelService.read(file.getPath(), Item.class);
     Assertions.assertEquals(data.size(), 5);
-    data = excelService.read(new FileInputStream("src/test/resources/read.xlsx"), Item.class);
+    data = excelService.read(new FileInputStream(file), Item.class);
     Assertions.assertEquals(data.size(), 5);
   }
 
   @Test
   public void write() throws FileNotFoundException {
-    List<Item> data = data();
-    excelService.write("src/test/resources/write.xlsx", data, Item.class);
-    File write = new File("src/test/resources/write.xlsx");
-    Assertions.assertTrue(write.exists());
-    excelService.write(new FileOutputStream("src/test/resources/write.xlsx"), data, Item.class);
-    Assertions.assertTrue(write.delete());
+    File file = new File("src/test/resources/temp.xlsx");
+    excelService.write(file.getPath(), data, Item.class);
+    Assertions.assertTrue(file.exists());
+    Assertions.assertTrue(file.delete());
+    excelService.write(new FileOutputStream(file), data, Item.class);
+    Assertions.assertTrue(file.exists());
+    Assertions.assertTrue(file.delete());
+    List<List<String>> headers = new ArrayList<>();
+    headers.add(List.of("名称"));
+    headers.add(List.of("内容"));
+    List<LinkedHashMap<String, Object>> mapData = new ArrayList<>(100);
+    for (int i = 1; i < 101; i++) {
+      mapData.add(new LinkedHashMap<>(Map.of("name", "name-" + i, "value", i)));
+    }
+    excelService.write(file.getPath(), headers, mapData);
+    Assertions.assertTrue(file.exists());
+    Assertions.assertTrue(file.delete());
   }
+
 
   @Test
   public void template() throws FileNotFoundException {
-    List<Item> data = data();
-    excelService.template("src/test/resources/template.xlsx", "src/test/resources/write.xlsx", data, Item.class);
-    File write = new File("src/test/resources/write.xlsx");
-    Assertions.assertTrue(write.exists());
-    excelService.template("src/test/resources/template.xlsx", new FileOutputStream("src/test/resources/write.xlsx"), data, Item.class);
-    Assertions.assertTrue(write.delete());
+    File file = new File("src/test/resources/temp.xlsx");
+    excelService.template("src/test/resources/template.xlsx", file.getPath(), data, Item.class);
+    Assertions.assertTrue(file.exists());
+    Assertions.assertTrue(file.delete());
+    excelService.template("src/test/resources/template.xlsx", new FileOutputStream(file), data, Item.class);
+    Assertions.assertTrue(file.exists());
+    Assertions.assertTrue(file.delete());
   }
 
   protected List<Item> data() {
