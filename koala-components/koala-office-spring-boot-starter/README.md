@@ -57,6 +57,15 @@ public class ExcelServiceTest {
     excelService.write(response.getOutputStream(), data, Item.class);
     // 使用模板写入
     excelService.template("/tmp/template.xlsx", response.getOutputStream(), data, Item.class);
+    // 不创建对象写入
+    List<List<String>> headers = new ArrayList<>();
+    headers.add(List.of("名称"));
+    headers.add(List.of("内容"));
+    List<LinkedHashMap<String, Object>> mapData = new ArrayList<>(100);
+    for (int i = 1; i < 101; i++) {
+      mapData.add(new LinkedHashMap<>(Map.of("name", "name-" + i, "value", i)));
+    }
+    excelService.write(file.getPath(), headers, mapData);
   }
 }
 ```
@@ -65,7 +74,8 @@ public class ExcelServiceTest {
 
 ## 文档转换
 
-当前文档转换使用[JODConverte](https://github.com/sbraconnier/jodconverter)实现, 需要在服务器安装[LibreOffice](https://zh-cn.libreoffice.org/)或[Apache OpenOffice](https://www.openoffice.org/zh-cn/)
+当前文档转换使用[JODConverte](https://github.com/sbraconnier/jodconverter)实现,
+需要在服务器安装[LibreOffice](https://zh-cn.libreoffice.org/)或[Apache OpenOffice](https://www.openoffice.org/zh-cn/)
 
 ### 配置
 
