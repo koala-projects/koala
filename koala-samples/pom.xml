@@ -18,5 +18,6 @@
     <module>koala-sample-eucalyptus</module>
     <module>koala-sample-mqtt</module>
     <module>koala-sample-system-management</module>
+    <module>koala-sample-web</module>
   </modules>
 </project>

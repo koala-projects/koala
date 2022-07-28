@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>koala-sample-web</artifactId>
+  <description>Web示例项目</description>
+  <parent>
+    <groupId>cn.koala</groupId>
+    <artifactId>koala-parent</artifactId>
+    <version>${revision}</version>
+    <relativePath>../../koala-parent</relativePath>
+  </parent>
+  <dependencies>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-office-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-web-spring-boot-starter</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>application-*.yml</exclude>
+          <exclude>**/*.ser</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>application-${spring.profiles.active}.yml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>development</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <spring.profiles.active>development</spring.profiles.active>
+      </properties>
+    </profile>
+    <profile>
+      <id>production</id>
+      <properties>
+        <spring.profiles.active>production</spring.profiles.active>
+      </properties>
+    </profile>
+  </profiles>
+</project>
