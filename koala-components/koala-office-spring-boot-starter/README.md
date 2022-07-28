@@ -5,6 +5,7 @@
 ## 引入依赖
 
 ```xml
+
 <dependencies>
   <dependency>
     <groupId>cn.koala</groupId>
@@ -13,6 +14,54 @@
   </dependency>
 </dependencies>
 ```
+
+## Excel
+
+定义了部分Excel操作
+
+当前默认实现基于[EasyExcel](https://github.com/alibaba/easyexcel)
+
+### 读取
+
+```java
+
+@Component
+@RequiredArgsConstructor
+public class ExcelServiceTest {
+
+  private final WebExcelService excelService;
+
+  public void read(MultipartFile uploadFile) throws IOException {
+    // 读取文件
+    List<Item> fileData = excelService.read("/tmp/read.xlsx", Item.class);
+    // 读取上传文件
+    List<Item> uploadData = excelService.read(uploadFile.getInputStream(), Item.class);
+  }
+}
+```
+
+### 写入
+
+```java
+
+@Component
+@RequiredArgsConstructor
+public class ExcelServiceTest {
+
+  private final WebExcelService excelService;
+
+  public void write(HttpServletResponse response, List<Item> data) throws IOException {
+    // 写入文件
+    excelService.write("/tmp/write.xlsx", data, Item.class);
+    // 写入响应
+    excelService.write(response.getOutputStream(), data, Item.class);
+    // 使用模板写入
+    excelService.template("/tmp/template.xlsx", response.getOutputStream(), data, Item.class);
+  }
+}
+```
+
+模板书写方式请参照[EasyExcel文档](https://easyexcel.opensource.alibaba.com/docs/current/quickstart/fill)
 
 ## 文档转换
 
@@ -36,6 +85,7 @@ jodconverter:
 ### 转换
 
 ```java
+
 @Component
 @RequiredArgsConstructor
 public class Service {
