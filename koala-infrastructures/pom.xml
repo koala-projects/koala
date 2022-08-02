@@ -20,7 +20,7 @@
     <module>koala-dependencies</module>
     <module>koala-enum</module>
     <module>koala-mybatis</module>
-    <module>koala-security</module>
+    <module>koala-oauth2</module>
     <module>koala-swagger</module>
     <module>koala-utils</module>
     <module>koala-web</module>

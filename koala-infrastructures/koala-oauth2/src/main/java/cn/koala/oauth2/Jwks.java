@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.oauth2;
 
 import cn.koala.utils.SecurityUtil;
 import com.nimbusds.jose.jwk.RSAKey;

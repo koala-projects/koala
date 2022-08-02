@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.oauth2;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.oauth2;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +24,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableConfigurationProperties({ProviderProperties.class, JwtTokenProperties.class})
 @EnableWebSecurity
 @Import({BeanAutoConfig.class, SwaggerAutoConfig.class})
-public class SecurityAutoConfig {
+@SuppressWarnings("PMD")
+public class OAuth2AutoConfig {
 
   /**
    * 认证服务安全过滤链的Bean

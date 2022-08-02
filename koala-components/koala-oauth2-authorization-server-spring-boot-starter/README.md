@@ -1,4 +1,4 @@
-# koala-security-spring-boot-starter
+# 考拉授权服务
 
 基于Spring Security 5, 提供OAuth2密码模式授权
 
@@ -9,7 +9,7 @@
 <dependencies>
   <dependency>
     <groupId>cn.koala</groupId>
-    <artifactId>koala-security-spring-boot-starter</artifactId>
+    <artifactId>koala-oauth2-authorization-server-spring-boot-starter</artifactId>
     <version>2022.0.0-SNAPSHOT</version>
   </dependency>
 </dependencies>

@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.oauth2;
 
 import lombok.Getter;
 import org.springframework.lang.Nullable;

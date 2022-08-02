@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.koala.security.SecurityAutoConfig
+  cn.koala.oauth2.OAuth2AutoConfig

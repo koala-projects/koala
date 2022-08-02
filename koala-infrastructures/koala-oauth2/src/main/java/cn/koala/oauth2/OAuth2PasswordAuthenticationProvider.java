@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.oauth2;
 
 import com.google.common.collect.Maps;
 import org.springframework.security.authentication.AuthenticationManager;

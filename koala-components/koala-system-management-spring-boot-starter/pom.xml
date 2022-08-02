@@ -19,11 +19,11 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-oauth2-resource-server-spring-boot-starter</artifactId>
+      <artifactId>koala-oauth2-authorization-server-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-security-spring-boot-starter</artifactId>
+      <artifactId>koala-oauth2-resource-server-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>

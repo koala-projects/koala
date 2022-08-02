@@ -16,6 +16,14 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-commons</artifactId>
     </dependency>
@@ -25,7 +33,7 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-security</artifactId>
+      <artifactId>koala-oauth2</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
