@@ -1,8 +1,10 @@
-# koala
+# Koala 考拉
 
-Use Spring Boot Like A Koala
+[English Documentation](https://github.com/Houtaroy/koala/tree/main/docs/en)
 
 ## 项目目标
+
+懒得像考拉一样
 
 ### 核心功能
 
