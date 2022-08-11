@@ -56,8 +56,21 @@
       </if>
     </where>
   </select>
-  <select id="findById" resultType="cn.koala.system.mybatis.UserEntity">
-    <include refid="selectUser"/>
+  <select id="findById" resultMap="userDetailsResultMap">
+    select t.id,
+    t.username,
+    t.password,
+    t.name,
+    t.avatar,
+    t.email,
+    t.phone,
+    <include refid="cn.koala.system.mybatis.CommonRepository.abstractEntityColumns"/>,
+    r.id as "role.id",
+    r.code as "role.code",
+    r.name as "role.name"
+    from k_user t
+    left join k_user_role ur on ur.user_id = t.id
+    left join k_role r on r.id = ur.role_id
     where t.is_delete = 0 and t.id = #{id,jdbcType=VARCHAR}
   </select>
   <insert id="add" parameterType="cn.koala.system.mybatis.UserEntity">

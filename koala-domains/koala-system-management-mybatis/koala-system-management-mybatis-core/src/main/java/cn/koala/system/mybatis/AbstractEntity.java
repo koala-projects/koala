@@ -5,6 +5,7 @@ import cn.koala.system.Idable;
 import cn.koala.system.Sortable;
 import cn.koala.system.Stateable;
 import cn.koala.system.YesNo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -36,6 +37,7 @@ public abstract class AbstractEntity implements Idable<String>, Sortable, Statea
    *
    * @param id id
    */
+  @JsonIgnore
   public void setIdIfNotProvided(String id) {
     if (StringUtils.hasText(id)) {
       return;

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * @author Houtaroy
  */
 public final class PropertyHelper {
+
   private PropertyHelper() {
     throw new IllegalStateException("工具类不允许实例化");
   }
@@ -25,7 +26,9 @@ public final class PropertyHelper {
   public static Set<PropertyDescriptor> getNullProperty(Object source) {
     BeanWrapper wrapper = new BeanWrapperImpl(source);
     return Arrays.stream(wrapper.getPropertyDescriptors())
-      .filter(propertyDescriptor -> wrapper.getPropertyValue(propertyDescriptor.getName()) == null)
+      .filter(propertyDescriptor ->
+        propertyDescriptor.getReadMethod() != null && wrapper.getPropertyValue(propertyDescriptor.getName()) == null
+      )
       .collect(Collectors.toSet());
   }
 }
