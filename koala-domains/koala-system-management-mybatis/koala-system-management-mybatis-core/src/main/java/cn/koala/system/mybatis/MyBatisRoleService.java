@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @SuppressWarnings("PMD")
-public class MyBatisRoleService extends AbstractCrudService<String, Role> implements RoleService {
+public class MyBatisRoleService extends AbstractSystemCrudService<String, Role> implements RoleService {
 
   protected final RoleRepository repository;
 }

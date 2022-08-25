@@ -13,7 +13,8 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @SuppressWarnings("PMD")
-public class MyBatisPermissionService extends AbstractCrudService<String, Permission> implements PermissionService {
+public class MyBatisPermissionService extends AbstractSystemCrudService<String, Permission>
+  implements PermissionService {
 
   protected final PermissionRepository repository;
 }

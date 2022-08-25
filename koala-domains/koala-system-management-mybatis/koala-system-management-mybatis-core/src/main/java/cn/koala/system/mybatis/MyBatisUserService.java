@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @SuppressWarnings("PMD")
-public class MyBatisUserService extends AbstractCrudService<String, User> implements UserService {
+public class MyBatisUserService extends AbstractSystemCrudService<String, User> implements UserService {
 
   protected final UserRepository repository;
   protected final PasswordEncoder passwordEncoder;

@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @SuppressWarnings("PMD")
-public class MyBatisApiService extends AbstractCrudService<String, Api> implements ApiService {
+public class MyBatisApiService extends AbstractSystemCrudService<String, Api> implements ApiService {
 
   protected final ApiRepository repository;
 }
