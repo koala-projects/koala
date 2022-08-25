@@ -1,4 +1,4 @@
-package cn.koala.system;
+package cn.koala.persistence;
 
 /**
  * @author Houtaroy

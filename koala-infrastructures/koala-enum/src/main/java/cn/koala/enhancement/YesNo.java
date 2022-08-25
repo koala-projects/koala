@@ -1,6 +1,4 @@
-package cn.koala.system;
-
-import cn.koala.enhancement.ValueNameEnum;
+package cn.koala.enhancement;
 
 /**
  * @author Houtaroy

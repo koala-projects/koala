@@ -1,6 +1,7 @@
 package cn.koala.system;
 
 
+import cn.koala.persistence.CrudService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**

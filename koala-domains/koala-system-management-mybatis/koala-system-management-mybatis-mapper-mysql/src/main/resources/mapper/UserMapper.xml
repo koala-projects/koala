@@ -120,7 +120,7 @@
   </update>
   <update id="delete" parameterType="cn.koala.system.mybatis.UserEntity">
     update k_user
-    set is_delete        = ${@cn.koala.system.YesNo@YES.value},
+    set is_delete        = ${@cn.koala.enhancement.YesNo@YES.value},
         delete_user_id   = #{deleteUser.id},
         delete_user_name = #{deleteUser.name},
         delete_time      = #{deleteTime}

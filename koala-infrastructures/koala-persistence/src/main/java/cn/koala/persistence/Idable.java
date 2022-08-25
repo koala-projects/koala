@@ -1,6 +1,4 @@
-package cn.koala.system;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+package cn.koala.persistence;
 
 /**
  * @param <T> 主键类型
@@ -13,7 +11,6 @@ public interface Idable<T> {
    *
    * @return 主键
    */
-  @Schema(description = "ID")
   T getId();
 
   /**

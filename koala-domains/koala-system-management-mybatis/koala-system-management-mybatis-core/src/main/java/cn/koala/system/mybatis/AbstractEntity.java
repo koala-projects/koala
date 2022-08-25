@@ -1,10 +1,10 @@
 package cn.koala.system.mybatis;
 
+import cn.koala.enhancement.YesNo;
+import cn.koala.persistence.Sortable;
 import cn.koala.system.Auditable;
-import cn.koala.system.Idable;
-import cn.koala.system.Sortable;
+import cn.koala.persistence.Idable;
 import cn.koala.system.Stateable;
-import cn.koala.system.YesNo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;

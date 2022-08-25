@@ -1,4 +1,4 @@
-package cn.koala.system;
+package cn.koala.persistence;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

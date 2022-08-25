@@ -1,5 +1,6 @@
 package cn.koala.mybatis;
 
+import cn.koala.persistence.CrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

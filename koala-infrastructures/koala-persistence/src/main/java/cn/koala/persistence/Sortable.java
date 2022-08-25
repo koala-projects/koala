@@ -1,6 +1,4 @@
-package cn.koala.system;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+package cn.koala.persistence;
 
 /**
  * @author Houtaroy
@@ -12,6 +10,5 @@ public interface Sortable {
    *
    * @return 排序索引
    */
-  @Schema(description = "排序索引")
   Integer getSortIndex();
 }

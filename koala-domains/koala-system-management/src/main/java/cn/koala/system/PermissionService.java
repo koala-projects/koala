@@ -1,6 +1,8 @@
 package cn.koala.system;
 
 
+import cn.koala.persistence.CrudService;
+
 /**
  * @author Houtaroy
  */

@@ -1,5 +1,9 @@
 package cn.koala.system;
 
+import cn.koala.enhancement.YesNo;
+import cn.koala.persistence.Codeable;
+import cn.koala.persistence.Idable;
+import cn.koala.persistence.Sortable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.security.core.GrantedAuthority;

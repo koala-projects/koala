@@ -1,8 +1,8 @@
 package cn.koala.system.mybatis;
 
 import cn.koala.mybatis.PageRepository;
-import cn.koala.system.CrudService;
-import cn.koala.system.Idable;
+import cn.koala.persistence.CrudService;
+import cn.koala.persistence.Idable;
 import cn.koala.web.NoSuchDataException;
 import cn.koala.web.PropertyHelper;
 import com.github.pagehelper.PageHelper;

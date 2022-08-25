@@ -1,5 +1,6 @@
 package cn.koala.system;
 
+import cn.koala.enhancement.YesNo;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
