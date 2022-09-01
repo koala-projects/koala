@@ -3,26 +3,19 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-domains</artifactId>
+  <artifactId>koala-data-model</artifactId>
   <packaging>pom</packaging>
   <version>${revision}</version>
-  <description>Koala 领域模型</description>
+  <description>Koala 数据模型领域模型</description>
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala</artifactId>
     <version>${revision}</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <modules>
-    <module>koala-data-model</module>
-    <module>koala-dingtalk</module>
-    <module>koala-druid</module>
-    <module>koala-eucalyptus</module>
-    <module>koala-mqtt</module>
-    <module>koala-office</module>
-    <module>koala-sensitive-word</module>
-    <module>koala-system-management</module>
-    <module>koala-system-management-mybatis</module>
+    <module>koala-data-model-core</module>
+    <module>koala-data-model-mybatis</module>
   </modules>
 </project>
