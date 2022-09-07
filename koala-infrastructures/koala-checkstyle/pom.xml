@@ -12,4 +12,11 @@
     <version>${revision}</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.alibaba.p3c</groupId>
+      <artifactId>p3c-pmd</artifactId>
+    </dependency>
+  </dependencies>
 </project>
