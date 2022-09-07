@@ -21,7 +21,19 @@ public class PersistentDataElement implements Idable<String>, DataElement {
   protected String content;
   protected PersistentProperty property;
   protected PersistentData data;
-  protected PersistentMetaData metaData;
+
+  /**
+   * 根据持久化属性生成持久化数据元
+   *
+   * @param property 持久化属性
+   * @return 持久化数据元
+   */
+  public static PersistentDataElement fromProperty(PersistentProperty property) {
+    return PersistentDataElement.builder()
+      .code(property.getCode())
+      .property(property)
+      .build();
+  }
 
   public void setContent(String content) {
     this.content = content;

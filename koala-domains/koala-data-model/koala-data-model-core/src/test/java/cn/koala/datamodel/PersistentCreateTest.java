@@ -20,7 +20,7 @@ public class PersistentCreateTest {
     metaData.setProperties(properties);
     Assertions.assertEquals(properties.get(0).getMetaData(), metaData);
     Map<String, Object> contents = Map.of("name", "测试数据", "age", 18);
-    PersistentData data = new PersistentData(metaData, contents);
+    PersistentData data = PersistentData.fromMetaDataAndContents(metaData, contents);
     Assertions.assertNotNull(data.getId());
     Assertions.assertEquals(data.getElements().get(0).getProperty(), properties.get(0));
     Assertions.assertEquals(data.getElements().get(1).getContent(), "18");

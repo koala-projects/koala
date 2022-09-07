@@ -1,5 +1,8 @@
 package cn.koala.datamodel;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -7,6 +10,15 @@ import java.util.Optional;
  * @author Houtaroy
  */
 public interface DataService {
+  /**
+   * 查询数据
+   *
+   * @param parameters 查询参数
+   * @param pageable   分页参数
+   * @return 数据分页列表
+   */
+  Page<Map<String, Object>> list(Map<String, Object> parameters, Pageable pageable);
+
   /**
    * 查看数据, 以Map对象返回
    *

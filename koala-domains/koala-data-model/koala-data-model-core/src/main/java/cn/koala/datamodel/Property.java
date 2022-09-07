@@ -19,13 +19,6 @@ public interface Property extends Codeable {
   PropertyType getType();
 
   /**
-   * 获取元数据
-   *
-   * @return 元数据
-   */
-  MetaData getMetaData();
-
-  /**
    * 解析数据
    *
    * @param content 数据内容

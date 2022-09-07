@@ -2,7 +2,6 @@ package cn.koala.datamodel;
 
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,43 +23,24 @@ public class PersistentData implements Data {
   protected PersistentMetaData metaData;
 
   /**
-   * 根据元数据和全部数据内容创建数据对象
+   * 根据持久化元数据和内容生成持久化数据对象
    *
-   * @param metaData 元数据
+   * @param metaData 持久化元数据
    * @param contents 全部数据内容
+   * @return 持久化数据对象
    */
-  public PersistentData(PersistentMetaData metaData, Map<String, Object> contents) {
-    Validate.notNull(metaData, "元数据不能为空");
-    this.metaData = metaData;
-    initId(contents);
-    initElements(contents);
-  }
-
-  /**
-   * 根据全部数据内容初始化id, 读取默认ID键值, 如数据不存在则自动生成为UUID
-   *
-   * @param contents 全部数据内容
-   */
-  protected void initId(Map<String, Object> contents) {
-    id = contents.getOrDefault(DEFAULT_ID_KEY, UUID.randomUUID()).toString();
-  }
-
-  /**
-   * 根据全部数据内容初始化数据元列表
-   *
-   * @param contents 全部数据内容
-   */
-  protected void initElements(Map<String, Object> contents) {
-    elements = new ArrayList<>(contents.size());
+  public static PersistentData fromMetaDataAndContents(PersistentMetaData metaData, Map<String, Object> contents) {
+    PersistentData result = new PersistentData();
+    result.setId(contents.getOrDefault(DEFAULT_ID_KEY, UUID.randomUUID()).toString());
+    result.setMetaData(metaData);
+    List<PersistentDataElement> elements = new ArrayList<>(metaData.getProperties().size());
     metaData.getProperties().forEach(property -> {
-      PersistentDataElement element = PersistentDataElement.builder()
-        .code(property.getCode())
-        .property(property)
-        .data(this)
-        .metaData(metaData)
-        .build();
-      element.setContent(contents);
+      PersistentDataElement element = PersistentDataElement.fromProperty(property);
+      element.setData(result);
+      element.fromContents(contents);
       elements.add(element);
     });
+    result.setElements(elements);
+    return result;
   }
 }

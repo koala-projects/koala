@@ -28,22 +28,6 @@ public interface DataElement {
   void setContent(Object content);
 
   /**
-   * 从所有数据中设置数据内容
-   *
-   * @param contents 所有数据
-   */
-  default void setContent(Map<String, Object> contents) {
-    setContent(contents.get(getCode()));
-  }
-
-  /**
-   * 获取所属数据
-   *
-   * @return 所属数据
-   */
-  Data getData();
-
-  /**
    * 获取属性
    *
    * @return 属性
@@ -51,11 +35,20 @@ public interface DataElement {
   Property getProperty();
 
   /**
-   * 解析数据
+   * 从所有数据中设置数据内容
    *
-   * @return 解析后的数据内容
+   * @param contents 所有数据
    */
-  default Object parse() {
+  default void fromContents(Map<String, Object> contents) {
+    setContent(contents.get(getCode()));
+  }
+
+  /**
+   * 转换为纯数据
+   *
+   * @return 纯数据
+   */
+  default Object toData() {
     return getProperty().parse(getContent());
   }
 }

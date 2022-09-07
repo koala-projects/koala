@@ -8,12 +8,6 @@ import java.util.Map;
  * @author Houtaroy
  */
 public interface Data {
-  /**
-   * 获取元数据
-   *
-   * @return 元数据
-   */
-  MetaData getMetaData();
 
   /**
    * 获取数据元列表
@@ -23,9 +17,21 @@ public interface Data {
    */
   <T extends DataElement> List<T> getElements();
 
+  /**
+   * 获取元数据
+   *
+   * @return 元数据
+   */
+  MetaData getMetaData();
+
+  /**
+   * 转换为Map
+   *
+   * @return Map类型的数据
+   */
   default Map<String, Object> toMap() {
     Map<String, Object> result = new HashMap<>(getElements().size());
-    getElements().forEach(element -> result.put(element.getCode(), element.parse()));
+    getElements().forEach(element -> result.put(element.getCode(), element.toData()));
     return result;
   }
 }
