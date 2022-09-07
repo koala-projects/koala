@@ -23,7 +23,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MyBatisDataService implements DataService {
   protected final DataRepository repository;
-  protected final MetadataRepository metaDataRepository;
 
   @Override
   public Page<Map<String, Object>> list(Map<String, Object> parameters, Pageable pageable) {

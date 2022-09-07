@@ -52,8 +52,8 @@
 
   <sql id="addProperties">
     <foreach item="property" index="index" collection="properties">
-      insert into t_property values (uuid(), #{property.code}, #{property.name}, #{property.description},
-      #{property.type}, #{id});
+      insert into t_property values (ifnull(#{property.id},uuid()), #{property.code}, #{property.name},
+      #{property.description},#{property.type}, #{id});
     </foreach>
   </sql>
 

@@ -5,7 +5,7 @@
 <mapper namespace="cn.koala.datamodel.mybatis.DataRepository">
   <resultMap id="data" type="cn.koala.datamodel.PersistentData">
     <id property="id" column="id"/>
-    <result property="metadata.id" column="metaData.id"/>
+    <result property="metadata.id" column="metadata.id"/>
     <collection property="elements" ofType="cn.koala.datamodel.PersistentDataElement" select="listElementByDataId"
                 column="{dataId=id}">
       <id property="id" column="id"/>
@@ -31,15 +31,15 @@
   </select>
 
   <sql id="selectData">
-    select t.id, t.metadata_id as "metaData.id"
+    select t.id, t.metadata_id as "metadata.id"
     from t_data t
   </sql>
 
-  <select id="findAll" resultType="cn.koala.datamodel.PersistentMetadata">
+  <select id="findAll" resultMap="data">
     <include refid="selectData"/>
     <where>
-      <if test="parameters.metaDataId != null and parameters.metaDataId != ''">
-        t.metadata_id = #{parameters.metaDataId}
+      <if test="parameters.metadataId != null and parameters.metadataId != ''">
+        t.metadata_id = #{parameters.metadataId}
       </if>
     </where>
   </select>
@@ -51,7 +51,7 @@
 
   <insert id="add" parameterType="cn.koala.datamodel.PersistentData">
     insert into t_data
-    values (#{id}, #{metaData.id});
+    values (#{id}, #{metadata.id});
     <foreach item="element" index="index" collection="elements">
       insert into t_data_element values (uuid(), #{element.code}, #{element.content}, #{id},#{element.property.id});
     </foreach>
