@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class PersistentMetaData implements MetaData, Idable<String> {
+public class PersistentMetadata implements Metadata, Idable<String> {
   protected String id;
   protected String code;
   protected String name;
@@ -28,7 +28,7 @@ public class PersistentMetaData implements MetaData, Idable<String> {
    * @param properties 属性列表
    */
   public void setProperties(List<PersistentProperty> properties) {
-    properties.forEach(property -> property.setMetaData(this));
+    properties.forEach(property -> property.setMetadata(this));
     this.properties = properties;
   }
 }

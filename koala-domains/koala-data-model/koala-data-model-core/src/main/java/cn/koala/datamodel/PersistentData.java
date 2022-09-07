@@ -20,7 +20,7 @@ public class PersistentData implements Data {
   public static final String DEFAULT_ID_KEY = "_koala_data_id";
   protected String id;
   protected List<PersistentDataElement> elements;
-  protected PersistentMetaData metaData;
+  protected PersistentMetadata metadata;
 
   /**
    * 根据持久化元数据和内容生成持久化数据对象
@@ -29,10 +29,10 @@ public class PersistentData implements Data {
    * @param contents 全部数据内容
    * @return 持久化数据对象
    */
-  public static PersistentData fromMetaDataAndContents(PersistentMetaData metaData, Map<String, Object> contents) {
+  public static PersistentData fromMetaDataAndContents(PersistentMetadata metaData, Map<String, Object> contents) {
     PersistentData result = new PersistentData();
     result.setId(contents.getOrDefault(DEFAULT_ID_KEY, UUID.randomUUID()).toString());
-    result.setMetaData(metaData);
+    result.setMetadata(metaData);
     List<PersistentDataElement> elements = new ArrayList<>(metaData.getProperties().size());
     metaData.getProperties().forEach(property -> {
       PersistentDataElement element = PersistentDataElement.fromProperty(property);

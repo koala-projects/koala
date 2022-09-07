@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-public interface MetaData extends Codeable {
+public interface Metadata extends Codeable {
   /**
    * 获取属性列表
    *

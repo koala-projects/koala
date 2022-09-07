@@ -22,7 +22,7 @@ public interface Data {
    *
    * @return 元数据
    */
-  MetaData getMetaData();
+  Metadata getMetadata();
 
   /**
    * 转换为Map

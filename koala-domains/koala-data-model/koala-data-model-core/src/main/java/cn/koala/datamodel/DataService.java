@@ -33,7 +33,7 @@ public interface DataService {
    * @param metaData 元数据
    * @param contents 所有数据内容
    */
-  void add(MetaData metaData, Map<String, Object> contents);
+  void add(Metadata metaData, Map<String, Object> contents);
 
   /**
    * 更新数据

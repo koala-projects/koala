@@ -19,5 +19,5 @@ public class PersistentProperty implements Property, Idable<String> {
   protected String name;
   protected String description;
   protected PropertyType type;
-  protected PersistentMetaData metaData;
+  protected PersistentMetadata metadata;
 }
