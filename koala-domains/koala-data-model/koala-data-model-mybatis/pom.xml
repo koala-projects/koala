@@ -17,19 +17,11 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-data-model-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-system-management</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper-spring-boot-starter</artifactId>
     </dependency>
   </dependencies>
 </project>

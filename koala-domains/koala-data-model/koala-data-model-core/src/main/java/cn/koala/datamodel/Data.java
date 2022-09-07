@@ -1,6 +1,8 @@
 package cn.koala.datamodel;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Houtaroy
@@ -20,4 +22,10 @@ public interface Data {
    * @return 数据元列表
    */
   <T extends DataElement> List<T> getElements();
+
+  default Map<String, Object> toMap() {
+    Map<String, Object> result = new HashMap<>(getElements().size());
+    getElements().forEach(element -> result.put(element.getCode(), element.parse()));
+    return result;
+  }
 }

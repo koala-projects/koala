@@ -49,4 +49,13 @@ public interface DataElement {
    * @return 属性
    */
   Property getProperty();
+
+  /**
+   * 解析数据
+   *
+   * @return 解析后的数据内容
+   */
+  default Object parse() {
+    return getProperty().parse(getContent());
+  }
 }
