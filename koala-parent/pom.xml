@@ -111,9 +111,9 @@
         </executions>
         <dependencies>
           <dependency>
-            <groupId>com.alibaba.p3c</groupId>
-            <artifactId>p3c-pmd</artifactId>
-            <version>${p3c-pmd.version}</version>
+            <groupId>cn.koala</groupId>
+            <artifactId>koala-checkstyle</artifactId>
+            <version>${revision}</version>
           </dependency>
         </dependencies>
       </plugin>

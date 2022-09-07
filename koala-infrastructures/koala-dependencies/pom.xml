@@ -32,10 +32,10 @@
     <mybatis.version>3.5.7</mybatis.version>
     <mybatis-springboot.version>2.2.2</mybatis-springboot.version>
     <mysql-connector.version>8.0.27</mysql-connector.version>
+    <p3c-pmd.version>2.1.1</p3c-pmd.version>
     <pagehelper.version>5.3.1</pagehelper.version>
     <pagehelper-spring-boot-starter.version>1.4.3</pagehelper-spring-boot-starter.version>
     <pdfbox.version>2.0.26</pdfbox.version>
-    <p3c-pmd.version>2.1.1</p3c-pmd.version>
     <slf4j.version>1.7.36</slf4j.version>
     <spring-boot.version>2.6.10</spring-boot.version>
     <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
@@ -152,6 +152,11 @@
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql-connector.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.p3c</groupId>
+        <artifactId>p3c-pmd</artifactId>
+        <version>${p3c-pmd.version}</version>
       </dependency>
       <dependency>
         <groupId>com.github.pagehelper</groupId>
