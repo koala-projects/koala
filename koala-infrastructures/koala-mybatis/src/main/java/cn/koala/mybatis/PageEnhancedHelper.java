@@ -22,8 +22,10 @@ public abstract class PageEnhancedHelper {
    * @return 分页查询结果
    */
   public static <T> Page<T> page(ISelect select, Pageable pageable) {
-    int pageNum = pageable.getPageNumber() == 0 ? 1 : pageable.getPageNumber();
-    com.github.pagehelper.Page<T> result = PageHelper.startPage(pageNum, pageable.getPageSize()).doSelectPage(select);
+    com.github.pagehelper.Page<T> result = PageHelper.startPage(
+      Math.max(pageable.getPageNumber() + 1, 1),
+      pageable.getPageSize()).doSelectPage(select
+    );
     return new PageImpl<>(result, pageable, result.getTotal());
   }
 }
