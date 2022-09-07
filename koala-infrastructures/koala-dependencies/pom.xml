@@ -216,6 +216,11 @@
       <!--组件-->
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-data-model-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-dingtalk-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -272,6 +277,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-data-model-mybatis</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-dingtalk</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -311,6 +321,11 @@
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-data-model-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-eucalyptus-api</artifactId>
