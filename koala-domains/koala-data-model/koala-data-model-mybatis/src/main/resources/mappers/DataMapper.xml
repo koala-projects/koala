@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.datamodel.mybatis.DataRepository">
+  <resultMap id="data" type="cn.koala.datamodel.PersistentData">
+    <id property="id" column="id"/>
+    <result property="metadata.id" column="metaData.id"/>
+    <collection property="elements" ofType="cn.koala.datamodel.PersistentDataElement" select="listElementByDataId"
+                column="{dataId=id}">
+      <id property="id" column="id"/>
+      <result property="code" column="code"/>
+      <result property="content" column="content"/>
+      <result property="property.id" column="property.id"/>
+      <result property="property.code" column="property.code"/>
+      <result property="property.type" column="property.type"/>
+    </collection>
+  </resultMap>
+
+  <select id="listElementByDataId" resultType="cn.koala.datamodel.PersistentDataElement">
+    select t.id,
+           t.code,
+           t.content,
+           t.data_id as "data.id",
+           p.id      as "property.id",
+           p.code    as "property.code",
+           p.type    as "property.type"
+    from t_data_element t
+           left join t_property p on t.property_id = p.id
+    where t.data_id = #{dataId}
+  </select>
+
+  <sql id="selectData">
+    select t.id, t.metadata_id as "metaData.id"
+    from t_data t
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.datamodel.PersistentMetadata">
+    <include refid="selectData"/>
+    <where>
+      <if test="parameters.metaDataId != null and parameters.metaDataId != ''">
+        t.metadata_id = #{parameters.metaDataId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultMap="data">
+    <include refid="selectData"/>
+    where t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.datamodel.PersistentData">
+    insert into t_data
+    values (#{id}, #{metaData.id});
+    <foreach item="element" index="index" collection="elements">
+      insert into t_data_element values (uuid(), #{element.code}, #{element.content}, #{id},#{element.property.id});
+    </foreach>
+  </insert>
+
+  <update id="update" parameterType="cn.koala.datamodel.PersistentData">
+    <foreach item="element" index="index" collection="elements">
+      update t_data_element set content = #{element.content} where id = #{element.id};
+    </foreach>
+  </update>
+
+  <delete id="delete" parameterType="cn.koala.datamodel.PersistentData">
+    delete
+    from t_data
+    where id = #{id};
+    delete
+    from t_data_element
+    where data_id = #{id};
+  </delete>
+</mapper>
