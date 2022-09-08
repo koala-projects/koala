@@ -22,6 +22,7 @@
     <module>koala-mqtt</module>
     <module>koala-office</module>
     <module>koala-sensitive-word</module>
+    <module>koala-setting</module>
     <module>koala-system-management</module>
     <module>koala-system-management-mybatis</module>
   </modules>
