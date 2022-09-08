@@ -19,10 +19,6 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
     </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-swagger</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
