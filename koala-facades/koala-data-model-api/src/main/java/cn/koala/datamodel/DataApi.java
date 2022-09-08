@@ -46,6 +46,8 @@ public interface DataApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DataPageResult.class))}
   )
   @Parameter(in = ParameterIn.QUERY, name = "metadataId", description = "元数据ID", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "metadataCodePrefix", description = "元数据代码前缀",
+    schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<Map<String, Object>>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,

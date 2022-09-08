@@ -37,9 +37,13 @@
 
   <select id="findAll" resultMap="data">
     <include refid="selectData"/>
+    left join t_metadata m on m.id = t.metadata_id
     <where>
       <if test="parameters.metadataId != null and parameters.metadataId != ''">
         t.metadata_id = #{parameters.metadataId}
+      </if>
+      <if test="parameters.metadataCodePrefix != null and parameters.metadataCodePrefix != ''">
+        and m.code like concat(#{parameters.metadataCodePrefix}, '%')
       </if>
     </where>
   </select>
