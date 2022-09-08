@@ -24,8 +24,8 @@ public class DefaultSettingService implements SettingService {
   protected final MetadataService metadataService;
 
   @Override
-  public Map<String, Object> load(String id) {
-    return findData(Map.of("metadataId", id)).map(Data::toMap).orElse(null);
+  public Optional<Map<String, Object>> load(String id) {
+    return findData(Map.of("metadataId", id)).map(Data::toMap);
   }
 
   @Override
@@ -39,7 +39,6 @@ public class DefaultSettingService implements SettingService {
 
   @Override
   public void add(PersistentMetadata settingDefinition, Map<String, Object> defaults) {
-    settingDefinition.setCode(SettingHelper.metadataCode(settingDefinition.getCode()));
     metadataService.add(settingDefinition);
     Optional<PersistentMetadata> persistent = metadataService.load(settingDefinition.getId());
     Assert.isTrue(persistent.isPresent(), "创建失败, 设置定义保存异常");

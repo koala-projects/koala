@@ -22,18 +22,6 @@ public abstract class SettingHelper {
       "非法的键值"
     );
     int separatorIndex = key.indexOf(SettingConstants.KEY_SEPARATOR);
-    return new SettingKey(metadataCode(key.substring(0, separatorIndex)), key.substring(separatorIndex + 1));
-  }
-
-  /**
-   * 处理设置的元数据代码, 如果不包含前缀则自动补充, 例如system -> _setting_system
-   *
-   * @param source 原始元数据代码
-   * @return 补充后的元数据代码
-   */
-  public static String metadataCode(String source) {
-    return source.startsWith(SettingConstants.CODE_PREFIX)
-      ? source
-      : "%s%s".formatted(SettingConstants.CODE_PREFIX, source);
+    return new SettingKey(key.substring(0, separatorIndex), key.substring(separatorIndex + 1));
   }
 }

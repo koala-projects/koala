@@ -3,6 +3,7 @@ package cn.koala.setting;
 import cn.koala.datamodel.PersistentMetadata;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 设置服务
@@ -16,7 +17,7 @@ public interface SettingService {
    * @param id 设置id
    * @return 设置内容
    */
-  Map<String, Object> load(String id);
+  Optional<Map<String, Object>> load(String id);
 
   /**
    * 根据键值查看设置项内容, 键值格式为: ${设置名称}.${设置项属性名称}, 例如: system.default-password
