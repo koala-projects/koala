@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,6 +26,11 @@ public class MyBatisDataService implements DataService {
   @Override
   public Page<PersistentData> list(Map<String, Object> parameters, Pageable pageable) {
     return PageEnhancedHelper.page(() -> getRepository().findAll(parameters, pageable), pageable);
+  }
+
+  @Override
+  public List<PersistentData> list(Map<String, Object> parameters) {
+    return getRepository().findAll(parameters, null);
   }
 
   @Override
