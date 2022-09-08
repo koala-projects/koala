@@ -18,6 +18,7 @@
 
 ### 启动类
 
+- [x] [数据模型](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-data-model-spring-boot-starter)
 - [x] [钉钉](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-dingtalk-spring-boot-starter)
 - [x] [Druid拓展](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-druid-spring-boot-starter)
 - [x] [Mqtt](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-integration-mqtt-spring-boot-starter)
