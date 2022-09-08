@@ -47,6 +47,18 @@ public class SettingAutoConfig {
   }
 
   /**
+   * 设置定义服务的bean
+   *
+   * @param metadataService 元数据服务
+   * @return 设置定义服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public SettingDefinitionService settingDefinitionService(MetadataService metadataService) {
+    return new DefaultSettingDefinitionService(metadataService);
+  }
+
+  /**
    * 设置服务的bean
    *
    * @param dataService     数据服务
@@ -62,13 +74,13 @@ public class SettingAutoConfig {
   /**
    * 设置定义接口的bean
    *
-   * @param metadataService 元数据服务
+   * @param settingDefinitionService 设置定义服务
    * @return 设置定义接口对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public SettingDefinitionApi settingDefinitionApi(MetadataService metadataService) {
-    return new SettingDefinitionApiImpl(metadataService);
+  public SettingDefinitionApi settingDefinitionApi(SettingDefinitionService settingDefinitionService) {
+    return new SettingDefinitionApiImpl(settingDefinitionService);
   }
 
   /**
@@ -98,14 +110,16 @@ public class SettingAutoConfig {
   /**
    * 自动设置注册器的bean
    *
-   * @param settingRegistry      设置注册器
-   * @param settingRegistrations 设置注册记录
+   * @param settingDefinitionService 设置定义服务
+   * @param settingRegistry          设置注册器
+   * @param settingRegistrations     设置注册记录
    * @return 自动设置注册器对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public AutomaticSettingRegistry automaticSettingRegistry(SettingRegistry settingRegistry,
+  public AutomaticSettingRegistry automaticSettingRegistry(SettingDefinitionService settingDefinitionService,
+                                                           SettingRegistry settingRegistry,
                                                            List<SettingRegistration> settingRegistrations) {
-    return new AutomaticSettingRegistry(settingRegistry, settingRegistrations);
+    return new AutomaticSettingRegistry(settingDefinitionService, settingRegistry, settingRegistrations);
   }
 }

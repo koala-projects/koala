@@ -25,6 +25,7 @@
 - [x] [Office](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-office-spring-boot-starter)
 - [x] [OAuth2](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-oauth2-authorization-server-spring-boot-starter)
 - [x] [敏感词过滤](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-sensitive-word-spring-boot-starter)
+- [x] [动态设置](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-setting-spring-boot-starter)
 - [x] [Web](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-web-spring-boot-starter)
 - [ ] 微信小程序
 

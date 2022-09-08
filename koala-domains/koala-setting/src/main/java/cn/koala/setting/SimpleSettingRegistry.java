@@ -12,7 +12,6 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 public class SimpleSettingRegistry implements SettingRegistry {
-
   protected final SettingService settingService;
 
   @Override
