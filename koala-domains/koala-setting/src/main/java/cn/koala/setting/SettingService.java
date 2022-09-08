@@ -25,7 +25,7 @@ public interface SettingService {
    * @param key 设置项键值
    * @return 设置项内容
    */
-  Object loadByKey(String key);
+  Optional<Object> loadByKey(String key);
 
   /**
    * 新增设置

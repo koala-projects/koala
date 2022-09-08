@@ -6,7 +6,6 @@ import cn.koala.datamodel.DataService;
 import cn.koala.datamodel.MetadataService;
 import cn.koala.datamodel.PersistentMetadata;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Slice;
 import org.springframework.util.Assert;
 
 import java.util.Map;
@@ -29,12 +28,11 @@ public class DefaultSettingService implements SettingService {
   }
 
   @Override
-  public Object loadByKey(String key) {
+  public Optional<Object> loadByKey(String key) {
     SettingKey settingKey = SettingHelper.parse(key);
     return findData(Map.of("metadataCode", settingKey.getMetadataCode()))
       .map(Data::toMap)
-      .map(data -> data.get(settingKey.getPropertyCode()))
-      .orElse(null);
+      .map(data -> data.get(settingKey.getPropertyCode()));
   }
 
   @Override
@@ -53,8 +51,7 @@ public class DefaultSettingService implements SettingService {
   }
 
   protected Optional<DataEntity> findData(Map<String, Object> parameters) {
-    return Optional.ofNullable(dataService.list(parameters, null))
-      .map(Slice::getContent)
+    return Optional.ofNullable(dataService.list(parameters))
       .filter(data -> data.size() == 1)
       .map(data -> data.get(0))
       .filter(data -> data instanceof DataEntity)

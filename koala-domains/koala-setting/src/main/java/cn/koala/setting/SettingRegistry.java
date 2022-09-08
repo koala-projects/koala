@@ -13,6 +13,15 @@ public interface SettingRegistry {
   /**
    * 注册设置
    *
+   * @param registration 设置注册记录
+   */
+  default void registerSetting(SettingRegistration registration) {
+    registerSetting(registration.getMetadata(), registration.getDefaults());
+  }
+
+  /**
+   * 注册设置
+   *
    * @param settingDefinition 设置定义
    * @param defaults          默认值
    */
