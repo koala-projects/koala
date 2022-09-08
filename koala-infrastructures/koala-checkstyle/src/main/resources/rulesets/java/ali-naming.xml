@@ -14,22 +14,22 @@
     <priority>3</priority>
   </rule>
 
-  <rule name="AbstractClassShouldStartWithAbstractNamingRule"
-        language="java"
-        since="1.4"
-        message="java.naming.AbstractClassShouldStartWithAbstractNamingRule.rule.msg"
-        class="com.alibaba.p3c.pmd.lang.java.rule.naming.AbstractClassShouldStartWithAbstractNamingRule">
-    <priority>2</priority>
-    <example>
-      <![CDATA[
-    abstract class BaseControllerDemo{
-    }
+  <!--  <rule name="AbstractClassShouldStartWithAbstractNamingRule"-->
+  <!--        language="java"-->
+  <!--        since="1.4"-->
+  <!--        message="java.naming.AbstractClassShouldStartWithAbstractNamingRule.rule.msg"-->
+  <!--        class="com.alibaba.p3c.pmd.lang.java.rule.naming.AbstractClassShouldStartWithAbstractNamingRule">-->
+  <!--    <priority>2</priority>-->
+  <!--    <example>-->
+  <!--      <![CDATA[-->
+  <!--    abstract class BaseControllerDemo{-->
+  <!--    }-->
 
-    abstract class AbstractActionDemo{
-    }
-            ]]>
-    </example>
-  </rule>
+  <!--    abstract class AbstractActionDemo{-->
+  <!--    }-->
+  <!--            ]]>-->
+  <!--    </example>-->
+  <!--  </rule>-->
 
   <rule name="ExceptionClassShouldEndWithExceptionRule"
         language="java"
