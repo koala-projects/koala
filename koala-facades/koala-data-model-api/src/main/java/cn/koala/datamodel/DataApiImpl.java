@@ -4,9 +4,11 @@ import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,12 +24,16 @@ public class DataApiImpl implements DataApi {
 
   @Override
   public DataResponse<Page<Map<String, Object>>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(dataService.list(parameters, pageable));
+    Page<PersistentData> data = dataService.list(parameters, pageable);
+    List<Map<String, Object>> result = data.getContent().stream()
+      .map(Data::toMap)
+      .toList();
+    return DataResponse.ok(new PageImpl<>(result, pageable, data.getTotalPages()));
   }
 
   @Override
   public DataResponse<Map<String, Object>> loadById(String id) {
-    return DataResponse.ok(dataService.load(id).orElse(null));
+    return DataResponse.ok(dataService.load(id).map(Data::toMap).orElse(null));
   }
 
   @Override

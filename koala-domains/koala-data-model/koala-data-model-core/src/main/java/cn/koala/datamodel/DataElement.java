@@ -3,6 +3,8 @@ package cn.koala.datamodel;
 import java.util.Map;
 
 /**
+ * 数据元
+ *
  * @author Houtaroy
  */
 public interface DataElement {

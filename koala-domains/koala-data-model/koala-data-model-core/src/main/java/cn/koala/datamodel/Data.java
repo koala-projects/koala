@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 数据
+ *
  * @author Houtaroy
  */
 public interface Data {

@@ -17,7 +17,7 @@ public interface DataService {
    * @param pageable   分页参数
    * @return 数据分页列表
    */
-  Page<Map<String, Object>> list(Map<String, Object> parameters, Pageable pageable);
+  Page<PersistentData> list(Map<String, Object> parameters, Pageable pageable);
 
   /**
    * 查看数据, 以Map对象返回
@@ -25,7 +25,7 @@ public interface DataService {
    * @param id 数据id
    * @return 数据
    */
-  Optional<Map<String, Object>> load(String id);
+  Optional<PersistentData> load(String id);
 
   /**
    * 新增数据
@@ -33,7 +33,7 @@ public interface DataService {
    * @param metaData 元数据
    * @param contents 所有数据内容
    */
-  void add(Metadata metaData, Map<String, Object> contents);
+  void add(PersistentMetadata metaData, Map<String, Object> contents);
 
   /**
    * 更新数据

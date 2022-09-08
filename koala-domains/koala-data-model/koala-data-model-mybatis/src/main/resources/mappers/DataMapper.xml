@@ -3,10 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.datamodel.mybatis.DataRepository">
-  <resultMap id="data" type="cn.koala.datamodel.PersistentData">
+  <resultMap id="data" type="cn.koala.datamodel.DataEntity">
     <id property="id" column="id"/>
     <result property="metadata.id" column="metadata.id"/>
-    <collection property="elements" ofType="cn.koala.datamodel.PersistentDataElement" select="listElementByDataId"
+    <collection property="elements" ofType="cn.koala.datamodel.DataElementEntity" select="listElementByDataId"
                 column="{dataId=id}">
       <id property="id" column="id"/>
       <result property="code" column="code"/>
@@ -17,7 +17,7 @@
     </collection>
   </resultMap>
 
-  <select id="listElementByDataId" resultType="cn.koala.datamodel.PersistentDataElement">
+  <select id="listElementByDataId" resultType="cn.koala.datamodel.DataElementEntity">
     select t.id,
            t.code,
            t.content,
@@ -42,8 +42,8 @@
       <if test="parameters.metadataId != null and parameters.metadataId != ''">
         t.metadata_id = #{parameters.metadataId}
       </if>
-      <if test="parameters.metadataCodePrefix != null and parameters.metadataCodePrefix != ''">
-        and m.code like concat(#{parameters.metadataCodePrefix}, '%')
+      <if test="parameters.metadataCode != null and parameters.metadataCode != ''">
+        and m.code like concat(#{parameters.metadataCode}, '%')
       </if>
     </where>
   </select>
@@ -53,7 +53,7 @@
     where t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.datamodel.PersistentData">
+  <insert id="add" parameterType="cn.koala.datamodel.DataEntity">
     insert into t_data
     values (#{id}, #{metadata.id});
     <foreach item="element" index="index" collection="elements">
@@ -61,13 +61,13 @@
     </foreach>
   </insert>
 
-  <update id="update" parameterType="cn.koala.datamodel.PersistentData">
+  <update id="update" parameterType="cn.koala.datamodel.DataEntity">
     <foreach item="element" index="index" collection="elements">
       update t_data_element set content = #{element.content} where id = #{element.id};
     </foreach>
   </update>
 
-  <delete id="delete" parameterType="cn.koala.datamodel.PersistentData">
+  <delete id="delete" parameterType="cn.koala.datamodel.DataEntity">
     delete
     from t_data
     where id = #{id};

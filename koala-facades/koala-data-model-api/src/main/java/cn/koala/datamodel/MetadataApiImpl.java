@@ -21,24 +21,24 @@ public class MetadataApiImpl implements MetadataApi {
   protected final MetadataService metadataService;
 
   @Override
-  public DataResponse<Page<Metadata>> page(Map<String, Object> parameters, Pageable pageable) {
+  public DataResponse<Page<PersistentMetadata>> page(Map<String, Object> parameters, Pageable pageable) {
     return DataResponse.ok(metadataService.list(parameters, pageable));
   }
 
   @Override
-  public DataResponse<Metadata> loadById(String id) {
+  public DataResponse<PersistentMetadata> loadById(String id) {
     return DataResponse.ok(metadataService.load(id).orElse(null));
   }
 
   @Override
-  public DataResponse<Metadata> create(PersistentMetadata metadata) {
+  public DataResponse<PersistentMetadata> create(MetadataEntity metadata) {
     metadataService.add(metadata);
     return DataResponse.ok(metadata);
   }
 
   @Override
   public Response delete(String id) {
-    metadataService.delete(PersistentMetadata.builder().id(id).build());
+    metadataService.delete(MetadataEntity.builder().id(id).build());
     return Response.SUCCESS;
   }
 }

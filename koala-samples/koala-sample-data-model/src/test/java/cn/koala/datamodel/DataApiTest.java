@@ -25,10 +25,10 @@ public class DataApiTest {
   @Test
   @Order(1)
   public void add() {
-    PersistentMetadata metadata = PersistentMetadata.builder().id("999").code("metadata").name("元数据").build();
+    MetadataEntity metadata = MetadataEntity.builder().id("999").code("metadata").name("元数据").build();
     metadata.setProperties(List.of(
-      PersistentProperty.builder().id("999-1").code("name").name("姓名").type(PropertyType.STRING).build(),
-      PersistentProperty.builder().id("999-2").code("age").name("年龄").type(PropertyType.INTEGER).build()
+      PropertyEntity.builder().id("999-1").code("name").name("姓名").type(PropertyType.STRING).build(),
+      PropertyEntity.builder().id("999-2").code("age").name("年龄").type(PropertyType.INTEGER).build()
     ));
     metadataService.add(metadata);
     Assertions.assertDoesNotThrow(() -> dataService.add(metadata, Map.of("_koala_data_id", "999", "name", "考拉", "age", 10)));
@@ -49,16 +49,17 @@ public class DataApiTest {
   @Test
   @Order(4)
   public void load() {
-    Optional<Map<String, Object>> persistence = dataService.load("999");
+    Optional<PersistentData> persistence = dataService.load("999");
     Assertions.assertTrue(persistence.isPresent());
-    Assertions.assertEquals(persistence.get().get("name"), "考拉");
-    Assertions.assertEquals(persistence.get().get("age"), 12);
+    Map<String, Object> map = persistence.get().toMap();
+    Assertions.assertEquals(map.get("name"), "考拉");
+    Assertions.assertEquals(map.get("age"), 12);
   }
 
   @Test
   @Order(5)
   public void delete() {
-    metadataService.delete(PersistentMetadata.builder().id("999").build());
+    metadataService.delete(MetadataEntity.builder().id("999").build());
     Assertions.assertDoesNotThrow(() -> dataService.delete("999"));
   }
 }
