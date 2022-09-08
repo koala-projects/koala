@@ -261,6 +261,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-setting-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-system-management-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -307,6 +312,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-sensitive-word</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-setting</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -343,7 +353,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-sensitive-word</artifactId>
+        <artifactId>koala-setting-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
