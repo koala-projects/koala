@@ -13,6 +13,13 @@ public interface Codeable {
   String getCode();
 
   /**
+   * 设置代码
+   *
+   * @param code 代码
+   */
+  void setCode(String code);
+
+  /**
    * 获取名称
    *
    * @return 名称
