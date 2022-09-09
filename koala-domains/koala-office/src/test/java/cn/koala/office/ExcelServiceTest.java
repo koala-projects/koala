@@ -1,5 +1,6 @@
 package cn.koala.office;
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ExcelServiceTest {
 
@@ -28,35 +27,24 @@ public class ExcelServiceTest {
     Integer value;
   }
 
-  private final ExcelService excelService = new DefaultExcelWebService(new EasyExcelReader(), new EasyExcelWriter());
   private final List<Item> data = data();
 
   @Test
   public void read() throws FileNotFoundException {
     File file = new File("src/test/resources/read.xlsx");
-    List<Item> data = excelService.getReader().read(file.getPath(), Item.class);
+    List<Item> data = EasyExcel.read(file.getPath(), Item.class, null).sheet().doReadSync();
     Assertions.assertEquals(data.size(), 5);
-    data = excelService.getReader().read(new FileInputStream(file), Item.class);
+    data = EasyExcel.read(new FileInputStream(file), Item.class, null).sheet().doReadSync();
     Assertions.assertEquals(data.size(), 5);
   }
 
   @Test
   public void write() throws FileNotFoundException {
     File file = new File("src/test/resources/temp.xlsx");
-    excelService.getWriter().write(file.getPath(), data, Item.class);
+    EasyExcel.write(file.getPath(), Item.class).sheet().doWrite(data);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
-    excelService.getWriter().write(new FileOutputStream(file), data, Item.class);
-    Assertions.assertTrue(file.exists());
-    Assertions.assertTrue(file.delete());
-    List<List<String>> headers = new ArrayList<>();
-    headers.add(List.of("名称"));
-    headers.add(List.of("内容"));
-    List<LinkedHashMap<String, Object>> mapData = new ArrayList<>(100);
-    for (int i = 1; i < 101; i++) {
-      mapData.add(new LinkedHashMap<>(Map.of("name", "name-" + i, "value", i)));
-    }
-    excelService.getWriter().write(file.getPath(), headers, mapData);
+    EasyExcel.write(new FileOutputStream(file), Item.class).sheet().doWrite(data);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
   }
@@ -64,11 +52,12 @@ public class ExcelServiceTest {
 
   @Test
   public void template() throws FileNotFoundException {
+    String templateName = "src/test/resources/template.xlsx";
     File file = new File("src/test/resources/temp.xlsx");
-    excelService.getWriter().template("src/test/resources/template.xlsx", file.getPath(), data, Item.class);
+    EasyExcel.write(file.getPath(), Item.class).withTemplate(templateName).sheet().doFill(data);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
-    excelService.getWriter().template("src/test/resources/template.xlsx", new FileOutputStream(file), data, Item.class);
+    EasyExcel.write(new FileOutputStream(file), Item.class).withTemplate(templateName).sheet().doFill(data);
     Assertions.assertTrue(file.exists());
     Assertions.assertTrue(file.delete());
   }
