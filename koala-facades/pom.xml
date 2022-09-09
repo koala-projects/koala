@@ -16,6 +16,7 @@
 
   <modules>
     <module>koala-data-model-api</module>
+    <module>koala-database-api</module>
     <module>koala-eucalyptus-api</module>
     <module>koala-jdbc-api</module>
     <module>koala-setting-api</module>
