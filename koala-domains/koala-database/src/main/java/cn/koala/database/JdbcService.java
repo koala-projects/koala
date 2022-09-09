@@ -10,25 +10,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
- * JDBC数据库服务实现类
+ * JDBC服务, 基于JDBC实现
  *
  * @author Houtaroy
  */
 @Slf4j
-public class JdbcDatabaseService implements FilterableDatabaseService {
-
-  @Override
-  public List<Table> getTables(ConnectProperties connectProperties, Predicate<Table> filter) {
-    return getTables(connectProperties).stream().filter(filter).toList();
-  }
+public class JdbcService implements FilterableDatabaseService, DatabaseService {
 
   @Override
   public List<Table> getTables(ConnectProperties connectProperties) {
     try {
-      return doGetTables(connectProperties);
+      Connection connection = getConnection(connectProperties);
+      List<Table> result = getTables(connection.getMetaData(), connectProperties.getCatalog());
+      connection.close();
+      return result;
     } catch (SQLException e) {
       LOGGER.error("JDBC查询失败", e);
       return new ArrayList<>();
@@ -36,28 +33,36 @@ public class JdbcDatabaseService implements FilterableDatabaseService {
   }
 
   /**
-   * 实际的执行逻辑
+   * 获取数据库连接
    *
    * @param connectProperties 连接属性
-   * @return 数据库全部表
+   * @return 数据库连接
    * @throws SQLException SQLException
    */
-  protected List<Table> doGetTables(ConnectProperties connectProperties) throws SQLException {
-    Connection connection = DriverManager.getConnection(
+  protected Connection getConnection(ConnectProperties connectProperties) throws SQLException {
+    return DriverManager.getConnection(
       connectProperties.getUrl(), connectProperties.getUser(), connectProperties.getPassword());
-    DatabaseMetaData metaData = connection.getMetaData();
-    ResultSet rs = metaData.getTables(
-      connectProperties.getCatalog(), null, null, null);
+  }
+
+  /**
+   * 获取数据库的全部表
+   *
+   * @param databaseMetaData 数据库元数据
+   * @param catalog          数据库名
+   * @return 全部表
+   * @throws SQLException SQLException
+   */
+  protected List<Table> getTables(DatabaseMetaData databaseMetaData, String catalog) throws SQLException {
+    ResultSet rs = databaseMetaData.getTables(catalog, null, null, null);
     List<Table> result = new ArrayList<>();
     while (rs.next()) {
       String tableName = rs.getString(JdbcLabels.TABLE_NAME);
       result.add(new JdbcTable(
         tableName,
         rs.getString(JdbcLabels.REMARKS),
-        getColumns(metaData, connectProperties.getCatalog(), tableName))
+        getColumns(databaseMetaData, catalog, tableName))
       );
     }
-    connection.close();
     return result;
   }
 

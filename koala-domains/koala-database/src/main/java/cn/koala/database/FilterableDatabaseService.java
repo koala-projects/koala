@@ -16,5 +16,7 @@ public interface FilterableDatabaseService extends DatabaseService {
    * @param filter            过滤器
    * @return 数据库全部表
    */
-  List<Table> getTables(ConnectProperties connectProperties, Predicate<Table> filter);
+  default List<Table> getTables(ConnectProperties connectProperties, Predicate<Table> filter) {
+    return getTables(connectProperties).stream().filter(filter).toList();
+  }
 }
