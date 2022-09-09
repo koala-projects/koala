@@ -3,6 +3,7 @@ package cn.koala.system;
 import cn.koala.persistence.Codeable;
 import cn.koala.persistence.Idable;
 import cn.koala.persistence.Sortable;
+import cn.koala.persistence.Stateable;
 
 /**
  * @author Houtaroy
