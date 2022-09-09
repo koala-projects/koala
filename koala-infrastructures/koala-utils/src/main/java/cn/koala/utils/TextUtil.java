@@ -5,8 +5,8 @@ package cn.koala.utils;
  *
  * @author Houtaroy
  */
-public final class ArticleUtil {
-  private ArticleUtil() {
+public final class TextUtil {
+  private TextUtil() {
   }
 
   /**

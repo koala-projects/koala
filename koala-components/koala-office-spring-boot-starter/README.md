@@ -33,6 +33,10 @@ public class DownloadTest {
 }
 ```
 
+## PDF
+
+组件提供了`PdfUtil`, 用于完成PDF部分操作
+
 ## 文档转换
 
 当前文档转换使用[JODConverte](https://github.com/sbraconnier/jodconverter)实现,
