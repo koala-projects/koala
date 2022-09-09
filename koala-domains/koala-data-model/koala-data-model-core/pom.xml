@@ -28,6 +28,10 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-swagger</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-utils</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>

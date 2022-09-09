@@ -1,9 +1,9 @@
 package cn.koala.datamodel;
 
 import cn.koala.enhancement.ValueNameEnum;
+import cn.koala.utils.StringCalendar;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.function.Function;
 
 /**
@@ -33,7 +33,7 @@ public enum PropertyType implements ValueNameEnum {
   /**
    * 日期
    */
-  LOCAL_DATE_TIME(5, "日期", LocalDateTime::parse);
+  LOCAL_DATE_TIME(5, "日期", StringCalendar::parse);
 
   private final int value;
   private final String name;
