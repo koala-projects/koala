@@ -1,6 +1,7 @@
 package cn.koala.database;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.function.Predicate;
 
@@ -16,6 +17,6 @@ public class PrefixFilter implements Predicate<Table> {
 
   @Override
   public boolean test(Table table) {
-    return table.getName().startsWith(prefix);
+    return StringUtils.isBlank(prefix) || table.getName().startsWith(prefix);
   }
 }
