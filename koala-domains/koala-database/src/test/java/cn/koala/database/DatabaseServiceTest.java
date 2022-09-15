@@ -21,10 +21,10 @@ public class DatabaseServiceTest {
     dataSource.setUser(connectProperties.getUser());
     dataSource.setPassword(connectProperties.getPassword());
     dataSource.setDatabaseName(connectProperties.getCatalog());
-    JdbcService jdbcDatabaseService = new JdbcService();
-    DataSourceService dataSourceService = new DataSourceService(dataSource);
-    check(jdbcDatabaseService.getTables(connectProperties, new PrefixFilter("k_")));
-    check(dataSourceService.getTables(connectProperties, new PrefixFilter("k_")));
+    JdbcDatabaseService jdbcDatabaseService = new JdbcDatabaseService();
+    DataSourceDatabaseService dataSourceService = new DataSourceDatabaseService(dataSource);
+    check(jdbcDatabaseService.getTables(connectProperties, new PrefixTableFilter("k_")));
+    check(dataSourceService.getTables(connectProperties, new PrefixTableFilter("k_")));
   }
 
   public void check(List<Table> tables) {

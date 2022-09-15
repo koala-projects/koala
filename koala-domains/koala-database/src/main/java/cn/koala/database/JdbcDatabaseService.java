@@ -17,7 +17,7 @@ import java.util.List;
  * @author Houtaroy
  */
 @Slf4j
-public class JdbcService implements FilterableDatabaseService, DatabaseService {
+public class JdbcDatabaseService implements FilterableDatabaseService, DatabaseService {
 
   @Override
   public List<Table> getTables(ConnectProperties connectProperties) {

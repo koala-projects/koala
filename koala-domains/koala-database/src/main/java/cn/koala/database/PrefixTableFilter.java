@@ -11,7 +11,7 @@ import java.util.function.Predicate;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class PrefixFilter implements Predicate<Table> {
+public class PrefixTableFilter implements Predicate<Table> {
 
   protected final String prefix;
 

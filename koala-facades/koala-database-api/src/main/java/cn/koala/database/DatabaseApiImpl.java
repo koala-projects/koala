@@ -19,6 +19,6 @@ public class DatabaseApiImpl implements DatabaseApi {
 
   @Override
   public DataResponse<List<Table>> tables(TablesRequest tablesRequest) {
-    return DataResponse.ok(databaseService.getTables(tablesRequest, new PrefixFilter(tablesRequest.getPrefix())));
+    return DataResponse.ok(databaseService.getTables(tablesRequest, new PrefixTableFilter(tablesRequest.getPrefix())));
   }
 }

@@ -7,12 +7,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * DataSource服务, 继承自{@link JdbcService}, 重写获取连接方式
+ * DataSource服务, 继承自{@link JdbcDatabaseService}, 重写获取连接方式
  *
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class DataSourceService extends JdbcService {
+public class DataSourceDatabaseService extends JdbcDatabaseService {
 
   protected final DataSource dataSource;
 
