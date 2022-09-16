@@ -33,8 +33,4 @@ public class JdbcColumn implements Column {
   protected boolean autoIncrement;
   @Schema(description = "是否主键")
   protected boolean primaryKey;
-
-  public String getType() {
-    return type.getName();
-  }
 }
