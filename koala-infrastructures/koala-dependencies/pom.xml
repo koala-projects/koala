@@ -23,6 +23,7 @@
     <druid.version>1.2.9</druid.version>
     <druid-springboot.version>1.2.8</druid-springboot.version>
     <easyexcel.version>3.1.1</easyexcel.version>
+    <enjoy.version>5.0.0</enjoy.version>
     <freemarker.version>2.3.31</freemarker.version>
     <guava.version>31.1-jre</guava.version>
     <jackson.version>2.13.1</jackson.version>
@@ -102,6 +103,11 @@
         <groupId>com.alibaba</groupId>
         <artifactId>easyexcel</artifactId>
         <version>${easyexcel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.jfinal</groupId>
+        <artifactId>enjoy</artifactId>
+        <version>${enjoy.version}</version>
       </dependency>
       <dependency>
         <groupId>org.freemarker</groupId>
@@ -338,6 +344,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-template</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->
