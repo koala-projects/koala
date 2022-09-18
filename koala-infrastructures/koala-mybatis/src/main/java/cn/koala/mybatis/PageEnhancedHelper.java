@@ -24,8 +24,8 @@ public abstract class PageEnhancedHelper {
   public static <T> Page<T> page(ISelect select, Pageable pageable) {
     com.github.pagehelper.Page<T> result = PageHelper.startPage(
       Math.max(pageable.getPageNumber() + 1, 1),
-      pageable.getPageSize()).doSelectPage(select
-    );
+      pageable.getPageSize()
+    ).doSelectPage(select);
     return new PageImpl<>(result, pageable, result.getTotal());
   }
 }
