@@ -1,6 +1,6 @@
 package cn.koala.setting;
 
-import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.Metadata;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Map;
@@ -15,7 +15,7 @@ public class SimpleSettingRegistry implements SettingRegistry {
   protected final SettingService settingService;
 
   @Override
-  public void registerSetting(PersistentMetadata settingDefinition, Map<String, Object> defaults) {
+  public void registerSetting(Metadata settingDefinition, Map<String, Object> defaults) {
     settingService.add(settingDefinition, defaults);
   }
 }

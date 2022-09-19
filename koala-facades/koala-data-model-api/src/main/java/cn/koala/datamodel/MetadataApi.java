@@ -48,8 +48,8 @@ public interface MetadataApi {
   @Parameter(in = ParameterIn.QUERY, name = "name", description = "元数据名称", schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
-  DataResponse<Page<PersistentMetadata>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
-                                              @Parameter(hidden = true) Pageable pageable);
+  DataResponse<Page<Metadata>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
+                                    @Parameter(hidden = true) Pageable pageable);
 
   /**
    * 根据id查看元数据
@@ -63,7 +63,7 @@ public interface MetadataApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "元数据id", schema = @Schema(type = "string"))
   @GetMapping("{id}")
-  DataResponse<PersistentMetadata> loadById(@PathVariable("id") String id);
+  DataResponse<Metadata> loadById(@PathVariable("id") String id);
 
   /**
    * 创建元数据
@@ -76,7 +76,7 @@ public interface MetadataApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = MetadataResult.class))}
   )
   @PostMapping
-  DataResponse<PersistentMetadata> create(@RequestBody MetadataEntity metadata);
+  DataResponse<Metadata> create(@RequestBody PersistentMetadata metadata);
 
   /**
    * 根据id删除元数据
@@ -92,11 +92,11 @@ public interface MetadataApi {
   @DeleteMapping("{id}")
   Response delete(@PathVariable("id") String id);
 
-  class MetadataPageResult extends DataResponse<Page<MetadataEntity>> {
+  class MetadataPageResult extends DataResponse<Page<PersistentMetadata>> {
 
   }
 
-  class MetadataResult extends DataResponse<MetadataEntity> {
+  class MetadataResult extends DataResponse<PersistentMetadata> {
 
   }
 }

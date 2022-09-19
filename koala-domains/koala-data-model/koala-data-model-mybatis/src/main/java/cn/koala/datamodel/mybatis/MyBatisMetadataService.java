@@ -1,7 +1,7 @@
 package cn.koala.datamodel.mybatis;
 
+import cn.koala.datamodel.Metadata;
 import cn.koala.datamodel.MetadataService;
-import cn.koala.datamodel.PersistentMetadata;
 import cn.koala.mybatis.AbstractCrudService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,6 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class MyBatisMetadataService extends AbstractCrudService<String, PersistentMetadata> implements MetadataService {
+public class MyBatisMetadataService extends AbstractCrudService<String, Metadata> implements MetadataService {
   protected final MetadataRepository repository;
 }

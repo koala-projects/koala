@@ -1,9 +1,9 @@
 package cn.koala.setting;
 
 import cn.koala.datamodel.DataService;
-import cn.koala.datamodel.MetadataEntity;
 import cn.koala.datamodel.MetadataService;
-import cn.koala.datamodel.PropertyEntity;
+import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.PersistentProperty;
 import cn.koala.datamodel.PropertyType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
@@ -33,9 +33,9 @@ public class SettingTest {
   @Test
   @Order(1)
   public void register() {
-    MetadataEntity metadata = MetadataEntity.builder().id("999").code("system").name("系统设置").build();
+    PersistentMetadata metadata = PersistentMetadata.builder().id("999").code("system").name("系统设置").build();
     metadata.setProperties(List.of(
-      PropertyEntity.builder().id("999-1").code("default-password").name("默认密码").type(PropertyType.STRING).build()
+      PersistentProperty.builder().id("999-1").code("default-password").name("默认密码").type(PropertyType.STRING).build()
     ));
     settingRegistry.registerSetting(metadata, Map.of("default-password", "koala"));
   }
@@ -67,6 +67,6 @@ public class SettingTest {
 
   protected void clean() {
     dataService.list(new HashMap<>()).forEach(data -> dataService.delete(data.getId()));
-    metadataService.delete(MetadataEntity.builder().id("999").build());
+    metadataService.delete(PersistentMetadata.builder().id("999").build());
   }
 }

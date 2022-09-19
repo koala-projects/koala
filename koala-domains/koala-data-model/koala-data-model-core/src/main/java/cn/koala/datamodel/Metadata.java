@@ -1,6 +1,7 @@
 package cn.koala.datamodel;
 
 import cn.koala.persistence.Codeable;
+import cn.koala.persistence.Idable;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-public interface Metadata extends Codeable {
+public interface Metadata extends Idable<String>, Codeable {
   /**
    * 获取属性列表
    *

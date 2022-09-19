@@ -1,5 +1,7 @@
 package cn.koala.datamodel;
 
+import cn.koala.persistence.Idable;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +11,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public interface Data {
+public interface Data extends Idable<String> {
 
   /**
    * 获取数据元列表

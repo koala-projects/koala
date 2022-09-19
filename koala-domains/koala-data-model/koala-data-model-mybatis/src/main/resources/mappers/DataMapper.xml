@@ -3,10 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.datamodel.mybatis.DataRepository">
-  <resultMap id="data" type="cn.koala.datamodel.DataEntity">
+  <resultMap id="data" type="cn.koala.datamodel.PersistentData">
     <id property="id" column="id"/>
     <result property="metadata.id" column="metadata.id"/>
-    <collection property="elements" ofType="cn.koala.datamodel.DataElementEntity" select="listElementByDataId"
+    <collection property="elements" ofType="cn.koala.datamodel.PersistentDataElement" select="listElementByDataId"
                 column="{dataId=id}">
       <id property="id" column="id"/>
       <result property="code" column="code"/>
@@ -17,7 +17,7 @@
     </collection>
   </resultMap>
 
-  <select id="listElementByDataId" resultType="cn.koala.datamodel.DataElementEntity">
+  <select id="listElementByDataId" resultType="cn.koala.datamodel.PersistentDataElement">
     select t.id,
            t.code,
            t.content,
@@ -53,7 +53,7 @@
     where t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.datamodel.DataEntity">
+  <insert id="add" parameterType="cn.koala.datamodel.PersistentData">
     insert into t_data
     values (#{id}, #{metadata.id});
     <foreach item="element" index="index" collection="elements">
@@ -61,13 +61,13 @@
     </foreach>
   </insert>
 
-  <update id="update" parameterType="cn.koala.datamodel.DataEntity">
+  <update id="update" parameterType="cn.koala.datamodel.PersistentData">
     <foreach item="element" index="index" collection="elements">
       update t_data_element set content = #{element.content} where id = #{element.id};
     </foreach>
   </update>
 
-  <delete id="delete" parameterType="cn.koala.datamodel.DataEntity">
+  <delete id="delete" parameterType="cn.koala.datamodel.PersistentData">
     delete
     from t_data
     where id = #{id};

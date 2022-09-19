@@ -1,6 +1,6 @@
 package cn.koala.setting;
 
-import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.Metadata;
 import cn.koala.web.DataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ public class SettingDefinitionApiImpl implements SettingDefinitionApi {
   protected final SettingDefinitionService settingDefinitionService;
 
   @Override
-  public DataResponse<List<PersistentMetadata>> list(Map<String, Object> parameters) {
+  public DataResponse<List<Metadata>> list(Map<String, Object> parameters) {
     return DataResponse.ok(settingDefinitionService.list(parameters));
   }
 }

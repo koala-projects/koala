@@ -1,7 +1,7 @@
 package cn.koala.setting;
 
+import cn.koala.datamodel.Metadata;
 import cn.koala.datamodel.MetadataService;
-import cn.koala.datamodel.PersistentMetadata;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class DefaultSettingDefinitionService implements SettingDefinitionService
   protected final MetadataService metadataService;
 
   @Override
-  public List<PersistentMetadata> list(Map<String, Object> parameters) {
+  public List<Metadata> list(Map<String, Object> parameters) {
     return metadataService.list(parameters);
   }
 }

@@ -1,6 +1,6 @@
 package cn.koala.setting;
 
-import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.Metadata;
 
 import java.util.Map;
 
@@ -25,5 +25,5 @@ public interface SettingRegistry {
    * @param settingDefinition 设置定义
    * @param defaults          默认值
    */
-  void registerSetting(PersistentMetadata settingDefinition, Map<String, Object> defaults);
+  void registerSetting(Metadata settingDefinition, Map<String, Object> defaults);
 }

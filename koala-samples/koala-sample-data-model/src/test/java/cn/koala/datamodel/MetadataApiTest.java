@@ -18,13 +18,13 @@ import java.util.Optional;
 public class MetadataApiTest {
   @Autowired
   private MetadataService metadataService;
-  private static MetadataEntity TEST_DATA;
+  private static PersistentMetadata TEST_DATA;
 
   @Test
   @Order(1)
   public void add() {
-    TEST_DATA = MetadataEntity.builder().id("999").code("add").name("新增").description("新增").build();
-    TEST_DATA.setProperties(List.of(PropertyEntity.builder().code("add").name("新增").description("新增").type(PropertyType.STRING).build()));
+    TEST_DATA = PersistentMetadata.builder().id("999").code("add").name("新增").description("新增").build();
+    TEST_DATA.setProperties(List.of(PersistentProperty.builder().code("add").name("新增").description("新增").type(PropertyType.STRING).build()));
     Assertions.assertDoesNotThrow(() -> metadataService.add(TEST_DATA));
   }
 
@@ -32,7 +32,7 @@ public class MetadataApiTest {
   @Order(2)
   public void update() {
     TEST_DATA.setName("更新");
-    TEST_DATA.setProperties(List.of(PropertyEntity.builder().code("update").name("更新").description("更新").type(PropertyType.STRING).build()));
+    TEST_DATA.setProperties(List.of(PersistentProperty.builder().code("update").name("更新").description("更新").type(PropertyType.STRING).build()));
     Assertions.assertDoesNotThrow(() -> metadataService.update(TEST_DATA));
   }
 
@@ -45,7 +45,7 @@ public class MetadataApiTest {
   @Test
   @Order(4)
   public void load() {
-    Optional<PersistentMetadata> persistence = metadataService.load("999");
+    Optional<Metadata> persistence = metadataService.load("999");
     Assertions.assertTrue(persistence.isPresent());
     Assertions.assertEquals(persistence.get().getName(), "更新");
   }

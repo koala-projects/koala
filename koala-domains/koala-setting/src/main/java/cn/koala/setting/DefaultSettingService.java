@@ -1,10 +1,10 @@
 package cn.koala.setting;
 
 import cn.koala.datamodel.Data;
-import cn.koala.datamodel.DataEntity;
 import cn.koala.datamodel.DataService;
+import cn.koala.datamodel.Metadata;
 import cn.koala.datamodel.MetadataService;
-import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.PersistentData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -36,25 +36,25 @@ public class DefaultSettingService implements SettingService {
   }
 
   @Override
-  public void add(PersistentMetadata settingDefinition, Map<String, Object> defaults) {
+  public void add(Metadata settingDefinition, Map<String, Object> defaults) {
     metadataService.add(settingDefinition);
-    Optional<PersistentMetadata> persistent = metadataService.load(settingDefinition.getId());
+    Optional<Metadata> persistent = metadataService.load(settingDefinition.getId());
     Assert.isTrue(persistent.isPresent(), "创建失败, 设置定义保存异常");
     dataService.add(persistent.get(), defaults);
   }
 
   @Override
   public void update(String id, Map<String, Object> settings) {
-    Optional<DataEntity> data = findData(Map.of("metadataId", id));
+    Optional<PersistentData> data = findData(Map.of("metadataId", id));
     Assert.isTrue(data.isPresent(), "更新失败, 设置不存在");
     dataService.update(data.get().getId(), settings);
   }
 
-  protected Optional<DataEntity> findData(Map<String, Object> parameters) {
+  protected Optional<PersistentData> findData(Map<String, Object> parameters) {
     return Optional.ofNullable(dataService.list(parameters))
       .filter(data -> data.size() == 1)
       .map(data -> data.get(0))
-      .filter(data -> data instanceof DataEntity)
-      .map(DataEntity.class::cast);
+      .filter(data -> data instanceof PersistentData)
+      .map(PersistentData.class::cast);
   }
 }

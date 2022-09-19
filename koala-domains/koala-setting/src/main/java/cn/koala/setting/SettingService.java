@@ -1,6 +1,6 @@
 package cn.koala.setting;
 
-import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.Metadata;
 
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +33,7 @@ public interface SettingService {
    * @param settingDefinition 设置定义
    * @param defaults          默认值
    */
-  void add(PersistentMetadata settingDefinition, Map<String, Object> defaults);
+  void add(Metadata settingDefinition, Map<String, Object> defaults);
 
   /**
    * 更新设置内容

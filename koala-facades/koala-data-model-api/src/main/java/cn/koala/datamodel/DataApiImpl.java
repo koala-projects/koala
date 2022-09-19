@@ -24,7 +24,7 @@ public class DataApiImpl implements DataApi {
 
   @Override
   public DataResponse<Page<Map<String, Object>>> page(Map<String, Object> parameters, Pageable pageable) {
-    Page<PersistentData> data = dataService.list(parameters, pageable);
+    Page<Data> data = dataService.list(parameters, pageable);
     List<Map<String, Object>> result = data.getContent().stream()
       .map(Data::toMap)
       .toList();

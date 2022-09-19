@@ -4,12 +4,12 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.datamodel.mybatis.MetadataRepository">
 
-  <resultMap id="metaData" type="cn.koala.datamodel.MetadataEntity">
+  <resultMap id="metaData" type="cn.koala.datamodel.PersistentMetadata">
     <id property="id" column="id"/>
     <result property="code" column="code"/>
     <result property="name" column="name"/>
     <result property="description" column="description"/>
-    <collection property="properties" ofType="cn.koala.datamodel.PropertyEntity">
+    <collection property="properties" ofType="cn.koala.datamodel.PersistentProperty">
       <id property="id" column="property.id"/>
       <result property="code" column="property.code"/>
       <result property="name" column="property.name"/>
@@ -23,7 +23,7 @@
     from t_metadata t
   </sql>
 
-  <select id="findAll" resultType="cn.koala.datamodel.MetadataEntity">
+  <select id="findAll" resultType="cn.koala.datamodel.PersistentMetadata">
     <include refid="selectMetaData"/>
     <where>
       <if test="parameters.code != null and parameters.code != ''">
@@ -61,7 +61,7 @@
     </foreach>
   </sql>
 
-  <insert id="add" parameterType="cn.koala.datamodel.MetadataEntity">
+  <insert id="add" parameterType="cn.koala.datamodel.PersistentMetadata">
     <selectKey resultType="string" order="BEFORE" keyProperty="id">
       select ifnull(#{id},uuid())
     </selectKey>
@@ -76,7 +76,7 @@
     where metadata_id = #{id};
   </sql>
 
-  <update id="update" parameterType="cn.koala.datamodel.MetadataEntity">
+  <update id="update" parameterType="cn.koala.datamodel.PersistentMetadata">
     update t_metadata
     set code = #{code},
     name = #{name},
@@ -86,7 +86,7 @@
     <include refid="addProperties"/>
   </update>
 
-  <delete id="delete" parameterType="cn.koala.datamodel.MetadataEntity">
+  <delete id="delete" parameterType="cn.koala.datamodel.PersistentMetadata">
     delete from t_metadata where id = #{id};
     <include refid="deleteProperties"/>
   </delete>
