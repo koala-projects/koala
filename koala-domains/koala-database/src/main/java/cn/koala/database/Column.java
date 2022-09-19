@@ -1,7 +1,5 @@
 package cn.koala.database;
 
-import java.sql.JDBCType;
-
 /**
  * 数据库列定义
  *
@@ -20,7 +18,7 @@ public interface Column {
    *
    * @return 列类型
    */
-  JDBCType getType();
+  String getType();
 
   /**
    * 获取列长度

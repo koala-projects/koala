@@ -19,8 +19,8 @@ import java.sql.JDBCType;
 public class JdbcColumn implements Column {
   @Schema(description = "列名")
   protected String name;
-  @Schema(description = "列数据类型")
-  protected JDBCType type;
+  @Schema(description = "列JDBC类型")
+  protected JDBCType jdbcType;
   @Schema(description = "列长度")
   protected Integer size;
   @Schema(description = "列小数长度")
@@ -33,4 +33,9 @@ public class JdbcColumn implements Column {
   protected boolean autoIncrement;
   @Schema(description = "是否主键")
   protected boolean primaryKey;
+
+  @Override
+  public String getType() {
+    return jdbcType.getName();
+  }
 }
