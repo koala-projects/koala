@@ -19,8 +19,6 @@ import java.util.List;
 public class PersistentMetadata implements Metadata {
   @Schema(description = "元数据ID")
   protected String id;
-  @Schema(description = "元数据代码")
-  protected String code;
   @Schema(description = "元数据名称")
   protected String name;
   @Schema(description = "元数据描述")
