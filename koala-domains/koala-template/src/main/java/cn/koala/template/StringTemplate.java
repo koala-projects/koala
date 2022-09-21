@@ -1,20 +1,18 @@
 package cn.koala.template;
 
-import cn.koala.persistence.Idable;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
+ * 字符串模板
+ *
  * @author Houtaroy
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class PersistentTemplate extends StringTemplate implements Idable<String> {
-  protected String id;
+public class StringTemplate implements Template {
   protected String name;
   protected String content;
 }
