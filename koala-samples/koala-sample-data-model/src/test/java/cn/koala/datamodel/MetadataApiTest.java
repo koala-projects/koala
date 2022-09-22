@@ -23,7 +23,7 @@ public class MetadataApiTest {
   @Test
   @Order(1)
   public void add() {
-    TEST_DATA = PersistentMetadata.builder().id("999").code("add").name("新增").description("新增").build();
+    TEST_DATA = PersistentMetadata.builder().id("999").name("新增").description("新增").build();
     TEST_DATA.setProperties(List.of(PersistentProperty.builder().code("add").name("新增").description("新增").type(PropertyType.STRING).build()));
     Assertions.assertDoesNotThrow(() -> metadataService.add(TEST_DATA));
   }

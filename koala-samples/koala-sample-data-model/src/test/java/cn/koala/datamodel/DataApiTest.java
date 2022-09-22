@@ -25,7 +25,7 @@ public class DataApiTest {
   @Test
   @Order(1)
   public void add() {
-    PersistentMetadata metadata = PersistentMetadata.builder().id("999").code("metadata").name("元数据").build();
+    PersistentMetadata metadata = PersistentMetadata.builder().id("999").name("元数据").build();
     metadata.setProperties(List.of(
       PersistentProperty.builder().id("999-1").code("name").name("姓名").type(PropertyType.STRING).build(),
       PersistentProperty.builder().id("999-2").code("age").name("年龄").type(PropertyType.INTEGER).build()

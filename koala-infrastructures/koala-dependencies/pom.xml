@@ -227,6 +227,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-database-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-dingtalk-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -355,6 +360,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-data-model-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-database-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

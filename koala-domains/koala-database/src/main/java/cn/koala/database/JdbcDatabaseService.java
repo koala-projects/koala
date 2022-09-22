@@ -23,7 +23,7 @@ public class JdbcDatabaseService implements FilterableDatabaseService, DatabaseS
   public List<Table> getTables(ConnectProperties connectProperties) {
     try {
       Connection connection = getConnection(connectProperties);
-      List<Table> result = getTables(connection.getMetaData(), connectProperties.getCatalog());
+      List<Table> result = getTables(connection.getMetaData(), connection.getCatalog());
       connection.close();
       return result;
     } catch (SQLException e) {
