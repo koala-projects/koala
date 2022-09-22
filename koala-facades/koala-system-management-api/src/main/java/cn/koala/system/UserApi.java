@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * @author Houtaroy
  */
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @RestController
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "user", description = "用户接口")

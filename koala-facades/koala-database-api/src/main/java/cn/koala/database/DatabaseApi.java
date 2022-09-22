@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@RequestMapping("/database")
+@RequestMapping("/api/databases")
 @RestController
 @Tag(name = "database", description = "数据库接口")
 public interface DatabaseApi {

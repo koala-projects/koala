@@ -29,7 +29,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequestMapping("/data")
+@RequestMapping("/api/data")
 @RestController
 @Tag(name = "data", description = "数据接口")
 public interface DataApi {

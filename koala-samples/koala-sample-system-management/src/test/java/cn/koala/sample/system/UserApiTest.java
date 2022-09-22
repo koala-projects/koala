@@ -38,9 +38,9 @@ public class UserApiTest {
     UserEntity user = UserEntity.builder().id("2").username("test").name("测试用户")
       .roles(List.of(RoleEntity.builder().id("1").build())).build();
     mockMvc.perform(
-      post("/users").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(user))
+      post("/api/users").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(user))
     ).andExpect(status().isOk());
-    mockMvc.perform(get("/users/2")).andExpect(status().isOk())
+    mockMvc.perform(get("/api/users/2")).andExpect(status().isOk())
       .andExpect(jsonPath("$.data.username", equalTo("test")))
       .andExpect(jsonPath("$.data.roles", hasSize(1)))
       .andExpect(jsonPath("$.data.createTime", notNullValue()));
@@ -51,9 +51,9 @@ public class UserApiTest {
   public void update() throws Exception {
     UserEntity user = UserEntity.builder().username("admin2").build();
     mockMvc.perform(
-      put("/users/1").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(user))
+      put("/api/users/1").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(user))
     ).andExpect(status().isOk());
-    mockMvc.perform(get("/users/1")).andExpect(status().isOk())
+    mockMvc.perform(get("/api/users/1")).andExpect(status().isOk())
       .andExpect(jsonPath("$.data.username", equalTo("admin2")))
       .andExpect(jsonPath("$.data.lastModifyTime", notNullValue()));
   }
@@ -61,8 +61,8 @@ public class UserApiTest {
   @Test
   @WithMockUser(username = "admin", authorities = {"users:read", "users:write"})
   public void delete() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.delete("/users/1")).andExpect(status().isOk());
-    mockMvc.perform(get("/users")).andExpect(status().isOk())
+    mockMvc.perform(MockMvcRequestBuilders.delete("/api/users/1")).andExpect(status().isOk());
+    mockMvc.perform(get("/api/users")).andExpect(status().isOk())
       .andExpect(jsonPath("$.data.totalElements", equalTo(0)));
   }
 }

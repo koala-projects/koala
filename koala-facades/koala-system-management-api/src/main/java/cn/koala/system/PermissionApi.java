@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * @author Houtaroy
  */
-@RequestMapping("/permissions")
+@RequestMapping("/api/permissions")
 @RestController
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "permission", description = "权限接口")

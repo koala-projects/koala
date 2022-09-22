@@ -23,7 +23,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequestMapping("/settings")
+@RequestMapping("/api/settings")
 @RestController
 @Tag(name = "setting", description = "设置接口")
 public interface SettingApi {

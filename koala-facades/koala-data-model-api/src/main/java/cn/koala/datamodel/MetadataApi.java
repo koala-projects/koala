@@ -28,7 +28,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequestMapping("/metadata")
+@RequestMapping("/api/metadata")
 @RestController
 @Tag(name = "metadata", description = "元数据接口")
 public interface MetadataApi {
