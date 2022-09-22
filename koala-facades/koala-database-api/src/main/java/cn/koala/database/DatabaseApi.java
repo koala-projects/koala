@@ -33,7 +33,7 @@ public interface DatabaseApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TableListResult.class))}
   )
-  @PostMapping
+  @PostMapping("tables")
   DataResponse<List<Table>> tables(@RequestBody TablesRequest tablesRequest);
 
 
