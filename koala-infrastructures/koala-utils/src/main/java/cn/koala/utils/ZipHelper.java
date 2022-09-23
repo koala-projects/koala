@@ -1,6 +1,7 @@
 package cn.koala.utils;
 
-import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,25 +26,54 @@ public abstract class ZipHelper {
    */
   public static void zip(List<File> files, OutputStream os) throws IOException {
     try (ZipOutputStream zos = new ZipOutputStream(os)) {
-      for (File file : files) {
-        zos.putNextEntry(new ZipEntry(file.getName()));
-        zos.write(Files.readAllBytes(file.toPath()));
-        zos.closeEntry();
+      zipFiles(files.toArray(new File[0]), "", zos);
+    }
+  }
+
+  /**
+   * 压缩目录
+   *
+   * @param dir  目录文件
+   * @param path 上级目录
+   * @param zos  压缩输出流
+   * @throws IOException IO异常
+   */
+  public static void zipDir(File dir, String path, ZipOutputStream zos) throws IOException {
+    zipFiles(dir.listFiles(), StringUtils.isBlank(path) ? dir.getName() : path + File.separator + dir.getName(), zos);
+  }
+
+  /**
+   * 压缩文件列表
+   *
+   * @param files 文件列表
+   * @param path  上级目录
+   * @param zos   压缩输出流
+   * @throws IOException IO异常
+   */
+  public static void zipFiles(File[] files, String path, ZipOutputStream zos) throws IOException {
+    if (files == null || files.length == 0) {
+      return;
+    }
+    for (File file : files) {
+      if (file.isDirectory()) {
+        zipDir(file, path, zos);
+      } else {
+        zipFile(file, path, zos);
       }
     }
   }
 
   /**
-   * 压缩文件到HttpServletResponse, 浏览器会直接下载
+   * 压缩文件
    *
-   * @param files    文件列表
-   * @param filename 下载文件名
-   * @param response HttpServletResponse
+   * @param file 文件
+   * @param path 上级目录
+   * @param zos  压缩输出流
    * @throws IOException IO异常
    */
-  public static void zip(List<File> files, String filename, HttpServletResponse response) throws IOException {
-    response.setContentType("application/octet-stream");
-    response.setHeader("Content-Disposition", "attachment;filename=%s.zip".formatted(filename));
-    zip(files, response.getOutputStream());
+  public static void zipFile(File file, String path, ZipOutputStream zos) throws IOException {
+    zos.putNextEntry(new ZipEntry(path + File.separator + file.getName()));
+    zos.write(Files.readAllBytes(file.toPath()));
+    zos.closeEntry();
   }
 }

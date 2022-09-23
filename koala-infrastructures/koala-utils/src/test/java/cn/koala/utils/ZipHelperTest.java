@@ -25,7 +25,7 @@ public class ZipHelperTest {
     Assertions.assertNotNull(files);
     ZipHelper.zip(Arrays.asList(files), new FileOutputStream("src/test/resources/dest.zip"));
     try (ZipFile zip = new ZipFile("src/test/resources/dest.zip")) {
-      InputStream is = zip.getInputStream(zip.getEntry("file.txt"));
+      InputStream is = zip.getInputStream(zip.getEntry("one\\file.txt"));
       String content = IOUtils.readLines(is, StandardCharsets.UTF_8).get(0);
       Assertions.assertEquals(content, "压缩文件");
     }
