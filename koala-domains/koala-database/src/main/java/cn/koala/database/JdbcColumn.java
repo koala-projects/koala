@@ -2,7 +2,7 @@ package cn.koala.database;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.JDBCType;
@@ -14,7 +14,7 @@ import java.sql.JDBCType;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Data
 @Schema(description = "JDBC列")
 public class JdbcColumn implements Column {
   @Schema(description = "列名")
