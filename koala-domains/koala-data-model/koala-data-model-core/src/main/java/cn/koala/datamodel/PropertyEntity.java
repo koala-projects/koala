@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "属性")
-public class PersistentProperty implements Property, Idable<String> {
+public class PropertyEntity implements Property, Idable<String> {
   @Schema(description = "属性ID")
   protected String id;
   @Schema(description = "属性代码")
@@ -26,5 +26,4 @@ public class PersistentProperty implements Property, Idable<String> {
   protected String description;
   @Schema(description = "属性类型")
   protected PropertyType type;
-  protected PersistentMetadata metadata;
 }

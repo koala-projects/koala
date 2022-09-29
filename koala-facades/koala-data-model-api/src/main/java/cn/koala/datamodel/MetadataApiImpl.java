@@ -31,14 +31,14 @@ public class MetadataApiImpl implements MetadataApi {
   }
 
   @Override
-  public DataResponse<Metadata> create(PersistentMetadata metadata) {
+  public DataResponse<Metadata> create(MetadataEntity metadata) {
     metadataService.add(metadata);
     return DataResponse.ok(metadata);
   }
 
   @Override
   public Response delete(String id) {
-    metadataService.delete(PersistentMetadata.builder().id(id).build());
+    metadataService.delete(MetadataEntity.builder().id(id).build());
     return Response.SUCCESS;
   }
 }

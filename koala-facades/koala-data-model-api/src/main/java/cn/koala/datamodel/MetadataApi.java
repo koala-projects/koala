@@ -76,7 +76,7 @@ public interface MetadataApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = MetadataResult.class))}
   )
   @PostMapping
-  DataResponse<Metadata> create(@RequestBody PersistentMetadata metadata);
+  DataResponse<Metadata> create(@RequestBody MetadataEntity metadata);
 
   /**
    * 根据id删除元数据
@@ -92,11 +92,11 @@ public interface MetadataApi {
   @DeleteMapping("{id}")
   Response delete(@PathVariable("id") String id);
 
-  class MetadataPageResult extends DataResponse<Page<PersistentMetadata>> {
+  class MetadataPageResult extends DataResponse<Page<MetadataEntity>> {
 
   }
 
-  class MetadataResult extends DataResponse<PersistentMetadata> {
+  class MetadataResult extends DataResponse<MetadataEntity> {
 
   }
 }

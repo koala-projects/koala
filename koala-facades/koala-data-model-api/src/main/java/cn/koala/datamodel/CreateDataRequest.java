@@ -18,7 +18,7 @@ import java.util.Map;
 @Schema(description = "创建数据请求参数")
 public class CreateDataRequest {
   @Schema(description = "元数据")
-  private PersistentMetadata metadata;
+  private MetadataEntity metadata;
   @Schema(description = "数据内容, Map对象")
   private Map<String, Object> contents;
 }

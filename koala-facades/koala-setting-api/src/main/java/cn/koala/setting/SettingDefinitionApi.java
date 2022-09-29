@@ -1,7 +1,7 @@
 package cn.koala.setting;
 
 import cn.koala.datamodel.Metadata;
-import cn.koala.datamodel.PersistentMetadata;
+import cn.koala.datamodel.MetadataEntity;
 import cn.koala.web.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,7 +41,7 @@ public interface SettingDefinitionApi {
   @GetMapping
   DataResponse<List<Metadata>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters);
 
-  class SettingDefinitionListResult extends DataResponse<List<PersistentMetadata>> {
+  class SettingDefinitionListResult extends DataResponse<List<MetadataEntity>> {
 
   }
 }

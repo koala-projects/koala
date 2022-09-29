@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class DataApiTest {
+public class DataServiceTest {
   @Autowired
   private MetadataService metadataService;
   @Autowired
@@ -25,10 +25,10 @@ public class DataApiTest {
   @Test
   @Order(1)
   public void add() {
-    PersistentMetadata metadata = PersistentMetadata.builder().id("999").name("元数据").build();
+    MetadataEntity metadata = MetadataEntity.builder().id("999").code("test").name("元数据").build();
     metadata.setProperties(List.of(
-      PersistentProperty.builder().id("999-1").code("name").name("姓名").type(PropertyType.STRING).build(),
-      PersistentProperty.builder().id("999-2").code("age").name("年龄").type(PropertyType.INTEGER).build()
+      PropertyEntity.builder().id("999-1").code("name").name("姓名").type(PropertyType.STRING).build(),
+      PropertyEntity.builder().id("999-2").code("age").name("年龄").type(PropertyType.INTEGER).build()
     ));
     metadataService.add(metadata);
     Assertions.assertDoesNotThrow(() -> dataService.add(metadata, Map.of("_koala_data_id", "999", "name", "考拉", "age", 10)));
@@ -59,7 +59,7 @@ public class DataApiTest {
   @Test
   @Order(5)
   public void delete() {
-    metadataService.delete(PersistentMetadata.builder().id("999").build());
+    metadataService.delete(MetadataEntity.builder().id("999").build());
     Assertions.assertDoesNotThrow(() -> dataService.delete("999"));
   }
 }

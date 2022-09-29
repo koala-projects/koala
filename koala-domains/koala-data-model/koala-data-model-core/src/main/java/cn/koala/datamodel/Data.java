@@ -12,6 +12,12 @@ import java.util.Map;
  * @author Houtaroy
  */
 public interface Data extends Idable<String> {
+  /**
+   * 获取元数据
+   *
+   * @return 元数据
+   */
+  Metadata getMetadata();
 
   /**
    * 获取数据元列表
@@ -22,20 +28,16 @@ public interface Data extends Idable<String> {
   <T extends DataElement> List<T> getElements();
 
   /**
-   * 获取元数据
-   *
-   * @return 元数据
-   */
-  Metadata getMetadata();
-
-  /**
    * 转换为Map
    *
    * @return Map类型的数据
    */
   default Map<String, Object> toMap() {
     Map<String, Object> result = new HashMap<>(getElements().size());
-    getElements().forEach(element -> result.put(element.getCode(), element.toData()));
+    getElements().forEach(element -> result.put(
+      element.getProperty().getCode(),
+      element.getProperty().parse(element.getContent()))
+    );
     return result;
   }
 }

@@ -32,7 +32,6 @@ DROP TABLE IF EXISTS t_data_element;
 CREATE TABLE t_data_element
 (
   id          VARCHAR(36) NOT NULL COMMENT '主键',
-  code        VARCHAR(50) NOT NULL COMMENT '数据代码',
   content     VARCHAR(2000) COMMENT '数据内容',
   data_id     VARCHAR(36) NOT NULL COMMENT '数据id',
   property_id VARCHAR(36) NOT NULL COMMENT '属性id',

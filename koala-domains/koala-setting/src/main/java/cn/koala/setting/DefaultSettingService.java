@@ -4,7 +4,7 @@ import cn.koala.datamodel.Data;
 import cn.koala.datamodel.DataService;
 import cn.koala.datamodel.Metadata;
 import cn.koala.datamodel.MetadataService;
-import cn.koala.datamodel.PersistentData;
+import cn.koala.datamodel.DataEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 
@@ -45,16 +45,16 @@ public class DefaultSettingService implements SettingService {
 
   @Override
   public void update(String id, Map<String, Object> settings) {
-    Optional<PersistentData> data = findData(Map.of("metadataId", id));
+    Optional<DataEntity> data = findData(Map.of("metadataId", id));
     Assert.isTrue(data.isPresent(), "更新失败, 设置不存在");
     dataService.update(data.get().getId(), settings);
   }
 
-  protected Optional<PersistentData> findData(Map<String, Object> parameters) {
+  protected Optional<DataEntity> findData(Map<String, Object> parameters) {
     return Optional.ofNullable(dataService.list(parameters))
       .filter(data -> data.size() == 1)
       .map(data -> data.get(0))
-      .filter(data -> data instanceof PersistentData)
-      .map(PersistentData.class::cast);
+      .filter(data -> data instanceof DataEntity)
+      .map(DataEntity.class::cast);
   }
 }

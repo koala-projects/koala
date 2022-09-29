@@ -15,16 +15,16 @@ import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class MetadataApiTest {
+public class MetadataServiceTest {
   @Autowired
   private MetadataService metadataService;
-  private static PersistentMetadata TEST_DATA;
+  private static MetadataEntity TEST_DATA;
 
   @Test
   @Order(1)
   public void add() {
-    TEST_DATA = PersistentMetadata.builder().id("999").name("新增").description("新增").build();
-    TEST_DATA.setProperties(List.of(PersistentProperty.builder().code("add").name("新增").description("新增").type(PropertyType.STRING).build()));
+    TEST_DATA = MetadataEntity.builder().id("999").code("test").name("新增").description("新增").build();
+    TEST_DATA.setProperties(List.of(PropertyEntity.builder().code("add").name("新增").description("新增").type(PropertyType.STRING).build()));
     Assertions.assertDoesNotThrow(() -> metadataService.add(TEST_DATA));
   }
 
@@ -32,7 +32,7 @@ public class MetadataApiTest {
   @Order(2)
   public void update() {
     TEST_DATA.setName("更新");
-    TEST_DATA.setProperties(List.of(PersistentProperty.builder().code("update").name("更新").description("更新").type(PropertyType.STRING).build()));
+    TEST_DATA.setProperties(List.of(PropertyEntity.builder().code("update").name("更新").description("更新").type(PropertyType.STRING).build()));
     Assertions.assertDoesNotThrow(() -> metadataService.update(TEST_DATA));
   }
 
