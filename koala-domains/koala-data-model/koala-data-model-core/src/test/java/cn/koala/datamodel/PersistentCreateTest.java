@@ -16,7 +16,7 @@ public class PersistentCreateTest {
       PersistentProperty.builder().code("name").name("名称").description("名称").type(PropertyType.STRING).build(),
       PersistentProperty.builder().code("age").name("年龄").description("年龄").type(PropertyType.INTEGER).build()
     );
-    PersistentMetadata metadata = PersistentMetadata.builder().id("999").code("test").name("测试").description("测试").build();
+    PersistentMetadata metadata = PersistentMetadata.builder().id("999").name("测试").description("测试").build();
     metadata.setProperties(properties);
     Assertions.assertEquals(properties.get(0).getMetadata(), metadata);
     Map<String, Object> contents = Map.of("name", "测试数据", "age", 18);
