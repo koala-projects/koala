@@ -19,12 +19,12 @@ import java.util.List;
 public class MetadataEntity implements Metadata {
   @Schema(description = "元数据ID")
   protected String id;
-  @Schema(description = "元数据代码")
+  @Schema(description = "元数据代码", required = true)
   protected String code;
-  @Schema(description = "元数据名称")
+  @Schema(description = "元数据名称", required = true)
   protected String name;
   @Schema(description = "元数据描述")
   protected String description;
-  @Schema(description = "属性列表")
+  @Schema(description = "属性列表", required = true)
   protected List<PropertyEntity> properties;
 }

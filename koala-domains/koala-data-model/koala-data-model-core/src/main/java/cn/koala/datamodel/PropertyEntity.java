@@ -14,16 +14,16 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Schema(description = "属性")
+@Schema(description = "属性实体")
 public class PropertyEntity implements Property, Idable<String> {
   @Schema(description = "属性ID")
   protected String id;
-  @Schema(description = "属性代码")
+  @Schema(description = "属性代码", required = true)
   protected String code;
-  @Schema(description = "属性名称")
+  @Schema(description = "属性名称", required = true)
   protected String name;
   @Schema(description = "属性描述")
   protected String description;
-  @Schema(description = "属性类型")
+  @Schema(description = "属性类型", required = true)
   protected PropertyType type;
 }
