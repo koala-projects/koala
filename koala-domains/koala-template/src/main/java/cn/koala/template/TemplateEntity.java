@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class PersistentTemplate extends StringTemplate implements Idable<String> {
+public class TemplateEntity extends StringTemplate implements Idable<String> {
   protected String id;
   protected String name;
   protected String content;

@@ -12,7 +12,7 @@ import java.util.Map;
 public class EnjoyTemplateTest {
   @Test
   public void render() throws Exception {
-    Template template = PersistentTemplate.builder().name("test").content("#(test)").build();
+    Template template = TemplateEntity.builder().name("test").content("#(test)").build();
     Map<String, Object> data = Map.of("test", "koala");
     Renderer renderer = new EnjoyRenderer(Engine.use());
     Assertions.assertEquals(renderer.render(template, data), "koala");
@@ -20,7 +20,7 @@ public class EnjoyTemplateTest {
 
   @Test
   public void stringExt() throws Exception {
-    Template template = PersistentTemplate.builder().name("test").content("#(test.capitalize())").build();
+    Template template = TemplateEntity.builder().name("test").content("#(test.capitalize())").build();
     Map<String, Object> data = Map.of("test", "koala");
     Engine.addExtensionMethod(String.class, EnjoyStringExt.class);
     Renderer renderer = new EnjoyRenderer(Engine.use());
