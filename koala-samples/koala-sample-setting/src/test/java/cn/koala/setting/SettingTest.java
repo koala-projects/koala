@@ -33,7 +33,7 @@ public class SettingTest {
   @Test
   @Order(1)
   public void register() {
-    MetadataEntity metadata = MetadataEntity.builder().id("999").name("系统设置").build();
+    MetadataEntity metadata = MetadataEntity.builder().id("999").code("system").name("系统设置").build();
     metadata.setProperties(List.of(
       PropertyEntity.builder().id("999-1").code("default-password").name("默认密码").type(PropertyType.STRING).build()
     ));
