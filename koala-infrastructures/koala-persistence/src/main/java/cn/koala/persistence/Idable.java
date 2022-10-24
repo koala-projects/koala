@@ -1,22 +1,33 @@
 package cn.koala.persistence;
 
 /**
- * @param <T> 主键类型
+ * @param <T> id类型
  * @author Houtaroy
  */
 public interface Idable<T> {
 
   /**
-   * 获取主键
+   * 获取id
    *
-   * @return 主键
+   * @return id
    */
   T getId();
 
   /**
-   * 设置主键
+   * 设置id
    *
-   * @param id 主键
+   * @param id id
    */
   void setId(T id);
+
+  /**
+   * 如果id不存在则设置
+   *
+   * @param id id
+   */
+  default void setIdIfAbsent(T id) {
+    if (getId() == null) {
+      setId(id);
+    }
+  }
 }
