@@ -57,6 +57,7 @@
   </distributionManagement>
 
   <modules>
+    <module>koala-applications</module>
     <module>koala-components</module>
     <module>koala-domains</module>
     <module>koala-facades</module>

@@ -25,6 +25,7 @@
     <module>koala-office-spring-boot-starter</module>
     <module>koala-sensitive-word-spring-boot-starter</module>
     <module>koala-setting-spring-boot-starter</module>
+    <module>koala-system-spring-boot-starter</module>
     <module>koala-system-management-spring-boot-starter</module>
     <module>koala-web-spring-boot-starter</module>
   </modules>

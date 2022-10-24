@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.system.mybatis.DictionaryItemRepository">
+
+  <sql id="selectDictionaryItem">
+    select t.id,
+           t.name,
+           t.content
+    from t_dictionary_item t
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.system.DictionaryItemEntity">
+    <include refid="selectDictionaryItem"/>
+    <where>
+      <if test="parameters.name != null and parameters.name != ''">
+        t.name = #{parameters.name}
+      </if>
+      <if test="parameters.dictionaryId != null and parameters.dictionaryId != ''">
+        t.dictionary_id = #{parameters.dictionaryId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.system.DictionaryItemEntity">
+    <include refid="selectDictionaryItem"/>
+    where t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.system.DictionaryItemEntity">
+    insert into t_dictionary_item
+    values (#{id}, #{name}, #{content}, #{dictionary.id});
+  </insert>
+
+  <update id="update" parameterType="cn.koala.system.DictionaryItemEntity">
+    update t_dictionary_item
+    set name    = #{name},
+        content = #{content}
+    where id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="cn.koala.system.DictionaryItemEntity">
+    delete
+    from t_dictionary_item
+    where id = #{id};
+  </delete>
+</mapper>

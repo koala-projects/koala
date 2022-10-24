@@ -16,11 +16,11 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Parameter(in = ParameterIn.QUERY, description = "页码", name = "pageNumber",
+@Parameter(in = ParameterIn.QUERY, description = "页码", name = "page",
   content = @Content(schema = @Schema(type = "integer", defaultValue = "0")))
-@Parameter(in = ParameterIn.QUERY, description = "每页大小", name = "pageSize",
+@Parameter(in = ParameterIn.QUERY, description = "每页大小", name = "size",
   content = @Content(schema = @Schema(type = "integer", defaultValue = "50")))
 @Parameter(in = ParameterIn.QUERY, description = "排序字段: 排序属性(,asc|desc)", name = "sort",
-  content = @Content(array = @ArraySchema(schema = @Schema(type = "string", defaultValue = "id,desc"))))
+  content = @Content(array = @ArraySchema(schema = @Schema(type = "string"))))
 public @interface PageableAsQueryParam {
 }
