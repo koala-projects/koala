@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/dictionaries")
-@Tag(name = "dictionary", description = "字典接口")
+@Tag(name = "字典接口")
 @SecurityRequirement(name = "spring-security")
 public interface DictionaryApi {
 
@@ -45,7 +45,7 @@ public interface DictionaryApi {
    * @return 字典列表
    */
   @PreAuthorize("hasAuthority('dictionary:read')")
-  @Operation(summary = "根据条件分页查询字典", tags = {"dictionary"})
+  @Operation(summary = "根据条件分页查询字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryPageResult.class))}
   )
@@ -63,7 +63,7 @@ public interface DictionaryApi {
    * @return 字典
    */
   @PreAuthorize("hasAuthority('dictionary:read')")
-  @Operation(summary = "根据id查询字典", tags = {"dictionary"})
+  @Operation(summary = "根据id查询字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryResult.class))}
   )
@@ -78,7 +78,7 @@ public interface DictionaryApi {
    * @return 字典
    */
   @PreAuthorize("hasAuthority('dictionary:write')")
-  @Operation(summary = "创建字典", tags = {"dictionary"})
+  @Operation(summary = "创建字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryResult.class))}
   )
@@ -93,7 +93,7 @@ public interface DictionaryApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('dictionary:write')")
-  @Operation(summary = "更新字典", tags = {"dictionary"})
+  @Operation(summary = "更新字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -108,7 +108,7 @@ public interface DictionaryApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('dictionary:write')")
-  @Operation(summary = "删除字典", tags = {"dictionary"})
+  @Operation(summary = "删除字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )

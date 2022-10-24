@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.system.mybatis.PermissionRepository">
+
+  <sql id="selectPermission">
+    select t.id,
+           t.type,
+           t.code,
+           t.name,
+           t.description
+    from t_permission t
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.system.PermissionEntity">
+    <include refid="selectPermission"/>
+    <where>
+      <if test="parameters.type != null and parameters.type != ''">
+        t.type = #{parameters.type}
+      </if>
+      <if test="parameters.code != null and parameters.code != ''">
+        and t.code = #{parameters.code}
+      </if>
+      <if test="parameters.name != null and parameters.name != ''">
+        and t.name = #{parameters.name}
+      </if>
+      <if test="parameters.parentId != null and parameters.parentId != ''">
+        and t.parent_id = #{parameters.parentId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.system.PermissionEntity">
+    select t.id,
+           t.type,
+           t.code,
+           t.name,
+           t.description
+    from t_permission t
+    where t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.system.PermissionEntity">
+    insert into t_permission
+    values (#{id}, #{type}, #{code}, #{name}, #{description}, #{parent.id})
+  </insert>
+
+  <update id="update" parameterType="cn.koala.system.PermissionEntity">
+    update t_permission
+    set id          = #{id},
+        type        = #{type},
+        code        = #{code},
+        name        = #{name},
+        description = #{description},
+        parent_id   = #{parent.id}
+    where id = #{id}
+  </update>
+
+  <update id="delete" parameterType="cn.koala.system.PermissionEntity">
+    delete
+    from t_permission
+    where id = #{id}
+  </update>
+</mapper>
