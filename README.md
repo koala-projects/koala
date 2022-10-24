@@ -14,20 +14,20 @@
 - [x] Swagger3
 - [x] OAuth2
 - [ ] 系统管理接口
-- [ ] CRUD低代码
 
-### 启动类
+### 组件
 
 - [x] [数据模型](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-data-model-spring-boot-starter)
+- [x] [数据库](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-database-spring-boot-starter)
 - [x] [钉钉](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-dingtalk-spring-boot-starter)
-- [x] [Druid拓展](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-druid-spring-boot-starter)
+- [x] [Druid](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-druid-spring-boot-starter)
 - [x] [Mqtt](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-integration-mqtt-spring-boot-starter)
-- [x] [办公组件](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-office-spring-boot-starter)
 - [x] [OAuth2](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-oauth2-authorization-server-spring-boot-starter)
+- [x] [办公组件](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-office-spring-boot-starter)
 - [x] [敏感词过滤](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-sensitive-word-spring-boot-starter)
-- [x] [设置组件](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-setting-spring-boot-starter)
+- [x] [设置](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-setting-spring-boot-starter)
+- [ ] 系统管理
 - [x] [Web](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-web-spring-boot-starter)
-- [ ] 微信小程序
 
 ## 如何使用
 
