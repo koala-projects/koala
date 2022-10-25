@@ -32,7 +32,7 @@ import java.util.Map;
 @RequestMapping("/api/permissions")
 @RestController
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "权限接口")
+@Tag(name = "权限管理")
 public interface PermissionApi {
 
   /**

@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/dictionary-items")
-@Tag(name = "字典项接口")
+@Tag(name = "字典项管理")
 @SecurityRequirement(name = "spring-security")
 public interface DictionaryItemApi {
 
