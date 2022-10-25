@@ -1,5 +1,7 @@
 package cn.koala.system;
 
+import cn.koala.system.mybatis.DepartmentRepository;
+import cn.koala.system.mybatis.DepartmentServiceImpl;
 import cn.koala.system.mybatis.DictionaryItemRepository;
 import cn.koala.system.mybatis.DictionaryRepository;
 import cn.koala.system.mybatis.MyBatisDictionaryItemService;
@@ -22,7 +24,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * TODO: 修改类描述
+ * 系统管理自动配置
  *
  * @author Houtaroy
  */
@@ -52,6 +54,18 @@ public class SystemAutoConfig {
   @ConditionalOnMissingBean
   public DictionaryItemService dictionaryItemService(DictionaryItemRepository dictionaryItemRepository) {
     return new MyBatisDictionaryItemService(dictionaryItemRepository);
+  }
+
+  /**
+   * 部门服务的bean
+   *
+   * @param departmentRepository 部门存储库
+   * @return 部门服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public DepartmentService departmentService(DepartmentRepository departmentRepository) {
+    return new DepartmentServiceImpl(departmentRepository);
   }
 
   /**
