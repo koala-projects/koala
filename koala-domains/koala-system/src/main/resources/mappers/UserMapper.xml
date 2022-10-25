@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.system.mybatis.UserRepository">
+
+  <resultMap id="userResultMap" type="cn.koala.system.UserEntity">
+    <id property="id" column="id"/>
+    <result property="username" column="username"/>
+    <result property="password" column="password"/>
+    <result property="nickname" column="nickname"/>
+    <result property="avatar" column="avatar"/>
+    <collection property="roles" ofType="cn.koala.system.RoleEntity">
+      <id property="id" column="role.id"/>
+      <result property="code" column="role.code"/>
+      <result property="name" column="role.name"/>
+    </collection>
+  </resultMap>
+
+  <sql id="selectUser">
+    select t.id,
+           t.username,
+           t.password,
+           t.nickname,
+           t.avatar
+    from t_user t
+  </sql>
+
+  <sql id="deleteUserRole">
+    delete
+    from t_user_role
+    where user_id = #{id};
+  </sql>
+
+  <sql id="addUserRole">
+    <if test="roles != null">
+      <foreach item="item" index="index" collection="role" open="" separator="" close="">
+        insert into t_user_role values (#{id}, #{role.id});
+      </foreach>
+    </if>
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.system.UserEntity">
+    <include refid="selectUser"/>
+    <where>
+      <if test="parameters.username != null and parameters.username != ''">
+        t.username = #{parameters.username}
+      </if>
+      <if test="parameters.nickname != null and parameters.nickname != ''">
+        and t.nickname = #{parameters.nickname}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultMap="userResultMap">
+    select t.id,
+           t.username,
+           t.password,
+           t.nickname,
+           t.avatar,
+           role.id,
+           role.code,
+           role.name
+    from t_user t
+           left join t_user_role ur on ur.user_id = t.id
+           left join t_role role on role.id = ur.role_id
+    where t.id = #{id}
+  </select>
+  <insert id="add" parameterType="cn.koala.system.UserEntity">
+    insert into t_user
+    values (#{id},
+    #{username},
+    #{password},
+    #{nickname},
+    #{avatar});
+    <include refid="addUserRole"/>
+  </insert>
+  <update id="update" parameterType="cn.koala.system.UserEntity">
+    update t_user
+    set username = #{username},
+    password = #{password},
+    nickname = #{nickname},
+    avatar = #{avatar}
+    where id = #{id};
+    <include refid="deleteUserRole"/>
+    <include refid="addUserRole"/>
+  </update>
+  <update id="delete" parameterType="cn.koala.system.UserEntity">
+    delete
+    from t_user
+    where id = #{id};
+    delete
+    from t_user_role
+    where user_id = #{id};
+  </update>
+</mapper>

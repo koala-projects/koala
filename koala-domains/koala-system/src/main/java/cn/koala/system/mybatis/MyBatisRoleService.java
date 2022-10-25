@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 /**
  * 角色服务MyBatis实现
  *
@@ -17,4 +19,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyBatisRoleService extends AbstractUUIDCrudService<Role> implements RoleService {
   protected final RoleRepository repository;
+  protected final RolePermissionRepository rolePermissionRepository;
+
+  @Override
+  public void delete(Role entity) {
+    rolePermissionRepository.deleteByRoleId(entity.getId());
+    super.delete(entity);
+  }
+
+  @Override
+  public List<String> permissionIds(String id) {
+    return rolePermissionRepository.findAllPermissionIdByRoleId(id);
+  }
+
+  @Override
+  public void authorize(String id, List<String> permissionIds) {
+    rolePermissionRepository.deleteByRoleId(id);
+    rolePermissionRepository.add(id, permissionIds);
+  }
 }

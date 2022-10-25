@@ -33,7 +33,7 @@ public class PermissionApiTest {
   @Order(1)
   @WithMockUser(username = "admin", authorities = {"permission:read", "permission:write"})
   public void add() throws Exception {
-    PermissionEntity entity = PermissionEntity.builder().id("1").type(PermissionType.MENU).code("test").name("测试权限").build();
+    PermissionEntity entity = PermissionEntity.builder().id("999").code("test").name("测试权限").build();
     mockMvc.perform(post("/api/permissions").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(entity)))
       .andExpect(status().isOk());
   }
@@ -51,8 +51,8 @@ public class PermissionApiTest {
   @Order(3)
   @WithMockUser(username = "admin", authorities = {"permission:read", "permission:write"})
   public void update() throws Exception {
-    PermissionEntity entity = PermissionEntity.builder().id("1").type(PermissionType.MENU).code("test2").name("测试权限").build();
-    mockMvc.perform(put("/api/permissions/1").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(entity)))
+    PermissionEntity entity = PermissionEntity.builder().id("999").code("test2").name("测试权限").build();
+    mockMvc.perform(put("/api/permissions/999").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(entity)))
       .andExpect(status().isOk());
   }
 
@@ -60,7 +60,7 @@ public class PermissionApiTest {
   @Order(4)
   @WithMockUser(username = "admin", authorities = {"permission:read", "permission:write"})
   public void load() throws Exception {
-    mockMvc.perform(get("/api/permissions/1"))
+    mockMvc.perform(get("/api/permissions/999"))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.data.code", equalTo("test2")));
   }
@@ -69,7 +69,7 @@ public class PermissionApiTest {
   @Order(5)
   @WithMockUser(username = "admin", authorities = {"permission:read", "permission:write"})
   public void delete() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.delete("/api/permissions/1"))
+    mockMvc.perform(MockMvcRequestBuilders.delete("/api/permissions/999"))
       .andExpect(status().isOk());
   }
 }

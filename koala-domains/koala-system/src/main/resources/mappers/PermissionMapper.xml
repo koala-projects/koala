@@ -5,7 +5,6 @@
 
   <sql id="selectPermission">
     select t.id,
-           t.type,
            t.code,
            t.name,
            t.description
@@ -15,11 +14,8 @@
   <select id="findAll" resultType="cn.koala.system.PermissionEntity">
     <include refid="selectPermission"/>
     <where>
-      <if test="parameters.type != null and parameters.type != ''">
-        t.type = #{parameters.type}
-      </if>
       <if test="parameters.code != null and parameters.code != ''">
-        and t.code = #{parameters.code}
+        t.code = #{parameters.code}
       </if>
       <if test="parameters.name != null and parameters.name != ''">
         and t.name = #{parameters.name}
@@ -32,7 +28,6 @@
 
   <select id="findById" resultType="cn.koala.system.PermissionEntity">
     select t.id,
-           t.type,
            t.code,
            t.name,
            t.description
@@ -42,14 +37,12 @@
 
   <insert id="add" parameterType="cn.koala.system.PermissionEntity">
     insert into t_permission
-    values (#{id}, #{type}, #{code}, #{name}, #{description}, #{parent.id})
+    values (#{id}, #{code}, #{name}, #{description}, #{parent.id})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.PermissionEntity">
     update t_permission
-    set id          = #{id},
-        type        = #{type},
-        code        = #{code},
+    set code        = #{code},
         name        = #{name},
         description = #{description},
         parent_id   = #{parent.id}

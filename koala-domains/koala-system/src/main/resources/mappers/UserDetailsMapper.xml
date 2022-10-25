@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.system.mybatis.UserDetailsRepository">
+
+  <resultMap id="userDetailsResultMap" type="cn.koala.system.UserDetailsImpl"
+             extends="cn.koala.system.mybatis.UserRepository.userResultMap">
+    <collection property="roles" ofType="cn.koala.system.RoleEntity">
+      <id property="id" column="role.id"/>
+      <result property="code" column="role.code"/>
+      <result property="name" column="role.name"/>
+      <collection property="permissions" ofType="cn.koala.system.PermissionEntity">
+        <id property="id" column="permission.id"/>
+        <result property="code" column="permission.code"/>
+        <result property="name" column="permission.name"/>
+      </collection>
+    </collection>
+  </resultMap>
+
+  <select id="findByUsername" resultMap="userDetailsResultMap">
+    select t.id,
+           t.username,
+           t.password,
+           t.nickname,
+           t.avatar,
+           role.id         as "role.id",
+           role.code       as "role.code",
+           role.name       as "role.name",
+           permission.id   as "permission.id",
+           permission.code as "permission.code",
+           permission.name as "permission.name"
+    from t_user t
+           left join t_user_role ur on ur.user_id = t.id
+           left join t_role role on role.id = ur.role_id
+           left join t_role_permission rp on role.id = rp.role_id
+           left join t_permission permission on permission.id = rp.permission_id
+    where t.username = #{username}
+  </select>
+</mapper>

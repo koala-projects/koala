@@ -17,8 +17,6 @@ import lombok.experimental.SuperBuilder;
 public class PermissionEntity implements Permission {
   @Schema(description = "权限ID")
   private String id;
-  @Schema(description = "权限类型")
-  private PermissionType type;
   @Schema(description = "权限代码")
   private String code;
   @Schema(description = "权限名称")

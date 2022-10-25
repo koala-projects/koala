@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,17 @@ public class RoleApiImpl implements RoleApi {
   @Override
   public Response delete(String id) {
     roleService.delete(RoleEntity.builder().id(id).build());
+    return Response.SUCCESS;
+  }
+
+  @Override
+  public DataResponse<List<String>> permissionIds(String id) {
+    return DataResponse.ok(roleService.permissionIds(id));
+  }
+
+  @Override
+  public Response authorize(String id, List<String> permissionIds) {
+    roleService.authorize(id, permissionIds);
     return Response.SUCCESS;
   }
 }
