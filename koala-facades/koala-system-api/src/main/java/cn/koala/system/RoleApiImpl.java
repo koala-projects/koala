@@ -37,6 +37,7 @@ public class RoleApiImpl implements RoleApi {
 
   @Override
   public Response update(String id, RoleEntity role) {
+    role.setId(id);
     roleService.update(role);
     return Response.SUCCESS;
   }

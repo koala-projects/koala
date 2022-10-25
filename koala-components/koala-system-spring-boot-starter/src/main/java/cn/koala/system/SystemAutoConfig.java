@@ -11,11 +11,15 @@ import cn.koala.system.mybatis.RolePermissionRepository;
 import cn.koala.system.mybatis.RoleRepository;
 import cn.koala.system.mybatis.UserDetailsRepository;
 import cn.koala.system.mybatis.UserDetailsServiceImpl;
+import cn.koala.system.mybatis.UserRepository;
+import cn.koala.system.mybatis.UserRoleRepository;
+import cn.koala.system.mybatis.UserServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * TODO: 修改类描述
@@ -73,6 +77,21 @@ public class SystemAutoConfig {
   @ConditionalOnMissingBean
   public RoleService roleService(RoleRepository roleRepository, RolePermissionRepository rolePermissionRepository) {
     return new MyBatisRoleService(roleRepository, rolePermissionRepository);
+  }
+
+  /**
+   * 用户服务的bean
+   *
+   * @param userRepository     用户存储库
+   * @param passwordEncoder    密码加密器
+   * @param userRoleRepository 用户角色关系存储库
+   * @return 用户服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                                 UserRoleRepository userRoleRepository) {
+    return new UserServiceImpl(userRepository, passwordEncoder, userRoleRepository);
   }
 
   /**

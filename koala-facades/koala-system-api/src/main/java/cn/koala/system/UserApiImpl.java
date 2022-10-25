@@ -7,36 +7,36 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
- * 字典接口实现
- *
  * @author Houtaroy
+ * @date 2022/4/10
  */
 @RequiredArgsConstructor
 @RestController
-public class PermissionApiImpl implements PermissionApi {
-  protected final PermissionService service;
+public class UserApiImpl implements UserApi {
+  protected final UserService service;
 
   @Override
-  public DataResponse<Page<Permission>> page(Map<String, Object> parameters, Pageable pageable) {
+  public DataResponse<Page<User>> page(Map<String, Object> parameters, Pageable pageable) {
     return DataResponse.ok(service.list(parameters, pageable));
   }
 
   @Override
-  public DataResponse<Permission> loadById(String id) {
+  public DataResponse<User> loadById(String id) {
     return DataResponse.ok(service.load(id).orElse(null));
   }
 
   @Override
-  public DataResponse<Permission> create(PermissionEntity entity) {
+  public DataResponse<User> create(UserEntity entity) {
     service.add(entity);
     return DataResponse.ok(entity);
   }
 
   @Override
-  public Response update(String id, PermissionEntity entity) {
+  public Response update(String id, UserEntity entity) {
     entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
@@ -44,7 +44,18 @@ public class PermissionApiImpl implements PermissionApi {
 
   @Override
   public Response delete(String id) {
-    service.delete(PermissionEntity.builder().id(id).build());
+    service.delete(UserEntity.builder().id(id).build());
+    return Response.SUCCESS;
+  }
+
+  @Override
+  public DataResponse<List<String>> roleIds(String id) {
+    return DataResponse.ok(service.roleIds(id));
+  }
+
+  @Override
+  public Response setRoles(String id, List<String> roleIds) {
+    service.setRoles(id, roleIds);
     return Response.SUCCESS;
   }
 }

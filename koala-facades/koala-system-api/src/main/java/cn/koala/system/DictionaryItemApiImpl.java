@@ -37,6 +37,7 @@ public class DictionaryItemApiImpl implements DictionaryItemApi {
 
   @Override
   public Response update(String id, DictionaryItemEntity entity) {
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

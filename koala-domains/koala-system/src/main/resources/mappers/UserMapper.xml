@@ -57,40 +57,28 @@
            t.username,
            t.password,
            t.nickname,
-           t.avatar,
-           role.id,
-           role.code,
-           role.name
+           t.avatar
     from t_user t
-           left join t_user_role ur on ur.user_id = t.id
-           left join t_role role on role.id = ur.role_id
     where t.id = #{id}
   </select>
   <insert id="add" parameterType="cn.koala.system.UserEntity">
     insert into t_user
     values (#{id},
-    #{username},
-    #{password},
-    #{nickname},
-    #{avatar});
-    <include refid="addUserRole"/>
+            #{username},
+            #{password},
+            #{nickname},
+            #{avatar});
   </insert>
   <update id="update" parameterType="cn.koala.system.UserEntity">
     update t_user
     set username = #{username},
-    password = #{password},
-    nickname = #{nickname},
-    avatar = #{avatar}
+        nickname = #{nickname},
+        avatar   = #{avatar}
     where id = #{id};
-    <include refid="deleteUserRole"/>
-    <include refid="addUserRole"/>
   </update>
   <update id="delete" parameterType="cn.koala.system.UserEntity">
     delete
     from t_user
-    where id = #{id};
-    delete
-    from t_user_role
-    where user_id = #{id};
+    where id = #{id}
   </update>
 </mapper>

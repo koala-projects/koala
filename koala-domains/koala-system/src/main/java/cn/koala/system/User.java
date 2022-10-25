@@ -26,6 +26,13 @@ public interface User extends Idable<String> {
   String getPassword();
 
   /**
+   * 设置密码
+   *
+   * @param password 密码
+   */
+  void setPassword(String password);
+
+  /**
    * 获取昵称
    *
    * @return 昵称
