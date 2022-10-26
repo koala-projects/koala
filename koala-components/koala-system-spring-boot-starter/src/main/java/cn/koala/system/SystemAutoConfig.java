@@ -119,4 +119,76 @@ public class SystemAutoConfig {
   public UserDetailsService userDetailsService(UserDetailsRepository userDetailsRepository) {
     return new UserDetailsServiceImpl(userDetailsRepository);
   }
+
+  /**
+   * 字典管理接口的bean
+   *
+   * @param dictionaryService 字典服务
+   * @return 字典管理接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public DictionaryApi dictionaryApi(DictionaryService dictionaryService) {
+    return new DictionaryApiImpl(dictionaryService);
+  }
+
+  /**
+   * 字典项管理接口的bean
+   *
+   * @param dictionaryItemService 字典项服务
+   * @return 字典项管理接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public DictionaryItemApi dictionaryItemApi(DictionaryItemService dictionaryItemService) {
+    return new DictionaryItemApiImpl(dictionaryItemService);
+  }
+
+  /**
+   * 部门管理接口的bean
+   *
+   * @param departmentService 部门服务
+   * @return 部门管理接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public DepartmentApi departmentApi(DepartmentService departmentService) {
+    return new DepartmentApiImpl(departmentService);
+  }
+
+  /**
+   * 权限管理接口的bean
+   *
+   * @param permissionService 权限服务
+   * @return 权限管理接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PermissionApi permissionApi(PermissionService permissionService) {
+    return new PermissionApiImpl(permissionService);
+  }
+
+  /**
+   * 角色管理接口的bean
+   *
+   * @param roleService 角色服务
+   * @return 角色管理接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public RoleApi roleApi(RoleService roleService) {
+    return new RoleApiImpl(roleService);
+  }
+
+  /**
+   * 用户管理接口的bean
+   *
+   * @param userService 用户服务
+   * @return 用户管理接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public UserApi userApi(UserService userService) {
+    return new UserApiImpl(userService);
+  }
 }
