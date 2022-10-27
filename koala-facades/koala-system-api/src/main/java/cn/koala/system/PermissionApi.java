@@ -49,7 +49,6 @@ public interface PermissionApi {
   )
   @Parameter(in = ParameterIn.QUERY, name = "code", description = "权限代码", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.QUERY, name = "name", description = "权限名称", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "parentId", description = "父级权限id", schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<Permission>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,

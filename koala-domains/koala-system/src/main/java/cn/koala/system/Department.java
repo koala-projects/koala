@@ -9,4 +9,10 @@ import cn.koala.persistence.Idable;
  * @author Houtaroy
  */
 public interface Department extends Idable<String>, Codeable {
+  /**
+   * 获取上级部门
+   *
+   * @return 上级部门
+   */
+  Department getParent();
 }

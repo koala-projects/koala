@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class MyBatisRoleService extends AbstractUUIDCrudService<Role> implements RoleService {
+public class RoleServiceImpl extends AbstractUUIDCrudService<Role> implements RoleService {
   protected final RoleRepository repository;
   protected final RolePermissionRepository rolePermissionRepository;
 

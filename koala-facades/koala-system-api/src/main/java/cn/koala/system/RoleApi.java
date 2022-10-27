@@ -73,7 +73,7 @@ public interface RoleApi {
   /**
    * 创建角色
    *
-   * @param role 角色数据实体
+   * @param entity 角色数据实体
    * @return 角色
    */
   @PreAuthorize("hasAuthority('role:write')")
@@ -82,13 +82,13 @@ public interface RoleApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RoleResult.class))}
   )
   @PostMapping
-  DataResponse<Role> create(@RequestBody RoleEntity role);
+  DataResponse<Role> create(@RequestBody RoleEntity entity);
 
   /**
    * 更新角色
    *
-   * @param id   角色id
-   * @param role 角色数据实体
+   * @param id     角色id
+   * @param entity 角色数据实体
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('role:write')")
@@ -98,7 +98,7 @@ public interface RoleApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "string"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") String id, @RequestBody RoleEntity role);
+  Response update(@PathVariable("id") String id, @RequestBody RoleEntity entity);
 
   /**
    * 删除角色

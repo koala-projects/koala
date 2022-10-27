@@ -4,17 +4,14 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.system.mybatis.UserDetailsRepository">
 
-  <resultMap id="userDetailsResultMap" type="cn.koala.system.UserDetailsImpl"
-             extends="cn.koala.system.mybatis.UserRepository.userResultMap">
-    <collection property="roles" ofType="cn.koala.system.RoleEntity">
-      <id property="id" column="role.id"/>
-      <result property="code" column="role.code"/>
-      <result property="name" column="role.name"/>
-      <collection property="permissions" ofType="cn.koala.system.PermissionEntity">
-        <id property="id" column="permission.id"/>
-        <result property="code" column="permission.code"/>
-        <result property="name" column="permission.name"/>
-      </collection>
+  <resultMap id="userDetailsResultMap" type="cn.koala.system.UserDetailsImpl">
+    <id property="id" column="id"/>
+    <result property="username" column="username"/>
+    <result property="password" column="password"/>
+    <result property="nickname" column="nickname"/>
+    <result property="avatar" column="avatar"/>
+    <collection property="permissionCodes" ofType="java.lang.String">
+      <result column="permission.code"/>
     </collection>
   </resultMap>
 
@@ -24,12 +21,7 @@
            t.password,
            t.nickname,
            t.avatar,
-           role.id         as "role.id",
-           role.code       as "role.code",
-           role.name       as "role.name",
-           permission.id   as "permission.id",
-           permission.code as "permission.code",
-           permission.name as "permission.name"
+           permission.code as "permission.code"
     from t_user t
            left join t_user_role ur on ur.user_id = t.id
            left join t_role role on role.id = ur.role_id

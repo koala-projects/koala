@@ -30,15 +30,15 @@ public class RoleApiImpl implements RoleApi {
   }
 
   @Override
-  public DataResponse<Role> create(RoleEntity role) {
-    roleService.add(role);
-    return DataResponse.ok(role);
+  public DataResponse<Role> create(RoleEntity entity) {
+    roleService.add(entity);
+    return DataResponse.ok(entity);
   }
 
   @Override
-  public Response update(String id, RoleEntity role) {
-    role.setId(id);
-    roleService.update(role);
+  public Response update(String id, RoleEntity entity) {
+    entity.setId(id);
+    roleService.update(entity);
     return Response.SUCCESS;
   }
 

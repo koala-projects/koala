@@ -20,9 +20,6 @@
       <if test="parameters.name != null and parameters.name != ''">
         and t.name = #{parameters.name}
       </if>
-      <if test="parameters.parentId != null and parameters.parentId != ''">
-        and t.parent_id = #{parameters.parentId}
-      </if>
     </where>
   </select>
 
@@ -37,15 +34,14 @@
 
   <insert id="add" parameterType="cn.koala.system.PermissionEntity">
     insert into t_permission
-    values (#{id}, #{code}, #{name}, #{description}, #{parent.id})
+    values (#{id}, #{code}, #{name}, #{description})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.PermissionEntity">
     update t_permission
     set code        = #{code},
         name        = #{name},
-        description = #{description},
-        parent_id   = #{parent.id}
+        description = #{description}
     where id = #{id}
   </update>
 

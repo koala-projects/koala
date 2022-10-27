@@ -2,8 +2,6 @@ package cn.koala.system;
 
 import cn.koala.persistence.Idable;
 
-import java.util.List;
-
 /**
  * 用户
  *
@@ -45,11 +43,4 @@ public interface User extends Idable<String> {
    * @return 头像
    */
   String getAvatar();
-
-  /**
-   * 获取角色列表
-   *
-   * @return 角色列表
-   */
-  List<? extends Role> getRoles();
 }

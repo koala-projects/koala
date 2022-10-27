@@ -3,20 +3,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.system.mybatis.UserRepository">
-
-  <resultMap id="userResultMap" type="cn.koala.system.UserEntity">
-    <id property="id" column="id"/>
-    <result property="username" column="username"/>
-    <result property="password" column="password"/>
-    <result property="nickname" column="nickname"/>
-    <result property="avatar" column="avatar"/>
-    <collection property="roles" ofType="cn.koala.system.RoleEntity">
-      <id property="id" column="role.id"/>
-      <result property="code" column="role.code"/>
-      <result property="name" column="role.name"/>
-    </collection>
-  </resultMap>
-
   <sql id="selectUser">
     select t.id,
            t.username,
@@ -52,7 +38,7 @@
     </where>
   </select>
 
-  <select id="findById" resultMap="userResultMap">
+  <select id="findById" resultType="cn.koala.system.UserEntity">
     select t.id,
            t.username,
            t.password,

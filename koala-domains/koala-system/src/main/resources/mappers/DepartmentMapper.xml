@@ -7,8 +7,12 @@
     select t.id,
            t.code,
            t.name,
-           t.description
+           t.description,
+           t.parent_id as "parent.id",
+           parent.code as "parent.code",
+           parent.name as "parent.name"
     from t_department t
+           left join t_department parent on parent.id = t.parent_id
   </sql>
 
   <select id="findAll" resultType="cn.koala.system.DepartmentEntity">

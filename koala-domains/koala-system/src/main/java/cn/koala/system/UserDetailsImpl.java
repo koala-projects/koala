@@ -1,6 +1,7 @@
 package cn.koala.system;
 
-import cn.koala.persistence.Codeable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,17 +16,16 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class UserDetailsImpl extends UserEntity implements UserDetails {
+  private List<String> permissionCodes;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    List<GrantedAuthority> result = new ArrayList<>();
-    Optional.ofNullable(getRoles()).ifPresent(roles -> roles.forEach(role ->
-      Optional.ofNullable(role.getPermissions()).ifPresent(permissions ->
-        result.addAll(permissions.stream().map(Codeable::getCode).map(SimpleGrantedAuthority::new).toList())
-      )
-    ));
-    return result;
+    return Optional.ofNullable(permissionCodes)
+      .map(codes -> codes.stream().map(SimpleGrantedAuthority::new).toList())
+      .orElse(new ArrayList<>());
   }
 
   @Override

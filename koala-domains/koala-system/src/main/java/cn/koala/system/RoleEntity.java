@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 /**
  * 角色数据实体
  *
@@ -25,6 +23,4 @@ public class RoleEntity implements Role {
   private String name;
   @Schema(description = "角色描述")
   private String description;
-  @Schema(description = "角色权限列表")
-  private List<PermissionEntity> permissions;
 }

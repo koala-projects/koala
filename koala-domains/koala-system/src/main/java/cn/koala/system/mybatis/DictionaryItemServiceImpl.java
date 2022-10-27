@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class MyBatisDictionaryItemService extends AbstractUUIDCrudService<DictionaryItem>
+public class DictionaryItemServiceImpl extends AbstractUUIDCrudService<DictionaryItem>
   implements DictionaryItemService {
   protected final DictionaryItemRepository repository;
 }

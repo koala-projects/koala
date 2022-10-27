@@ -23,5 +23,4 @@ public class PermissionEntity implements Permission {
   private String name;
   @Schema(description = "权限描述")
   private String description;
-  private PermissionEntity parent;
 }

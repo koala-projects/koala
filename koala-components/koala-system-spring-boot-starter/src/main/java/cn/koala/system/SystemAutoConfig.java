@@ -3,14 +3,14 @@ package cn.koala.system;
 import cn.koala.system.mybatis.DepartmentRepository;
 import cn.koala.system.mybatis.DepartmentServiceImpl;
 import cn.koala.system.mybatis.DictionaryItemRepository;
+import cn.koala.system.mybatis.DictionaryItemServiceImpl;
 import cn.koala.system.mybatis.DictionaryRepository;
-import cn.koala.system.mybatis.MyBatisDictionaryItemService;
-import cn.koala.system.mybatis.MyBatisDictionaryService;
-import cn.koala.system.mybatis.MyBatisPermissionService;
-import cn.koala.system.mybatis.MyBatisRoleService;
+import cn.koala.system.mybatis.DictionaryServiceImpl;
 import cn.koala.system.mybatis.PermissionRepository;
+import cn.koala.system.mybatis.PermissionServiceImpl;
 import cn.koala.system.mybatis.RolePermissionRepository;
 import cn.koala.system.mybatis.RoleRepository;
+import cn.koala.system.mybatis.RoleServiceImpl;
 import cn.koala.system.mybatis.UserDetailsRepository;
 import cn.koala.system.mybatis.UserDetailsServiceImpl;
 import cn.koala.system.mybatis.UserRepository;
@@ -41,7 +41,7 @@ public class SystemAutoConfig {
   @Bean
   @ConditionalOnMissingBean
   public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository) {
-    return new MyBatisDictionaryService(dictionaryRepository);
+    return new DictionaryServiceImpl(dictionaryRepository);
   }
 
   /**
@@ -53,7 +53,7 @@ public class SystemAutoConfig {
   @Bean
   @ConditionalOnMissingBean
   public DictionaryItemService dictionaryItemService(DictionaryItemRepository dictionaryItemRepository) {
-    return new MyBatisDictionaryItemService(dictionaryItemRepository);
+    return new DictionaryItemServiceImpl(dictionaryItemRepository);
   }
 
   /**
@@ -77,7 +77,7 @@ public class SystemAutoConfig {
   @Bean
   @ConditionalOnMissingBean
   public PermissionService permissionService(PermissionRepository permissionRepository) {
-    return new MyBatisPermissionService(permissionRepository);
+    return new PermissionServiceImpl(permissionRepository);
   }
 
   /**
@@ -90,7 +90,7 @@ public class SystemAutoConfig {
   @Bean
   @ConditionalOnMissingBean
   public RoleService roleService(RoleRepository roleRepository, RolePermissionRepository rolePermissionRepository) {
-    return new MyBatisRoleService(roleRepository, rolePermissionRepository);
+    return new RoleServiceImpl(roleRepository, rolePermissionRepository);
   }
 
   /**
