@@ -191,4 +191,17 @@ public class SystemAutoConfig {
   public UserApi userApi(UserService userService) {
     return new UserApiImpl(userService);
   }
+
+
+  /**
+   * 用户信息接口的bean
+   *
+   * @param userDetailsService 用户详情服务
+   * @return 用户信息接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public UserinfoApi userinfoApi(UserDetailsService userDetailsService) {
+    return new UserinfoApiImpl(userDetailsService);
+  }
 }

@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * TODO: 修改类描述
+ * 系统管理应用
  *
  * @author Houtaroy
  */

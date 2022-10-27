@@ -1,5 +1,7 @@
 package cn.koala.system;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,8 @@ import java.util.Optional;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserDetailsImpl extends UserEntity implements UserDetails {
+  @JsonIgnore
+  @Schema(hidden = true)
   private List<String> permissionCodes;
 
   @Override

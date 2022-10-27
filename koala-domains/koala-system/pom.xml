@@ -16,13 +16,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-persistence</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-oauth2</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
