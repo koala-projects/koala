@@ -20,6 +20,10 @@ public class UserinfoApiImpl implements UserinfoApi {
 
   @Override
   public DataResponse<UserDetails> load(Principal principal) {
-    return DataResponse.ok(service.loadUserByUsername(principal.getName()));
+    UserDetails result = service.loadUserByUsername(principal.getName());
+    if (result instanceof UserDetailsEntity impl) {
+      impl.setPassword(null);
+    }
+    return DataResponse.ok(result);
   }
 }

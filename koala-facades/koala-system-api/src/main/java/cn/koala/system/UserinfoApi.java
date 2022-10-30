@@ -41,7 +41,7 @@ public interface UserinfoApi {
   DataResponse<UserDetails> load(@Parameter(hidden = true) Principal principal);
 
   @Schema(description = "用户信息结果")
-  class UserinfoResult extends DataResponse<UserDetailsImpl> {
+  class UserinfoResult extends DataResponse<UserDetailsEntity> {
 
   }
 }

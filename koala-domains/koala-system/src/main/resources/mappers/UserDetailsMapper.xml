@@ -4,7 +4,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="cn.koala.system.mybatis.UserDetailsRepository">
 
-  <resultMap id="userDetailsResultMap" type="cn.koala.system.UserDetailsImpl">
+  <resultMap id="userDetailsResultMap" type="cn.koala.system.UserDetailsEntity">
     <id property="id" column="id"/>
     <result property="username" column="username"/>
     <result property="password" column="password"/>

@@ -20,11 +20,13 @@ import java.util.Optional;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserDetailsImpl extends UserEntity implements UserDetails {
+@Schema(description = "用户详情数据实体")
+public class UserDetailsEntity extends UserEntity implements UserDetails {
   @JsonIgnore
   @Schema(hidden = true)
   private List<String> permissionCodes;
 
+  @Schema(description = "用户权限列表")
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return Optional.ofNullable(permissionCodes)
