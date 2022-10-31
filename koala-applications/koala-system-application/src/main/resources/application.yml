@@ -46,8 +46,6 @@ spring:
       pageable:
         default-page-size: 50
         max-page-size: 2000
-      sort:
-        sort-parameter: sort
 
 mybatis:
   mapper-locations: classpath*:mappers/*Mapper.xml
