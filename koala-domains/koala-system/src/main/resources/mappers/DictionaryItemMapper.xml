@@ -14,10 +14,10 @@
     <include refid="selectDictionaryItem"/>
     <where>
       <if test="parameters.name != null and parameters.name != ''">
-        t.name = #{parameters.name}
+        t.name like concat(#{parameters.name}, '%')
       </if>
       <if test="parameters.dictionaryId != null and parameters.dictionaryId != ''">
-        t.dictionary_id = #{parameters.dictionaryId}
+        and t.dictionary_id = #{parameters.dictionaryId}
       </if>
     </where>
   </select>
