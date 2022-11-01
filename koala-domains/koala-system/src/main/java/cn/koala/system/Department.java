@@ -2,6 +2,9 @@ package cn.koala.system;
 
 import cn.koala.persistence.Codeable;
 import cn.koala.persistence.Idable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Optional;
 
 /**
  * 部门
@@ -15,4 +18,14 @@ public interface Department extends Idable<String>, Codeable {
    * @return 上级部门
    */
   Department getParent();
+
+  /**
+   * 获取上级部门ID, 如果不存在则返回null
+   *
+   * @return 上级部门ID
+   */
+  @JsonIgnore
+  default String getParentId() {
+    return Optional.ofNullable(getParent()).map(Idable::getId).orElse(null);
+  }
 }

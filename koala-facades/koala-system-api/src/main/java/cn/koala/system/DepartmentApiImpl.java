@@ -1,5 +1,6 @@
 package cn.koala.system;
 
+import cn.koala.utils.TreeNode;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,5 +47,10 @@ public class DepartmentApiImpl implements DepartmentApi {
   public Response delete(String id) {
     service.delete(DepartmentEntity.builder().id(id).build());
     return Response.SUCCESS;
+  }
+
+  @Override
+  public DataResponse<List<TreeNode<Department>>> tree() {
+    return DataResponse.ok(service.tree());
   }
 }

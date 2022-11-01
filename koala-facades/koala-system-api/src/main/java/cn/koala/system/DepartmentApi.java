@@ -1,6 +1,7 @@
 package cn.koala.system;
 
 import cn.koala.swagger.PageableAsQueryParam;
+import cn.koala.utils.TreeNode;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -115,11 +117,28 @@ public interface DepartmentApi {
   @DeleteMapping("{id}")
   Response delete(@PathVariable("id") String id);
 
+  /**
+   * 获取树形结构部门列表
+   *
+   * @return 树形结构部门列表
+   */
+  @PreAuthorize("hasAuthority('department:read')")
+  @Operation(summary = "根据条件分页查询权限")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentTreeResult.class))}
+  )
+  @GetMapping("tree")
+  DataResponse<List<TreeNode<Department>>> tree();
+
   class DepartmentPageResult extends DataResponse<Page<DepartmentEntity>> {
 
   }
 
   class DepartmentResult extends DataResponse<DepartmentEntity> {
+
+  }
+
+  class DepartmentTreeResult extends DataResponse<List<TreeNode<Department>>> {
 
   }
 }
