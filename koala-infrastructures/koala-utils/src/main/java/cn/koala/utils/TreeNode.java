@@ -5,6 +5,9 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 树节点
+ *
+ * @param <T> 数据类型
  * @author Houtaroy
  */
 @Data

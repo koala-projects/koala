@@ -16,6 +16,7 @@ public final class TreeUtil {
    * 构建树
    *
    * @param nodes 树节点列表
+   * @param <T>   树节点数据类型
    * @return 树
    */
   public static <T> List<TreeNode<T>> build(List<TreeNode<T>> nodes) {
@@ -34,6 +35,7 @@ public final class TreeUtil {
    *
    * @param nodes    树节点列表
    * @param parentId 上级id
+   * @param <T>      树节点数据类型
    * @return 树
    */
   public static <T> List<TreeNode<T>> build(List<TreeNode<T>> nodes, Object parentId) {
@@ -54,7 +56,7 @@ public final class TreeUtil {
    *
    * @param data      列表数据
    * @param converter 树节点转换器
-   * @param <T>       数据类型
+   * @param <T>       树节点数据类型
    * @return 树
    */
   public static <T> List<TreeNode<T>> build(List<T> data, Function<T, TreeNode<T>> converter) {
