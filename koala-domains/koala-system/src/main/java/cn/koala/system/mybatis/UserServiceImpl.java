@@ -43,12 +43,24 @@ public class UserServiceImpl extends AbstractUUIDCrudService<User> implements Us
   }
 
   @Override
-  public List<String> roleIds(String id) {
+  public List<String> listDepartmentIds(String id) {
+    return userDepartmentRepository.findAllDepartmentIdByUserId(id);
+  }
+
+  @Override
+  public void setDepartmentIds(String id, List<String> departmentIds) {
+    userDepartmentRepository.deleteByUserId(id);
+    userDepartmentRepository.add(id, departmentIds);
+  }
+
+  @Override
+  public List<String> listRoleIds(String id) {
     return userRoleRepository.findAllRoleIdByUserId(id);
   }
 
   @Override
-  public void setRoles(String id, List<String> roleIds) {
+  public void setRoleIds(String id, List<String> roleIds) {
+    userRoleRepository.deleteByUserId(id);
     userRoleRepository.add(id, roleIds);
   }
 }

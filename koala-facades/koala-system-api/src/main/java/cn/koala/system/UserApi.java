@@ -117,19 +117,50 @@ public interface UserApi {
   Response delete(@PathVariable("id") String id);
 
   /**
+   * 根据id查询用户部门id列表
+   *
+   * @param id 用户id
+   * @return 部门id列表
+   */
+  @PreAuthorize("hasAuthority('user:read')")
+  @Operation(summary = "根据id查询用户部门id列表")
+  @ApiResponse(responseCode = "200", description = "成功", content = {
+    @Content(mediaType = "application/json", schema = @Schema(implementation = RoleApi.RolePermissionIdsResult.class))
+  })
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
+  @GetMapping("{id}/department-ids")
+  DataResponse<List<String>> listDepartmentIds(@PathVariable("id") String id);
+
+  /**
+   * 设置用户部门ID列表
+   *
+   * @param id            用户id
+   * @param departmentIds 部门ID列表
+   * @return 操作结果
+   */
+  @PreAuthorize("hasAuthority('user:write')")
+  @Operation(summary = "设置用户部门ID列表")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "string"))
+  @PutMapping("{id}/department-ids")
+  Response setDepartmentIds(@PathVariable("id") String id, @RequestBody List<String> departmentIds);
+
+  /**
    * 根据id查询用户角色id列表
    *
    * @param id 用户id
    * @return 角色id列表
    */
   @PreAuthorize("hasAuthority('user:read')")
-  @Operation(summary = "根据id查询角色权限id列表")
+  @Operation(summary = "根据id查询用户部门id列表")
   @ApiResponse(responseCode = "200", description = "成功", content = {
     @Content(mediaType = "application/json", schema = @Schema(implementation = UserRoleIdsResult.class))
   })
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
   @GetMapping("{id}/role-ids")
-  DataResponse<List<String>> roleIds(@PathVariable("id") String id);
+  DataResponse<List<String>> listRoleIds(@PathVariable("id") String id);
 
   /**
    * 设置用户角色id列表
@@ -145,7 +176,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
   @PutMapping("{id}/role-ids")
-  Response setRoles(@PathVariable("id") String id, @RequestBody List<String> roleIds);
+  Response setRoleIds(@PathVariable("id") String id, @RequestBody List<String> roleIds);
 
   class UserPageResult extends DataResponse<Page<User>> {
 

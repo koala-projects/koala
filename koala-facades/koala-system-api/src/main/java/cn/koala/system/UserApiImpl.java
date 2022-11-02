@@ -49,13 +49,24 @@ public class UserApiImpl implements UserApi {
   }
 
   @Override
-  public DataResponse<List<String>> roleIds(String id) {
-    return DataResponse.ok(service.roleIds(id));
+  public DataResponse<List<String>> listDepartmentIds(String id) {
+    return DataResponse.ok(service.listDepartmentIds(id));
   }
 
   @Override
-  public Response setRoles(String id, List<String> roleIds) {
-    service.setRoles(id, roleIds);
+  public Response setDepartmentIds(String id, List<String> departmentIds) {
+    service.setDepartmentIds(id, departmentIds);
+    return Response.SUCCESS;
+  }
+
+  @Override
+  public DataResponse<List<String>> listRoleIds(String id) {
+    return DataResponse.ok(service.listRoleIds(id));
+  }
+
+  @Override
+  public Response setRoleIds(String id, List<String> roleIds) {
+    service.setRoleIds(id, roleIds);
     return Response.SUCCESS;
   }
 }
