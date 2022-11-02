@@ -28,12 +28,12 @@ public class RoleServiceImpl extends AbstractUUIDCrudService<Role> implements Ro
   }
 
   @Override
-  public List<String> permissionIds(String id) {
+  public List<String> getPermissionIds(String id) {
     return rolePermissionRepository.findAllPermissionIdByRoleId(id);
   }
 
   @Override
-  public void authorize(String id, List<String> permissionIds) {
+  public void setPermissionIds(String id, List<String> permissionIds) {
     rolePermissionRepository.deleteByRoleId(id);
     rolePermissionRepository.add(id, permissionIds);
   }

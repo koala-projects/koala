@@ -50,12 +50,12 @@ public class RoleApiImpl implements RoleApi {
 
   @Override
   public DataResponse<List<String>> permissionIds(String id) {
-    return DataResponse.ok(roleService.permissionIds(id));
+    return DataResponse.ok(roleService.getPermissionIds(id));
   }
 
   @Override
-  public Response authorize(String id, List<String> permissionIds) {
-    roleService.authorize(id, permissionIds);
+  public Response setPermissionIds(String id, List<String> permissionIds) {
+    roleService.setPermissionIds(id, permissionIds);
     return Response.SUCCESS;
   }
 }

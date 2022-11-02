@@ -16,7 +16,7 @@ public interface RoleService extends CrudService<String, Role> {
    * @param id 角色id
    * @return 权限id列表
    */
-  List<String> permissionIds(String id);
+  List<String> getPermissionIds(String id);
 
   /**
    * 为角色授权
@@ -24,5 +24,5 @@ public interface RoleService extends CrudService<String, Role> {
    * @param id            角色id
    * @param permissionIds 权限id列表
    */
-  void authorize(String id, List<String> permissionIds);
+  void setPermissionIds(String id, List<String> permissionIds);
 }

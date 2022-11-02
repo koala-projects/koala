@@ -12,8 +12,8 @@
 
   <insert id="add">
     insert into t_role_permission values
-    <foreach item="permissionId" index="index" collection="permissionIds" open="(" close=")" separator=",">
-      #{roleId}, #{permissionId}
+    <foreach item="permissionId" index="index" collection="permissionIds" separator=",">
+      (#{roleId}, #{permissionId})
     </foreach>
   </insert>
 

@@ -143,8 +143,8 @@ public interface RoleApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "string"))
-  @PutMapping("{id}/authorize")
-  Response authorize(@PathVariable("id") String id, @RequestBody List<String> permissionIds);
+  @PutMapping("{id}/permission-ids")
+  Response setPermissionIds(@PathVariable("id") String id, @RequestBody List<String> permissionIds);
 
   class RolePageResult extends DataResponse<Page<RoleEntity>> {
 
