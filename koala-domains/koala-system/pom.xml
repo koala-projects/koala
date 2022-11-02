@@ -16,6 +16,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-persistence</artifactId>
     </dependency>

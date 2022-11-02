@@ -12,8 +12,8 @@
 
   <insert id="add">
     insert into t_user_role values
-    <foreach item="roleId" index="index" collection="roleIds" open="(" close=")" separator=",">
-      #{userId}, #{roleId}
+    <foreach item="roleId" index="index" collection="roleIds" separator=",">
+      (#{userId}, #{roleId})
     </foreach>
   </insert>
 

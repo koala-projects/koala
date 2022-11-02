@@ -11,6 +11,7 @@ import cn.koala.system.mybatis.PermissionServiceImpl;
 import cn.koala.system.mybatis.RolePermissionRepository;
 import cn.koala.system.mybatis.RoleRepository;
 import cn.koala.system.mybatis.RoleServiceImpl;
+import cn.koala.system.mybatis.UserDepartmentRepository;
 import cn.koala.system.mybatis.UserDetailsRepository;
 import cn.koala.system.mybatis.UserDetailsServiceImpl;
 import cn.koala.system.mybatis.UserRepository;
@@ -18,6 +19,7 @@ import cn.koala.system.mybatis.UserRoleRepository;
 import cn.koala.system.mybatis.UserServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Houtaroy
  */
 @Configuration
+@EnableConfigurationProperties(SystemProperties.class)
 @MapperScan(basePackages = "cn.koala.system.mybatis")
 public class SystemAutoConfig {
 
@@ -96,16 +99,21 @@ public class SystemAutoConfig {
   /**
    * 用户服务的bean
    *
-   * @param userRepository     用户存储库
-   * @param passwordEncoder    密码加密器
-   * @param userRoleRepository 用户角色关系存储库
+   * @param passwordEncoder          密码加密器
+   * @param systemProperties         系统参数
+   * @param userRepository           用户存储库
+   * @param userRoleRepository       用户角色关系存储库
+   * @param userDepartmentRepository 用户部门存储库
    * @return 用户服务对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+  public UserService userService(PasswordEncoder passwordEncoder, SystemProperties systemProperties,
+                                 UserRepository userRepository, UserDepartmentRepository userDepartmentRepository,
                                  UserRoleRepository userRoleRepository) {
-    return new UserServiceImpl(userRepository, passwordEncoder, userRoleRepository);
+    return new UserServiceImpl(
+      passwordEncoder, systemProperties, userRepository, userDepartmentRepository, userRoleRepository
+    );
   }
 
   /**

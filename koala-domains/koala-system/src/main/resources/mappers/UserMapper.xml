@@ -30,10 +30,13 @@
     <include refid="selectUser"/>
     <where>
       <if test="parameters.username != null and parameters.username != ''">
-        t.username = #{parameters.username}
+        t.username like concat(#{parameters.username}, '%')
       </if>
       <if test="parameters.nickname != null and parameters.nickname != ''">
-        and t.nickname = #{parameters.nickname}
+        and t.nickname like concat(#{parameters.nickname}, '%')
+      </if>
+      <if test="parameters.departmentId != null and parameters.departmentId != ''">
+        and t.id in (select user_id from t_user_department where department_id = #{parameters.departmentId})
       </if>
     </where>
   </select>

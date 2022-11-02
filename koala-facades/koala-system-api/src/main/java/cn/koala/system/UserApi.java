@@ -50,6 +50,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.QUERY, name = "username", description = "用户名", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.QUERY, name = "nickname", description = "用户昵称", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "departmentId", description = "部门ID", schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<User>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
