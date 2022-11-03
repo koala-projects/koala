@@ -8,6 +8,8 @@ import cn.koala.system.mybatis.DictionaryRepository;
 import cn.koala.system.mybatis.DictionaryServiceImpl;
 import cn.koala.system.mybatis.PermissionRepository;
 import cn.koala.system.mybatis.PermissionServiceImpl;
+import cn.koala.system.mybatis.PersonalRepository;
+import cn.koala.system.mybatis.PersonalServiceImpl;
 import cn.koala.system.mybatis.RolePermissionRepository;
 import cn.koala.system.mybatis.RoleRepository;
 import cn.koala.system.mybatis.RoleServiceImpl;
@@ -211,5 +213,31 @@ public class SystemAutoConfig {
   @ConditionalOnMissingBean
   public UserinfoApi userinfoApi(UserDetailsService userDetailsService) {
     return new UserinfoApiImpl(userDetailsService);
+  }
+
+  /**
+   * 个人服务的bean
+   *
+   * @param userDetailsRepository 用户详情存储库
+   * @param passwordEncoder       密码加密器
+   * @param personalRepository    个人服务存储库
+   * @return 个人服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PersonalService personalService(UserDetailsRepository userDetailsRepository, PasswordEncoder passwordEncoder,
+                                         PersonalRepository personalRepository) {
+    return new PersonalServiceImpl(userDetailsRepository, passwordEncoder, personalRepository);
+  }
+
+  /**
+   * 个人服务接口的bean
+   *
+   * @return 个人服务接口对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PersonalApi personalApi(PersonalService personalService) {
+    return new PersonalApiImpl(personalService);
   }
 }

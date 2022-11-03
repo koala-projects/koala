@@ -1,6 +1,6 @@
 package cn.koala.system;
 
-import cn.koala.web.DataResponse;
+import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,39 +9,35 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
 /**
- * 用户信息接口
- *
  * @author Houtaroy
  */
-@RequestMapping("/api/userinfo")
+@RequestMapping("/api/personal")
 @RestController
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "用户信息")
-public interface UserinfoApi {
+@Tag(name = "个人服务")
+public interface PersonalApi {
+
   /**
-   * 根据id查询用户
+   * 修改密码
    *
-   * @param principal principal
-   * @return 用户详细信息
+   * @param principal 用户安全主体信息
+   * @param request   修改密码请求参数
+   * @return 操作结果
    */
   @PreAuthorize("hasAuthority('personal')")
-  @Operation(summary = "查询当前用户信息")
+  @Operation(summary = "修改密码")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserinfoResult.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @GetMapping
-  DataResponse<UserDetails> load(@Parameter(hidden = true) Principal principal);
-
-  @Schema(description = "用户信息结果")
-  class UserinfoResult extends DataResponse<UserDetailsEntity> {
-
-  }
+  @PutMapping("change-password")
+  Response changePassword(@Parameter(hidden = true) Principal principal,
+                          @RequestBody ChangePasswordRequest request);
 }

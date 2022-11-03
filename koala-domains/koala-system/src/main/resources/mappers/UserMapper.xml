@@ -12,20 +12,6 @@
     from t_user t
   </sql>
 
-  <sql id="deleteUserRole">
-    delete
-    from t_user_role
-    where user_id = #{id};
-  </sql>
-
-  <sql id="addUserRole">
-    <if test="roles != null">
-      <foreach item="item" index="index" collection="role" open="" separator="" close="">
-        insert into t_user_role values (#{id}, #{role.id});
-      </foreach>
-    </if>
-  </sql>
-
   <select id="findAll" resultType="cn.koala.system.UserEntity">
     <include refid="selectUser"/>
     <where>
@@ -50,6 +36,7 @@
     from t_user t
     where t.id = #{id}
   </select>
+
   <insert id="add" parameterType="cn.koala.system.UserEntity">
     insert into t_user
     values (#{id},
@@ -58,6 +45,7 @@
             #{nickname},
             #{avatar});
   </insert>
+
   <update id="update" parameterType="cn.koala.system.UserEntity">
     update t_user
     set username = #{username},
@@ -65,6 +53,7 @@
         avatar   = #{avatar}
     where id = #{id};
   </update>
+
   <update id="delete" parameterType="cn.koala.system.UserEntity">
     delete
     from t_user
