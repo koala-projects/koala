@@ -6,12 +6,13 @@
 
 - 元数据(Metadata): 数据的描述
 - 属性(Property): 单个数据项的描述
-- 数据源(Data Element): 单个数据项
+- 数据元(Data Element): 单个数据项
 - 数据(Data): 数据内容
 
 ## 引入依赖
 
 ```xml
+
 <dependencies>
   <dependency>
     <groupId>cn.koala</groupId>
