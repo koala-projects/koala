@@ -46,7 +46,7 @@ public class RoleApiTest {
   public void list() throws Exception {
     mockMvc.perform(get("/api/roles"))
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.content", hasSize(1)));
+      .andExpect(jsonPath("$.data.content", hasSize(2)));
   }
 
   @Test
@@ -62,7 +62,7 @@ public class RoleApiTest {
   @Order(4)
   @WithMockUser(username = "admin", authorities = {"role:read", "role:write"})
   public void authorize() throws Exception {
-    mockMvc.perform(put("/api/roles/999/authorize").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(List.of("role:write"))))
+    mockMvc.perform(put("/api/roles/999/permission-ids").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(List.of("role:write"))))
       .andExpect(status().isOk());
   }
 

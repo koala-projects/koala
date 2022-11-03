@@ -46,7 +46,7 @@ public class UserApiTest {
   public void list() throws Exception {
     mockMvc.perform(get("/api/users"))
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.content", hasSize(1)));
+      .andExpect(jsonPath("$.data.content", hasSize(2)));
   }
 
   @Test

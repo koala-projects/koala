@@ -44,7 +44,7 @@ public class DepartmentApiTest {
   public void list() throws Exception {
     mockMvc.perform(get("/api/departments"))
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.content", hasSize(1)));
+      .andExpect(jsonPath("$.data.content", hasSize(3)));
   }
 
   @Test
