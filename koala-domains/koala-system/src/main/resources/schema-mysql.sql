@@ -46,19 +46,22 @@ CREATE TABLE t_role
   code        VARCHAR(50) NOT NULL COMMENT '角色代码',
   name        VARCHAR(20) NOT NULL COMMENT '角色名称',
   description VARCHAR(500) COMMENT '角色描述',
+  is_system   INT         NOT NULL DEFAULT 0 COMMENT '是否系统',
   PRIMARY KEY (id)
-) COMMENT = '角色表';
+) COMMENT = '角色';
 
 DROP TABLE IF EXISTS t_user;
 CREATE TABLE t_user
 (
-  id       VARCHAR(36)  NOT NULL COMMENT '用户ID',
-  username VARCHAR(50)  NOT NULL COMMENT '用户登录名',
-  password VARCHAR(500) NOT NULL COMMENT '用户密码',
-  nickname VARCHAR(20)  NOT NULL COMMENT '用户昵称',
-  avatar   VARCHAR(500) COMMENT '用户头像',
+  id        VARCHAR(36)  NOT NULL COMMENT '用户ID',
+  username  VARCHAR(50)  NOT NULL COMMENT '用户登录名',
+  password  VARCHAR(500) NOT NULL COMMENT '用户密码',
+  nickname  VARCHAR(20)  NOT NULL COMMENT '用户昵称',
+  avatar    VARCHAR(500) COMMENT '用户头像',
+  is_system INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   PRIMARY KEY (id)
-) COMMENT = '用户表';
+) COMMENT = '用户';
+
 
 DROP TABLE IF EXISTS t_user_role;
 CREATE TABLE t_user_role

@@ -10,4 +10,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class SystemProperties {
   private String defaultPassword = "koala-projects";
+  private boolean changePassword = true;
 }

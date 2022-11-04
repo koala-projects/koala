@@ -1,5 +1,7 @@
 package cn.koala.system;
 
+import cn.koala.enhancement.YesNo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +27,10 @@ public class UserEntity implements User {
   private String nickname;
   @Schema(description = "用户头像")
   private String avatar;
+  @JsonIgnore
+  private YesNo isEnable;
+  @JsonIgnore
+  private YesNo isSystem;
+  @JsonIgnore
+  private YesNo isDelete;
 }

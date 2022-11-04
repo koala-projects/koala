@@ -65,12 +65,13 @@ public class SystemAutoConfig {
    * 部门服务的bean
    *
    * @param departmentRepository 部门存储库
+   * @param userRepository       用户存储库对象
    * @return 部门服务对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public DepartmentService departmentService(DepartmentRepository departmentRepository) {
-    return new DepartmentServiceImpl(departmentRepository);
+  public DepartmentService departmentService(DepartmentRepository departmentRepository, UserRepository userRepository) {
+    return new DepartmentServiceImpl(departmentRepository, userRepository);
   }
 
   /**
@@ -89,13 +90,15 @@ public class SystemAutoConfig {
    * 角色服务的bean
    *
    * @param roleRepository           角色存储库
+   * @param userRepository           用户存储库对象
    * @param rolePermissionRepository 角色权限关系存储库
    * @return 角色服务对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public RoleService roleService(RoleRepository roleRepository, RolePermissionRepository rolePermissionRepository) {
-    return new RoleServiceImpl(roleRepository, rolePermissionRepository);
+  public RoleService roleService(RoleRepository roleRepository, UserRepository userRepository,
+                                 RolePermissionRepository rolePermissionRepository) {
+    return new RoleServiceImpl(roleRepository, userRepository, rolePermissionRepository);
   }
 
   /**
@@ -225,9 +228,9 @@ public class SystemAutoConfig {
    */
   @Bean
   @ConditionalOnMissingBean
-  public PersonalService personalService(UserDetailsRepository userDetailsRepository, PasswordEncoder passwordEncoder,
-                                         PersonalRepository personalRepository) {
-    return new PersonalServiceImpl(userDetailsRepository, passwordEncoder, personalRepository);
+  public PersonalService personalService(SystemProperties systemProperties, UserDetailsRepository userDetailsRepository,
+                                         PasswordEncoder passwordEncoder, PersonalRepository personalRepository) {
+    return new PersonalServiceImpl(systemProperties, userDetailsRepository, passwordEncoder, personalRepository);
   }
 
   /**

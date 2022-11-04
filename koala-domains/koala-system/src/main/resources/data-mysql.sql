@@ -17,14 +17,14 @@ values ('0', 'personal', '个人服务', '个人服务'),
        ('502', 'user:write', '用户写入', '用户写入');
 
 insert into t_role
-values ('1', 'admin', '系统管理员', null);
+values ('1', 'admin', '系统管理员', null, 1);
 
 insert into t_user
-values ('1', 'admin', '{bcrypt}$2a$10$hG82.yWypJvj0jjJWrwACu166QkM.uLkpk/Yr8vxtKdAyqyd5wUJi', '系统管理员', null);
+values ('1', 'admin', '{bcrypt}$2a$10$hG82.yWypJvj0jjJWrwACu166QkM.uLkpk/Yr8vxtKdAyqyd5wUJi', '系统管理员', null, 1);
 
 insert into t_user_department
 values ('1', '1'),
-       ('1', '1-1');
+       ('1', '101');
 
 insert into t_user_role
 values ('1', '1');

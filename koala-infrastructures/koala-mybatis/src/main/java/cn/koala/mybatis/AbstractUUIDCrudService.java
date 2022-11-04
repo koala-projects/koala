@@ -10,12 +10,10 @@ import java.util.UUID;
  * @param <T> 数据实体类型
  * @author Houtaroy
  */
-public abstract class AbstractUUIDCrudService<T> extends AbstractCrudService<String, T> {
+public abstract class AbstractUUIDCrudService<T extends Idable<String>> extends AbstractCrudService<String, T> {
   @Override
   public void add(T entity) {
-    if (entity instanceof Idable<?>) {
-      ((Idable<String>) entity).setIdIfAbsent(UUID.randomUUID().toString());
-    }
+    entity.setIdIfAbsent(UUID.randomUUID().toString());
     super.add(entity);
   }
 }

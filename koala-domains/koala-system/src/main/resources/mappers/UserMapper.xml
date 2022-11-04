@@ -8,7 +8,8 @@
            t.username,
            t.password,
            t.nickname,
-           t.avatar
+           t.avatar,
+           t.is_system
     from t_user t
   </sql>
 
@@ -24,6 +25,9 @@
       <if test="parameters.departmentId != null and parameters.departmentId != ''">
         and t.id in (select user_id from t_user_department where department_id = #{parameters.departmentId})
       </if>
+      <if test="parameters.roleId != null and parameters.roleId != ''">
+        and t.id in (select user_id from t_user_role where role_id = #{parameters.roleId})
+      </if>
     </where>
   </select>
 
@@ -32,13 +36,14 @@
            t.username,
            t.password,
            t.nickname,
-           t.avatar
+           t.avatar,
+           t.is_system
     from t_user t
     where t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.UserEntity">
-    insert into t_user
+    insert into t_user(id, username, password, nickname, avatar)
     values (#{id},
             #{username},
             #{password},

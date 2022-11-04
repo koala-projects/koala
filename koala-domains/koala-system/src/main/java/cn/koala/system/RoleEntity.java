@@ -1,5 +1,7 @@
 package cn.koala.system;
 
+import cn.koala.enhancement.YesNo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,10 @@ public class RoleEntity implements Role {
   private String name;
   @Schema(description = "角色描述")
   private String description;
+  @JsonIgnore
+  private YesNo isEnable;
+  @JsonIgnore
+  private YesNo isSystem;
+  @JsonIgnore
+  private YesNo isDelete;
 }

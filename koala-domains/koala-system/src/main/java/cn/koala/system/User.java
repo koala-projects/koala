@@ -1,13 +1,14 @@
 package cn.koala.system;
 
 import cn.koala.persistence.Idable;
+import cn.koala.persistence.Stateable;
 
 /**
  * 用户
  *
  * @author Houtaroy
  */
-public interface User extends Idable<String> {
+public interface User extends Idable<String>, Stateable {
 
   /**
    * 获取用户名

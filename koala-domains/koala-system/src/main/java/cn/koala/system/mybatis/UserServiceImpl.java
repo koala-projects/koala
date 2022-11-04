@@ -3,11 +3,13 @@ package cn.koala.system.mybatis;
 import cn.koala.mybatis.AbstractUUIDCrudService;
 import cn.koala.system.SystemProperties;
 import cn.koala.system.User;
+import cn.koala.system.UserEntity;
 import cn.koala.system.UserService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +51,7 @@ public class UserServiceImpl extends AbstractUUIDCrudService<User> implements Us
 
   @Override
   public void setDepartmentIds(String id, List<String> departmentIds) {
+    Assert.isTrue(isNoSystem(UserEntity.builder().id(id).build()), "权限不足, 请联系管理员");
     userDepartmentRepository.deleteByUserId(id);
     userDepartmentRepository.add(id, departmentIds);
   }
@@ -60,6 +63,7 @@ public class UserServiceImpl extends AbstractUUIDCrudService<User> implements Us
 
   @Override
   public void setRoleIds(String id, List<String> roleIds) {
+    Assert.isTrue(isNoSystem(UserEntity.builder().id(id).build()), "权限不足, 请联系管理员");
     userRoleRepository.deleteByUserId(id);
     userRoleRepository.add(id, roleIds);
   }

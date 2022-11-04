@@ -12,7 +12,7 @@ import java.util.Optional;
  * @param <E> 实体类型
  * @author Houtaroy
  */
-public interface CrudService<T, E> {
+public interface CrudService<T, E extends Idable<T>> {
   /**
    * 分页列表查询
    *

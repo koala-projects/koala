@@ -1,8 +1,12 @@
 package cn.koala.mybatis;
 
+import cn.koala.enhancement.YesNo;
 import cn.koala.persistence.CrudService;
+import cn.koala.persistence.Idable;
+import cn.koala.persistence.Stateable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +19,7 @@ import java.util.Optional;
  * @param <E> 实体类型
  * @author Houtaroy
  */
-public abstract class AbstractCrudService<T, E> implements CrudService<T, E> {
-
+public abstract class AbstractCrudService<T, E extends Idable<T>> implements CrudService<T, E> {
   /**
    * 获取分页存储库对象
    *
@@ -46,11 +49,29 @@ public abstract class AbstractCrudService<T, E> implements CrudService<T, E> {
 
   @Override
   public void update(E entity) {
+    Assert.isTrue(isNoSystem(entity), "权限不足, 请联系管理员");
     getRepository().update(entity);
   }
 
   @Override
   public void delete(E entity) {
+    Assert.isTrue(isNoSystem(entity), "权限不足, 请联系管理员");
     getRepository().delete(entity);
+  }
+
+  /**
+   * 是否非系统数据
+   *
+   * @param entity 数据实体
+   * @return 是否非系统数据
+   */
+  protected boolean isNoSystem(E entity) {
+    if (entity instanceof Stateable) {
+      return getRepository().findById(entity.getId())
+        .map(Stateable.class::cast)
+        .map(stateable -> stateable.getIsSystem() == YesNo.NO)
+        .orElse(false);
+    }
+    return true;
   }
 }
