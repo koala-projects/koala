@@ -14,6 +14,10 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
   <modules>
     <module>koala-system-application</module>
   </modules>
