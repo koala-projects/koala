@@ -7,7 +7,8 @@
     select t.id,
            t.code,
            t.name,
-           t.description
+           t.description,
+           t.is_system
     from t_permission t
   </sql>
 
@@ -24,11 +25,7 @@
   </select>
 
   <select id="findById" resultType="cn.koala.system.PermissionEntity">
-    select t.id,
-           t.code,
-           t.name,
-           t.description
-    from t_permission t
+    <include refid="selectPermission"/>
     where t.id = #{id}
   </select>
 

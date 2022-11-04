@@ -4,17 +4,17 @@ insert into t_department
 values ('101', '101', '技术部', '技术部', '1');
 
 insert into t_permission
-values ('0', 'personal', '个人服务', '个人服务'),
-       ('101', 'dictionary:write', '字典读取', '字典读取'),
-       ('102', 'dictionary:read', '字典写入', '字典写入'),
-       ('201', 'department:read', '部门读取', '部门读取'),
-       ('202', 'department:write', '部门写入', '部门写入'),
-       ('301', 'role:read', '角色读取', '角色读取'),
-       ('302', 'role:write', '角色写入', '角色写入'),
-       ('401', 'permission:read', '权限读取', '权限读取'),
-       ('402', 'permission:write', '权限写入', '权限写入'),
-       ('501', 'user:read', '用户读取', '用户读取'),
-       ('502', 'user:write', '用户写入', '用户写入');
+values ('0', 'personal', '个人服务', '个人服务', 1),
+       ('101', 'dictionary:write', '字典读取', '字典读取', 1),
+       ('102', 'dictionary:read', '字典写入', '字典写入', 1),
+       ('201', 'department:read', '部门读取', '部门读取', 1),
+       ('202', 'department:write', '部门写入', '部门写入', 1),
+       ('301', 'role:read', '角色读取', '角色读取', 1),
+       ('302', 'role:write', '角色写入', '角色写入', 1),
+       ('401', 'permission:read', '权限读取', '权限读取', 1),
+       ('402', 'permission:write', '权限写入', '权限写入', 1),
+       ('501', 'user:read', '用户读取', '用户读取', 1),
+       ('502', 'user:write', '用户写入', '用户写入', 1);
 
 insert into t_role
 values ('1', 'admin', '系统管理员', null, 1);

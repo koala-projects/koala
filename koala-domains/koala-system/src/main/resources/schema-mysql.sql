@@ -36,6 +36,7 @@ CREATE TABLE t_permission
   code        VARCHAR(50) NOT NULL COMMENT '权限代码',
   name        VARCHAR(20) NOT NULL COMMENT '权限名称',
   description VARCHAR(500) COMMENT '权限描述',
+  is_system   INT         NOT NULL DEFAULT 0 COMMENT '是否系统',
   PRIMARY KEY (id)
 ) COMMENT = '权限';
 
