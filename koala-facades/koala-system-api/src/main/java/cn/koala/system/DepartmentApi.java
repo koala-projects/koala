@@ -45,7 +45,7 @@ public interface DepartmentApi {
    * @return 部门列表
    */
   @PreAuthorize("hasAuthority('department:read')")
-  @Operation(summary = "根据条件分页查询权限")
+  @Operation(summary = "根据条件分页查询部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentPageResult.class))}
   )
