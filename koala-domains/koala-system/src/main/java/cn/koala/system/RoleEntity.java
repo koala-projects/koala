@@ -27,7 +27,7 @@ public class RoleEntity implements Role {
   private String description;
   @JsonIgnore
   private YesNo isEnable;
-  @JsonIgnore
+  @Schema(description = "是否系统")
   private YesNo isSystem;
   @JsonIgnore
   private YesNo isDelete;

@@ -29,7 +29,7 @@ public class UserEntity implements User {
   private String avatar;
   @JsonIgnore
   private YesNo isEnable;
-  @JsonIgnore
+  @Schema(description = "是否系统")
   private YesNo isSystem;
   @JsonIgnore
   private YesNo isDelete;
