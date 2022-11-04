@@ -19,6 +19,5 @@
     <module>koala-database-api</module>
     <module>koala-setting-api</module>
     <module>koala-system-api</module>
-    <module>koala-system-management-api</module>
   </modules>
 </project>

@@ -24,8 +24,6 @@
     <module>koala-sensitive-word</module>
     <module>koala-setting</module>
     <module>koala-system</module>
-    <module>koala-system-management</module>
-    <module>koala-system-management-mybatis</module>
     <module>koala-template</module>
   </modules>
 </project>
