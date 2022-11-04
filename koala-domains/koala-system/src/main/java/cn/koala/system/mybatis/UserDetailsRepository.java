@@ -1,7 +1,7 @@
 package cn.koala.system.mybatis;
 
-import cn.koala.system.UserDetailsEntity;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * 用户详情存储库
@@ -15,5 +15,5 @@ public interface UserDetailsRepository {
    * @param username 用户名
    * @return 用户详情
    */
-  UserDetailsEntity findByUsername(@Param("username") String username);
+  UserDetails findByUsername(@Param("username") String username);
 }

@@ -1,5 +1,6 @@
 package cn.koala.system;
 
+import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -54,8 +55,8 @@ public class RoleApiImpl implements RoleApi {
   }
 
   @Override
-  public Response setPermissionIds(String id, List<String> permissionIds) {
-    roleService.setPermissionIds(id, permissionIds);
+  public Response setPermissionIds(String id, DataRequest<List<String>> request) {
+    roleService.setPermissionIds(id, request.getData());
     return Response.SUCCESS;
   }
 }

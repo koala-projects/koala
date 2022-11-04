@@ -228,14 +228,15 @@ public class SystemAutoConfig {
    */
   @Bean
   @ConditionalOnMissingBean
-  public PersonalService personalService(SystemProperties systemProperties, UserDetailsRepository userDetailsRepository,
-                                         PasswordEncoder passwordEncoder, PersonalRepository personalRepository) {
-    return new PersonalServiceImpl(systemProperties, userDetailsRepository, passwordEncoder, personalRepository);
+  public PersonalService personalService(UserDetailsRepository userDetailsRepository, PasswordEncoder passwordEncoder,
+                                         PersonalRepository personalRepository) {
+    return new PersonalServiceImpl(userDetailsRepository, passwordEncoder, personalRepository);
   }
 
   /**
    * 个人服务接口的bean
    *
+   * @param personalService 个人服务对象
    * @return 个人服务接口对象
    */
   @Bean

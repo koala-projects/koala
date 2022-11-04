@@ -10,6 +10,7 @@
     <result property="password" column="password"/>
     <result property="nickname" column="nickname"/>
     <result property="avatar" column="avatar"/>
+    <result property="isSystem" column="is_system"/>
     <collection property="permissionCodes" ofType="java.lang.String">
       <result column="permission.code"/>
     </collection>
@@ -21,6 +22,7 @@
            t.password,
            t.nickname,
            t.avatar,
+           t.is_system,
            permission.code as "permission.code"
     from t_user t
            left join t_user_role ur on ur.user_id = t.id

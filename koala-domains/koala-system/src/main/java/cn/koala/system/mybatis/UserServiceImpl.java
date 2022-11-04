@@ -53,6 +53,9 @@ public class UserServiceImpl extends AbstractUUIDCrudService<User> implements Us
   public void setDepartmentIds(String id, List<String> departmentIds) {
     Assert.isTrue(isNoSystem(UserEntity.builder().id(id).build()), "权限不足, 请联系管理员");
     userDepartmentRepository.deleteByUserId(id);
+    if (departmentIds.isEmpty()) {
+      return;
+    }
     userDepartmentRepository.add(id, departmentIds);
   }
 
@@ -65,6 +68,9 @@ public class UserServiceImpl extends AbstractUUIDCrudService<User> implements Us
   public void setRoleIds(String id, List<String> roleIds) {
     Assert.isTrue(isNoSystem(UserEntity.builder().id(id).build()), "权限不足, 请联系管理员");
     userRoleRepository.deleteByUserId(id);
+    if (roleIds.isEmpty()) {
+      return;
+    }
     userRoleRepository.add(id, roleIds);
   }
 }

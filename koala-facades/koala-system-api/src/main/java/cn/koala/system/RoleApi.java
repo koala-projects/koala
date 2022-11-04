@@ -1,6 +1,7 @@
 package cn.koala.system;
 
 import cn.koala.swagger.PageableAsQueryParam;
+import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -133,8 +134,8 @@ public interface RoleApi {
   /**
    * 角色授权
    *
-   * @param id            角色id
-   * @param permissionIds 权限id列表
+   * @param id      角色id
+   * @param request 权限id列表
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('role:write')")
@@ -144,7 +145,7 @@ public interface RoleApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "string"))
   @PutMapping("{id}/permission-ids")
-  Response setPermissionIds(@PathVariable("id") String id, @RequestBody List<String> permissionIds);
+  Response setPermissionIds(@PathVariable("id") String id, @RequestBody DataRequest<List<String>> request);
 
   class RolePageResult extends DataResponse<Page<RoleEntity>> {
 

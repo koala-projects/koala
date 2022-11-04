@@ -1,5 +1,6 @@
 package cn.koala.system;
 
+import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -54,8 +55,8 @@ public class UserApiImpl implements UserApi {
   }
 
   @Override
-  public Response setDepartmentIds(String id, List<String> departmentIds) {
-    service.setDepartmentIds(id, departmentIds);
+  public Response setDepartmentIds(String id, DataRequest<List<String>> request) {
+    service.setDepartmentIds(id, request.getData());
     return Response.SUCCESS;
   }
 
@@ -65,8 +66,8 @@ public class UserApiImpl implements UserApi {
   }
 
   @Override
-  public Response setRoleIds(String id, List<String> roleIds) {
-    service.setRoleIds(id, roleIds);
+  public Response setRoleIds(String id, DataRequest<List<String>> request) {
+    service.setRoleIds(id, request.getData());
     return Response.SUCCESS;
   }
 }

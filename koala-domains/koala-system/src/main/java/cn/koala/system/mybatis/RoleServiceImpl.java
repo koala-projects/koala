@@ -51,6 +51,9 @@ public class RoleServiceImpl extends AbstractUUIDCrudService<Role> implements Ro
   public void setPermissionIds(String id, List<String> permissionIds) {
     Assert.isTrue(isNoSystem(RoleEntity.builder().id(id).build()), "权限不足, 请联系管理员");
     rolePermissionRepository.deleteByRoleId(id);
+    if (permissionIds.isEmpty()) {
+      return;
+    }
     rolePermissionRepository.add(id, permissionIds);
   }
 }

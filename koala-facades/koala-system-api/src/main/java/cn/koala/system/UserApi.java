@@ -1,6 +1,7 @@
 package cn.koala.system;
 
 import cn.koala.swagger.PageableAsQueryParam;
+import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -134,8 +135,8 @@ public interface UserApi {
   /**
    * 设置用户部门ID列表
    *
-   * @param id            用户id
-   * @param departmentIds 部门ID列表
+   * @param id      用户id
+   * @param request 部门ID列表
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('user:write')")
@@ -145,7 +146,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "string"))
   @PutMapping("{id}/department-ids")
-  Response setDepartmentIds(@PathVariable("id") String id, @RequestBody List<String> departmentIds);
+  Response setDepartmentIds(@PathVariable("id") String id, @RequestBody DataRequest<List<String>> request);
 
   /**
    * 根据id查询用户角色id列表
@@ -166,7 +167,7 @@ public interface UserApi {
    * 设置用户角色id列表
    *
    * @param id      用户id
-   * @param roleIds 角色id列表
+   * @param request 角色id列表
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('user:write')")
@@ -176,7 +177,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "string"))
   @PutMapping("{id}/role-ids")
-  Response setRoleIds(@PathVariable("id") String id, @RequestBody List<String> roleIds);
+  Response setRoleIds(@PathVariable("id") String id, @RequestBody DataRequest<List<String>> request);
 
   class UserPageResult extends DataResponse<Page<User>> {
 
