@@ -30,7 +30,7 @@
   </select>
 
   <insert id="add" parameterType="cn.koala.system.PermissionEntity">
-    insert into t_permission
+    insert into t_permission (id, code, name, description)
     values (#{id}, #{code}, #{name}, #{description})
   </insert>
 

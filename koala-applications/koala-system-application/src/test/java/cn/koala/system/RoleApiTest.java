@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -62,7 +63,7 @@ public class RoleApiTest {
   @Order(4)
   @WithMockUser(username = "admin", authorities = {"role:read", "role:write"})
   public void authorize() throws Exception {
-    mockMvc.perform(put("/api/roles/999/permission-ids").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(List.of("role:write"))))
+    mockMvc.perform(put("/api/roles/999/permission-ids").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(Map.of("data", List.of("role:write")))))
       .andExpect(status().isOk());
   }
 
