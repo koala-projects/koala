@@ -44,15 +44,15 @@
 
   <developers>
     <developer>
-      <name>Houtaroy</name>
-      <email>Houtaroy@gmail.com</email>
+      <name>koala-projects</name>
+      <email>koala_projects@yeah.net</email>
     </developer>
   </developers>
 
   <distributionManagement>
     <repository>
-      <id>Houtaroy Local</id>
-      <url>file:D:/Document/maven-repositories</url>
+      <id>Local</id>
+      <url>file:C:/Document/maven-repositories</url>
     </repository>
   </distributionManagement>
 
@@ -109,31 +109,6 @@
           </execution>
         </executions>
       </plugin>
-      <!--自动发布到github仓库-->
-      <!--<plugin>-->
-      <!--    <groupId>com.github.github</groupId>-->
-      <!--    <artifactId>site-maven-plugin</artifactId>-->
-      <!--    <version>0.12</version>-->
-      <!--    <configuration>-->
-      <!--        <message>Maven artifacts for ${project.artifactId} ${project.version}</message>-->
-      <!--        <noJekyll>true</noJekyll>-->
-      <!--        <outputDirectory>D:/Document/Maven Repo</outputDirectory>-->
-      <!--        <branch>refs/heads/main</branch>-->
-      <!--        <includes>-->
-      <!--            <include>**/*</include>-->
-      <!--        </includes>-->
-      <!--        <repositoryName>maven-repo</repositoryName>-->
-      <!--        <repositoryOwner>Houtaroy</repositoryOwner>-->
-      <!--    </configuration>-->
-      <!--    <executions>-->
-      <!--        <execution>-->
-      <!--            <goals>-->
-      <!--                <goal>site</goal>-->
-      <!--            </goals>-->
-      <!--            <phase>deploy</phase>-->
-      <!--        </execution>-->
-      <!--    </executions>-->
-      <!--</plugin>-->
     </plugins>
   </build>
 </project>
