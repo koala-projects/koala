@@ -247,11 +247,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-jdbc-spring-boot-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-oauth2-authorization-server-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -273,11 +268,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-setting-spring-boot-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-system-management-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -313,11 +303,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-eucalyptus</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-mqtt</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -343,22 +328,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-system-management</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-system-spring-boot-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-system-management-mybatis-core</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-system-management-mybatis-mapper-mysql</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -379,27 +349,12 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-eucalyptus-api</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-jdbc-api</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-setting-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-system-api</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-system-management-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--基础设施-->
