@@ -1,8 +1,4 @@
-# Web原型 :koala:
-
-## 原型代码
-
-`koala-web-archetype`
+# Web原型
 
 ## 原型结构
 

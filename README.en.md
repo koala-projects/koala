@@ -1,6 +1,6 @@
 # Koala
 
-English | [Chinese](./)
+English | [Chinese](README.md)
 
 ## Introduction
 

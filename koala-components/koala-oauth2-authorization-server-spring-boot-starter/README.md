@@ -1,19 +1,6 @@
-# 考拉授权服务
+# 授权服务组件
 
-基于Spring Security 5, 提供OAuth2密码模式授权
-
-## 引入依赖
-
-```xml
-
-<dependencies>
-  <dependency>
-    <groupId>cn.koala</groupId>
-    <artifactId>koala-oauth2-authorization-server-spring-boot-starter</artifactId>
-    <version>2022.0.0-SNAPSHOT</version>
-  </dependency>
-</dependencies>
-```
+基于Spring Authorization Server实现OAuth2授权服务, 拓展了密码模式
 
 ## 配置
 

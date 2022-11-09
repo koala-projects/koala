@@ -63,17 +63,17 @@ mvn archetype:generate ^
 
 1. 选择需要的组件, 列表如下:
 
-| 组件代码                                                     | 组件名称     | 组件说明                                                     |
-| ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
-| [koala-web](../../koala-components/koala-web-spring-boot-starter) | Web基础组件  | 对部分通用Web功能进行集成和拓展, 例如 OpenApi接口文档 / 通用返回值 / 异常拦截 等 |
-| [koala-oauth2-authorization-server](../../koala-components/koala-oauth2-authorization-server-spring-boot-starter) | 授权服务组件 | 基于Spring Authorization Server实现OAuth2授权服务, 拓展了密码模式 |
-| [koala-oauth2-resource-server](../../koala-components/koala-oauth2-resource-server-spring-boot-starter) | 资源服务组件 | 配合授权服务组件使用                                         |
-| [koala-system](../../koala-components/koala-system-spring-boot-starter) | 系统管理组件 | 实现了部分通用中后台管理功能, 例如 字典管理 / 部门管理 / 用户管理 等 |
-| [koala-data-model](../../koala-components/koala-data-model-spring-boot-starter) | 数据模型组件 | 实现了简易数据模型功能, 例如 元数据管理 / 数据管理 等        |
-| [koala-setting](../../koala-components/koala-setting-spring-boot-starter) | 设置组件     | 实现了简易设置功能, 适用于系统配置热更新等场景               |
-| [koala-office](../../koala-components/koala-office-spring-boot-starter) | 办公组件     | 提供了部分办公相关辅助工具, 例如 Excel导出 / PDF读取 等      |
-| [koala-integration-mqtt](../../koala-components/koala-integration-mqtt-spring-boot-starter) | MQTT组件     | 通过简易配置即可快速接入MQTT消息队列                         |
-| [koala-dingtalk](../../koala-components/koala-dingtalk-spring-boot-starter) | 钉钉组件     | 整合了新旧两版钉钉SDK                                        |
+| 组件代码                                                     | 组件说明                                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [koala-web](../../koala-components/koala-web-spring-boot-starter) | 对部分通用Web功能进行集成和拓展, 例如 OpenApi接口文档 / 通用返回值 / 异常拦截 等 |
+| [koala-oauth2-authorization-server](../../koala-components/koala-oauth2-authorization-server-spring-boot-starter) | 基于Spring Authorization Server实现OAuth2授权服务, 拓展了密码模式 |
+| [koala-oauth2-resource-server](../../koala-components/koala-oauth2-resource-server-spring-boot-starter) | 配合授权服务组件使用                                         |
+| [koala-system](../../koala-components/koala-system-spring-boot-starter) | 实现了部分通用中后台管理功能, 例如 字典管理 / 部门管理 / 用户管理 等 |
+| [koala-data-model](../../koala-components/koala-data-model-spring-boot-starter) | 实现了简易数据模型功能, 例如 元数据管理 / 数据管理 等        |
+| [koala-setting](../../koala-components/koala-setting-spring-boot-starter) | 实现了简易设置功能, 适用于系统配置热更新等场景               |
+| [koala-office](../../koala-components/koala-office-spring-boot-starter) | 提供了部分办公相关辅助工具, 例如 Excel导出 / PDF读取 等      |
+| [koala-integration-mqtt](../../koala-components/koala-integration-mqtt-spring-boot-starter) | 通过简易配置即可快速接入MQTT消息队列                         |
+| [koala-dingtalk](../../koala-components/koala-dingtalk-spring-boot-starter) | 整合了新旧两版钉钉SDK                                        |
 
 **强烈建议您在使用组件前仔细阅读文档**
 
