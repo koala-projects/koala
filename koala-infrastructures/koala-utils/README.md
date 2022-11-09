@@ -9,7 +9,7 @@
 <dependency>
   <groupId>cn.koala</groupId>
   <artifactId>koala-utils</artifactId>
-  <version>2022.0.0-SNAPSHOT</version>
+  <version>2022.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
