@@ -1,19 +1,6 @@
-# koala-dingtalk-spring-boot-starter
+# 钉钉组件
 
-基于Druid拓展启动类, 提供查询语句解析和SQL检查功能
-
-## 引入依赖
-
-```xml
-
-<dependencies>
-  <dependency>
-    <groupId>cn.koala</groupId>
-    <artifactId>koala-dingtalk-spring-boot-starter</artifactId>
-    <version>2022.0.0-SNAPSHOT</version>
-  </dependency>
-</dependencies>
-```
+整合了新旧两版钉钉SDK
 
 ## 书写配置
 
@@ -24,7 +11,7 @@ ding-talk:
   app-secret: secret
 ```
 
-## 使用旧版SDK
+## 旧版SDK
 
 自动装配了`DingtalkService`的实现`InMemoryDingtalkService`
 
@@ -55,7 +42,7 @@ public class MyService {
 
 旧版SDK自动处理了用户token
 
-## 使用新版SDK
+## 新版SDK
 
 新版SDK调用时与旧版有所不同, 故提供`client`方法用于获取新版请求客户端, 之后请自行请求:
 

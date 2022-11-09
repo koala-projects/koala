@@ -1,19 +1,6 @@
-# koala-integration-mqtt-spring-boot-starter
+# MQTT组件
 
-结合Spring Integration实现的MQTT启动类
-
-## 引入依赖
-
-```xml
-
-<dependencies>
-  <dependency>
-    <groupId>cn.koala</groupId>
-    <artifactId>koala-integration-mqtt-spring-boot-starter</artifactId>
-    <version>2022.0.0-SNAPSHOT</version>
-  </dependency>
-</dependencies>
-```
+通过简易配置即可快速接入MQTT消息队列
 
 ## 书写配置
 

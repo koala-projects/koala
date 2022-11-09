@@ -1,30 +1,16 @@
 # 设置组件
 
-简易的设置功能, 基于[数据模型组件](https://github.com/Houtaroy/koala/tree/main/koala-components/koala-data-model-spring-boot-starter)
-
-提供例如系统配置热更新等能力
-
-## 引入依赖
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>cn.koala</groupId>
-    <artifactId>koala-setting-spring-boot-starter</artifactId>
-    <version>2022.0.0-SNAPSHOT</version>
-  </dependency>
-</dependencies>
-```
+基于[数据模型组件](../koala-data-model-spring-boot-starter), 实现了简易设置功能, 适用于系统配置热更新等场景
 
 ## 初始化数据库
 
 当前仅支持MySQL数据库, 推荐版本为8.0.X
 
-使用脚本`koala-data-model-core/schema-mysql.sql`初始化数据库
+1. 执行[数据库结构脚本](../../koala-domains/koala-data-model/koala-data-model-core/src/main/resources/schema-mysql.sql)
 
 ## 接口文档
 
-组件集成了`springdoc-openapi-ui`, 通过请求`swagger-ui/index.html`访问接口文档
+组件集成了`springdoc-openapi-ui`, 通过访问`swagger-ui/index.html`阅读接口文档
 
 ## 快速获取设置内容
 

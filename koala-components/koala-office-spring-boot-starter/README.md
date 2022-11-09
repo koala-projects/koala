@@ -1,26 +1,14 @@
 # 办公组件
 
-提供办公文档部分操作
-
-## 引入依赖
-
-```xml
-<dependencies>
-  <dependency>
-    <groupId>cn.koala</groupId>
-    <artifactId>koala-office-spring-boot-starter</artifactId>
-    <version>2022.0.0-SNAPSHOT</version>
-  </dependency>
-</dependencies>
-```
+提供了部分办公相关辅助工具
 
 ## Excel
 
-组件内置了[EasyExcel](https://github.com/alibaba/easyexcel)
+组件内置了[EasyExcel](https://github.com/alibaba/easyexcel)和`ExcelHelper`
 
 ### 下载
 
-组件提供了`ExcelHelper`, 用于将文件直接推送至前端下载:
+直接推送至前端下载:
 
 ```java
 public class DownloadTest {
@@ -39,8 +27,7 @@ public class DownloadTest {
 
 ## 文档转换
 
-当前文档转换使用[JODConverte](https://github.com/sbraconnier/jodconverter)实现,
-需要在服务器安装[LibreOffice](https://zh-cn.libreoffice.org/)或[Apache OpenOffice](https://www.openoffice.org/zh-cn/)
+使用[JODConverte](https://github.com/sbraconnier/jodconverter)实现, 需在运行服务器安装[LibreOffice](https://zh-cn.libreoffice.org/)或[Apache OpenOffice](https://www.openoffice.org/zh-cn/)
 
 ### 配置
 
@@ -60,7 +47,6 @@ jodconverter:
 ### 转换
 
 ```java
-
 @Component
 @RequiredArgsConstructor
 public class Service {
