@@ -1,0 +1,15 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+  "-//Puppy Crawl//DTD Suppressions 1.0//EN"
+  "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+
+<suppressions>
+  <!--<suppress checks="ReturnCount" files="DepartmentServiceImpl.java"/>-->
+  <!--<suppress checks=".*" files="SocialJdbcConnectionRepository.java"/>-->
+  <suppress checks=".*" files=".*Test${symbol_escape}.java"/>
+  <suppress checks=".*" files="Mock.*${symbol_escape}.java"/>
+</suppressions>
