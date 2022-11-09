@@ -44,7 +44,7 @@ public class PermissionApiTest {
   public void list() throws Exception {
     mockMvc.perform(get("/api/permissions"))
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.content", hasSize(12)));
+      .andExpect(jsonPath("$.data.content", hasSize(14)));
   }
 
   @Test
