@@ -18,6 +18,5 @@
     <module>koala-sample-data-model</module>
     <module>koala-sample-mqtt</module>
     <module>koala-sample-setting</module>
-    <module>koala-sample-web</module>
   </modules>
 </project>
