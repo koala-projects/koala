@@ -17,20 +17,20 @@
 
 ```xml
 <profiles>
-  <profile>
-    <id>koala</id>
-    <repositories>
-      <repository>
-        <id>koala-gitee</id>
-        <name>Koala Maven Repository Gitee</name>
-        <url>https://gitee.com/koala-projects/maven-repositories/raw/snapshot/</url>
-        <snapshots>
-          <enabled>true</enabled>
-          <checksumPolicy>warn</checksumPolicy>
-        </snapshots>
-      </repository>
-    </repositories>
-  </profile>
+	<profile>
+	  <id>koala</id>
+	  <repositories>
+        <repository>
+          <id>koala-gitee</id>
+          <name>Koala Maven Repository Gitee</name>
+          <url>https://gitee.com/koala-projects/maven-repositories/raw/snapshot/</url>
+          <snapshots>
+            <enabled>true</enabled>
+            <checksumPolicy>warn</checksumPolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+	</profile>
 </profiles>
 ```
 
