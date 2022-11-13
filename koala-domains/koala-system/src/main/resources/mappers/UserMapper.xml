@@ -9,15 +9,17 @@
            t.password,
            t.nickname,
            t.avatar,
-           t.is_system
+           t.is_system,
+           t.is_delete
     from t_user t
   </sql>
 
   <select id="findAll" resultType="cn.koala.system.UserEntity">
     <include refid="selectUser"/>
     <where>
+      t.is_delete = 0
       <if test="parameters.username != null and parameters.username != ''">
-        t.username like concat(#{parameters.username}, '%')
+        and t.username like concat(#{parameters.username}, '%')
       </if>
       <if test="parameters.nickname != null and parameters.nickname != ''">
         and t.nickname like concat(#{parameters.nickname}, '%')
@@ -32,14 +34,8 @@
   </select>
 
   <select id="findById" resultType="cn.koala.system.UserEntity">
-    select t.id,
-           t.username,
-           t.password,
-           t.nickname,
-           t.avatar,
-           t.is_system
-    from t_user t
-    where t.id = #{id}
+    <include refid="selectUser"/>
+    where t.is_delete = 0 and t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.UserEntity">
@@ -48,20 +44,22 @@
             #{username},
             #{password},
             #{nickname},
-            #{avatar});
+            #{avatar})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.UserEntity">
     update t_user
-    set username = #{username},
-        nickname = #{nickname},
-        avatar   = #{avatar}
-    where id = #{id};
+    <trim prefix="set" suffixOverrides=",">
+      <if test="username != null">username=#{username},</if>
+      <if test="nickname != null">nickname=#{nickname},</if>
+      <if test="avatar != null">avatar=#{avatar},</if>
+    </trim>
+    where is_delete = 0 and id = #{id}
   </update>
 
   <update id="delete" parameterType="cn.koala.system.UserEntity">
-    delete
-    from t_user
+    update t_user
+    set is_delete = 1
     where id = #{id}
   </update>
 </mapper>

@@ -1,13 +1,14 @@
 package cn.koala.system;
 
 import cn.koala.persistence.Idable;
+import cn.koala.persistence.Stateable;
 
 /**
  * 字典项
  *
  * @author Houtaroy
  */
-public interface DictionaryItem extends Idable<String> {
+public interface DictionaryItem extends Idable<String>, Stateable {
   /**
    * 获取字典项名称
    *

@@ -1,6 +1,5 @@
 package cn.koala.system.mybatis;
 
-import cn.koala.mybatis.AbstractUUIDCrudService;
 import cn.koala.system.DictionaryItem;
 import cn.koala.system.DictionaryItemService;
 import lombok.Data;
@@ -15,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class DictionaryItemServiceImpl extends AbstractUUIDCrudService<DictionaryItem>
+public class DictionaryItemServiceImpl extends AbstractSystemService<DictionaryItem>
   implements DictionaryItemService {
   protected final DictionaryItemRepository repository;
 }

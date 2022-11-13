@@ -7,46 +7,47 @@
     select t.id,
            t.code,
            t.name,
-           t.description
+           t.description,
+           t.is_delete
     from t_dictionary t
   </sql>
 
   <select id="findAll" resultType="cn.koala.system.DictionaryEntity">
     <include refid="selectDictionary"/>
     <where>
+      t.is_delete = 0
       <if test="parameters.code != null and parameters.code != ''">
-        t.code like concat(#{parameters.code}, '%')
+        and t.code like concat(#{parameters.code}, '%')
       </if>
       <if test="parameters.name != null and parameters.name != ''">
-        t.name like concat(#{parameters.name}, '%')
+        and t.name like concat(#{parameters.name}, '%')
       </if>
     </where>
   </select>
 
   <select id="findById" resultType="cn.koala.system.DictionaryEntity">
     <include refid="selectDictionary"/>
-    where t.id = #{id}
+    where t.is_delete = 0 and t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.DictionaryEntity">
-    insert into t_dictionary
-    values (#{id}, #{code}, #{name}, #{description});
+    insert into t_dictionary(id, code, name, description)
+    values (#{id}, #{code}, #{name}, #{description})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.DictionaryEntity">
     update t_dictionary
-    set code        = #{code},
-        name        = #{name},
-        description = #{description}
-    where id = #{id}
+    <trim prefix="set" suffixOverrides=",">
+      <if test="code != null">code=#{code},</if>
+      <if test="name != null">name=#{name},</if>
+      <if test="description != null">description=#{description},</if>
+    </trim>
+    where is_delete = 0 and id=#{id}
   </update>
 
-  <delete id="delete" parameterType="cn.koala.system.DictionaryEntity">
-    delete
-    from t_dictionary_item
-    where dictionary_id = #{id};
-    delete
-    from t_dictionary
-    where id = #{id};
-  </delete>
+  <update id="delete" parameterType="cn.koala.system.DictionaryEntity">
+    update t_dictionary
+    set is_delete = 1
+    where id = #{id}
+  </update>
 </mapper>

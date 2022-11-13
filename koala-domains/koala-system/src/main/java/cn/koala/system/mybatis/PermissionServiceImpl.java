@@ -1,6 +1,5 @@
 package cn.koala.system.mybatis;
 
-import cn.koala.mybatis.AbstractUUIDCrudService;
 import cn.koala.system.Permission;
 import cn.koala.system.PermissionService;
 import lombok.Data;
@@ -15,6 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class PermissionServiceImpl extends AbstractUUIDCrudService<Permission> implements PermissionService {
+public class PermissionServiceImpl extends AbstractSystemService<Permission> implements PermissionService {
   protected final PermissionRepository repository;
 }

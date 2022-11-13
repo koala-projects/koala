@@ -27,4 +27,11 @@ public interface Stateable {
    * @return 是否删除
    */
   YesNo getIsDelete();
+
+  /**
+   * 设置是否删除属性
+   *
+   * @param isDelete 是否枚举
+   */
+  void setIsDelete(YesNo isDelete);
 }

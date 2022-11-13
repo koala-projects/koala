@@ -1,6 +1,5 @@
 package cn.koala.system.mybatis;
 
-import cn.koala.mybatis.AbstractUUIDCrudService;
 import cn.koala.system.Dictionary;
 import cn.koala.system.DictionaryService;
 import lombok.Data;
@@ -15,6 +14,13 @@ import lombok.RequiredArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class DictionaryServiceImpl extends AbstractUUIDCrudService<Dictionary> implements DictionaryService {
+public class DictionaryServiceImpl extends AbstractSystemService<Dictionary> implements DictionaryService {
   protected final DictionaryRepository repository;
+  protected final DictionaryItemRepository dictionaryItemRepository;
+
+  @Override
+  public void delete(Dictionary entity) {
+    dictionaryItemRepository.deleteByDictionaryId(entity.getId());
+    super.delete(entity);
+  }
 }

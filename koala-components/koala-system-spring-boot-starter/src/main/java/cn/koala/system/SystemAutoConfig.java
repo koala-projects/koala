@@ -40,13 +40,15 @@ public class SystemAutoConfig {
   /**
    * 字典服务的bean
    *
-   * @param dictionaryRepository 字典存储库
+   * @param dictionaryRepository     字典存储库对象
+   * @param dictionaryItemRepository 字典项存储库对象
    * @return 字典服务对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository) {
-    return new DictionaryServiceImpl(dictionaryRepository);
+  public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository,
+                                             DictionaryItemRepository dictionaryItemRepository) {
+    return new DictionaryServiceImpl(dictionaryRepository, dictionaryItemRepository);
   }
 
   /**

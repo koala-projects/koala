@@ -2,6 +2,7 @@ package cn.koala.system;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -11,12 +12,11 @@ import lombok.experimental.SuperBuilder;
  * @author Houtaroy
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "字典项数据实体")
-public class DictionaryItemEntity implements DictionaryItem {
-  @Schema(description = "主键ID")
-  private String id;
+public class DictionaryItemEntity extends AbstractSystemEntity implements DictionaryItem {
   @Schema(description = "字典项名称")
   private String name;
   @Schema(description = "字典项内容")
