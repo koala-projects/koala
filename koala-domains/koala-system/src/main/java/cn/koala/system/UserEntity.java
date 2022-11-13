@@ -1,9 +1,8 @@
 package cn.koala.system;
 
-import cn.koala.enhancement.YesNo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -13,12 +12,11 @@ import lombok.experimental.SuperBuilder;
  * @author Houtaroy
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "用户数据实体")
-public class UserEntity implements User {
-  @Schema(description = "用户ID")
-  private String id;
+public class UserEntity extends AbstractSystemEntity implements User {
   @Schema(description = "用户名称")
   private String username;
   @Schema(description = "用户密码")
@@ -27,10 +25,4 @@ public class UserEntity implements User {
   private String nickname;
   @Schema(description = "用户头像")
   private String avatar;
-  @JsonIgnore
-  private YesNo isEnable;
-  @Schema(description = "是否系统")
-  private YesNo isSystem;
-  @JsonIgnore
-  private YesNo isDelete;
 }

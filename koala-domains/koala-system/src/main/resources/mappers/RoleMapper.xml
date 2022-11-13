@@ -8,15 +8,17 @@
            t.code,
            t.name,
            t.description,
-           t.is_system
+           t.is_system,
+           t.is_delete
     from t_role t
   </sql>
 
   <select id="findAll" resultType="cn.koala.system.RoleEntity">
     <include refid="selectRole"/>
     <where>
+      t.is_delete = 0
       <if test="parameters.code != null and parameters.code != ''">
-        t.code like concat(#{parameters.code}, '%')
+        and t.code like concat(#{parameters.code}, '%')
       </if>
       <if test="parameters.name != null and parameters.name != ''">
         and t.name like concat(#{parameters.name}, '%')
@@ -25,31 +27,28 @@
   </select>
 
   <select id="findById" resultType="cn.koala.system.RoleEntity">
-    select t.id,
-           t.code,
-           t.name,
-           t.description,
-           t.is_system
-    from t_role t
-    where t.id = #{id}
+    <include refid="selectRole"/>
+    where t.is_delete = 0 and t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.RoleEntity">
     insert into t_role (id, code, name, description)
-    values (#{id}, #{code}, #{name}, #{description});
+    values (#{id}, #{code}, #{name}, #{description})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.RoleEntity">
     update t_role
-    set code        = #{code},
-        name        = #{name},
-        description = #{description}
-    where id = #{id};
+    <trim prefix="set" suffixOverrides=",">
+      <if test="code != null">code=#{code},</if>
+      <if test="name != null">name=#{name},</if>
+      <if test="description != null">description=#{description},</if>
+    </trim>
+    where is_delete = 0 and id = #{id}
   </update>
 
   <update id="delete" parameterType="cn.koala.system.RoleEntity">
-    delete
-    from t_role
+    update t_role
+    set is_delete = 1
     where id = #{id}
   </update>
 </mapper>

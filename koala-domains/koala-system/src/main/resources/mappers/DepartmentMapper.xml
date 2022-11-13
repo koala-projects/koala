@@ -10,7 +10,9 @@
            t.description,
            t.parent_id as "parent.id",
            parent.code as "parent.code",
-           parent.name as "parent.name"
+           parent.name as "parent.name",
+           t.is_system,
+           t.is_delete
     from t_department t
            left join t_department parent on parent.id = t.parent_id
   </sql>
@@ -18,8 +20,9 @@
   <select id="findAll" resultType="cn.koala.system.DepartmentEntity">
     <include refid="selectDepartment"/>
     <where>
+      t.is_delete = 0
       <if test="parameters.code != null and parameters.code != ''">
-        t.code = #{parameters.code}
+        and t.code = #{parameters.code}
       </if>
       <if test="parameters.name != null and parameters.name != ''">
         and t.name = #{parameters.name}
@@ -32,26 +35,28 @@
 
   <select id="findById" resultType="cn.koala.system.DepartmentEntity">
     <include refid="selectDepartment"/>
-    where t.id = #{id}
+    where t.is_delete = 0 and t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.DepartmentEntity">
-    insert into t_department
+    insert into t_department(id, code, name, description, parent_id)
     values (#{id}, #{code}, #{name}, #{description}, #{parent.id})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.DepartmentEntity">
     update t_department
-    set code        = #{code},
-        name        = #{name},
-        description = #{description},
-        parent_id   = #{parent.id}
-    where id = #{id}
+    <trim prefix="set" suffixOverrides=",">
+      <if test="code != null">code=#{code},</if>
+      <if test="name != null">name=#{name},</if>
+      <if test="description != null">description=#{description},</if>
+      <if test="parent != null">parent_id=#{parent.id},</if>
+    </trim>
+    where is_delete = 0 and id = #{id}
   </update>
 
   <update id="delete" parameterType="cn.koala.system.DepartmentEntity">
-    delete
-    from t_department
+    update t_department
+    set is_delete = 1
     where id = #{id}
   </update>
 </mapper>

@@ -2,6 +2,7 @@ package cn.koala.web;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * 数据请求
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class DataRequest<T> {
   private T data;
 }

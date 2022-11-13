@@ -32,6 +32,9 @@
     </repositories>
   </profile>
 </profiles>
+<activeProfiles>
+  <activeProfile>koala</activeProfile>
+</activeProfiles>
 ```
 
 3. 使用Maven命令生成项目:

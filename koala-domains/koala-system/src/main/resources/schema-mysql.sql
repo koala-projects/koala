@@ -5,8 +5,9 @@ CREATE TABLE t_dictionary
   code        VARCHAR(50) NOT NULL COMMENT '字典代码',
   name        VARCHAR(20) NOT NULL COMMENT '字典名称',
   description VARCHAR(500) COMMENT '字典描述',
+  is_delete   INT         NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
-) COMMENT = '字典';
+) COMMENT = '字典表';
 
 DROP TABLE IF EXISTS t_dictionary_item;
 CREATE TABLE t_dictionary_item
@@ -15,8 +16,9 @@ CREATE TABLE t_dictionary_item
   name          VARCHAR(20) COMMENT '字典项名称',
   content       VARCHAR(50) COMMENT '字典项内容',
   dictionary_id VARCHAR(36) COMMENT '字典id',
+  is_delete     INT         NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
-) COMMENT = '字典项';
+) COMMENT = '字典项表';
 
 DROP TABLE IF EXISTS t_department;
 CREATE TABLE t_department
@@ -26,8 +28,10 @@ CREATE TABLE t_department
   name        VARCHAR(20) COMMENT '部门名称',
   description VARCHAR(500) COMMENT '部门描述',
   parent_id   VARCHAR(36) COMMENT '上级部门ID',
+  is_system   INT         NOT NULL DEFAULT 0 COMMENT '是否系统',
+  is_delete   INT         NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
-) COMMENT = '部门';
+) COMMENT = '部门表';
 
 DROP TABLE IF EXISTS t_permission;
 CREATE TABLE t_permission
@@ -37,8 +41,9 @@ CREATE TABLE t_permission
   name        VARCHAR(20) NOT NULL COMMENT '权限名称',
   description VARCHAR(500) COMMENT '权限描述',
   is_system   INT         NOT NULL DEFAULT 0 COMMENT '是否系统',
+  is_delete   INT         NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
-) COMMENT = '权限';
+) COMMENT = '权限表';
 
 DROP TABLE IF EXISTS t_role;
 CREATE TABLE t_role
@@ -48,8 +53,9 @@ CREATE TABLE t_role
   name        VARCHAR(20) NOT NULL COMMENT '角色名称',
   description VARCHAR(500) COMMENT '角色描述',
   is_system   INT         NOT NULL DEFAULT 0 COMMENT '是否系统',
+  is_delete   INT         NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
-) COMMENT = '角色';
+) COMMENT = '角色表';
 
 DROP TABLE IF EXISTS t_user;
 CREATE TABLE t_user
@@ -60,30 +66,30 @@ CREATE TABLE t_user
   nickname  VARCHAR(20)  NOT NULL COMMENT '用户昵称',
   avatar    VARCHAR(500) COMMENT '用户头像',
   is_system INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  is_delete INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
-) COMMENT = '用户';
-
+) COMMENT = '用户表';
 
 DROP TABLE IF EXISTS t_user_role;
 CREATE TABLE t_user_role
 (
   user_id VARCHAR(36) NOT NULL COMMENT '用户id',
   role_id VARCHAR(36) NOT NULL COMMENT '角色id'
-) COMMENT = '用户角色关系';
+) COMMENT = '用户角色关系表';
 
 DROP TABLE IF EXISTS t_user_department;
 CREATE TABLE t_user_department
 (
   user_id       VARCHAR(36) NOT NULL COMMENT '用户ID',
   department_id VARCHAR(36) NOT NULL COMMENT '部门ID'
-) COMMENT = '用户部门关系';
+) COMMENT = '用户部门关系表';
 
 DROP TABLE IF EXISTS t_role_permission;
 CREATE TABLE t_role_permission
 (
   role_id       VARCHAR(36) NOT NULL COMMENT '角色id',
   permission_id VARCHAR(36) NOT NULL COMMENT '权限id'
-) COMMENT = '角色权限关系';
+) COMMENT = '角色权限关系表';
 
 DROP TABLE IF EXISTS oauth2_registered_client;
 CREATE TABLE oauth2_registered_client

@@ -1,6 +1,5 @@
 package cn.koala.system.mybatis;
 
-import cn.koala.mybatis.AbstractUUIDCrudService;
 import cn.koala.system.Department;
 import cn.koala.system.DepartmentService;
 import lombok.Data;
@@ -18,7 +17,7 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class DepartmentServiceImpl extends AbstractUUIDCrudService<Department> implements DepartmentService {
+public class DepartmentServiceImpl extends AbstractSystemService<Department> implements DepartmentService {
   protected final DepartmentRepository repository;
   protected final UserRepository userRepository;
 

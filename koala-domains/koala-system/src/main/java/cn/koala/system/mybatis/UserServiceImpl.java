@@ -1,6 +1,5 @@
 package cn.koala.system.mybatis;
 
-import cn.koala.mybatis.AbstractUUIDCrudService;
 import cn.koala.system.SystemProperties;
 import cn.koala.system.User;
 import cn.koala.system.UserEntity;
@@ -22,7 +21,7 @@ import java.util.Optional;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class UserServiceImpl extends AbstractUUIDCrudService<User> implements UserService {
+public class UserServiceImpl extends AbstractSystemService<User> implements UserService {
   protected final PasswordEncoder passwordEncoder;
   protected final SystemProperties properties;
   protected final UserRepository repository;
