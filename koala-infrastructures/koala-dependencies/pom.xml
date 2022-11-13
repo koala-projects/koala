@@ -248,6 +248,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-mybatis-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-oauth2-authorization-server-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
