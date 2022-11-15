@@ -19,6 +19,7 @@
     <module>koala-database</module>
     <module>koala-dingtalk</module>
     <module>koala-druid</module>
+    <module>koala-jdbc</module>
     <module>koala-mqtt</module>
     <module>koala-office</module>
     <module>koala-sensitive-word</module>
