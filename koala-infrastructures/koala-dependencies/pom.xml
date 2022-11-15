@@ -381,6 +381,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-lang</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-mybatis</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -397,11 +402,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-swagger</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-utils</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

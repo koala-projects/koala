@@ -1,7 +1,7 @@
 package cn.koala.datamodel;
 
 import cn.koala.enhancement.ValueNameEnum;
-import cn.koala.utils.StringCalendar;
+import cn.koala.lang.time.StringCalendar;
 import lombok.Getter;
 
 import java.util.function.Function;

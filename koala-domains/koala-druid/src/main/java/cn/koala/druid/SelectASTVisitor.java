@@ -1,6 +1,5 @@
 package cn.koala.druid;
 
-import cn.koala.constant.Int;
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.expr.SQLAllColumnExpr;
 import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
@@ -35,6 +34,7 @@ import java.util.regex.Pattern;
 public class SelectASTVisitor implements SQLASTVisitor {
   public static final Pattern PARAMETER_PATTERN = Pattern.compile("#\\{[a-zA-z]*}");
   private static final int PARAMETER_START_INDEX = 2;
+  public static final int INT_16 = 16;
 
   protected List<SQLSelectItem> selectItems = new ArrayList<>();
   protected List<SelectTable> selectTables = new ArrayList<>();
@@ -47,7 +47,7 @@ public class SelectASTVisitor implements SQLASTVisitor {
    * 构造函数
    */
   public SelectASTVisitor() {
-    selectColumnExprFunctions = new ConcurrentHashMap<>(Int.INT_16);
+    selectColumnExprFunctions = new ConcurrentHashMap<>(INT_16);
     selectColumnExprFunctions.put(SQLAllColumnExpr.class, this::computeAllColumn);
     selectColumnExprFunctions.put(SQLIdentifierExpr.class, this::computeIdentifier);
     selectColumnExprFunctions.put(SQLMethodInvokeExpr.class, this::computeMethodInvoke);

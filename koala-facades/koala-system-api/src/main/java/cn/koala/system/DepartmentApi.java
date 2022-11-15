@@ -1,7 +1,7 @@
 package cn.koala.system;
 
+import cn.koala.lang.tree.TreeNode;
 import cn.koala.swagger.PageableAsQueryParam;
-import cn.koala.utils.TreeNode;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;

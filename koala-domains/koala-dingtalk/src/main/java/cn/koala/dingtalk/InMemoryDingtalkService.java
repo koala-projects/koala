@@ -1,11 +1,11 @@
 package cn.koala.dingtalk;
 
-import cn.koala.constant.Int;
 import com.aliyun.dingtalkoauth2_1_0.models.GetAccessTokenRequest;
 import com.aliyun.dingtalkoauth2_1_0.models.GetAccessTokenResponse;
 import com.aliyun.teaopenapi.Client;
 import com.aliyun.teaopenapi.models.Config;
 import com.dingtalk.api.DefaultDingTalkClient;
+import com.google.common.collect.Maps;
 import com.taobao.api.ApiException;
 import com.taobao.api.TaobaoRequest;
 import com.taobao.api.TaobaoResponse;
@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Houtaroy
@@ -23,8 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryDingtalkService implements DingtalkService {
   public static final Config NEW_CLIENT_DEFAULT_CONFIG = new Config();
   private final DingtalkProperties properties;
-  private final Map<String, DefaultDingTalkClient> oldClients = new ConcurrentHashMap<>(Int.INT_16);
-  private final Map<Class<? extends Client>, Client> newClients = new ConcurrentHashMap<>(Int.INT_16);
+  private final Map<String, DefaultDingTalkClient> oldClients = Maps.newConcurrentMap();
+  private final Map<Class<? extends Client>, Client> newClients = Maps.newConcurrentMap();
 
   private DingtalkAccessToken token = new DingtalkAccessToken();
 

@@ -25,7 +25,7 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-constant</artifactId>
+      <artifactId>koala-lang</artifactId>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
