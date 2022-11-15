@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
-public class ExampleService extends AbstractCrudService<String, ExampleEntity> {
+public class ExampleService extends AbstractService<String, ExampleEntity> {
   protected final ExampleRepository repository;
 
 }

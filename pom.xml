@@ -10,7 +10,7 @@
   <description>Koala</description>
 
   <properties>
-    <revision>2022.0.1-SNAPSHOT</revision>
+    <revision>2022.0.2-SNAPSHOT</revision>
     <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
