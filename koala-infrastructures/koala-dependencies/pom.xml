@@ -278,6 +278,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-test-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-web-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -367,11 +372,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-checkstyle</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-constant</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

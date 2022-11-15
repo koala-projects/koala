@@ -1,21 +1,18 @@
 package cn.koala.system;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import cn.koala.test.MockMvcWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 public class DepartmentApiTest {
-  private final ObjectMapper mapper = new ObjectMapper();
 
   @Autowired
   private MockMvc mockMvc;
@@ -34,28 +30,23 @@ public class DepartmentApiTest {
   @Test
   @WithMockUser(username = "admin", authorities = {"department:read", "department:write"})
   public void crud() throws Exception {
-    String url = "/api/departments";
-    DepartmentEntity entity = DepartmentEntity.builder()
+    MockMvcWrapper wrapper = new MockMvcWrapper(mockMvc, "/api/departments");
+    DepartmentEntity entity = entity();
+    wrapper.add(entity).andExpect(status().isOk());
+    wrapper.list(Map.of("code", "test")).andExpect(status().isOk())
+      .andExpect(jsonPath("$.data.content", hasSize(1)));
+    entity.setCode("test2");
+    wrapper.update(entity.getId(), entity).andExpect(status().isOk());
+    wrapper.load(entity.getId()).andExpect(status().isOk())
+      .andExpect(jsonPath("$.data.code", equalTo("test2")));
+    wrapper.delete(entity.getId()).andExpect(status().isOk());
+  }
+
+  protected DepartmentEntity entity() {
+    return DepartmentEntity.builder()
       .id("999")
       .code("test")
       .name("测试部门")
       .build();
-    mockMvc.perform(post(url)
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(mapper.writeValueAsString(entity))
-    ).andExpect(status().isOk());
-    mockMvc.perform(get(url))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.content", hasSize(3)));
-    entity.setCode("test2");
-    mockMvc.perform(put("%s/%s".formatted(url, entity.getId()))
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(mapper.writeValueAsString(entity))
-    ).andExpect(status().isOk());
-    mockMvc.perform(get("%s/%s".formatted(url, entity.getId())))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.code", equalTo("test2")));
-    mockMvc.perform(delete("%s/%s".formatted(url, entity.getId())))
-      .andExpect(status().isOk());
   }
 }
