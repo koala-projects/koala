@@ -16,7 +16,7 @@
   <dependency>
     <groupId>cn.koala</groupId>
     <artifactId>koala-sensitive-word-spring-boot-starter</artifactId>
-    <version>2022.0.1-SNAPSHOT</version>
+    <version>2022.0.2-SNAPSHOT</version>
   </dependency>
 </dependencies>
 ```
