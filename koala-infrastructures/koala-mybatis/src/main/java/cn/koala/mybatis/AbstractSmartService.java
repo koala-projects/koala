@@ -2,7 +2,7 @@ package cn.koala.mybatis;
 
 import cn.koala.enhancement.YesNo;
 import cn.koala.persistence.Idable;
-import cn.koala.persistence.Stateable;
+import cn.koala.persistence.Systemic;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
@@ -50,8 +50,8 @@ public abstract class AbstractSmartService<K, V extends Idable<K>> extends Abstr
    * @return 是否非系统数据
    */
   protected boolean isNoSystem(@NonNull V entity) {
-    if (entity instanceof Stateable stateable) {
-      return stateable.getIsSystem() == null || stateable.getIsSystem() == YesNo.NO;
+    if (entity instanceof Systemic systemic) {
+      return systemic.getIsSystem() == null || systemic.getIsSystem() == YesNo.NO;
     }
     return true;
   }

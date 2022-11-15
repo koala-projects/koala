@@ -1,8 +1,9 @@
 package cn.koala.system;
 
 import cn.koala.persistence.Codeable;
+import cn.koala.persistence.Deletable;
 import cn.koala.persistence.Idable;
-import cn.koala.persistence.Stateable;
+import cn.koala.persistence.Systemic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
-public interface Department extends Idable<String>, Codeable, Stateable {
+public interface Department extends Idable<String>, Codeable, Systemic, Deletable {
   /**
    * 获取上级部门
    *

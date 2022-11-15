@@ -1,14 +1,15 @@
 package cn.koala.system;
 
+import cn.koala.persistence.Deletable;
 import cn.koala.persistence.Idable;
-import cn.koala.persistence.Stateable;
+import cn.koala.persistence.Systemic;
 
 /**
  * 用户
  *
  * @author Houtaroy
  */
-public interface User extends Idable<String>, Stateable {
+public interface User extends Idable<String>, Systemic, Deletable {
 
   /**
    * 获取用户名
