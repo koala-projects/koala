@@ -1,8 +1,8 @@
 package cn.koala.system;
 
+import cn.koala.lang.tree.TreeHelper;
+import cn.koala.lang.tree.TreeNode;
 import cn.koala.persistence.CrudService;
-import cn.koala.utils.TreeNode;
-import cn.koala.utils.TreeUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public interface DepartmentService extends CrudService<String, Department> {
    * @return 树形结构部门列表
    */
   default List<TreeNode<Department>> tree() {
-    return TreeUtil.build(
+    return TreeHelper.build(
       list(Map.of()),
       department -> new TreeNode<>(department.getId(), department.getName(), department.getParentId(), department)
     );

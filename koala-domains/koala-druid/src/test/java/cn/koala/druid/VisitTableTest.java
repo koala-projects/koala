@@ -1,6 +1,5 @@
 package cn.koala.druid;
 
-import cn.koala.constant.Int;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
@@ -38,7 +37,7 @@ public class VisitTableTest {
     SelectASTVisitor visitor = new SelectASTVisitor();
     statement.accept(visitor);
     List<SelectTable> selectTables = visitor.getSelectTables();
-    Assertions.assertEquals(selectTables.size(), Int.INT_2);
+    Assertions.assertEquals(selectTables.size(), 2);
     Assertions.assertEquals(selectTables.get(0).getName(), "t_user");
     Assertions.assertEquals(selectTables.get(0).getAlias(), "t");
     Assertions.assertEquals(selectTables.get(1).getName(), "t_department");

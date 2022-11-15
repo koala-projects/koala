@@ -49,7 +49,6 @@ spring:
 
 mybatis:
   mapper-locations: classpath*:mappers/*Mapper.xml
-  type-handlers-package: cn.koala.mybatis
   configuration:
     map-underscore-to-camel-case: true
 

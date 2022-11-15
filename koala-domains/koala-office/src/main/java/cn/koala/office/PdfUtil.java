@@ -1,6 +1,6 @@
 package cn.koala.office;
 
-import cn.koala.utils.TextUtil;
+import cn.koala.lang.LangHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -52,7 +52,7 @@ public final class PdfUtil {
   public static String read(File file, String password, boolean chomp) throws IOException {
     try (PDDocument pdf = PDDocument.load(file, password)) {
       String result = new PDFTextStripper().getText(pdf);
-      return chomp ? TextUtil.chomp(result) : result;
+      return chomp ? LangHelper.chomp(result) : result;
     }
   }
 

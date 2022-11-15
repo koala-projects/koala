@@ -20,12 +20,14 @@
     <module>koala-dingtalk-spring-boot-starter</module>
     <module>koala-druid-spring-boot-starter</module>
     <module>koala-integration-mqtt-spring-boot-starter</module>
+    <module>koala-mybatis-spring-boot-starter</module>
     <module>koala-oauth2-authorization-server-spring-boot-starter</module>
     <module>koala-oauth2-resource-server-spring-boot-starter</module>
     <module>koala-office-spring-boot-starter</module>
     <module>koala-sensitive-word-spring-boot-starter</module>
     <module>koala-setting-spring-boot-starter</module>
     <module>koala-system-spring-boot-starter</module>
+    <module>koala-test-spring-boot-starter</module>
     <module>koala-web-spring-boot-starter</module>
   </modules>
 </project>

@@ -248,6 +248,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-mybatis-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-oauth2-authorization-server-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -269,6 +274,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-setting-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-test-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -366,12 +376,12 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-constant</artifactId>
+        <artifactId>koala-enum</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-enum</artifactId>
+        <artifactId>koala-lang</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -392,11 +402,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-swagger</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-utils</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

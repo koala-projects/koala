@@ -1,6 +1,5 @@
 package cn.koala.druid;
 
-import cn.koala.constant.Int;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
@@ -26,7 +25,7 @@ public class VisitSelectColumnTest {
     SelectASTVisitor visitor = new SelectASTVisitor();
     statement.accept(visitor);
     List<SelectColumn> selectColumns = visitor.getSelectColumns();
-    Assertions.assertEquals(selectColumns.size(), Int.INT_2);
+    Assertions.assertEquals(selectColumns.size(), 2);
     Assertions.assertEquals(selectColumns.get(0).getTable(), "t_user");
     Assertions.assertEquals(selectColumns.get(0).getName(), "name");
     Assertions.assertEquals(selectColumns.get(1).getName(), "gender");

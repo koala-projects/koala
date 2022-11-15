@@ -27,7 +27,7 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-utils</artifactId>
+      <artifactId>koala-lang</artifactId>
     </dependency>
   </dependencies>
 </project>

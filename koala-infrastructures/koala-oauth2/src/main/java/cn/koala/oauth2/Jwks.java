@@ -1,6 +1,6 @@
 package cn.koala.oauth2;
 
-import cn.koala.utils.SecurityUtil;
+import cn.koala.lang.security.KeyHelper;
 import com.nimbusds.jose.jwk.RSAKey;
 
 import java.security.KeyPair;
@@ -30,7 +30,7 @@ public final class Jwks {
    */
   public static RSAKey generateRsa(String keyID, String publicKey, String privateKey)
     throws NoSuchAlgorithmException, InvalidKeySpecException {
-    KeyPair keyPair = SecurityUtil.rsaKey(publicKey, privateKey);
+    KeyPair keyPair = KeyHelper.rsa(publicKey, privateKey);
     return new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
       .privateKey(keyPair.getPrivate())
       .keyID(keyID)

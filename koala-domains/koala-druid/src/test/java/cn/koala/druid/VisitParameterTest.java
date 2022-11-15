@@ -1,6 +1,5 @@
 package cn.koala.druid;
 
-import cn.koala.constant.Int;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
@@ -36,7 +35,7 @@ public class VisitParameterTest {
     SQLStatement statement = SQLUtils.parseSingleStatement(sql, DbType.mysql);
     SelectASTVisitor visitor = new SelectASTVisitor();
     statement.accept(visitor);
-    Assertions.assertEquals(visitor.getParameters().size(), Int.INT_2);
+    Assertions.assertEquals(visitor.getParameters().size(), 2);
     Assertions.assertEquals(visitor.getParameters().get(0), "id");
     Assertions.assertEquals(visitor.getParameters().get(1), "name");
   }
@@ -51,9 +50,9 @@ public class VisitParameterTest {
     SQLStatement statement = SQLUtils.parseSingleStatement(sql, DbType.mysql);
     SelectASTVisitor visitor = new SelectASTVisitor();
     statement.accept(visitor);
-    Assertions.assertEquals(visitor.getParameters().size(), Int.INT_4);
+    Assertions.assertEquals(visitor.getParameters().size(), 4);
     Assertions.assertEquals(visitor.getParameters().get(0), "id");
     Assertions.assertEquals(visitor.getParameters().get(1), "name");
-    Assertions.assertEquals(visitor.getParameters().get(Int.INT_2), "genderOne");
+    Assertions.assertEquals(visitor.getParameters().get(2), "genderOne");
   }
 }
