@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -51,12 +50,13 @@ public class DataSourceApiTest {
     wrapper.post("is-connectable", entity).andExpect(status().isOk())
       .andExpect(jsonPath("$.data", equalTo(true)));
     wrapper.add(entity).andExpect(status().isOk());
-    wrapper.get("%s/catalog-names".formatted(entity.getId()), new HashMap<>()).andExpect(status().isOk())
+    wrapper.get("%s/catalog-names".formatted(entity.getId()), Map.of()).andExpect(status().isOk())
       .andExpect(jsonPath("$.data", notNullValue()))
       .andExpect(jsonPath("$.data", hasItem("koala")));
-    wrapper.get("%s/catalogs/koala/table-names".formatted(entity.getId()), new HashMap<>()).andExpect(status().isOk())
-      .andExpect(jsonPath("$.data", notNullValue()))
-      .andExpect(jsonPath("$.data", hasItem("t_user")));
+    wrapper.get("%s/catalogs/koala/tables".formatted(entity.getId()), Map.of()).andExpect(status().isOk())
+      .andExpect(jsonPath("$.data", notNullValue()));
+    wrapper.get("%s/catalogs/koala/tables/t_user/columns".formatted(entity.getId()), Map.of()).andExpect(status().isOk())
+      .andExpect(jsonPath("$.data", notNullValue()));
   }
 
   protected DataSourceEntity entity() {

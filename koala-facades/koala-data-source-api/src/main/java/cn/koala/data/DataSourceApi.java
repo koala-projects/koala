@@ -1,5 +1,7 @@
 package cn.koala.data;
 
+import cn.koala.jdbc.Column;
+import cn.koala.jdbc.Table;
 import cn.koala.swagger.PageableAsQueryParam;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -121,21 +123,39 @@ public interface DataSourceApi {
   DataResponse<List<String>> getCatalogNames(@PathVariable("id") String id);
 
   /**
-   * 查询表名称列表
+   * 查询表列表
    *
    * @param id          数据源id
    * @param catalogName 数据库名称
-   * @return 数据源
+   * @return 表列表
    */
-  @Operation(summary = "查询表名称列表")
+  @Operation(summary = "查询表列表")
   @ApiResponse(responseCode = "200", description = "成功", content = {
-    @Content(mediaType = "application/json", schema = @Schema(implementation = DataSourceTableNamesResult.class))
+    @Content(mediaType = "application/json", schema = @Schema(implementation = DataSourceTablesResult.class))
   })
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据源id", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.PATH, name = "catalogName", description = "数据库名称", schema = @Schema(type = "string"))
-  @GetMapping("{id}/catalogs/{catalogName}/table-names")
-  DataResponse<List<String>> getTableNames(@PathVariable("id") String id,
-                                           @PathVariable("catalogName") String catalogName);
+  @GetMapping("{id}/catalogs/{catalogName}/tables")
+  DataResponse<List<Table>> getTables(@PathVariable("id") String id, @PathVariable("catalogName") String catalogName);
+
+  /**
+   * 查询列列表
+   *
+   * @param id          数据源id
+   * @param catalogName 数据库名称
+   * @param tableName   表名
+   * @return 列列表
+   */
+  @Operation(summary = "查询列列表")
+  @ApiResponse(responseCode = "200", description = "成功", content = {
+    @Content(mediaType = "application/json", schema = @Schema(implementation = DataSourceColumnsResult.class))
+  })
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "数据源id", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.PATH, name = "catalogName", description = "数据库名称", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.PATH, name = "tableName", description = "表名称", schema = @Schema(type = "string"))
+  @GetMapping("{id}/catalogs/{catalogName}/tables/{tableName}/columns")
+  DataResponse<List<Column>> getColumns(@PathVariable("id") String id, @PathVariable("catalogName") String catalogName,
+                                        @PathVariable("tableName") String tableName);
 
   /**
    * 数据源是否可连接
@@ -162,7 +182,11 @@ public interface DataSourceApi {
 
   }
 
-  class DataSourceTableNamesResult extends DataResponse<List<String>> {
+  class DataSourceTablesResult extends DataResponse<List<Table>> {
+
+  }
+
+  class DataSourceColumnsResult extends DataResponse<List<Column>> {
 
   }
 

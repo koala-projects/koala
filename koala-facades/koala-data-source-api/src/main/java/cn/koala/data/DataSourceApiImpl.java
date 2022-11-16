@@ -1,5 +1,7 @@
 package cn.koala.data;
 
+import cn.koala.jdbc.Column;
+import cn.koala.jdbc.Table;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -54,9 +56,16 @@ public class DataSourceApiImpl implements DataSourceApi {
   }
 
   @Override
-  public DataResponse<List<String>> getTableNames(String id, String catalogName) {
+  public DataResponse<List<Table>> getTables(String id, String catalogName) {
     return DataResponse.ok(service.load(id)
-      .map(dataSource -> service.getTableNames(dataSource, catalogName))
+      .map(dataSource -> service.getTables(dataSource, catalogName))
+      .orElse(List.of()));
+  }
+
+  @Override
+  public DataResponse<List<Column>> getColumns(String id, String catalogName, String tableName) {
+    return DataResponse.ok(service.load(id)
+      .map(dataSource -> service.getColumns(dataSource, catalogName, tableName))
       .orElse(List.of()));
   }
 

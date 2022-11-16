@@ -2,6 +2,7 @@ package cn.koala.data;
 
 import cn.koala.jdbc.Column;
 import cn.koala.jdbc.JdbcHelper;
+import cn.koala.jdbc.Table;
 import cn.koala.persistence.CrudService;
 
 import java.sql.Connection;
@@ -44,17 +45,15 @@ public interface DataSourceService extends CrudService<String, DataSource> {
   }
 
   /**
-   * 获取表名称列表
+   * 获取表列表
    *
    * @param dataSource 数据源
    * @param schemaName 数据库名称
-   * @return 表名称列表
+   * @return 表列表
    */
-  default List<String> getTableNames(DataSource dataSource, String schemaName) {
+  default List<Table> getTables(DataSource dataSource, String schemaName) {
     try {
-      return JdbcHelper.getTableNames(
-        dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword(), schemaName
-      );
+      return JdbcHelper.getTables(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword(), schemaName);
     } catch (SQLException e) {
       throw new IllegalStateException("数据源异常, 请联系管理员");
     }
