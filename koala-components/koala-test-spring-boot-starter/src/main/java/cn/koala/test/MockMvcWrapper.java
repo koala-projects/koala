@@ -7,11 +7,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 /**
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RequiredArgsConstructor
 public class MockMvcWrapper {
   private final MockMvc mockMvc;
-  private final String url;
+  private final String domain;
   private final ObjectMapper mapper = new ObjectMapper();
 
   /**
@@ -31,9 +30,7 @@ public class MockMvcWrapper {
    * @throws Exception 请求异常
    */
   public ResultActions list(Map<String, Object> parameters) throws Exception {
-    MockHttpServletRequestBuilder builder = get(url);
-    parameters.forEach((key, value) -> builder.queryParam(key, value.toString()));
-    return mockMvc.perform(builder);
+    return get("", parameters);
   }
 
   /**
@@ -45,7 +42,7 @@ public class MockMvcWrapper {
    * @throws Exception 请求异常
    */
   public <K> ResultActions load(K id) throws Exception {
-    return mockMvc.perform(get("%s/%s".formatted(url, id)));
+    return get(id.toString(), Map.of());
   }
 
   /**
@@ -57,10 +54,7 @@ public class MockMvcWrapper {
    * @throws Exception 请求异常
    */
   public <E> ResultActions add(E entity) throws Exception {
-    return mockMvc.perform(post(url)
-      .contentType(MediaType.APPLICATION_JSON)
-      .content(mapper.writeValueAsString(entity))
-    );
+    return post("", entity);
   }
 
   /**
@@ -74,7 +68,7 @@ public class MockMvcWrapper {
    * @throws Exception 请求异常
    */
   public <K, E> ResultActions update(K id, E entity) throws Exception {
-    return mockMvc.perform(put("%s/%s".formatted(url, id))
+    return mockMvc.perform(put("%s/%s".formatted(domain, id))
       .contentType(MediaType.APPLICATION_JSON)
       .content(mapper.writeValueAsString(entity))
     );
@@ -89,6 +83,45 @@ public class MockMvcWrapper {
    * @throws Exception 请求异常
    */
   public <K> ResultActions delete(K id) throws Exception {
-    return mockMvc.perform(MockMvcRequestBuilders.delete("%s/%s".formatted(url, id)));
+    return mockMvc.perform(MockMvcRequestBuilders.delete("%s/%s".formatted(domain, id)));
+  }
+
+  /**
+   * 通用GET请求
+   *
+   * @param url        请求路径
+   * @param parameters 请求参数
+   * @return 请求
+   * @throws Exception 异常
+   */
+  public ResultActions get(String url, Map<String, Object> parameters) throws Exception {
+    MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get(getFullUrl(url));
+    parameters.forEach((key, value) -> builder.queryParam(key, value.toString()));
+    return mockMvc.perform(builder);
+  }
+
+  /**
+   * 通用POST请求
+   *
+   * @param url     请求路径
+   * @param content 请求内容
+   * @return 请求
+   * @throws Exception 异常
+   */
+  public ResultActions post(String url, Object content) throws Exception {
+    return mockMvc.perform(MockMvcRequestBuilders.post(getFullUrl(url))
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(mapper.writeValueAsString(content))
+    );
+  }
+
+  /**
+   * 获取请求全路径
+   *
+   * @param url 请求路径
+   * @return 请求全路径
+   */
+  protected String getFullUrl(String url) {
+    return StringUtils.hasLength(url) ? "%s/%s".formatted(domain, url) : domain;
   }
 }

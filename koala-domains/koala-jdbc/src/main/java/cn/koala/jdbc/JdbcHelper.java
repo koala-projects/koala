@@ -73,9 +73,22 @@ public abstract class JdbcHelper {
    */
   public static <T> T query(String url, String username, String password, JdbcQuery<T> query)
     throws SQLException {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+    try (Connection connection = getConnection(url, username, password)) {
       return query.doQuery(connection);
     }
+  }
+
+  /**
+   * 获取连接
+   *
+   * @param url      数据库连接
+   * @param username 用户名
+   * @param password 密码
+   * @return 连接对象
+   * @throws SQLException SQL异常
+   */
+  public static Connection getConnection(String url, String username, String password) throws SQLException {
+    return DriverManager.getConnection(url, username, password);
   }
 
   /**

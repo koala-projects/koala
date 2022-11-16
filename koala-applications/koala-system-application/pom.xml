@@ -26,6 +26,10 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-system-spring-boot-starter</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-data-source-spring-boot-starter</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>mysql</groupId>

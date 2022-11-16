@@ -228,7 +228,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-database-spring-boot-starter</artifactId>
+        <artifactId>koala-data-source-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -299,7 +299,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-database</artifactId>
+        <artifactId>koala-data-source</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -310,6 +310,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-druid</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-jdbc</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -355,7 +360,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-database-api</artifactId>
+        <artifactId>koala-data-source-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
