@@ -16,7 +16,7 @@
 
   <modules>
     <module>koala-data-model-spring-boot-starter</module>
-    <module>koala-database-spring-boot-starter</module>
+    <module>koala-data-source-spring-boot-starter</module>
     <module>koala-dingtalk-spring-boot-starter</module>
     <module>koala-druid-spring-boot-starter</module>
     <module>koala-integration-mqtt-spring-boot-starter</module>

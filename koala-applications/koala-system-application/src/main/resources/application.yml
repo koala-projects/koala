@@ -57,3 +57,8 @@ logging:
     cn.koala: debug
   file:
     name: logs/system-application.log
+
+koala:
+  resource-server:
+    permit-all-ant-patterns:
+      - /api/data-sources/**

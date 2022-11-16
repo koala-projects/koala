@@ -16,8 +16,8 @@ public class JdbcHelperTest {
     String username = "root";
     String password = "123456";
     Assertions.assertTrue(JdbcHelper.getCatalogNames(url, username, password).contains("koala"));
-    List<String> tableNames = JdbcHelper.getTableNames(url, username, password, "koala");
-    Assertions.assertTrue(tableNames.contains("t_user"));
+    List<Table> tables = JdbcHelper.getTables(url, username, password, "koala");
+    Assertions.assertFalse(tables.isEmpty());
     List<Column> columns = JdbcHelper.getColumns(url, username, password, "koala", "t_role");
     Assertions.assertFalse(columns.isEmpty());
     Assertions.assertEquals(columns.get(0).getName(), "id");

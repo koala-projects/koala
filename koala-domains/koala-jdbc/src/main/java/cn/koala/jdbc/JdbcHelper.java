@@ -28,19 +28,19 @@ public abstract class JdbcHelper {
   }
 
   /**
-   * 获取表名称列表
+   * 获取表列表
    *
    * @param url        数据库连接
    * @param username   用户名
    * @param password   密码
    * @param schemaName 数据库名称
-   * @return 表名称列表
+   * @return 表列表
    * @throws SQLException SQL异常
    */
-  public static List<String> getTableNames(String url, String username, String password, String schemaName)
+  public static List<Table> getTables(String url, String username, String password, String schemaName)
     throws SQLException {
     return query(url, username, password,
-      connection -> getTableNames(connection.getMetaData(), schemaName, schemaName, null, null));
+      connection -> getTables(connection.getMetaData(), schemaName, schemaName, null, null));
   }
 
   /**
@@ -73,9 +73,22 @@ public abstract class JdbcHelper {
    */
   public static <T> T query(String url, String username, String password, JdbcQuery<T> query)
     throws SQLException {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+    try (Connection connection = getConnection(url, username, password)) {
       return query.doQuery(connection);
     }
+  }
+
+  /**
+   * 获取连接
+   *
+   * @param url      数据库连接
+   * @param username 用户名
+   * @param password 密码
+   * @return 连接对象
+   * @throws SQLException SQL异常
+   */
+  public static Connection getConnection(String url, String username, String password) throws SQLException {
+    return DriverManager.getConnection(url, username, password);
   }
 
   /**
@@ -95,25 +108,26 @@ public abstract class JdbcHelper {
   }
 
   /**
-   * 获取表名称列表
+   * 获取表列表
    *
    * @param metaData         数据库元数据
    * @param catalog          数据库名称
    * @param schemaPattern    数据库名称pattern
    * @param tableNamePattern 表名pattern
    * @param types            表类型数组
-   * @return 数据库表名称列表
+   * @return 数据库表列表
    * @throws SQLException SQL异常
    */
-  public static List<String> getTableNames(DatabaseMetaData metaData, String catalog, String schemaPattern,
-                                           String tableNamePattern, String[] types) throws SQLException {
-    List<String> result = new ArrayList<>();
+  public static List<Table> getTables(DatabaseMetaData metaData, String catalog, String schemaPattern,
+                                      String tableNamePattern, String[] types) throws SQLException {
+    List<Table> result = new ArrayList<>();
     ResultSet resultSet = metaData.getTables(catalog, schemaPattern, tableNamePattern, types);
     while (resultSet.next()) {
-      result.add(resultSet.getString(JdbcNames.TABLE_NAME));
+      result.add(JdbcTable.fromResultSet(resultSet));
     }
     return result;
   }
+  
 
   /**
    * 获取列列表

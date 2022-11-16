@@ -16,7 +16,7 @@
 
   <modules>
     <module>koala-data-model</module>
-    <module>koala-database</module>
+    <module>koala-data-source</module>
     <module>koala-dingtalk</module>
     <module>koala-druid</module>
     <module>koala-jdbc</module>
