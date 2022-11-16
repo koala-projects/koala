@@ -10,7 +10,7 @@
   <dependency>
     <groupId>cn.koala</groupId>
     <artifactId>koala-druid-spring-boot-starter</artifactId>
-    <version>2022.0.2-SNAPSHOT</version>
+    <version>2022.0.3-SNAPSHOT</version>
   </dependency>
 </dependencies>
 ```

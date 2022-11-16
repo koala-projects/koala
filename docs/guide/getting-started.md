@@ -43,7 +43,7 @@
 mvn archetype:generate ^
  -DarchetypeGroupId=cn.koala ^
  -DarchetypeArtifactId=koala-web-archetype ^
- -DarchetypeVersion=2022.0.2-SNAPSHOT -X ^
+ -DarchetypeVersion=2022.0.3-SNAPSHOT -X ^
  -DgroupId=cn.houtaroy ^
  -DartifactId=test ^
  -Dversion=2022.0.0-SNAPSHOT ^
@@ -97,7 +97,7 @@ mvn archetype:generate ^
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-dependencies</artifactId>
-      <version>2022.0.2-SNAPSHOT</version>
+      <version>2022.0.3-SNAPSHOT</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
