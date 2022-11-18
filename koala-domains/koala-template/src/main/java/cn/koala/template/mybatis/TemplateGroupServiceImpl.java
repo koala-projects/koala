@@ -3,7 +3,9 @@ package cn.koala.template.mybatis;
 import cn.koala.mybatis.AbstractSmartService;
 import cn.koala.mybatis.IdGenerator;
 import cn.koala.mybatis.UUIDGenerator;
+import cn.koala.template.TemplateEntity;
 import cn.koala.template.TemplateGroup;
+import cn.koala.template.TemplateGroupEntity;
 import cn.koala.template.TemplateGroupService;
 import cn.koala.template.TemplateService;
 import lombok.Data;
@@ -30,7 +32,7 @@ public class TemplateGroupServiceImpl extends AbstractSmartService<String, Templ
   @Override
   public void add(TemplateGroup entity) {
     super.add(entity);
-    entity.getTemplates().forEach(templateService::add);
+    addTemplates(entity);
   }
 
   @Override
@@ -40,7 +42,7 @@ public class TemplateGroupServiceImpl extends AbstractSmartService<String, Templ
     Assert.isTrue(isNoSystem(persist.get()), "权限不足, 请联系管理员");
     getRepository().update(entity);
     persist.get().getTemplates().forEach(templateService::delete);
-    entity.getTemplates().forEach(templateService::add);
+    addTemplates(entity);
   }
 
   @Override
@@ -50,5 +52,19 @@ public class TemplateGroupServiceImpl extends AbstractSmartService<String, Templ
     Assert.isTrue(isNoSystem(persist.get()), "权限不足, 请联系管理员");
     getRepository().delete(persist.get());
     persist.get().getTemplates().forEach(templateService::delete);
+  }
+
+  /**
+   * 添加模板列表
+   *
+   * @param group 模板组对象
+   */
+  protected void addTemplates(TemplateGroup group) {
+    group.getTemplates().forEach(template -> {
+      if (template instanceof TemplateEntity entity) {
+        entity.setGroup(TemplateGroupEntity.builder().id(group.getId()).build());
+      }
+      templateService.add(template);
+    });
   }
 }

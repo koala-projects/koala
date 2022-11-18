@@ -48,7 +48,7 @@ public class TemplateGroupApiTest {
     return TemplateGroupEntity.builder()
       .id("999")
       .name("测试模板组")
-      .templates(List.of(TemplateEntity.builder().name("测试模板").content("#(name)").group(TemplateGroupEntity.builder().id("999").build()).build()))
+      .templates(List.of(TemplateEntity.builder().name("测试模板").content("#(name)").build()))
       .build();
   }
 }
