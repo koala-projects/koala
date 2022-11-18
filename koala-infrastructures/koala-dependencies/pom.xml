@@ -278,6 +278,16 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-system-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-template-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-test-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -344,11 +354,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-system-spring-boot-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-template</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -371,6 +376,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-system-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-template-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--基础设施-->

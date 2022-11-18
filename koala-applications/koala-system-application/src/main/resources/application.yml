@@ -62,3 +62,5 @@ koala:
   resource-server:
     permit-all-ant-patterns:
       - /api/data-sources/**
+      - /api/templates/**
+      - /api/template-groups/**
