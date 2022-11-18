@@ -3,9 +3,9 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-template</artifactId>
+  <artifactId>koala-template-api</artifactId>
   <version>${revision}</version>
-  <description>Koala 模板领域模型</description>
+  <description>考拉模板管理接口</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -16,27 +16,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.jfinal</groupId>
-      <artifactId>enjoy</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-swagger</artifactId>
+      <artifactId>koala-web</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
+      <artifactId>koala-template</artifactId>
     </dependency>
   </dependencies>
 </project>

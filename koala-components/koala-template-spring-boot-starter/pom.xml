@@ -3,40 +3,27 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-template</artifactId>
-  <version>${revision}</version>
-  <description>Koala 模板领域模型</description>
-
+  <artifactId>koala-template-spring-boot-starter</artifactId>
+  <description>考拉模板管理组件</description>
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
-
   <dependencies>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-mybatis-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.jfinal</groupId>
-      <artifactId>enjoy</artifactId>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
     </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-swagger</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
+      <artifactId>koala-template-api</artifactId>
     </dependency>
   </dependencies>
 </project>
