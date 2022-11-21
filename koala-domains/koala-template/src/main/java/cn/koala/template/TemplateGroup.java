@@ -20,6 +20,13 @@ public interface TemplateGroup extends Idable<String>, Systemic, Deletable {
   String getName();
 
   /**
+   * 获取模板组描述
+   *
+   * @return 模板组描述
+   */
+  String getDescription();
+
+  /**
    * 获取模板列表
    *
    * @return 模板列表
