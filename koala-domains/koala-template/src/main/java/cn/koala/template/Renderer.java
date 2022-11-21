@@ -16,5 +16,5 @@ public interface Renderer {
    * @return 渲染结果
    * @throws Exception 渲染异常
    */
-  String render(Template template, Map<?, ?> data) throws Exception;
+  Map<String, String> render(Template template, Map<String, Object> data) throws Exception;
 }

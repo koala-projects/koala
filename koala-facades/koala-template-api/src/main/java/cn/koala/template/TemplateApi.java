@@ -121,7 +121,7 @@ public interface TemplateApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "模板id", schema = @Schema(type = "string"))
   @PostMapping("{id}/render")
-  DataResponse<String> render(@PathVariable("id") String id, @RequestBody Map<String, Object> data);
+  DataResponse<Map<String, String>> render(@PathVariable("id") String id, @RequestBody Map<String, Object> data);
 
   class TemplatePageResult extends DataResponse<Page<TemplateEntity>> {
 
@@ -131,7 +131,7 @@ public interface TemplateApi {
 
   }
 
-  class TemplateRenderResult extends DataResponse<String> {
+  class TemplateRenderResult extends DataResponse<Map<String, String>> {
 
   }
 }

@@ -52,7 +52,7 @@ public class TemplateApiImpl implements TemplateApi {
   }
 
   @Override
-  public DataResponse<String> render(String id, Map<String, Object> data) {
+  public DataResponse<Map<String, String>> render(String id, Map<String, Object> data) {
     Optional<Template> optionalTemplate = service.load(id);
     Assert.isTrue(optionalTemplate.isPresent(), "模板数据异常");
     try {
