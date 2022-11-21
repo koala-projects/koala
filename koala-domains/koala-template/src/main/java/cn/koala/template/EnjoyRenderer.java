@@ -16,10 +16,7 @@ public class EnjoyRenderer implements Renderer {
   protected final Engine engine;
 
   @Override
-  public Map<String, String> render(Template template, Map<String, Object> data) {
-    return Map.of(
-      engine.getTemplateByString(template.getName(), "%s-name".formatted(template.getId())).renderToString(data),
-      engine.getTemplateByString(template.getContent(), template.getId()).renderToString(data)
-    );
+  public String render(String content, Map<String, Object> data) {
+    return engine.getTemplateByString(content).renderToString(data);
   }
 }

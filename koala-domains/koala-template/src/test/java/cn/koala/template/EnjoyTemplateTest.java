@@ -11,22 +11,19 @@ import java.util.Map;
  */
 public class EnjoyTemplateTest {
   @Test
-  public void render() throws Exception {
-    Template template = TemplateEntity.builder().name("#(test)").content("#(test)").build();
-    Map<String, Object> data = Map.of("test", "koala");
-    Renderer renderer = new EnjoyRenderer(Engine.use());
-    Map<String, String> result = renderer.render(template, data);
-    Assertions.assertTrue(result.containsKey("koala"));
-    Assertions.assertEquals(result.get("koala"), "koala");
+  public void render() {
+    Assertions.assertEquals(
+      new EnjoyRenderer(Engine.use()).render("#(test)", Map.of("test", "koala")),
+      "koala"
+    );
   }
 
   @Test
-  public void stringExt() throws Exception {
-    Template template = TemplateEntity.builder().name("#(test)").content("#(test.capitalize())").build();
-    Map<String, Object> data = Map.of("test", "koala");
+  public void stringExt() {
     Engine.addExtensionMethod(String.class, EnjoyStringExt.class);
-    Renderer renderer = new EnjoyRenderer(Engine.use());
-    Map<String, String> result = renderer.render(template, data);
-    Assertions.assertEquals(result.get("koala"), "Koala");
+    Assertions.assertEquals(
+      new EnjoyRenderer(Engine.use()).render("#(test.capitalize())", Map.of("test", "koala")),
+      "Koala"
+    );
   }
 }

@@ -47,7 +47,7 @@ public class TemplateApiTest {
     TemplateEntity entity = entity();
     wrapper.add(entity).andExpect(status().isOk());
     wrapper.post("%s/render".formatted(entity.getId()), Map.of("name", "名称")).andExpect(status().isOk())
-      .andExpect(jsonPath("$.data['测试模板']", equalTo("名称")));
+      .andExpect(jsonPath("$.data", equalTo("名称")));
   }
 
   protected TemplateEntity entity() {
