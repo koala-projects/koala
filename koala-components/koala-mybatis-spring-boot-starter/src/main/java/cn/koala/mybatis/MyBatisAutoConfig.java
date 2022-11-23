@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Houtaroy
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AutoConfigureAfter(MybatisAutoConfiguration.class)
 @EnableConfigurationProperties(MyBatisProperties.class)
+@EnableTransactionManagement
 @RequiredArgsConstructor
 public class MyBatisAutoConfig {
   /**

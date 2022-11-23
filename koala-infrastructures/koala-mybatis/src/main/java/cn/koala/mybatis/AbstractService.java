@@ -3,6 +3,7 @@ package cn.koala.mybatis;
 import cn.koala.persistence.CrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * @param <V> 实体类型
  * @author Houtaroy
  */
+@Transactional
 public abstract class AbstractService<K, V> implements CrudService<K, V> {
 
   @Override
