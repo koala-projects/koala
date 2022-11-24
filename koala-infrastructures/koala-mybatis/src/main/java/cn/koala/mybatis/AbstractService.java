@@ -16,7 +16,7 @@ import java.util.Optional;
  * @param <V> 实体类型
  * @author Houtaroy
  */
-@Transactional
+@Transactional(rollbackFor = RuntimeException.class)
 public abstract class AbstractService<K, V> implements CrudService<K, V> {
 
   @Override
