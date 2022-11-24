@@ -48,14 +48,6 @@ public class DataServiceImpl implements DataService {
     return dataRecordService.list(parameters).stream().map(this::record2Data).toList();
   }
 
-  protected Map<String, Object> record2Data(DataRecord record) {
-    List<DataElement> elements = dataElementService.list(Map.of("dataRecordId", record.getId()));
-    Map<String, Object> result = new HashMap<>(elements.size());
-    elements.forEach(element -> result.put(element.getCode(), element.getContent()));
-    result.put("id", record.getId());
-    return result;
-  }
-
   @Override
   public Optional<Map<String, Object>> load(String id) {
     return dataRecordService.load(id).map(this::record2Data);
@@ -79,6 +71,26 @@ public class DataServiceImpl implements DataService {
     addElements(persist.get(), data);
   }
 
+  @Override
+  public void delete(String id) {
+    dataRecordService.delete(DataRecordEntity.builder().id(id).build());
+    dataElementService.list(Map.of("dataRecordId", id)).forEach(dataElementService::delete);
+  }
+
+  /**
+   * 数据记录转换为数据
+   *
+   * @param record 数据记录
+   * @return 数据
+   */
+  protected Map<String, Object> record2Data(DataRecord record) {
+    List<DataElement> elements = dataElementService.list(Map.of("dataRecordId", record.getId()));
+    Map<String, Object> result = new HashMap<>(elements.size());
+    elements.forEach(element -> result.put(element.getCode(), element.parseContent()));
+    result.put("id", record.getId());
+    return result;
+  }
+
   /**
    * 增加数据元列表
    *
@@ -97,11 +109,5 @@ public class DataServiceImpl implements DataService {
         .dataRecord(DataRecordEntity.builder().id(record.getId()).build())
         .build()
     ));
-  }
-
-  @Override
-  public void delete(String id) {
-    dataRecordService.delete(DataRecordEntity.builder().id(id).build());
-    dataElementService.list(Map.of("dataRecordId", id)).forEach(dataElementService::delete);
   }
 }

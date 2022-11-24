@@ -43,7 +43,8 @@ public class DataApiTest {
     data.put("name", "测试数据-更新");
     wrapper.update(data.get("id"), data).andExpect(status().isOk());
     wrapper.load(data.get("id")).andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.name", equalTo("测试数据-更新")));
+      .andExpect(jsonPath("$.data.name", equalTo("测试数据-更新")))
+      .andExpect(jsonPath("$.data.age", equalTo(1)));
     wrapper.delete(data.get("id")).andExpect(status().isOk());
   }
 

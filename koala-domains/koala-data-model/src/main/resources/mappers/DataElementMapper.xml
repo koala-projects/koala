@@ -8,9 +8,11 @@
     select t.id,
            t.code,
            t.content,
-           t.property_id    as "property.id",
+           p.id             as "property.id",
+           p.type           as "property.type",
            t.data_record_id as "dataRecord.id"
     from t_data_element t
+           left join t_property p on p.id = t.property_id
   </sql>
 
   <select id="findAll" resultType="cn.koala.datamodel.DataElementEntity">
