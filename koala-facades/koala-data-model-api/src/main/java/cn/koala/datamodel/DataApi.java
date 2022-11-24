@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @RequestMapping("/api/data")
 @RestController
-@Tag(name = "data", description = "数据接口")
+@Tag(name = "数据管理")
 public interface DataApi {
 
   /**
@@ -46,8 +46,6 @@ public interface DataApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DataPageResult.class))}
   )
   @Parameter(in = ParameterIn.QUERY, name = "metadataId", description = "元数据ID", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "metadataCodePrefix", description = "元数据代码前缀",
-    schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<Map<String, Object>>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
@@ -65,7 +63,7 @@ public interface DataApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据id", schema = @Schema(type = "string"))
   @GetMapping("{id}")
-  DataResponse<Map<String, Object>> loadById(@PathVariable("id") String id);
+  DataResponse<Map<String, Object>> load(@PathVariable("id") String id);
 
   /**
    * 创建数据

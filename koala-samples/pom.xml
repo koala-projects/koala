@@ -15,7 +15,6 @@
   </parent>
 
   <modules>
-    <module>koala-sample-data-model</module>
     <module>koala-sample-mqtt</module>
     <module>koala-sample-setting</module>
   </modules>

@@ -299,12 +299,7 @@
       <!--领域-->
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-data-model-core</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-data-model-mybatis</artifactId>
+        <artifactId>koala-data-model</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

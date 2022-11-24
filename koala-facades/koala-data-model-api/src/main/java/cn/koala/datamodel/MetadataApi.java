@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 @RequestMapping("/api/metadata")
 @RestController
-@Tag(name = "metadata", description = "元数据接口")
+@Tag(name = "元数据管理")
 public interface MetadataApi {
 
   /**
@@ -63,7 +64,7 @@ public interface MetadataApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "元数据id", schema = @Schema(type = "string"))
   @GetMapping("{id}")
-  DataResponse<Metadata> loadById(@PathVariable("id") String id);
+  DataResponse<Metadata> load(@PathVariable("id") String id);
 
   /**
    * 创建元数据
@@ -77,6 +78,21 @@ public interface MetadataApi {
   )
   @PostMapping
   DataResponse<Metadata> create(@RequestBody MetadataEntity metadata);
+
+  /**
+   * 更新元数据
+   *
+   * @param id     元数据id
+   * @param entity 元数据实体
+   * @return 操作结果
+   */
+  @Operation(summary = "更新元数据")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "元数据id", schema = @Schema(type = "string"))
+  @PutMapping("{id}")
+  Response update(@PathVariable("id") String id, @RequestBody MetadataEntity entity);
 
   /**
    * 根据id删除元数据

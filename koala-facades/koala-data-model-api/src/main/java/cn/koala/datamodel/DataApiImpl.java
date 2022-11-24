@@ -4,11 +4,9 @@ import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,38 +17,33 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 public class DataApiImpl implements DataApi {
-
-  protected final DataService dataService;
+  protected final DataService service;
 
   @Override
   public DataResponse<Page<Map<String, Object>>> page(Map<String, Object> parameters, Pageable pageable) {
-    Page<Data> data = dataService.list(parameters, pageable);
-    List<Map<String, Object>> result = data.getContent().stream()
-      .map(Data::toMap)
-      .toList();
-    return DataResponse.ok(new PageImpl<>(result, pageable, data.getTotalPages()));
+    return DataResponse.ok(service.list(parameters, pageable));
   }
 
   @Override
-  public DataResponse<Map<String, Object>> loadById(String id) {
-    return DataResponse.ok(dataService.load(id).map(Data::toMap).orElse(null));
+  public DataResponse<Map<String, Object>> load(String id) {
+    return DataResponse.ok(service.load(id).orElse(null));
   }
 
   @Override
   public Response create(CreateDataRequest createDataRequest) {
-    dataService.add(createDataRequest.getMetadata(), createDataRequest.getContents());
+    service.add(createDataRequest.getMetadata(), createDataRequest.getData());
     return Response.SUCCESS;
   }
 
   @Override
   public Response update(String id, Map<String, Object> data) {
-    dataService.update(id, data);
+    service.update(id, data);
     return Response.SUCCESS;
   }
 
   @Override
   public Response delete(String id) {
-    dataService.delete(id);
+    service.delete(id);
     return Response.SUCCESS;
   }
 }

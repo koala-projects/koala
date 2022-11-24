@@ -1,9 +1,14 @@
 package cn.koala.datamodel;
 
-import cn.koala.datamodel.mybatis.DataRepository;
+import cn.koala.datamodel.mybatis.DataElementRepository;
+import cn.koala.datamodel.mybatis.DataElementServiceImpl;
+import cn.koala.datamodel.mybatis.DataRecordRepository;
+import cn.koala.datamodel.mybatis.DataRecordServiceImpl;
+import cn.koala.datamodel.mybatis.DataServiceImpl;
 import cn.koala.datamodel.mybatis.MetadataRepository;
-import cn.koala.datamodel.mybatis.MyBatisDataService;
-import cn.koala.datamodel.mybatis.MyBatisMetadataService;
+import cn.koala.datamodel.mybatis.MetadataServiceImpl;
+import cn.koala.datamodel.mybatis.PropertyRepository;
+import cn.koala.datamodel.mybatis.PropertyServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -19,27 +24,69 @@ import org.springframework.context.annotation.Configuration;
 public class DataModelAutoConfig {
 
   /**
+   * 属性服务的bean
+   *
+   * @param propertyRepository 属性存储库对象
+   * @return 属性服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public PropertyService propertyService(PropertyRepository propertyRepository) {
+    return new PropertyServiceImpl(propertyRepository);
+  }
+
+  /**
    * 元数据服务的bean
    *
    * @param metadataRepository 元数据存储库对象
+   * @param propertyService    属性服务对象
+   * @param dataRecordService  数据记录服务对象
    * @return 元数据服务对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public MetadataService metadataService(MetadataRepository metadataRepository) {
-    return new MyBatisMetadataService(metadataRepository);
+  public MetadataService metadataService(MetadataRepository metadataRepository, PropertyService propertyService,
+                                         DataRecordService dataRecordService) {
+    return new MetadataServiceImpl(metadataRepository, propertyService, dataRecordService);
+  }
+
+  /**
+   * 数据元服务的bean
+   *
+   * @param repository 数据元存储库
+   * @return 数据元服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public DataElementService dataElementService(DataElementRepository repository) {
+    return new DataElementServiceImpl(repository);
+  }
+
+  /**
+   * 数据记录服务的bean
+   *
+   * @param repository 数据记录存储库
+   * @return 数据记录服务对象
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public DataRecordService dataRecordService(DataRecordRepository repository) {
+    return new DataRecordServiceImpl(repository);
   }
 
   /**
    * 数据服务的bean
    *
-   * @param dataRepository 数据存储库对象
+   * @param dataRecordService  数据记录服务对象
+   * @param dataElementService 数据元服务对象
+   * @param metadataService    元数据服务对象
    * @return 数据服务对象
    */
   @Bean
   @ConditionalOnMissingBean
-  public DataService dataService(DataRepository dataRepository) {
-    return new MyBatisDataService(dataRepository);
+  public DataService dataService(DataRecordService dataRecordService, DataElementService dataElementService,
+                                 MetadataService metadataService) {
+    return new DataServiceImpl(dataRecordService, dataElementService, metadataService);
   }
 
   /**
