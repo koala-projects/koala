@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * JDBC表
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 public class JdbcTable implements Table {
   protected String name;
   protected String remarks;
+  protected List<JdbcColumn> columns;
 
   /**
    * 从ResultSet生成
