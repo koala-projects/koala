@@ -17,7 +17,6 @@
   <modules>
     <module>koala-data-model-api</module>
     <module>koala-data-source-api</module>
-    <module>koala-setting-api</module>
     <module>koala-system-api</module>
     <module>koala-template-api</module>
   </modules>

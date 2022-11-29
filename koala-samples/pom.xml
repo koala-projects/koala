@@ -16,6 +16,5 @@
 
   <modules>
     <module>koala-sample-mqtt</module>
-    <module>koala-sample-setting</module>
   </modules>
 </project>
