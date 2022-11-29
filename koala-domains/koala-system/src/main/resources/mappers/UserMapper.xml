@@ -17,7 +17,7 @@
   <select id="findAll" resultType="cn.koala.system.UserEntity">
     <include refid="selectUser"/>
     <where>
-      t.is_delete = 0
+      t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
       <if test="parameters.username != null and parameters.username != ''">
         and t.username like concat(#{parameters.username}, '%')
       </if>
@@ -35,7 +35,7 @@
 
   <select id="findById" resultType="cn.koala.system.UserEntity">
     <include refid="selectUser"/>
-    where t.is_delete = 0 and t.id = #{id}
+    where t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value} and t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.UserEntity">
@@ -54,12 +54,12 @@
       <if test="nickname != null">nickname=#{nickname},</if>
       <if test="avatar != null">avatar=#{avatar},</if>
     </trim>
-    where is_delete = 0 and id = #{id}
+    where is_delete = ${@cn.koala.enhancement.YesNo@NO.value} and id = #{id}
   </update>
 
   <update id="delete" parameterType="cn.koala.system.UserEntity">
     update t_user
-    set is_delete = 1
+    set is_delete = ${@cn.koala.enhancement.YesNo@YES.value}
     where id = #{id}
   </update>
 </mapper>

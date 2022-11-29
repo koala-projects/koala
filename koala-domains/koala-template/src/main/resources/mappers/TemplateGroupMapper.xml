@@ -28,7 +28,7 @@
   <select id="findAll" resultType="cn.koala.template.TemplateGroupEntity">
     <include refid="selectTemplateGroup"/>
     <where>
-      t.is_delete = 0
+      t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
       <if test="parameters.name != null and parameters.name != ''">
         and t.name like concat(#{parameters.name}, '%')
       </if>
@@ -45,8 +45,9 @@
            template.name    as "template.name",
            template.content as "template.content"
     from t_template_group t
-           left join t_template template on t.id = template.group_id and template.is_delete = 0
-    where t.is_delete = 0
+           left join t_template template
+                     on t.id = template.group_id and template.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+    where t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
       and t.id = #{id}
   </select>
 
@@ -61,12 +62,12 @@
       <if test="name != null">name=#{name},</if>
       <if test="description != null">description=#{description},</if>
     </trim>
-    where is_delete = 0 and id = #{id}
+    where is_delete = ${@cn.koala.enhancement.YesNo@NO.value} and id = #{id}
   </update>
 
   <update id="delete" parameterType="cn.koala.template.TemplateGroupEntity">
     update t_template_group
-    set is_delete = 1
+    set is_delete = ${@cn.koala.enhancement.YesNo@YES.value}
     where id = #{id}
   </update>
 </mapper>
