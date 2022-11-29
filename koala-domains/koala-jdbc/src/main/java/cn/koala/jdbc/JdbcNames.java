@@ -7,7 +7,7 @@ public interface JdbcNames {
   String TABLE_CAT = "TABLE_CAT";
   String TABLE_NAME = "TABLE_NAME";
   String COLUMN_NAME = "COLUMN_NAME";
-  String COLUMN_TYPE = "DATA_TYPE";
+  String DATA_TYPE = "DATA_TYPE";
   String TYPE_NAME = "TYPE_NAME";
   String COLUMN_SIZE = "COLUMN_SIZE";
   String DECIMAL_DIGITS = "DECIMAL_DIGITS";
