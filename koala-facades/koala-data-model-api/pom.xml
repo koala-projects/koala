@@ -22,7 +22,7 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-data-model-core</artifactId>
+      <artifactId>koala-data-model</artifactId>
     </dependency>
   </dependencies>
 </project>

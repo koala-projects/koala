@@ -26,7 +26,7 @@ public class MetadataApiImpl implements MetadataApi {
   }
 
   @Override
-  public DataResponse<Metadata> loadById(String id) {
+  public DataResponse<Metadata> load(String id) {
     return DataResponse.ok(metadataService.load(id).orElse(null));
   }
 
@@ -34,6 +34,13 @@ public class MetadataApiImpl implements MetadataApi {
   public DataResponse<Metadata> create(MetadataEntity metadata) {
     metadataService.add(metadata);
     return DataResponse.ok(metadata);
+  }
+
+  @Override
+  public Response update(String id, MetadataEntity entity) {
+    entity.setId(id);
+    metadataService.update(entity);
+    return null;
   }
 
   @Override

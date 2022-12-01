@@ -64,3 +64,5 @@ koala:
       - /api/data-sources/**
       - /api/templates/**
       - /api/template-groups/**
+      - /api/metadata/**
+      - /api/data/**

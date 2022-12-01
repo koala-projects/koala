@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.datamodel.mybatis.MetadataRepository">
+
+  <resultMap id="metaData" type="cn.koala.datamodel.MetadataEntity">
+    <id property="id" column="id"/>
+    <result property="code" column="code"/>
+    <result property="name" column="name"/>
+    <result property="description" column="description"/>
+    <collection property="properties" ofType="cn.koala.datamodel.PropertyEntity">
+      <id property="id" column="property.id"/>
+      <result property="code" column="property.code"/>
+      <result property="name" column="property.name"/>
+      <result property="description" column="property.description"/>
+      <result property="type" column="property.type"/>
+    </collection>
+  </resultMap>
+
+  <sql id="selectMetaData">
+    select t.id, t.code, t.name, t.description
+    from t_metadata t
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.datamodel.MetadataEntity">
+    <include refid="selectMetaData"/>
+    <where>
+      <if test="parameters.code != null and parameters.code != ''">
+        t.code = #{parameters.code}
+      </if>
+      <if test="parameters.name != null and parameters.name != ''">
+        and t.name like concat(#{parameters.name}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultMap="metaData">
+    select t.id,
+           t.code,
+           t.name,
+           t.description,
+           p.id          as "property.id",
+           p.code        as "property.code",
+           p.name        as "property.name",
+           p.description as "property.description",
+           p.type        as "property.type"
+    from t_metadata t
+           left join t_property p on p.metadata_id = t.id
+    where t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.datamodel.MetadataEntity">
+    insert into t_metadata
+    values (#{id}, #{code}, #{name}, #{description});
+  </insert>
+
+  <update id="update" parameterType="cn.koala.datamodel.MetadataEntity">
+    update t_metadata
+    <trim prefix="set" suffixOverrides=",">
+      <if test="code != null">code=#{code},</if>
+      <if test="name != null">name=#{name},</if>
+      <if test="description != null">description=#{description},</if>
+    </trim>
+    where id = #{id};
+  </update>
+
+  <delete id="delete" parameterType="cn.koala.datamodel.MetadataEntity">
+    delete
+    from t_metadata
+    where id = #{id};
+  </delete>
+</mapper>

@@ -13,10 +13,6 @@
   </parent>
   <dependencies>
     <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper-spring-boot-starter</artifactId>
     </dependency>
@@ -25,14 +21,14 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-web-spring-boot-starter</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-mybatis-spring-boot-starter</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-data-model-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-data-model-mybatis</artifactId>
     </dependency>
   </dependencies>
 </project>

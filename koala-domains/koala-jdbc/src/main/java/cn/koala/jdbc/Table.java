@@ -1,5 +1,7 @@
 package cn.koala.jdbc;
 
+import java.util.List;
+
 /**
  * 表
  *
@@ -19,4 +21,11 @@ public interface Table {
    * @return 备注
    */
   String getRemarks();
+
+  /**
+   * 获取列列表
+   *
+   * @return 列列表
+   */
+  List<? extends Column> getColumns();
 }

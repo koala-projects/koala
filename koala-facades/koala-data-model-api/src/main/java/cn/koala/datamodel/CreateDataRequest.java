@@ -20,5 +20,5 @@ public class CreateDataRequest {
   @Schema(description = "元数据")
   private MetadataEntity metadata;
   @Schema(description = "数据内容, Map对象")
-  private Map<String, Object> contents;
+  private Map<String, Object> data;
 }

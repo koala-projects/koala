@@ -20,6 +20,8 @@ public class TemplateGroupEntity implements TemplateGroup {
   protected String id;
   @Schema(description = "模板组名称", required = true)
   protected String name;
+  @Schema(description = "模板组描述")
+  protected String description;
   @Schema(description = "模板列表", required = true)
   protected List<TemplateEntity> templates;
   @Schema(description = "是否系统")

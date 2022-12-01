@@ -16,7 +16,7 @@
   <select id="findAll" resultType="cn.koala.system.RoleEntity">
     <include refid="selectRole"/>
     <where>
-      t.is_delete = 0
+      t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
       <if test="parameters.code != null and parameters.code != ''">
         and t.code like concat(#{parameters.code}, '%')
       </if>
@@ -28,7 +28,7 @@
 
   <select id="findById" resultType="cn.koala.system.RoleEntity">
     <include refid="selectRole"/>
-    where t.is_delete = 0 and t.id = #{id}
+    where t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value} and t.id = #{id}
   </select>
 
   <insert id="add" parameterType="cn.koala.system.RoleEntity">
@@ -43,12 +43,12 @@
       <if test="name != null">name=#{name},</if>
       <if test="description != null">description=#{description},</if>
     </trim>
-    where is_delete = 0 and id = #{id}
+    where is_delete = ${@cn.koala.enhancement.YesNo@NO.value} and id = #{id}
   </update>
 
   <update id="delete" parameterType="cn.koala.system.RoleEntity">
     update t_role
-    set is_delete = 1
+    set is_delete = ${@cn.koala.enhancement.YesNo@YES.value}
     where id = #{id}
   </update>
 </mapper>

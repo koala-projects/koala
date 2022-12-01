@@ -273,11 +273,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-setting-spring-boot-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-system-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -299,12 +294,7 @@
       <!--领域-->
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-data-model-core</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-data-model-mybatis</artifactId>
+        <artifactId>koala-data-model</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -344,11 +334,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-setting</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-system</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -366,11 +351,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-data-source-api</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-setting-api</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

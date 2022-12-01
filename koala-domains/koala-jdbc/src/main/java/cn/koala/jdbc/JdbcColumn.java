@@ -37,7 +37,7 @@ public class JdbcColumn implements Column {
     return JdbcColumn.builder()
       .name(resultSet.getString(JdbcNames.COLUMN_NAME))
       .type(resultSet.getString(JdbcNames.TYPE_NAME))
-      .dataType(resultSet.getInt(JdbcNames.COLUMN_TYPE))
+      .dataType(resultSet.getInt(JdbcNames.DATA_TYPE))
       .size(resultSet.getInt(JdbcNames.COLUMN_SIZE))
       .decimalDigits(resultSet.getInt(JdbcNames.DECIMAL_DIGITS))
       .remarks(resultSet.getString(JdbcNames.REMARKS))

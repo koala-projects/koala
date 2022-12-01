@@ -56,7 +56,11 @@ public class TemplateApiImpl implements TemplateApi {
     Optional<Template> optionalTemplate = service.load(id);
     Assert.isTrue(optionalTemplate.isPresent(), "模板数据异常");
     try {
-      return DataResponse.of(HttpStatus.OK.value(), "请求成功", renderer.render(optionalTemplate.get(), data));
+      return DataResponse.of(
+        HttpStatus.OK.value(),
+        "请求成功",
+        renderer.render(optionalTemplate.get().getContent(), data)
+      );
     } catch (Exception e) {
       throw new IllegalStateException("模板渲染失败");
     }

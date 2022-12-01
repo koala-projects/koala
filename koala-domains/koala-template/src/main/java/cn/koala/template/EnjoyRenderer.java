@@ -16,18 +16,7 @@ public class EnjoyRenderer implements Renderer {
   protected final Engine engine;
 
   @Override
-  public String render(Template template, Map<?, ?> data) {
-    return engine.getTemplate(new EnjoyTemplate(template)).renderToString(data);
-  }
-
-  /**
-   * 根据字符串模板渲染
-   *
-   * @param content 字符串模板
-   * @param data    数据
-   * @return 渲染结果
-   */
-  public String render(String content, Map<?, ?> data) {
+  public String render(String content, Map<String, Object> data) {
     return engine.getTemplateByString(content).renderToString(data);
   }
 }
