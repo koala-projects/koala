@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="cn.koala.builder.mybatis.CodeTemplateGroupRepository">
+
+  <resultMap id="codeTemplateGroupResultMap" type="cn.koala.builder.CodeTemplateGroupEntity"
+             extends="cn.koala.datamodel.mybatis.MetadataRepository.metaData">
+    <result property="domainConverterId" column="domain_converter_id"/>
+    <result property="isSystem" column="is_system"/>
+    <result property="isDelete" column="is_delete"/>
+    <collection property="templates" ofType="cn.koala.template.TemplateEntity">
+      <id property="id" column="template.id"/>
+      <result property="name" column="template.name"/>
+      <result property="content" column="template.content"/>
+    </collection>
+  </resultMap>
+
+  <sql id="selectCodeTemplateGroup">
+    select t.id,
+           t.name,
+           t.description
+    from t_code_template_group t
+  </sql>
+
+  <select id="findAll" resultType="cn.koala.builder.CodeTemplateGroupEntity">
+    <include refid="selectCodeTemplateGroup"/>
+    <where>
+      t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+      <if test="parameters.name != null and parameters.name != ''">
+        and t.name = #{parameters.name}
+      </if>
+    </where>
+  </select>
+  <select id="findById" resultMap="codeTemplateGroupResultMap">
+    select t.id,
+           t.name,
+           t.description,
+           t.domain_converter_id,
+           p.id          as "property.id",
+           p.code        as "property.code",
+           p.name        as "property.name",
+           p.description as "property.description",
+           p.type        as "property.type",
+           ct.id         as "template.id",
+           ct.name       as "template.name",
+           ct.content    as "template.content",
+           ct.group_id   as "template.group_id"
+    from t_code_template_group t
+           left join t_property p on p.metadata_id = t.id
+           left join t_code_template ct on ct.group_id = t.id and ct.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+    where t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+      and t.id = #{id}
+  </select>
+  <insert id="add" parameterType="cn.koala.builder.CodeTemplateGroupEntity">
+    insert into t_code_template_group(id, name, description, domainConverterId)
+    values (#{id}, #{name}, #{description}, #{domainConverterId})
+  </insert>
+  <update id="update" parameterType="cn.koala.builder.CodeTemplateGroupEntity">
+    update t_code_template_group
+    <trim prefix="set" suffixOverrides=",">
+      <if test="name != null">name=#{name},</if>
+      <if test="description != null">description=#{description},</if>
+      <if test="domain_converter_id != null">domain_converter_id=#{domainConverterId},</if>
+    </trim>
+    where is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+    and id = #{id}
+  </update>
+  <delete id="delete" parameterType="cn.koala.builder.CodeTemplateGroupEntity">
+    update t_code_template_group
+    set is_delete = ${@cn.koala.enhancement.YesNo@YES.value}
+    where is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+      and id #{id}
+  </delete>
+</mapper>

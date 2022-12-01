@@ -15,6 +15,7 @@
   </parent>
 
   <modules>
+    <module>koala-builder</module>
     <module>koala-data-model</module>
     <module>koala-data-source</module>
     <module>koala-dingtalk</module>
