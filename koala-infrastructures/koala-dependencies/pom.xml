@@ -223,6 +223,11 @@
       <!--组件-->
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-builder-spring-boot-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-data-model-spring-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -294,6 +299,11 @@
       <!--领域-->
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-builder</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-data-model</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -343,6 +353,11 @@
         <version>${revision}</version>
       </dependency>
       <!--外观层 -->
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-builder-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-data-model-api</artifactId>

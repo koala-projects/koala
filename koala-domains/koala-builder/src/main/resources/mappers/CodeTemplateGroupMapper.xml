@@ -37,23 +37,24 @@
            t.name,
            t.description,
            t.domain_converter_id,
-           p.id          as "property.id",
-           p.code        as "property.code",
-           p.name        as "property.name",
-           p.description as "property.description",
-           p.type        as "property.type",
-           ct.id         as "template.id",
-           ct.name       as "template.name",
-           ct.content    as "template.content",
-           ct.group_id   as "template.group_id"
+           p.id              as "property.id",
+           p.code            as "property.code",
+           p.name            as "property.name",
+           p.description     as "property.description",
+           p.type            as "property.type",
+           template.id       as "template.id",
+           template.name     as "template.name",
+           template.content  as "template.content",
+           template.group_id as "template.group_id"
     from t_code_template_group t
            left join t_property p on p.metadata_id = t.id
-           left join t_code_template ct on ct.group_id = t.id and ct.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
+           left join t_template template
+                     on template.group_id = t.id and template.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
     where t.is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
       and t.id = #{id}
   </select>
   <insert id="add" parameterType="cn.koala.builder.CodeTemplateGroupEntity">
-    insert into t_code_template_group(id, name, description, domainConverterId)
+    insert into t_code_template_group(id, name, description, domain_converter_id)
     values (#{id}, #{name}, #{description}, #{domainConverterId})
   </insert>
   <update id="update" parameterType="cn.koala.builder.CodeTemplateGroupEntity">
@@ -61,7 +62,7 @@
     <trim prefix="set" suffixOverrides=",">
       <if test="name != null">name=#{name},</if>
       <if test="description != null">description=#{description},</if>
-      <if test="domain_converter_id != null">domain_converter_id=#{domainConverterId},</if>
+      <if test="domainConverterId != null">domain_converter_id=#{domainConverterId},</if>
     </trim>
     where is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
     and id = #{id}
@@ -70,6 +71,6 @@
     update t_code_template_group
     set is_delete = ${@cn.koala.enhancement.YesNo@YES.value}
     where is_delete = ${@cn.koala.enhancement.YesNo@NO.value}
-      and id #{id}
+      and id = #{id}
   </delete>
 </mapper>

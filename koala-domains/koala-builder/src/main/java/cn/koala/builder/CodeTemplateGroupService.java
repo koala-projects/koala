@@ -17,8 +17,8 @@ public interface CodeTemplateGroupService extends CrudService<String, CodeTempla
    *
    * @param id         代码模板组ID
    * @param table      表
-   * @param parameters 参数
+   * @param properties 参数
    * @return 构建结果
    */
-  List<CodeBuildResult> build(String id, Table table, Map<String, Object> parameters);
+  List<CodeBuildResult> build(String id, Table table, Map<String, Object> properties);
 }

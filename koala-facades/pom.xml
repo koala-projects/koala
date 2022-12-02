@@ -15,6 +15,7 @@
   </parent>
 
   <modules>
+    <module>koala-builder-api</module>
     <module>koala-data-model-api</module>
     <module>koala-data-source-api</module>
     <module>koala-system-api</module>

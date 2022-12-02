@@ -38,6 +38,10 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-template-spring-boot-starter</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-builder-spring-boot-starter</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>mysql</groupId>

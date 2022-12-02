@@ -66,3 +66,4 @@ koala:
       - /api/template-groups/**
       - /api/metadata/**
       - /api/data/**
+      - /api/code-template-groups/**

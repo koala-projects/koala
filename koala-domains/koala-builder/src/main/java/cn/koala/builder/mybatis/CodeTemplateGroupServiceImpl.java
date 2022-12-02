@@ -100,7 +100,7 @@ public class CodeTemplateGroupServiceImpl extends AbstractSmartService<String, C
   }
 
   @Override
-  public List<CodeBuildResult> build(String id, Table table, Map<String, Object> parameters) {
+  public List<CodeBuildResult> build(String id, Table table, Map<String, Object> properties) {
     Optional<CodeTemplateGroup> group = load(id);
     Assert.isTrue(group.isPresent(), "代码模板组不存在");
     Optional<DomainConverter> converter = domainConverterService.load(group.get().getDomainConverterId());
@@ -108,7 +108,7 @@ public class CodeTemplateGroupServiceImpl extends AbstractSmartService<String, C
     Map<String, Object> context = Map.of(
       "table", table,
       "domain", converter.get().convert(table),
-      "parameters", parameters
+      "properties", properties
     );
     return group.get().getTemplates().stream().map(template -> build(template, context)).toList();
   }
@@ -116,14 +116,14 @@ public class CodeTemplateGroupServiceImpl extends AbstractSmartService<String, C
   /**
    * 构建
    *
-   * @param template   代码模板
-   * @param parameters 参数
+   * @param template 代码模板
+   * @param context  参数
    * @return 构建结果
    */
-  protected CodeBuildResult build(@NonNull Template template, Map<String, Object> parameters) {
+  protected CodeBuildResult build(@NonNull Template template, Map<String, Object> context) {
     return CodeBuildResult.builder()
-      .name(renderer.renderOrDefault(template.getName(), parameters, template.getName()))
-      .content(renderer.renderOrDefault(template.getContent(), parameters, "代码生成失败"))
+      .name(renderer.renderOrDefault(template.getName(), context, template.getName()))
+      .content(renderer.renderOrDefault(template.getContent(), context, "代码生成失败"))
       .build();
   }
 }
