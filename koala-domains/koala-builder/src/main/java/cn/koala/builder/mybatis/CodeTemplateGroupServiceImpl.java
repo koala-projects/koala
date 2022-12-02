@@ -1,22 +1,31 @@
 package cn.koala.builder.mybatis;
 
+import cn.koala.builder.CodeBuildResult;
 import cn.koala.builder.CodeTemplateGroup;
 import cn.koala.builder.CodeTemplateGroupService;
+import cn.koala.builder.DomainConverter;
+import cn.koala.builder.DomainConverterService;
 import cn.koala.datamodel.Metadata;
 import cn.koala.datamodel.MetadataEntity;
 import cn.koala.datamodel.PropertyEntity;
 import cn.koala.datamodel.PropertyService;
+import cn.koala.jdbc.Table;
 import cn.koala.mybatis.AbstractSmartService;
 import cn.koala.mybatis.IdGenerator;
 import cn.koala.mybatis.UUIDGenerator;
+import cn.koala.template.Renderer;
+import cn.koala.template.Template;
 import cn.koala.template.TemplateEntity;
 import cn.koala.template.TemplateGroup;
 import cn.koala.template.TemplateGroupEntity;
 import cn.koala.template.TemplateService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -30,6 +39,8 @@ public class CodeTemplateGroupServiceImpl extends AbstractSmartService<String, C
   protected final CodeTemplateGroupRepository repository;
   protected final PropertyService propertyService;
   protected final TemplateService templateService;
+  protected final DomainConverterService domainConverterService;
+  protected final Renderer renderer;
 
   @Override
   public void add(CodeTemplateGroup entity) {
@@ -86,5 +97,33 @@ public class CodeTemplateGroupServiceImpl extends AbstractSmartService<String, C
       }
       templateService.add(template);
     });
+  }
+
+  @Override
+  public List<CodeBuildResult> build(String id, Table table, Map<String, Object> parameters) {
+    Optional<CodeTemplateGroup> group = load(id);
+    Assert.isTrue(group.isPresent(), "代码模板组不存在");
+    Optional<DomainConverter> converter = domainConverterService.load(group.get().getDomainConverterId());
+    Assert.isTrue(converter.isPresent(), "领域转换器不存在");
+    Map<String, Object> context = Map.of(
+      "table", table,
+      "domain", converter.get().convert(table),
+      "parameters", parameters
+    );
+    return group.get().getTemplates().stream().map(template -> build(template, context)).toList();
+  }
+
+  /**
+   * 构建
+   *
+   * @param template   代码模板
+   * @param parameters 参数
+   * @return 构建结果
+   */
+  protected CodeBuildResult build(@NonNull Template template, Map<String, Object> parameters) {
+    return CodeBuildResult.builder()
+      .name(renderer.renderOrDefault(template.getName(), parameters, template.getName()))
+      .content(renderer.renderOrDefault(template.getContent(), parameters, "代码生成失败"))
+      .build();
   }
 }

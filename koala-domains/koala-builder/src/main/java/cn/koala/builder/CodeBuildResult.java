@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @Data
 @Schema(name = "代码生成结果")
-public class CodeBuilderResult {
+public class CodeBuildResult {
   @Schema(name = "文件名称")
   private String name;
   @Schema(name = "代码内容")
