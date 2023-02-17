@@ -22,9 +22,9 @@
 
 ## 项目演示
 
-- [考拉演示项目](https://koala.dxl.pink/): 每天6点定时重置数据
-- 账号: koala
-- 密码: koala 
+- 演示地址: https://koala.dxl.pink
+- 账号密码: koala/koala
+- 每天6点定时重置数据
 
 ## 快速开始
 
