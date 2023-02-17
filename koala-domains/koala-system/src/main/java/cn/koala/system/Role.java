@@ -1,12 +1,19 @@
 package cn.koala.system;
 
-import cn.koala.persistence.Codeable;
-import cn.koala.persistence.Deletable;
-import cn.koala.persistence.Idable;
-import cn.koala.persistence.Systemic;
+import cn.koala.mybatis.AuditModel;
+import cn.koala.mybatis.IdModel;
+import cn.koala.mybatis.SortModel;
+import cn.koala.mybatis.StateModel;
 
 /**
+ * 角色数据实体接口
+ *
  * @author Houtaroy
  */
-public interface Role extends Idable<String>, Codeable, Systemic, Deletable {
+public interface Role extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
+  String getCode();
+
+  String getName();
+
+  String getRemark();
 }

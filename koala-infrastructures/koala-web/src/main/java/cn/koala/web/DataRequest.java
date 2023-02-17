@@ -1,8 +1,7 @@
 package cn.koala.web;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 /**
  * 数据请求
@@ -12,9 +11,8 @@ import lombok.experimental.SuperBuilder;
  * @param <T> 请求数据类型
  * @author Houtaroy
  */
-@Data
 @NoArgsConstructor
-@SuperBuilder(toBuilder = true)
+@Getter
 public class DataRequest<T> {
-  private T data;
+  protected T data;
 }

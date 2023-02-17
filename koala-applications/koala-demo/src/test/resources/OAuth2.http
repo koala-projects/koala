@@ -1,0 +1,6 @@
+POST http://127.0.0.1:9000/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&client_id=koala-admin&client_secret=koala-admin&redirect_uri=http://127.0.0.1:3000&code=s_6C40dJvw-BFBm68Y1GWh0T_IZyqEGNdkO41wjcK8EhsklF-uDHzw2ZRDx1vP1vRRuPfxPPW40BupH1C5u4OiYyx6OZ9EDsVDbLP-1M9GwIR-9-x8UybBBfoDUO6OCq
+
+###

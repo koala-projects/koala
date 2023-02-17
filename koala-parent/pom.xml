@@ -5,12 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>koala-parent</artifactId>
   <packaging>pom</packaging>
-  <description>Koala Parent</description>
+  <description>考拉父级项目</description>
 
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala-dependencies</artifactId>
     <version>${revision}</version>
-    <relativePath>../koala-infrastructures/koala-dependencies/pom.xml</relativePath>
+    <relativePath>../koala-dependencies/pom.xml</relativePath>
   </parent>
 </project>

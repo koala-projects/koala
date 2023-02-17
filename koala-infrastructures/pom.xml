@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>koala-infrastructures</artifactId>
+  <description>考拉基础设施分组</description>
   <packaging>pom</packaging>
   <version>${revision}</version>
-  <description>Koala 基础设施</description>
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala</artifactId>
@@ -15,14 +15,9 @@
   </parent>
 
   <modules>
-    <module>koala-checkstyle</module>
-    <module>koala-dependencies</module>
-    <module>koala-enum</module>
-    <module>koala-lang</module>
     <module>koala-mybatis</module>
-    <module>koala-oauth2</module>
-    <module>koala-persistence</module>
-    <module>koala-swagger</module>
+    <module>koala-open-api</module>
+    <module>koala-toolkit</module>
     <module>koala-web</module>
   </modules>
 </project>

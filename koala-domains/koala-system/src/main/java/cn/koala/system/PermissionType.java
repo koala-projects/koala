@@ -1,46 +1,23 @@
 package cn.koala.system;
 
-import cn.koala.enhancement.ValueNameEnum;
+import cn.koala.mybatis.EnhancedEnum;
+import lombok.Getter;
 
 /**
+ * 权限类型
+ *
  * @author Houtaroy
  */
-public enum PermissionType implements ValueNameEnum {
+@Getter
+public enum PermissionType implements EnhancedEnum {
+  MENU("菜单", 1),
+  BUTTON("按钮", 2);
 
-  /**
-   * 菜单
-   */
-  MENU(1, "菜单"),
-  /**
-   * 按钮
-   */
-  BUTTON(2, "按钮");
-
-  private final int value;
   private final String name;
+  private final int value;
 
-  PermissionType(int value, String name) {
-    this.value = value;
+  PermissionType(String name, int value) {
     this.name = name;
-  }
-
-  @Override
-  public int getValue() {
-    return value;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * 根据值返回枚举
-   *
-   * @param value 枚举值
-   * @return 枚举
-   */
-  public static PermissionType valueOf(int value) {
-    return ValueNameEnum.valueOf(PermissionType.class, value);
+    this.value = value;
   }
 }

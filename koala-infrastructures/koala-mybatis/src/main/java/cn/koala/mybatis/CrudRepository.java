@@ -7,46 +7,48 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * @param <T> 主键类型
- * @param <E> 实体类型
+ * 增删改查仓库接口
+ *
  * @author Houtaroy
  */
-public interface CrudRepository<T, E> {
+public interface CrudRepository<T, ID> {
 
   /**
-   * 查询全部
+   * 插入数据
+   *
+   * @param entity    数据实体
+   * @param <S>数据实体类型
+   */
+  <S extends T> void insert(S entity);
+
+  /**
+   * 根据id删除数据
+   *
+   * @param entity 数据实体
+   */
+  <S extends T> void deleteById(S entity);
+
+  /**
+   * 根据id更新数据
+   *
+   * @param entity 数据实体
+   * @param <S>    数据实体类型
+   */
+  <S extends T> void updateById(S entity);
+
+  /**
+   * 根据id查询数据
+   *
+   * @param id 主键
+   * @return 数据实体
+   */
+  Optional<T> findById(ID id);
+
+  /**
+   * 查询全部数据
    *
    * @param parameters 查询参数
    * @return 数据列表
    */
-  List<E> findAll(@Param("parameters") Map<String, Object> parameters);
-
-  /**
-   * 根据id查询
-   *
-   * @param id id
-   * @return 数据实体
-   */
-  Optional<E> findById(T id);
-
-  /**
-   * 新增
-   *
-   * @param entity 数据实体
-   */
-  void add(E entity);
-
-  /**
-   * 更新
-   *
-   * @param entity 数据实体
-   */
-  void update(E entity);
-
-  /**
-   * 删除
-   *
-   * @param entity 数据实体
-   */
-  void delete(E entity);
+  List<T> findAll(@Param("parameters") Map<String, Object> parameters);
 }

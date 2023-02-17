@@ -6,13 +6,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 /**
+ * 响应类
+ *
  * @author Houtaroy
  */
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@NoArgsConstructor
 public class Response {
-  public static final Response SUCCESS = Response.of(HttpStatus.OK.value(), "请求成功");
+  public static final Response SUCCESS = new Response(HttpStatus.OK.value(), "请求成功");
+  public static final Response FORBIDDEN = new Response(HttpStatus.FORBIDDEN.value(), "无访问权限");
 
   protected Integer code;
   protected String message;
@@ -24,7 +27,7 @@ public class Response {
    * @return 响应实体
    */
   public static Response ok(String message) {
-    return of(HttpStatus.OK.value(), message);
+    return new Response(HttpStatus.OK.value(), message);
   }
 
   /**
@@ -34,17 +37,6 @@ public class Response {
    * @return 响应实体
    */
   public static Response error(String message) {
-    return of(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
-  }
-
-  /**
-   * 创建响应
-   *
-   * @param code    代码
-   * @param message 消息
-   * @return 响应实体
-   */
-  public static Response of(Integer code, String message) {
-    return new Response(code, message);
+    return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
   }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>koala-starters</artifactId>
+  <description>考拉Starters分组</description>
+  <packaging>pom</packaging>
+  <version>${revision}</version>
+  <parent>
+    <groupId>cn.koala</groupId>
+    <artifactId>koala</artifactId>
+    <version>${revision}</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <modules>
+    <module>koala-mybatis-starter</module>
+    <module>koala-security-starter</module>
+    <module>koala-system-starter</module>
+    <module>koala-web-starter</module>
+  </modules>
+</project>

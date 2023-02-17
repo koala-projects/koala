@@ -1,0 +1,60 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://bj-cdb-9amt73r4.sql.tencentcdb.com:59997/koala_demo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: koala_demo
+    password: koala_demo
+    druid: #druid连接池配置
+      initial-size: 5
+      min-idle: 5
+      max-wait: 60000
+      max-active: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: true
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      stat-view-servlet:
+        enabled: true
+        allow: 127.0.0.1
+        login-username: koala
+        login-password: koala
+        reset-enable: true
+      web-stat-filter:
+        enabled: true
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      aop-patterns: cn.koala*
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+      indent_output: true
+      fail_on_empty_beans: false
+    default-property-inclusion: non_empty
+    deserialization:
+      fail_on_unknown_properties: false
+  data:
+    web:
+      pageable:
+        default-page-size: 50
+        max-page-size: 2000
+
+mybatis:
+  mapper-locations: classpath*:mappers/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    cn.koala: debug
+    org.springframework.security: debug
+  file:
+    name: logs/koala-demo.log

@@ -1,33 +1,34 @@
 package cn.koala.system;
 
-import cn.koala.persistence.Codeable;
-import cn.koala.persistence.Deletable;
-import cn.koala.persistence.Idable;
-import cn.koala.persistence.Systemic;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.Optional;
+import cn.koala.mybatis.AuditModel;
+import cn.koala.mybatis.IdModel;
+import cn.koala.mybatis.SortModel;
+import cn.koala.mybatis.StateModel;
 
 /**
- * 部门
+ * 部门数据实体接口
  *
  * @author Houtaroy
  */
-public interface Department extends Idable<String>, Codeable, Systemic, Deletable {
+public interface Department extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
   /**
-   * 获取上级部门
+   * 获取部门名称
    *
-   * @return 上级部门
+   * @return 部门名称
    */
-  Department getParent();
+  String getName();
 
   /**
-   * 获取上级部门ID, 如果不存在则返回null
+   * 获取部门备注
+   *
+   * @return 部门备注
+   */
+  String getRemark();
+
+  /**
+   * 获取上级部门ID
    *
    * @return 上级部门ID
    */
-  @JsonIgnore
-  default String getParentId() {
-    return Optional.ofNullable(getParent()).map(Idable::getId).orElse(null);
-  }
+  Long getParentId();
 }

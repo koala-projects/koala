@@ -6,7 +6,7 @@
   <artifactId>koala-applications</artifactId>
   <packaging>pom</packaging>
   <version>${revision}</version>
-  <description>考拉应用</description>
+  <description>考拉应用分组</description>
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala</artifactId>
@@ -14,11 +14,11 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
+  <modules>
+    <module>koala-demo</module>
+  </modules>
+
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
-
-  <modules>
-    <module>koala-system-application</module>
-  </modules>
 </project>

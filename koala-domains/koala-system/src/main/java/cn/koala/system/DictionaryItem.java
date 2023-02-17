@@ -1,26 +1,21 @@
 package cn.koala.system;
 
-import cn.koala.persistence.Deletable;
-import cn.koala.persistence.Idable;
-import cn.koala.persistence.Systemic;
+import cn.koala.mybatis.AuditModel;
+import cn.koala.mybatis.IdModel;
+import cn.koala.mybatis.SortModel;
+import cn.koala.mybatis.StateModel;
 
 /**
- * 字典项
+ * 字典项接口
  *
  * @author Houtaroy
  */
-public interface DictionaryItem extends Idable<String>, Systemic, Deletable {
-  /**
-   * 获取字典项名称
-   *
-   * @return 字典项名称
-   */
+public interface DictionaryItem extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
+  String getCode();
+
   String getName();
 
-  /**
-   * 获取字典项内容
-   *
-   * @return 字典项内容
-   */
-  String getContent();
+  String getRemark();
+
+  Long getDictionaryId();
 }

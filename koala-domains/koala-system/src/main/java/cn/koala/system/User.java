@@ -1,48 +1,29 @@
 package cn.koala.system;
 
-import cn.koala.persistence.Deletable;
-import cn.koala.persistence.Idable;
-import cn.koala.persistence.Systemic;
+import cn.koala.mybatis.AuditModel;
+import cn.koala.mybatis.IdModel;
+import cn.koala.mybatis.SortModel;
+import cn.koala.mybatis.StateModel;
 
 /**
- * 用户
+ * 用户数据实体接口
  *
  * @author Houtaroy
  */
-public interface User extends Idable<String>, Systemic, Deletable {
-
-  /**
-   * 获取用户名
-   *
-   * @return 用户名
-   */
+public interface User extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
   String getUsername();
 
-  /**
-   * 获取密码
-   *
-   * @return 密码
-   */
   String getPassword();
 
-  /**
-   * 设置密码
-   *
-   * @param password 密码
-   */
   void setPassword(String password);
 
-  /**
-   * 获取昵称
-   *
-   * @return 昵称
-   */
   String getNickname();
 
-  /**
-   * 获取头像
-   *
-   * @return 头像
-   */
   String getAvatar();
+
+  String getEmail();
+
+  String getMobile();
+
+  String getRemark();
 }
