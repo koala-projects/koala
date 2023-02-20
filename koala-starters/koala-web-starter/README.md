@@ -26,3 +26,7 @@ public Response custom() {
 ## 异常拦截
 
 自动装配`RestExceptionHandler`, 用于拦截异常, 返回信息可查看源码
+
+## 接口文档
+
+集成了`springdoc-openapi`, 可通过`http://${host}:${port}/swagger-ui.html`地址访问接口文档
