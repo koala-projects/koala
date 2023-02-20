@@ -1,3 +1,28 @@
+# 设置表
+DROP TABLE IF EXISTS system_setting;
+CREATE TABLE system_setting
+(
+  `id`                  BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`                VARCHAR(100) NOT NULL COMMENT '设置代码',
+  `name`                VARCHAR(100) NOT NULL COMMENT '设置名称',
+  `content`             VARCHAR(100) NOT NULL COMMENT '设置内容',
+  `remark`              VARCHAR(500) COMMENT '设置备注',
+  `sort_index`          INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `is_enable`           INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_system`           INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_delete`           INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id`      BIGINT       NOT NULL COMMENT '创建人ID',
+  `create_time`         DATETIME     NOT NULL COMMENT '创建时间',
+  `last_update_user_id` BIGINT COMMENT '最后更新人ID',
+  `last_update_time`    DATETIME COMMENT '最后更新时间',
+  `delete_user_id`      BIGINT COMMENT '删除人ID',
+  `delete_time`         DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '系统设置表';
+
+insert into system_setting(code, name, content, create_user_id, create_time)
+values ('system.default-password', '初始用户默认密码', '123456', 1, now());
+
 # 字典表
 DROP TABLE IF EXISTS system_dictionary;
 CREATE TABLE system_dictionary
@@ -118,6 +143,7 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:permission', '权限管理', 1, null, null, 'system/permission/index.vue', 1, 103, 1, 1, now()),
        ('system:department', '部门管理', 1, null, null, 'system/department/index.vue', 1, 104, 1, 1, now()),
        ('system:dictionary', '字典管理', 1, null, null, 'system/dictionary/index.vue', 1, 105, 1, 1, now()),
+       ('system:setting', '设置管理', 1, null, null, 'system/setting/index.vue', 1, 106, 1, 1, now()),
        ('system:user:page', '用户列表', 2, null, null, null, 2, 10101, 1, 1, now()),
        ('system:user:load', '用户查询', 2, null, null, null, 2, 10102, 1, 1, now()),
        ('system:user:create', '用户创建', 2, null, null, null, 2, 10103, 1, 1, now()),
@@ -138,7 +164,10 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:dictionary:load', '字典查询', 2, null, null, null, 6, 10502, 1, 1, now()),
        ('system:dictionary:create', '字典创建', 2, null, null, null, 6, 10503, 1, 1, now()),
        ('system:dictionary:update', '字典修改', 2, null, null, null, 6, 10504, 1, 1, now()),
-       ('system:dictionary:delete', '字典删除', 2, null, null, null, 6, 10505, 1, 1, now());
+       ('system:dictionary:delete', '字典删除', 2, null, null, null, 6, 10505, 1, 1, now()),
+       ('system:setting:create', '设置创建', 2, null, null, null, 6, 10601, 1, 1, now()),
+       ('system:setting:update', '设置修改', 2, null, null, null, 6, 10602, 1, 1, now()),
+       ('system:setting:delete', '设置删除', 2, null, null, null, 6, 10603, 1, 1, now());
 
 # 角色权限关系表
 DROP TABLE IF EXISTS system_role_permission;

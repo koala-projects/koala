@@ -1,5 +1,6 @@
 package cn.koala.system.autoconfigure;
 
+import cn.koala.security.autoconfigure.SecurityFilterChainConfigurer;
 import cn.koala.system.apis.DepartmentApi;
 import cn.koala.system.apis.DepartmentApiImpl;
 import cn.koala.system.apis.DictionaryApi;
@@ -9,6 +10,8 @@ import cn.koala.system.apis.DictionaryItemApiImpl;
 import cn.koala.system.apis.PermissionApi;
 import cn.koala.system.apis.PermissionApiImpl;
 import cn.koala.system.apis.RoleApiImpl;
+import cn.koala.system.apis.SettingApi;
+import cn.koala.system.apis.SettingApiImpl;
 import cn.koala.system.apis.UserApi;
 import cn.koala.system.apis.UserApiImpl;
 import cn.koala.system.repositories.DepartmentRepository;
@@ -16,6 +19,7 @@ import cn.koala.system.repositories.DictionaryItemRepository;
 import cn.koala.system.repositories.DictionaryRepository;
 import cn.koala.system.repositories.PermissionRepository;
 import cn.koala.system.repositories.RoleRepository;
+import cn.koala.system.repositories.SettingRepository;
 import cn.koala.system.repositories.UserRepository;
 import cn.koala.system.services.DepartmentService;
 import cn.koala.system.services.DepartmentServiceImpl;
@@ -27,6 +31,8 @@ import cn.koala.system.services.PermissionService;
 import cn.koala.system.services.PermissionServiceImpl;
 import cn.koala.system.services.RoleService;
 import cn.koala.system.services.RoleServiceImpl;
+import cn.koala.system.services.SettingService;
+import cn.koala.system.services.SettingServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
@@ -42,7 +48,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  * @author Houtaroy
  */
-@Import({SwaggerAutoConfiguration.class})
+@Import({OpenApiAutoConfiguration.class})
 @Configuration
 @MapperScan(basePackages = "cn.koala.system.repositories")
 public class SystemAutoConfiguration {
@@ -121,5 +127,22 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public UserApi userApi(UserService userService) {
     return new UserApiImpl(userService);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public SettingService settingService(SettingRepository settingRepository) {
+    return new SettingServiceImpl(settingRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public SettingApi settingApi(SettingService settingService) {
+    return new SettingApiImpl(settingService);
+  }
+
+  @Bean
+  public SecurityFilterChainConfigurer systemSecurityFilterChainConfigurer() {
+    return new SystemSecurityFilterChainConfigurer();
   }
 }
