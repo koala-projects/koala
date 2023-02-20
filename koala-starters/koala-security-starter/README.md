@@ -30,7 +30,9 @@
 
 需要用户信息中包含`system:user:page`
 
-如接口无需权限校验, 可以通过增加如下配置实现:
+如接口需跳过权限校验, 本模块提供两种方式:
+
+1. 通过书写配置实现, 示例如下:
 
 ```yaml
 koala:
@@ -38,6 +40,17 @@ koala:
     permit-all-patterns:
       - /api/users
       - /swagger*/**
+```
+
+2. 使用`PermitAllConfigurer`类, 并将其注入Spring IOC容器中, 例如我们要去掉字典列表接口的权限:
+
+```java
+public class SecurityConfiguration {
+    @Bean
+  	public SecurityFilterChainConfigurer permitAllConfigurer() {
+    	return new PermitAllConfigurer(List.of("/api/dictionaries/**"));
+  	}
+}
 ```
 
 路径匹配模式请参照[PathPattern](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/util/pattern/PathPattern.html)
