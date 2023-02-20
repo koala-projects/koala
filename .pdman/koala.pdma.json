@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.3.0",
   "createdTime": "2023-1-29 08:59:43",
-  "updatedTime": "2023-2-20 15:06:42",
+  "updatedTime": "2023-2-20 15:15:27",
   "dbConns": [],
   "profile": {
     "default": {
@@ -601,7 +601,8 @@
         "freeze": false
       }
     ],
-    "menuWidth": "285px"
+    "menuWidth": "285px",
+    "modelType": "modalAll"
   },
   "entities": [
     {

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -69,11 +70,15 @@ import java.util.UUID;
  *
  * @author Houtaroy
  */
-@EnableConfigurationProperties(JwtProperties.class)
+@EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
 @Configuration
 @EnableMethodSecurity
 @MapperScan("cn.koala.security.repositories")
+@RequiredArgsConstructor
 public class SecurityAutoConfiguration {
+
+  protected final SecurityProperties securityProperties;
+
   @Bean
   @Order(1)
   public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
@@ -191,6 +196,7 @@ public class SecurityAutoConfiguration {
     throws Exception {
     http.csrf().disable();
     http.authorizeHttpRequests().requestMatchers("/swagger*/**", "/v3/api-docs/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(securityProperties.getPermitAllPatterns().toArray(new String[0])).permitAll();
     http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated());
     http.formLogin(Customizer.withDefaults());
     http.oauth2ResourceServer().opaqueToken();
