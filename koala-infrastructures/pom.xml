@@ -17,7 +17,6 @@
   <modules>
     <module>koala-mybatis</module>
     <module>koala-open-api</module>
-    <module>koala-toolkit</module>
     <module>koala-web</module>
   </modules>
 </project>

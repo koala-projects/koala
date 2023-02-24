@@ -16,7 +16,9 @@
 
   <modules>
     <module>koala-builder</module>
+    <module>koala-log</module>
     <module>koala-security</module>
     <module>koala-system</module>
+    <module>koala-toolkit</module>
   </modules>
 </project>
