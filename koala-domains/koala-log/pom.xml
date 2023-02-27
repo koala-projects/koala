@@ -17,7 +17,15 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
@@ -39,7 +47,15 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-open-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-toolkit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>
 </project>

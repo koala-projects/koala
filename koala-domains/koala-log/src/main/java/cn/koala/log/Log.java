@@ -1,6 +1,7 @@
 package cn.koala.log;
 
 import cn.koala.mybatis.IdModel;
+import cn.koala.mybatis.YesNo;
 
 import java.util.Date;
 
@@ -14,15 +15,19 @@ public interface Log extends IdModel<Long> {
 
   String getContent();
 
-  Date getLogTime();
-
   Long getUserId();
 
   String getUserIp();
+
+  YesNo getIsSucceeded();
 
   String getRequest();
 
   String getResponse();
 
+  String getError();
+
   Long getCost();
+
+  Date getLogTime();
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.log.repositories.LogRepository">
+
+  <sql id="selectLog">
+    select t.id,
+           t.module,
+           t.content,
+           t.user_id,
+           t.user_ip,
+           t.is_succeeded,
+           t.request,
+           t.response,
+           t.error,
+           t.cost,
+           t.log_time
+    from system_log t
+  </sql>
+
+  <insert id="insert" parameterType="cn.koala.log.LogEntity">
+    insert into system_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
+    values (#{module}, #{content}, #{userId}, #{userIp}, #{isSucceeded}, #{request}, #{response}, #{error}, #{cost},
+            #{logTime})
+  </insert>
+
+  <update id="deleteById" parameterType="cn.koala.log.LogEntity">
+
+  </update>
+
+  <update id="updateById" parameterType="cn.koala.log.LogEntity">
+
+  </update>
+
+  <select id="findById" resultType="cn.koala.log.LogEntity">
+    <include refid="selectLog"/>
+    where t.id = #{id}
+  </select>
+
+  <select id="findAll" resultType="cn.koala.log.LogEntity">
+    <include refid="selectLog"/>
+    <where>
+      <if test="parameters.module != null and parameters.module != ''">
+        t.module like concat(#{parameters.module}, '%')
+      </if>
+      <if test="parameters.isSucceeded != null and parameters.isSucceeded != ''">
+        and t.is_succeeded = #{parameters.isSucceeded}
+      </if>
+      <if test="parameters.logTimeStart != null and parameters.logTimeStart != ''">
+        and t.log_time &gt; #{parameters.logTimeStart}
+      </if>
+      <if test="parameters.logTimeEnd != null and parameters.logTimeEnd != ''">
+        and t.log_time &lt; #{parameters.logTimeEnd}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.3.0",
   "createdTime": "2023-1-29 08:59:43",
-  "updatedTime": "2023-2-24 13:38:40",
+  "updatedTime": "2023-2-27 15:20:01",
   "dbConns": [],
   "profile": {
     "default": {
@@ -3801,23 +3801,6 @@
           "id": "940A3D59-DA00-45A0-A4EB-F98E0A617B71"
         },
         {
-          "defKey": "log_time",
-          "defName": "日志时间",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": true,
-          "autoIncrement": false,
-          "defaultValue": "",
-          "hideInGraph": false,
-          "refDict": "",
-          "extProps": {},
-          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
-          "id": "65BCB98F-EB78-4F9D-B44C-AE6BC16DF8B1"
-        },
-        {
           "defKey": "user_id",
           "defName": "用户id",
           "comment": "",
@@ -3850,6 +3833,23 @@
           "extProps": {},
           "domain": "54611CCC-CA4B-42E1-9F32-4944C85B85A6",
           "id": "D31326E4-B641-40C2-9BD4-C14F9D8670CA"
+        },
+        {
+          "defKey": "is_succeeded",
+          "defName": "是否成功",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {},
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "id": "3E6BE2F5-7909-425E-AC37-D1177DF7F928"
         },
         {
           "defKey": "request",
@@ -3886,6 +3886,23 @@
           "id": "B817F1D9-50ED-4D94-A5A9-A6929AB52EAE"
         },
         {
+          "defKey": "error",
+          "defName": "错误",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {},
+          "domain": "C4726CFF-54BE-4ADF-B475-065284054815",
+          "id": "451DEE2D-4B1D-4F24-935C-30E2B1C9AB97"
+        },
+        {
           "defKey": "cost",
           "defName": "消耗时间",
           "comment": "",
@@ -3901,6 +3918,23 @@
           "extProps": {},
           "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
           "id": "AAE2DEE9-3DC9-4E9C-BE43-7F846D3BE647"
+        },
+        {
+          "defKey": "log_time",
+          "defName": "日志时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {},
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "id": "65BCB98F-EB78-4F9D-B44C-AE6BC16DF8B1"
         }
       ],
       "correlations": [],
