@@ -144,6 +144,7 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:department', '部门管理', 1, null, null, 'system/department/index.vue', 1, 104, 1, 1, now()),
        ('system:dictionary', '字典管理', 1, null, null, 'system/dictionary/index.vue', 1, 105, 1, 1, now()),
        ('system:setting', '设置管理', 1, null, null, 'system/setting/index.vue', 1, 106, 1, 1, now()),
+       ('system:log', '日志管理', 1, null, null, 'system/log/index.vue', 1, 107, 1, 1, now()),
        ('system:user:page', '用户列表', 2, null, null, null, 2, 10101, 1, 1, now()),
        ('system:user:load', '用户查询', 2, null, null, null, 2, 10102, 1, 1, now()),
        ('system:user:create', '用户创建', 2, null, null, null, 2, 10103, 1, 1, now()),
@@ -165,9 +166,10 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:dictionary:create', '字典创建', 2, null, null, null, 6, 10503, 1, 1, now()),
        ('system:dictionary:update', '字典修改', 2, null, null, null, 6, 10504, 1, 1, now()),
        ('system:dictionary:delete', '字典删除', 2, null, null, null, 6, 10505, 1, 1, now()),
-       ('system:setting:create', '设置创建', 2, null, null, null, 6, 10601, 1, 1, now()),
-       ('system:setting:update', '设置修改', 2, null, null, null, 6, 10602, 1, 1, now()),
-       ('system:setting:delete', '设置删除', 2, null, null, null, 6, 10603, 1, 1, now());
+       ('system:setting:create', '设置创建', 2, null, null, null, 7, 10601, 1, 1, now()),
+       ('system:setting:update', '设置修改', 2, null, null, null, 7, 10602, 1, 1, now()),
+       ('system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
+       ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now());
 
 # 角色权限关系表
 DROP TABLE IF EXISTS system_role_permission;
