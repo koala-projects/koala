@@ -1,6 +1,7 @@
 package cn.koala.security.autoconfigure;
 
 import cn.koala.mybatis.AuditorIdSupplier;
+import cn.koala.security.LoginController;
 import cn.koala.security.SecurityExceptionHandler;
 import cn.koala.security.SecurityHelper;
 import cn.koala.security.UserDetailsImpl;
@@ -99,6 +100,12 @@ public class SecurityBeanAutoConfiguration {
   @Bean
   public UserDetailsService userDetailsService(UserDetailsRepository userDetailsRepository) {
     return new UserDetailsServiceImpl(userDetailsRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public LoginController loginController() {
+    return new LoginController();
   }
 
   @Bean
