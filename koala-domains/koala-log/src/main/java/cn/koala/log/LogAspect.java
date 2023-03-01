@@ -25,6 +25,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
 
 /**
  * 日志切面
@@ -37,26 +38,42 @@ import java.lang.reflect.Method;
 public class LogAspect {
   private final LogService logService;
   private final ObjectMapper objectMapper;
+  private final LogProperties properties;
   private final ThreadLocal<Long> cost = new ThreadLocal<>();
   private final SpelExpressionParser parser = new SpelExpressionParser();
   private final TemplateParserContext parserContext = new TemplateParserContext("${", "}");
-
   private final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
   @Before("@annotation(log)")
-
   public void before(Log log) {
     cost.set(System.currentTimeMillis());
   }
 
   @AfterReturning(value = "@annotation(log)", returning = "result")
   public void afterReturning(JoinPoint joinPoint, Log log, Object result) {
+    if (isIgnored(log)) {
+      return;
+    }
     logService.add(getLogEntity(joinPoint, log, result, null));
   }
 
   @AfterThrowing(value = "@annotation(log)", throwing = "e")
   public void afterThrowing(JoinPoint joinPoint, Log log, Exception e) {
+    if (isIgnored(log)) {
+      return;
+    }
     logService.add(getLogEntity(joinPoint, log, null, e));
+  }
+
+  protected boolean isIgnored(Log log) {
+    boolean result = false;
+    for (String pattern : properties.getIgnoredPatterns()) {
+      result = Pattern.matches(pattern, log.module());
+      if (result) {
+        break;
+      }
+    }
+    return result;
   }
 
   protected LogEntity getLogEntity(@NonNull JoinPoint joinPoint, @NonNull Log log, @Nullable Object result,

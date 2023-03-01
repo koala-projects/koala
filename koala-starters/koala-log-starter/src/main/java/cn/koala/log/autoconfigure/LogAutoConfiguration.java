@@ -1,6 +1,7 @@
 package cn.koala.log.autoconfigure;
 
 import cn.koala.log.LogAspect;
+import cn.koala.log.LogProperties;
 import cn.koala.log.apis.LogApi;
 import cn.koala.log.apis.LogApiImpl;
 import cn.koala.log.repositories.LogRepository;
@@ -9,6 +10,8 @@ import cn.koala.log.services.LogServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Houtaroy
  */
 @Configuration
+@EnableConfigurationProperties(LogProperties.class)
 @MapperScan(basePackages = "cn.koala.log.repositories")
 public class LogAutoConfiguration {
 
@@ -35,7 +39,8 @@ public class LogAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public LogAspect logAspect(LogService logService, ObjectMapper objectMapper) {
-    return new LogAspect(logService, objectMapper);
+  @ConditionalOnProperty(prefix = "koala.log", name = "enabled", matchIfMissing = true)
+  public LogAspect logAspect(LogService logService, ObjectMapper objectMapper, LogProperties properties) {
+    return new LogAspect(logService, objectMapper, properties);
   }
 }
