@@ -52,6 +52,7 @@
 
 | 组件名称                                                     | 组件说明                                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                           |
 | [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter) | 抽象出部分通用的数据模型, 并在此基础上对增删改查进行简单封装 |
 | [koala-web-starter](../../koala-starters/koala-web-starter)  | 抽象出通用返回模型, 增加全局异常拦截器                       |
 | [koala-security-starter](../../koala-starters/koala-security-starter) | 实现了基于OAuth2.1的认证授权体系                             |
