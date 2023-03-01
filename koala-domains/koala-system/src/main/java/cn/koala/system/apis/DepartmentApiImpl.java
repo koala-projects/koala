@@ -1,5 +1,6 @@
 package cn.koala.system.apis;
 
+import cn.koala.log.annotations.Log;
 import cn.koala.system.Department;
 import cn.koala.system.entities.DepartmentEntity;
 import cn.koala.system.services.DepartmentService;
@@ -22,22 +23,26 @@ public class DepartmentApiImpl implements DepartmentApi {
   protected final DepartmentService service;
 
   @Override
+  @Log(module = "部门管理", content = "查询部门树")
   public DataResponse<List<TreeNode>> tree() {
     return DataResponse.ok(service.tree());
   }
 
   @Override
+  @Log(module = "部门管理", content = "查看部门[id=${#id}]")
   public DataResponse<Department> load(Long id) {
     return DataResponse.ok(service.load(id));
   }
 
   @Override
+  @Log(module = "部门管理", content = "创建部门[name=${#entity.name}]")
   public DataResponse<Department> create(DepartmentEntity entity) {
     service.add(entity);
     return DataResponse.ok(entity);
   }
 
   @Override
+  @Log(module = "部门管理", content = "更新部门[id=${#id}]")
   public Response update(Long id, DepartmentEntity entity) {
     entity.setIdIfAbsent(id);
     service.update(entity);
@@ -45,6 +50,7 @@ public class DepartmentApiImpl implements DepartmentApi {
   }
 
   @Override
+  @Log(module = "部门管理", content = "删除部门[id=${#id}]")
   public Response delete(Long id) {
     service.delete(DepartmentEntity.builder().id(id).build());
     return Response.SUCCESS;
