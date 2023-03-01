@@ -11,10 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
@@ -22,7 +21,6 @@ import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
@@ -39,30 +37,29 @@ public class LogAspect {
   private final LogService logService;
   private final ObjectMapper objectMapper;
   private final LogProperties properties;
-  private final ThreadLocal<Long> cost = new ThreadLocal<>();
   private final SpelExpressionParser parser = new SpelExpressionParser();
   private final TemplateParserContext parserContext = new TemplateParserContext("${", "}");
   private final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
-  @Before("@annotation(log)")
-  public void before(Log log) {
-    cost.set(System.currentTimeMillis());
-  }
-
-  @AfterReturning(value = "@annotation(log)", returning = "result")
-  public void afterReturning(JoinPoint joinPoint, Log log, Object result) {
+  @Around(value = "@annotation(log)")
+  public Object around(ProceedingJoinPoint joinPoint, Log log) throws Throwable {
     if (isIgnored(log)) {
-      return;
+      return joinPoint.proceed();
     }
-    logService.add(getLogEntity(joinPoint, log, result, null));
-  }
-
-  @AfterThrowing(value = "@annotation(log)", throwing = "e")
-  public void afterThrowing(JoinPoint joinPoint, Log log, Exception e) {
-    if (isIgnored(log)) {
-      return;
+    long start = System.currentTimeMillis();
+    LogEntity logEntity = getLogEntity(joinPoint, log);
+    Object result;
+    try {
+      result = joinPoint.proceed();
+      doSuccess(logEntity, result);
+      return result;
+    } catch (Throwable e) {
+      doThrowable(logEntity, e);
+      throw e;
+    } finally {
+      logEntity.setCost(System.currentTimeMillis() - start);
+      logService.add(logEntity);
     }
-    logService.add(getLogEntity(joinPoint, log, null, e));
   }
 
   protected boolean isIgnored(Log log) {
@@ -76,25 +73,15 @@ public class LogAspect {
     return result;
   }
 
-  protected LogEntity getLogEntity(@NonNull JoinPoint joinPoint, @NonNull Log log, @Nullable Object result,
-                                   @Nullable Exception e) {
-    LogEntity entity = LogEntity.builder()
+  protected LogEntity getLogEntity(@NonNull JoinPoint joinPoint, @NonNull Log log) {
+    return LogEntity.builder()
       .module(log.module())
       .content(getLogContent(log.content(), joinPoint))
       .userId(CrudHelper.getAuditorId())
       .userIp(HttpHelper.getRequestIp())
-      .isSucceeded(e == null ? YesNo.YES : YesNo.NO)
       .request(object2json(joinPoint.getArgs(), "序列化日志请求失败"))
-      .cost(System.currentTimeMillis() - this.cost.get())
       .logTime(DateHelper.now())
       .build();
-    if (result != null) {
-      entity.setResponse(object2json(result, "序列化日志响应失败"));
-    }
-    if (e != null) {
-      entity.setError(e.getMessage());
-    }
-    return entity;
   }
 
   protected String getLogContent(@NonNull String content, @NonNull JoinPoint joinPoint) {
@@ -108,6 +95,16 @@ public class LogAspect {
       result = parser.parseExpression(content, parserContext).getValue(context, String.class);
     }
     return result;
+  }
+
+  protected void doSuccess(LogEntity log, Object result) {
+    log.setIsSucceeded(YesNo.YES);
+    log.setResponse(object2json(result, "序列化日志响应失败"));
+  }
+
+  protected void doThrowable(LogEntity log, Throwable e) {
+    log.setIsSucceeded(YesNo.NO);
+    log.setError(e.getMessage());
   }
 
   protected String object2json(Object data, String errorMessage) {
