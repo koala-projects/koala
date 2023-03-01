@@ -60,7 +60,7 @@ public class SecurityAutoConfiguration {
     throws Exception {
     http.csrf().disable();
     configurers.add(new PermitAllConfigurer(List.of("/swagger*/**", "/v3/api-docs/**")));
-    configurers.add(new PermitAllConfigurer(List.of("/css/login.css", "/img/login_background.png", "/js/app.js", "/js/particles.js")));
+    configurers.add(new PermitAllConfigurer(List.of("/login/**")));
     configurers.add(new PermitAllConfigurer(properties.getPermitAllPatterns()));
     for (SecurityFilterChainConfigurer configurer : configurers) {
       configurer.configure(http);
