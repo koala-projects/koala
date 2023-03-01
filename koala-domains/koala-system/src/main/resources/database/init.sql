@@ -45,7 +45,8 @@ CREATE TABLE system_dictionary
 ) COMMENT = '系统字典表';
 
 insert into system_dictionary(code, name, sort_index, is_system, create_user_id, create_time)
-values ('gender', '性别', 1, 1, 1, now());
+values ('gender', '性别', 1, 1, 1, now()),
+       ('camp', '阵营', 2, 0, 1, now());
 
 # 字典项表
 DROP TABLE IF EXISTS system_dictionary_item;
@@ -70,8 +71,10 @@ CREATE TABLE system_dictionary_item
 ) COMMENT = '系统字典项表';
 
 insert into system_dictionary_item(code, name, dictionary_id, sort_index, is_system, create_user_id, create_time)
-values ('man', '男', 1, 1, 1, 1, now()),
-       ('woman', '女', 1, 2, 1, 1, now());
+values ('man', '男', 1, 101, 1, 1, now()),
+       ('woman', '女', 1, 102, 1, 1, now()),
+       ('tribe', '部落', 2, 201, 0, 1, now()),
+       ('alliance', '联盟', 2, 202, 0, 1, now());
 
 # 部门表
 DROP TABLE IF EXISTS system_department;
@@ -96,7 +99,8 @@ CREATE TABLE system_department
 
 insert into system_department(name, parent_id, sort_index, is_system, create_user_id, create_time)
 values ('考拉开源', null, 1, 1, 1, now()),
-       ('研发部', 1, 101, 1, 1, now());
+       ('研发部', 1, 101, 1, 1, now()),
+       ('回家部', 1, 102, 0, 1, now());
 
 # 用户部门关系表
 DROP TABLE IF EXISTS system_user_department;
@@ -207,7 +211,8 @@ CREATE TABLE system_role
 ) COMMENT = '系统角色表';
 
 insert into system_role(code, name, sort_index, is_system, create_user_id, create_time)
-values ('admin', '系统管理员', 1, 1, 1, now());
+values ('admin', '系统管理员', 1, 1, 1, now()),
+       ('visitor', '访问者', 2, 0, 1, now());
 
 # 用户角色关系表
 DROP TABLE IF EXISTS system_user_role;
@@ -246,4 +251,5 @@ CREATE TABLE system_user
 ) COMMENT = '系统用户表';
 
 insert into system_user(username, password, nickname, sort_index, is_system, create_user_id, create_time)
-values ('koala', '{bcrypt}$2a$10$JaBR557MI9SM5jgvcYwKiOPXyecHOqDQtN7pSO9xasp5NNjGS8jmG', '考拉', 1, 1, 1, now());
+values ('koala', '{bcrypt}$2a$10$JaBR557MI9SM5jgvcYwKiOPXyecHOqDQtN7pSO9xasp5NNjGS8jmG', '考拉', 1, 1, 1, now()),
+       ('visitor', '{bcrypt}$2a$10$JaBR557MI9SM5jgvcYwKiOPXyecHOqDQtN7pSO9xasp5NNjGS8jmG', '访问者', 2, 0, 1, now());
