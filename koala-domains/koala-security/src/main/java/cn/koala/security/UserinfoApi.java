@@ -47,7 +47,7 @@ public interface UserinfoApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @PutMapping
+  @PutMapping("change-password")
   Response update(@RequestBody ChangePasswordRequest request);
 
   @Schema(description = "用户信息结果")
