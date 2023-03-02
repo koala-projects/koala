@@ -41,6 +41,7 @@ public class UserApiImpl implements UserApi {
   @Log(module = "用户管理", content = "创建用户[username=${#user.username}]")
   public DataResponse<User> create(UserEntity user) {
     service.save(user);
+    user.setPassword(null);
     return DataResponse.ok(user);
   }
 
