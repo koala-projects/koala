@@ -25,6 +25,8 @@
     <pagehelper.version>5.3.1</pagehelper.version>
     <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
     <!--其他依赖-->
+    <enjoy.version>5.0.3</enjoy.version>
+    <guava.version>31.1-jre</guava.version>
     <junit.version>5.8.2</junit.version>
     <slf4j.version>2.0.6</slf4j.version>
     <druid-spring-boot-starter.version>1.2.15</druid-spring-boot-starter.version>
@@ -87,6 +89,16 @@
         <groupId>com.alibaba</groupId>
         <artifactId>druid-spring-boot-starter</artifactId>
         <version>${druid-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.jfinal</groupId>
+        <artifactId>enjoy</artifactId>
+        <version>${enjoy.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
