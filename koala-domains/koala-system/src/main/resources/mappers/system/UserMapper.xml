@@ -66,11 +66,11 @@
     </if>
     <where>
       t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-      <if test="parameters.code != null and parameters.code != ''">
-        and t.code like concat(#{parameters.code}, '%')
+      <if test="parameters.username != null and parameters.username != ''">
+        and t.username = #{parameters.username}
       </if>
-      <if test="parameters.name != null and parameters.name != ''">
-        and t.name like concat(#{parameters.name}, '%')
+      <if test="parameters.nickname != null and parameters.nickname != ''">
+        and t.nickname like concat(#{parameters.username}, '%')
       </if>
       <if test="parameters.departmentId != null and parameters.departmentId != ''">
         and ud.department_id = #{parameters.departmentId}

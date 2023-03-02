@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务实现类
@@ -29,10 +30,15 @@ public class UserServiceImpl extends BaseSystemService<User> implements UserServ
 
   @Override
   public <S extends User> void add(S entity) {
+    Assert.isTrue(nonUsernameDuplicate(entity), "用户账号已存在");
     if (StringUtils.hasLength(entity.getPassword())) {
       entity.setPassword(passwordEncoder.encode(entity.getPassword()));
     }
     super.add(entity);
+  }
+
+  protected <S extends User> boolean nonUsernameDuplicate(S entity) {
+    return repository.findAll(Map.of("username", entity.getUsername())).isEmpty();
   }
 
   @Override
