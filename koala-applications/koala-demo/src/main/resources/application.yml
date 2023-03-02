@@ -59,11 +59,11 @@ logging:
   file:
     name: logs/koala-demo.log
 
+springdoc:
+  swagger-ui:
+    doc-expansion: none
 
 koala:
   log:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"
-springdoc:
-  swagger-ui:
-    doc-expansion: none
