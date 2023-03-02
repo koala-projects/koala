@@ -9,6 +9,8 @@ import cn.koala.security.UserDetailsImplMixin;
 import cn.koala.security.UserDetailsServiceImpl;
 import cn.koala.security.UserinfoApi;
 import cn.koala.security.UserinfoApiImpl;
+import cn.koala.security.UserinfoService;
+import cn.koala.security.UserinfoServiceImpl;
 import cn.koala.security.repositories.UserDetailsRepository;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -110,8 +112,14 @@ public class SecurityBeanAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public UserinfoApi userinfoApi() {
-    return new UserinfoApiImpl();
+  public UserinfoService userinfoService(PasswordEncoder passwordEncoder, UserDetailsRepository userDetailsRepository) {
+    return new UserinfoServiceImpl(passwordEncoder, userDetailsRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public UserinfoApi userinfoApi(UserinfoService userinfoService) {
+    return new UserinfoApiImpl(userinfoService);
   }
 
   @Bean

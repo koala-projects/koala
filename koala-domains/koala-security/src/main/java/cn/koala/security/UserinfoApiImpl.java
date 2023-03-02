@@ -1,28 +1,28 @@
 package cn.koala.security;
 
 import cn.koala.web.DataResponse;
+import cn.koala.web.Response;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 /**
  * @author Houtaroy
  */
 @RestController
+@RequiredArgsConstructor
 public class UserinfoApiImpl implements UserinfoApi {
+
+  protected final UserinfoService service;
 
   @Override
   public DataResponse<UserDetails> userinfo() {
-    return DataResponse.ok(Optional.ofNullable(SecurityHelper.getCurrentUserDetails())
-      .map(this::cleanPassword)
-      .orElse(null));
+    return DataResponse.ok(service.getUserinfo());
   }
 
-  protected UserDetails cleanPassword(UserDetails userDetails) {
-    if (userDetails instanceof UserDetailsImpl impl) {
-      impl.setPassword(null);
-    }
-    return userDetails;
+  @Override
+  public Response update(ChangePasswordRequest request) {
+    service.changePassword(request.getPassword(), request.getNewPassword());
+    return Response.SUCCESS;
   }
 }

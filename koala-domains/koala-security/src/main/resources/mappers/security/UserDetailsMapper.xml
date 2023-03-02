@@ -28,4 +28,10 @@
     where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
       and t.username = #{username}
   </select>
+
+  <update id="changePassword">
+    update system_user
+    set password = #{password}
+    where username = #{username}
+  </update>
 </mapper>
