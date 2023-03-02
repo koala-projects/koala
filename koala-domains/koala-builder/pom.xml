@@ -11,4 +11,16 @@
     <version>${revision}</version>
     <relativePath>../../koala-parent</relativePath>
   </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.jfinal</groupId>
+      <artifactId>enjoy</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-toolkit</artifactId>
+    </dependency>
+  </dependencies>
 </project>
