@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.server.authorization.settings.Authori
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
 import java.util.List;
 
@@ -32,7 +33,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityAutoConfiguration {
   protected final SecurityProperties properties;
-  protected final List<SecurityFilterChainConfigurer> configurers;
 
   @Bean
   @Order(1)
@@ -56,19 +56,30 @@ public class SecurityAutoConfiguration {
 
   @Bean
   @Order(2)
-  public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
+  public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, List<SecurityFilterChainConfigurer> configurers)
     throws Exception {
+    addDefaultConfigurers(configurers);
     http.csrf().disable();
-    configurers.add(new PermitAllConfigurer(List.of("/swagger*/**", "/v3/api-docs/**")));
-    configurers.add(new PermitAllConfigurer(List.of("/login/**")));
-    configurers.add(new PermitAllConfigurer(properties.getPermitAllPatterns()));
     for (SecurityFilterChainConfigurer configurer : configurers) {
       configurer.configure(http);
     }
     http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated());
     http.formLogin().loginPage("/login").permitAll();
+    logoutSuccessHandlerCustomizer(http);
     http.oauth2ResourceServer().opaqueToken();
     return http.build();
+  }
+
+  protected void addDefaultConfigurers(List<SecurityFilterChainConfigurer> configurers) {
+    configurers.add(new PermitAllConfigurer(List.of("/swagger*/**", "/v3/api-docs/**")));
+    configurers.add(new PermitAllConfigurer(List.of("/login/**")));
+    configurers.add(new PermitAllConfigurer(properties.getPermitAllPatterns()));
+  }
+
+  protected void logoutSuccessHandlerCustomizer(HttpSecurity http) throws Exception {
+    SimpleUrlLogoutSuccessHandler logoutSuccessHandler = new SimpleUrlLogoutSuccessHandler();
+    logoutSuccessHandler.setTargetUrlParameter("redirect_uri");
+    http.logout().logoutSuccessHandler(logoutSuccessHandler);
   }
 
   @Bean
