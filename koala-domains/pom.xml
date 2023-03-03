@@ -15,7 +15,7 @@
   </parent>
 
   <modules>
-    <module>koala-builder</module>
+    <module>koala-code-generator</module>
     <module>koala-log</module>
     <module>koala-security</module>
     <module>koala-system</module>

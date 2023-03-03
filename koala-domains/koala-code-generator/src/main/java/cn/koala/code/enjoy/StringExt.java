@@ -1,4 +1,4 @@
-package cn.koala.builder.enjoy;
+package cn.koala.code.enjoy;
 
 import cn.koala.toolkit.word.WordHelper;
 import com.google.common.base.CaseFormat;

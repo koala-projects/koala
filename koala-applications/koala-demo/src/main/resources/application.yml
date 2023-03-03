@@ -64,6 +64,9 @@ springdoc:
     doc-expansion: none
 
 koala:
+  security:
+    permit-all-patterns:
+      - /api/code-generator/**
   log:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"

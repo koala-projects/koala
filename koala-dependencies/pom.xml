@@ -113,6 +113,11 @@
       <!--考拉-->
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-code-generator</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-log</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -144,6 +149,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-web</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-code-generator-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
