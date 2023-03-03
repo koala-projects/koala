@@ -1,5 +1,7 @@
 package cn.koala.toolkit.word;
 
+import cn.koala.toolkit.converter.Converter;
+
 import java.util.regex.Pattern;
 
 /**
@@ -9,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author Houtaroy
  */
-public abstract class BaseRegularConverter implements WordConverter {
+public abstract class BaseRegularConverter implements Converter<String, String> {
   protected final Pattern pattern;
 
   public BaseRegularConverter(String pattern) {

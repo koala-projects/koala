@@ -1,5 +1,7 @@
 package cn.koala.toolkit.word;
 
+import cn.koala.toolkit.converter.Converter;
+import cn.koala.toolkit.converter.StaticConverter;
 import com.google.common.collect.Maps;
 
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 public abstract class WordHelper {
-  private static final List<WordConverter> PLURAL_CONVERTERS;
+  private static final List<Converter<String, String>> PLURAL_CONVERTERS;
 
   static {
     PLURAL_CONVERTERS = new ArrayList<>();
@@ -29,7 +31,7 @@ public abstract class WordHelper {
     words.put("sheep", "sheep");
     words.put("tooth", "teeth");
     words.put("woman", "women");
-    PLURAL_CONVERTERS.add(new StaticConverter(words));
+    PLURAL_CONVERTERS.add(new StaticConverter<>(words));
     PLURAL_CONVERTERS.add(new ReplaceConverter("(f|fe)$", "ves"));
     PLURAL_CONVERTERS.add(new ReplaceConverter("([^aeiou])y$", "$1ies"));
     PLURAL_CONVERTERS.add(new AppendConverter("([s|sh|ch|x])$", "es"));
@@ -37,7 +39,7 @@ public abstract class WordHelper {
   }
 
   public static String plural(String word) {
-    for (WordConverter pluralConverter : PLURAL_CONVERTERS) {
+    for (Converter<String, String> pluralConverter : PLURAL_CONVERTERS) {
       if (pluralConverter.isSupported(word)) {
         return pluralConverter.convert(word);
       }
