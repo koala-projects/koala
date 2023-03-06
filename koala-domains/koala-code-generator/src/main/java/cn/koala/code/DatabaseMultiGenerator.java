@@ -1,6 +1,6 @@
-package cn.koala.code.table;
+package cn.koala.code;
 
-import cn.koala.code.Generator;
+import cn.koala.code.database.Table;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
@@ -13,13 +13,13 @@ import java.util.Map;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class TableMultiGenerator implements Generator<TableContext, Map<String, String>> {
-  protected final List<TableGenerator> generators;
+public class DatabaseMultiGenerator implements Generator<Table, Map<String, String>> {
+  protected final List<DatabaseGenerator> generators;
 
   @Override
-  public Map<String, String> generate(TableContext source) {
+  public Map<String, String> generate(Table source) throws Exception {
     Map<String, String> result = new HashMap<>(generators.size());
-    for (TableGenerator generator : generators) {
+    for (DatabaseGenerator generator : generators) {
       result.put(generator.getTemplate(), generator.generate(source));
     }
     return result;

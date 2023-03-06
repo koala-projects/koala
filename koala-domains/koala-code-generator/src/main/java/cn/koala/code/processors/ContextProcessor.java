@@ -1,4 +1,4 @@
-package cn.koala.code;
+package cn.koala.code.processors;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 public interface ContextProcessor {
-  Map<String, Object> process(Object context);
+  Map<String, Object> process(Object context) throws Exception;
 
   default String getName() {
     return this.getClass().getName();

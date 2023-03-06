@@ -1,7 +1,7 @@
-package cn.koala.code.table;
+package cn.koala.code;
 
-import cn.koala.code.ContextProcessor;
-import cn.koala.code.Generator;
+import cn.koala.code.database.Table;
+import cn.koala.code.processors.ContextProcessor;
 import com.jfinal.template.Engine;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +13,13 @@ import lombok.RequiredArgsConstructor;
  */
 @Data
 @RequiredArgsConstructor
-public class TableGenerator implements Generator<TableContext, String> {
+public class DatabaseGenerator implements Generator<Table, String> {
   protected final Engine engine;
   protected final String template;
   protected final ContextProcessor processor;
 
   @Override
-  public String generate(TableContext source) {
+  public String generate(Table source) throws Exception {
     return engine.getTemplate(template).renderToString(processor.process(source));
   }
 }

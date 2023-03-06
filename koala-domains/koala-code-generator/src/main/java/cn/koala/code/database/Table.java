@@ -1,8 +1,10 @@
-package cn.koala.toolkit.jdbc;
+package cn.koala.code.database;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 /**
  * 数据库表类
@@ -11,8 +13,9 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class Table {
   private String tableName;
   private String remarks;
+  private List<Column> columns;
 }

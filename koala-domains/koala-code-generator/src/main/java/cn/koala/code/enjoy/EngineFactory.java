@@ -1,7 +1,7 @@
 package cn.koala.code.enjoy;
 
-import cn.koala.toolkit.jdbc.JavaTypeConverter;
-import cn.koala.toolkit.jdbc.JsonTypeConverter;
+import cn.koala.code.database.JavaTypeConverter;
+import cn.koala.code.database.JsonTypeConverter;
 import com.jfinal.template.Engine;
 
 /**

@@ -1,5 +1,7 @@
-package cn.koala.toolkit.jdbc;
+package cn.koala.code.database;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,11 +15,42 @@ import java.util.List;
  */
 public abstract class DatabaseHelper {
 
+  public static List<Table> getTables(DataSource dataSource, String catalog, String schema, String tableNamePattern) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      return getTables(connection.getMetaData(), catalog, schema, tableNamePattern);
+    }
+  }
+
   public static List<Table> getTables(DatabaseMetaData meta, String catalog, String schema, String tableNamePattern) throws SQLException {
     List<Table> result = new ArrayList<>();
     ResultSet rs = meta.getTables(catalog, schema, tableNamePattern, new String[]{"TABLE"});
     while (rs.next()) {
-      result.add(new Table(rs.getString("TABLE_NAME"), rs.getString("REMARKS")));
+      result.add(Table.builder()
+        .tableName(rs.getString("TABLE_NAME"))
+        .remarks(rs.getString("REMARKS"))
+        .build());
+    }
+    return result;
+  }
+
+  public static Table getTable(DataSource dataSource, String catalog, String schema, String tableName, boolean includedColumns) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      return getTable(connection.getMetaData(), catalog, schema, tableName, includedColumns);
+    }
+  }
+
+  public static Table getTable(DatabaseMetaData meta, String catalog, String schema, String tableName, boolean includedColumns) throws SQLException {
+    ResultSet rs = meta.getTables(catalog, schema, tableName, new String[]{"TABLE"});
+    if (!rs.next()) {
+      throw new SQLException("表[%s]不存在".formatted(tableName));
+    }
+    Table result = Table.builder()
+      .tableName(rs.getString("TABLE_NAME"))
+      .remarks(rs.getString("REMARKS"))
+      .build();
+    if (includedColumns) {
+      List<Column> columns = getColumns(meta, catalog, schema, tableName, null);
+      result.setColumns(columns);
     }
     return result;
   }

@@ -6,5 +6,5 @@ package cn.koala.code;
  * @author Houtaroy
  */
 public interface Generator<S, T> {
-  T generate(S source);
+  T generate(S source) throws Exception;
 }

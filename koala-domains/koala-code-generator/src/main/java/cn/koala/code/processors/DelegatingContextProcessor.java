@@ -1,4 +1,4 @@
-package cn.koala.code;
+package cn.koala.code.processors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class DelegatingContextProcessor implements ContextProcessor {
   protected final List<ContextProcessor> processors;
 
   @Override
-  public Map<String, Object> process(Object context) {
+  public Map<String, Object> process(Object context) throws Exception {
     Map<String, Object> result = new HashMap<>();
     for (ContextProcessor processor : processors) {
       doProcess(result, processor, context);
@@ -26,7 +26,7 @@ public class DelegatingContextProcessor implements ContextProcessor {
     return result;
   }
 
-  protected void doProcess(Map<String, Object> context, ContextProcessor processor, Object object) {
+  protected void doProcess(Map<String, Object> context, ContextProcessor processor, Object object) throws Exception {
     Map<String, Object> temp = processor.process(object);
     temp.forEach((key, value) -> {
       if (context.containsKey(key)) {

@@ -1,4 +1,4 @@
-package cn.koala.toolkit.jdbc;
+package cn.koala.code.database;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
