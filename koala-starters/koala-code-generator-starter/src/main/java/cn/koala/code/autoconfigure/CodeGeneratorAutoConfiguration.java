@@ -1,8 +1,10 @@
 package cn.koala.code.autoconfigure;
 
+import cn.koala.code.CodeGeneratorProperties;
 import cn.koala.code.apis.GeneratorApi;
 import cn.koala.code.apis.GeneratorApiImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +16,7 @@ import javax.sql.DataSource;
  * @author Houtaroy
  */
 @Configuration
+@EnableConfigurationProperties(CodeGeneratorProperties.class)
 public class CodeGeneratorAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
