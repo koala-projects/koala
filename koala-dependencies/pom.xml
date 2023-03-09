@@ -25,6 +25,7 @@
     <pagehelper.version>5.3.1</pagehelper.version>
     <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
     <!--其他依赖-->
+    <commons-io.version>2.11.0</commons-io.version>
     <enjoy.version>5.0.3</enjoy.version>
     <guava.version>31.1-jre</guava.version>
     <junit.version>5.8.2</junit.version>
@@ -86,6 +87,11 @@
       </dependency>
       <!--其他-->
       <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>druid-spring-boot-starter</artifactId>
         <version>${druid-spring-boot-starter.version}</version>
@@ -114,6 +120,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-code-generator</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-database</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -154,6 +165,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-code-generator-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-database-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

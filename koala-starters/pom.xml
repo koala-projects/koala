@@ -16,6 +16,7 @@
 
   <modules>
     <module>koala-code-generator-starter</module>
+    <module>koala-database-starter</module>
     <module>koala-log-starter</module>
     <module>koala-mybatis-starter</module>
     <module>koala-security-starter</module>

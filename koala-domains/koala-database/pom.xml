@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-web</artifactId>
-  <description>考拉Web基础设施</description>
+  <artifactId>koala-database</artifactId>
+  <description>考拉数据库模块</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -16,19 +16,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-toolkit</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-open-api</artifactId>
+      <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>
-
 </project>

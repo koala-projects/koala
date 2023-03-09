@@ -1,4 +1,4 @@
-package cn.koala.code.database;
+package cn.koala.database;
 
 import cn.koala.toolkit.converter.StaticConverter;
 
