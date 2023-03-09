@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 public interface ContextProcessor {
-  Map<String, Object> process(Object context) throws Exception;
+  Map<String, Object> process(Object context);
 
   default String getName() {
     return this.getClass().getName();

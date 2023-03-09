@@ -64,9 +64,11 @@ springdoc:
     doc-expansion: none
 
 koala:
+  code:
+    template-path: D:\Temp\koala\builder
   security:
     permit-all-patterns:
-      - /api/code-generator/**
+      - /api/code/**
   log:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"

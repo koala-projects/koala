@@ -1,9 +1,9 @@
 package cn.koala.code.processors;
 
-import cn.koala.code.database.Column;
-import cn.koala.code.database.JavaTypeConverter;
-import cn.koala.code.database.JsonTypeConverter;
-import cn.koala.code.database.Table;
+import cn.koala.database.Column;
+import cn.koala.database.JavaTypeConverter;
+import cn.koala.database.JsonTypeConverter;
+import cn.koala.database.Table;
 import cn.koala.toolkit.word.WordHelper;
 import com.google.common.base.CaseFormat;
 import org.springframework.util.Assert;

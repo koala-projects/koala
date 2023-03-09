@@ -18,7 +18,7 @@ public class DelegatingContextProcessor implements ContextProcessor {
   protected final List<ContextProcessor> processors;
 
   @Override
-  public Map<String, Object> process(Object context) throws Exception {
+  public Map<String, Object> process(Object context) {
     Map<String, Object> result = new HashMap<>();
     for (ContextProcessor processor : processors) {
       doProcess(result, processor, context);
@@ -26,7 +26,7 @@ public class DelegatingContextProcessor implements ContextProcessor {
     return result;
   }
 
-  protected void doProcess(Map<String, Object> context, ContextProcessor processor, Object object) throws Exception {
+  protected void doProcess(Map<String, Object> context, ContextProcessor processor, Object object) {
     Map<String, Object> temp = processor.process(object);
     temp.forEach((key, value) -> {
       if (context.containsKey(key)) {

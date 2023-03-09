@@ -25,7 +25,7 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-open-api</artifactId>
+      <artifactId>koala-database</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>

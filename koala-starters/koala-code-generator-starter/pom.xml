@@ -17,6 +17,10 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-database-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-code-generator</artifactId>
     </dependency>
   </dependencies>

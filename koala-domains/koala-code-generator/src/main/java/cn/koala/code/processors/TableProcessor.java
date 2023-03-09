@@ -1,6 +1,6 @@
 package cn.koala.code.processors;
 
-import cn.koala.code.database.Table;
+import cn.koala.database.Table;
 import org.springframework.lang.NonNull;
 
 import java.util.Map;
