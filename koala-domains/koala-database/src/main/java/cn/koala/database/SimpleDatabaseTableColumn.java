@@ -5,18 +5,17 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * 数据库列类
+ * 数据库表列简单实现类
  *
  * @author Houtaroy
  */
-@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Column {
-  private String columnName;
-  private Integer dataType;
-  private Integer columnSize;
+public class SimpleDatabaseTableColumn implements DatabaseTableColumn {
+  private String name;
+  private Integer type;
+  private Integer size;
   private Integer decimalDigits;
   private String remarks;
   private Boolean isNullable;

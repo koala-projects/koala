@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class DatabaseHelper {
 
   public static List<Table> getTables(DataSource dataSource, String catalog, String schema, String tableNamePattern) throws SQLException {

@@ -7,16 +7,15 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 /**
- * 数据库表类
+ * 数据库表简单实现类
  *
  * @author Houtaroy
  */
-@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Table {
-  private String tableName;
+public class SimpleDatabaseTable implements DatabaseTable {
+  private String name;
   private String remarks;
-  private List<Column> columns;
+  private List<SimpleDatabaseTableColumn> columns;
 }

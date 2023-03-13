@@ -68,6 +68,7 @@ koala:
     template-path: D:\Temp\koala\builder
   security:
     permit-all-patterns:
+      - /api/tables/**
       - /api/code/**
   log:
     ignored-patterns:
