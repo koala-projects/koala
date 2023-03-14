@@ -10,6 +10,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface TableService {
   List<Table> list(Map<String, Object> parameters);
 

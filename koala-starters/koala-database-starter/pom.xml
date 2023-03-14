@@ -17,6 +17,15 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-mybatis-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-web-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-database</artifactId>
     </dependency>
   </dependencies>

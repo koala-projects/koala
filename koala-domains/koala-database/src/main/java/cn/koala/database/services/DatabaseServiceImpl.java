@@ -1,5 +1,12 @@
-package cn.koala.database;
+package cn.koala.database.services;
 
+import cn.koala.database.ConnectionQuery;
+import cn.koala.database.Database;
+import cn.koala.database.DatabaseTable;
+import cn.koala.database.SimpleDatabaseTable;
+import cn.koala.database.SimpleDatabaseTableColumn;
+import cn.koala.database.repositories.DatabaseRepository;
+import cn.koala.mybatis.BaseService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -10,20 +17,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 基础数据库服务实现类
- * <p>
- * 提供了一些基础的数据库方法
+ * 数据库服务实现类
  *
  * @author Houtaroy
  */
 @Slf4j
-public abstract class BaseDatabaseService implements DatabaseService {
+public class DatabaseServiceImpl extends BaseService<Database, Long> implements DatabaseService {
+  public DatabaseServiceImpl(DatabaseRepository repository) {
+    super(repository, (entity) -> null);
+  }
 
   @Override
-  public List<SimpleDatabaseTable> getTables(Database database) {
+  public List<DatabaseTable> getTables(Database database) {
     return query(database, (connection) -> {
       ResultSet rs = connection.getMetaData().getTables(database.getCatalog(), database.getSchema(), null, new String[]{"TABLE"});
-      List<SimpleDatabaseTable> result = new ArrayList<>();
+      List<DatabaseTable> result = new ArrayList<>();
       while (rs.next()) {
         result.add(SimpleDatabaseTable.builder()
           .name(rs.getString("TABLE_NAME"))
@@ -39,7 +47,7 @@ public abstract class BaseDatabaseService implements DatabaseService {
     return query(database, (connection -> {
       ResultSet rs = connection.getMetaData().getTables(database.getCatalog(), database.getSchema(), table, new String[]{"TABLE"});
       if (!rs.next()) {
-        throw new SQLException("表[%s]不存在".formatted(table));
+        throw new IllegalStateException("表不存在");
       }
       return SimpleDatabaseTable.builder()
         .name(rs.getString("TABLE_NAME"))

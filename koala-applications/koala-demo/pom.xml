@@ -21,11 +21,11 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-code-generator-starter</artifactId>
+      <artifactId>koala-system-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-system-starter</artifactId>
+      <artifactId>koala-database-starter</artifactId>
     </dependency>
   </dependencies>
 

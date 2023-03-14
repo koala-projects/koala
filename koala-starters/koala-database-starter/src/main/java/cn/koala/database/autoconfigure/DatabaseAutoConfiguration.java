@@ -1,31 +1,32 @@
 package cn.koala.database.autoconfigure;
 
-import cn.koala.database.apis.TableApi;
-import cn.koala.database.apis.TableApiImpl;
-import cn.koala.database.services.DataSourceTableService;
-import cn.koala.database.services.TableService;
+import cn.koala.database.apis.DatabaseApi;
+import cn.koala.database.apis.DatabaseApiImpl;
+import cn.koala.database.repositories.DatabaseRepository;
+import cn.koala.database.services.DatabaseService;
+import cn.koala.database.services.DatabaseServiceImpl;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 /**
  * 数据库自动配置类
  *
  * @author Houtaroy
  */
+@MapperScan("cn.koala.database.repositories")
 @Configuration
 public class DatabaseAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
-  public TableService tableService(DataSource dataSource) {
-    return new DataSourceTableService(dataSource);
+  public DatabaseService databaseService(DatabaseRepository databaseRepository) {
+    return new DatabaseServiceImpl(databaseRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public TableApi tableApi(TableService tableService) {
-    return new TableApiImpl(tableService);
+  public DatabaseApi databaseApi(DatabaseService databaseService) {
+    return new DatabaseApiImpl(databaseService);
   }
 }
