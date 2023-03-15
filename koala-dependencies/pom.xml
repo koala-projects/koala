@@ -144,6 +144,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-template</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-mybatis</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -190,6 +195,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-system-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-template-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

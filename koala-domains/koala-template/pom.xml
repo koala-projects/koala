@@ -2,9 +2,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-demo</artifactId>
-  <description>考拉示例</description>
+  <artifactId>koala-template</artifactId>
+  <description>考拉模板模块</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -15,34 +16,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <version>8.0.32</version>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-mybatis</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-database-starter</artifactId>
+      <artifactId>koala-toolkit</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-system-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-template-starter</artifactId>
+      <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-
-  <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
-  </properties>
 </project>
