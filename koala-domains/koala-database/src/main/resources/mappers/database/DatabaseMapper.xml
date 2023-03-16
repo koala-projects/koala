@@ -10,7 +10,10 @@
            t.username,
            t.password,
            t.`catalog`,
-           t.`schema`
+           t.`schema`,
+           t.is_enable,
+           t.is_system,
+           t.is_delete
     from t_database t
   </sql>
 
@@ -20,8 +23,8 @@
   </insert>
 
   <update id="deleteById" parameterType="cn.koala.database.entities.DatabaseEntity">
-    delete
-    from t_database
+    update t_database
+    set is_delete = ${@cn.koala.mybatis.YesNo@YES.value}
     where id = #{id}
   </update>
 
@@ -35,7 +38,7 @@
       <if test="catalog != null">`catalog`=#{catalog},</if>
       <if test="schema != null">`schema`=#{schema},</if>
     </trim>
-    where id=#{id}
+    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
   </update>
 
   <select id="findById" resultType="cn.koala.database.entities.DatabaseEntity">
@@ -46,8 +49,9 @@
   <select id="findAll" resultType="cn.koala.database.entities.DatabaseEntity">
     <include refid="selectDatabase"/>
     <where>
+      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
       <if test="parameters.name != null and parameters.name != ''">
-        t.name like concat(#{parameters.name}, '%')
+        and t.name like concat(#{parameters.name}, '%')
       </if>
     </where>
   </select>
