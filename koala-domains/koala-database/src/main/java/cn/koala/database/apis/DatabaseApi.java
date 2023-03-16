@@ -124,7 +124,7 @@ public interface DatabaseApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据库id", schema = @Schema(type = "integer"))
   @GetMapping("{id}/tables")
-  DataResponse<List<DatabaseTable>> table(@PathVariable("id") Long id);
+  DataResponse<List<DatabaseTable>> tables(@PathVariable("id") Long id);
 
   /**
    * 根据表名查询数据库表
@@ -140,7 +140,7 @@ public interface DatabaseApi {
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据库id", schema = @Schema(type = "integer"))
   @Parameter(in = ParameterIn.PATH, name = "name", description = "表名", schema = @Schema(type = "string"))
   @GetMapping("{id}/tables/{name}")
-  DataResponse<DatabaseTable> table(@PathVariable("id") Long id, @PathVariable("name") String name);
+  DataResponse<DatabaseTable> tables(@PathVariable("id") Long id, @PathVariable("name") String name);
 
   class DatabasePageResult extends DataResponse<Page<DatabaseEntity>> {
 

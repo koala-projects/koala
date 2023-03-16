@@ -56,14 +56,14 @@ public class DatabaseApiImpl implements DatabaseApi {
   }
 
   @Override
-  public DataResponse<List<DatabaseTable>> table(Long id) {
+  public DataResponse<List<DatabaseTable>> tables(Long id) {
     Database database = service.load(id);
     Assert.notNull(database, "数据库不存在");
     return DataResponse.ok(service.getTables(database));
   }
 
   @Override
-  public DataResponse<DatabaseTable> table(Long id, String name) {
+  public DataResponse<DatabaseTable> tables(Long id, String name) {
     Assert.isTrue(StringUtils.hasLength(name), "表名不能为空");
     Database database = service.load(id);
     Assert.notNull(database, "数据库不存在");
