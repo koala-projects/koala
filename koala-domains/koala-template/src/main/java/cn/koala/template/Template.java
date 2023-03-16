@@ -13,5 +13,7 @@ public interface Template extends IdModel<Long>, StateModel {
 
   String getContent();
 
+  String getRemark();
+
   Long getGroupId();
 }

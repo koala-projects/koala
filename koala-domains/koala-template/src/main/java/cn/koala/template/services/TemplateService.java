@@ -5,7 +5,9 @@ import cn.koala.mybatis.PagingService;
 import cn.koala.template.Template;
 
 /**
+ * 模板服务接口
+ *
  * @author Houtaroy
  */
-public interface TemplateService extends CrudService<Long, Template>, PagingService<Long, Template> {
+public interface TemplateService extends CrudService<Template, Long>, PagingService<Template, Long> {
 }

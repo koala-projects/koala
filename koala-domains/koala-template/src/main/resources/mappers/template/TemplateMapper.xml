@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.template.repositories.TemplateRepository">
+
+  <sql id="selectTemplate">
+    select t.id,
+           t.name,
+           t.content,
+           t.remark,
+           t.group_id,
+           t.is_enable,
+           t.is_system,
+           t.is_delete
+    from t_template t
+  </sql>
+
+  <insert id="insert" parameterType="cn.koala.template.entities.TemplateEntity">
+    insert into t_template(id, name, content, remark, group_id)
+    values (#{id}, #{name}, #{content}, #{remark}, #{groupId})
+  </insert>
+
+  <update id="deleteById" parameterType="cn.koala.template.entities.TemplateEntity">
+    update t_template
+    set is_delete = ${@cn.koala.mybatis.YesNo@YES.value}
+    where id = #{id}
+  </update>
+
+  <update id="updateById" parameterType="cn.koala.template.entities.TemplateEntity">
+    update t_template
+    <trim prefix="set" suffixOverrides=",">
+      <if test="name != null">name=#{name},</if>
+      <if test="content != null">content=#{content},</if>
+      <if test="remark != null">remark=#{remark},</if>
+      <if test="groupId != null">group_id=#{groupId},</if>
+    </trim>
+    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
+  </update>
+
+  <select id="findById" resultType="cn.koala.template.entities.TemplateEntity">
+    <include refid="selectTemplate"/>
+    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and t.id = #{id}
+  </select>
+
+  <select id="findAll" resultType="cn.koala.template.entities.TemplateEntity">
+    <include refid="selectTemplate"/>
+    <where>
+      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
+      <if test="parameters.name != null and parameters.name != ''">
+        and t.name like concat(#{parameters.name}, '%')
+      </if>
+      <if test="parameters.groupId != null and parameters.groupId != ''">
+        and t.group_id = #{parameters.groupId}
+      </if>
+    </where>
+  </select>
+</mapper>
