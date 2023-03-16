@@ -38,7 +38,7 @@ public class CodeAutoConfiguration {
     return new DelegatingContextProcessor(List.of(
       new StaticProcessor("package", properties.getPackageName()),
       new TableProcessor(),
-      new DomainProcessor()
+      new DomainProcessor(properties.getTablePrefix())
     ));
   }
 
