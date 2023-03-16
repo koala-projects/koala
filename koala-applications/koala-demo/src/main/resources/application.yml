@@ -68,6 +68,7 @@ koala:
     permit-all-patterns:
       - /api/databases/**
       - /api/template*/**
+      - /api/code/**
   log:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"

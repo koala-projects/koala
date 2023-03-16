@@ -119,7 +119,7 @@
       <!--考拉-->
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-code-generator</artifactId>
+        <artifactId>koala-code</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -167,9 +167,10 @@
         <artifactId>koala-web</artifactId>
         <version>${revision}</version>
       </dependency>
+      <!--考拉启动模块-->
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-code-generator-starter</artifactId>
+        <artifactId>koala-code-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
