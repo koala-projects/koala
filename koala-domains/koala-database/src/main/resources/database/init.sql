@@ -14,6 +14,5 @@ CREATE TABLE t_database
   PRIMARY KEY (id)
 ) COMMENT = '数据库';
 
-insert into t_database(name, url, username, password, catalog, `schema`, is_system)
-values ('演示数据库', 'jdbc:mysql://bj-cdb-9amt73r4.sql.tencentcdb.com:59997/koala_demo', 'koala_demo', 'koala_demo',
-        'koala_demo', 'koala_demo', 1)
+insert into t_database(name, url, username, password, catalog, `schema`)
+values ('本地MySQL测试库', 'jdbc:mysql://localhost:3306/test', 'test', 'test', 'test', 'test')

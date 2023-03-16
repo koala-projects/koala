@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.4.0",
   "createdTime": "2023-1-29 08:59:43",
-  "updatedTime": "2023-3-16 10:00:55",
+  "updatedTime": "2023-3-16 10:11:58",
   "dbConns": [],
   "profile": {
     "default": {
@@ -4618,23 +4618,6 @@
           "extProps": {},
           "domain": "16120F75-6AA7-4483-868D-F07F511BB081",
           "id": "268E21A9-5EB3-4155-8F64-8519D7C1DAE2"
-        },
-        {
-          "defKey": "sort_index",
-          "defName": "排序索引",
-          "comment": "",
-          "type": "",
-          "len": "",
-          "scale": "",
-          "primaryKey": false,
-          "notNull": true,
-          "autoIncrement": false,
-          "defaultValue": "0",
-          "hideInGraph": false,
-          "refDict": "",
-          "extProps": {},
-          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
-          "id": "93F59F6A-57BD-4223-AA97-9C0B62113B54"
         },
         {
           "defKey": "is_enable",
