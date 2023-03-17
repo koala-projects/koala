@@ -10,7 +10,7 @@
   <version>${revision}</version>
 
   <properties>
-    <revision>2023.0.1-SNAPSHOT</revision>
+    <revision>2023.0.2-SNAPSHOT</revision>
     <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -24,7 +24,6 @@
     <module>koala-applications</module>
     <module>koala-dependencies</module>
     <module>koala-domains</module>
-    <module>koala-infrastructures</module>
     <module>koala-parent</module>
     <module>koala-starters</module>
   </modules>

@@ -31,6 +31,7 @@
     <guava.version>31.1-jre</guava.version>
     <junit.version>5.8.2</junit.version>
     <slf4j.version>2.0.6</slf4j.version>
+    <toolgood-words.version>3.1.0.0</toolgood-words.version>
     <druid-spring-boot-starter.version>1.2.15</druid-spring-boot-starter.version>
     <oauth2-oidc-sdk.version>9.19</oauth2-oidc-sdk.version>
     <!--maven-->
@@ -118,6 +119,11 @@
         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.github.toolgood</groupId>
+        <artifactId>toolgood-words</artifactId>
+        <version>${toolgood-words.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.nimbusds</groupId>
         <artifactId>oauth2-oidc-sdk</artifactId>
         <version>${oauth2-oidc-sdk.version}</version>
@@ -141,6 +147,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-security</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-sensitive-word</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -197,6 +208,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-security-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-sensitive-word-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
