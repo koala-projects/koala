@@ -18,9 +18,12 @@
     <module>koala-code</module>
     <module>koala-database</module>
     <module>koala-log</module>
+    <module>koala-mybatis</module>
+    <module>koala-open-api</module>
     <module>koala-security</module>
     <module>koala-system</module>
     <module>koala-template</module>
     <module>koala-toolkit</module>
+    <module>koala-web</module>
   </modules>
 </project>
