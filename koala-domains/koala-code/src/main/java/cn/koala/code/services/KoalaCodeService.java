@@ -5,6 +5,7 @@ import cn.koala.code.SimpleCode;
 import cn.koala.code.processors.ContextProcessor;
 import cn.koala.template.Template;
 import com.jfinal.template.Engine;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.lang.NonNull;
 
 import java.util.Map;
@@ -31,7 +32,7 @@ public class KoalaCodeService extends BaseTemplateCodeService {
   @Override
   protected Code generate(@NonNull Template template, Map<String, Object> context) {
     return new SimpleCode(
-      context.get("name") + template.getName(),
+      FilenameUtils.getPath(template.getName()) + context.get("name") + FilenameUtils.getName(template.getName()),
       engine.getTemplateByString(template.getContent()).renderToString(context)
     );
   }
