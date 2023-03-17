@@ -8,7 +8,11 @@
 
 接口文档地址: `http://${host}:${port}/swagger-ui.html`
 
-## 数据库信息查询
+### 初始化
+
+在启动前请使用[脚本](../../koala-domains/koala-database/src/main/resources/database/init.sql)初始化数据库, 当前仅支持 MySQL 8
+
+### 数据库信息查询
 
 默认实现了查询数据库表列表/查看数据库指定表接口
 

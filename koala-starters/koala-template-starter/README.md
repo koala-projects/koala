@@ -8,7 +8,11 @@
 
 接口文档地址: `http://${host}:${port}/swagger-ui.html`
 
-## 模板组与模板
+### 初始化
+
+在启动前请使用[脚本](../../koala-domains/koala-template/src/main/resources/database/init.sql)初始化数据库, 当前仅支持 MySQL 8
+
+### 模板组与模板
 
 因考虑到实际业务中的使用情况, 增加了模板组的概念
 

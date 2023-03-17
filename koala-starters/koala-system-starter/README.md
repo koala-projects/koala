@@ -8,6 +8,10 @@
 
 接口文档地址: `http://${host}:${port}/swagger-ui.html`
 
+### 初始化
+
+在启动前请使用[脚本](../../koala-domains/koala-system/src/main/resources/database/init.sql)初始化数据库, 当前仅支持 MySQL 8
+
 ### 自定义
 
 如现有系统管理功能不满足需求, 可以通过替换指定的服务或接口来实现定制
@@ -18,15 +22,15 @@
 
 ```java
 public class MyDepartmentService implements DepartmentService {
-    @Override
-    public void add(Department department) {
-        // 实现原接口中的新增方法
-    }
-    
-    // 新增自定义的批量创建方法
-    public void addInBatch(List<Department> departments) {
-        
-    }
+  @Override
+  public void add(Department department) {
+    // 实现原接口中的新增方法
+  }
+
+  // 新增自定义的批量创建方法
+  public void addInBatch(List<Department> departments) {
+
+  }
 }
 ```
 
@@ -34,14 +38,14 @@ public class MyDepartmentService implements DepartmentService {
 
 ```java
 public interface MyDepartmentApi extends DepartmentApi {
-    // 增加自定义的批量创建接口
-    @PreAuthorize("hasAuthority('system:department:create')")
-    @Operation(summary = "批量创建部门")
-    @ApiResponse(responseCode = "200", description = "成功",
+  // 增加自定义的批量创建接口
+  @PreAuthorize("hasAuthority('system:department:create')")
+  @Operation(summary = "批量创建部门")
+  @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentsResult.class))}
-    )
-    @PostMapping
-    DataResponse<List<Department>> addInBatch(@RequestBody List<DepartmentEntity> entities);
+  )
+  @PostMapping
+  DataResponse<List<Department>> addInBatch(@RequestBody List<DepartmentEntity> entities);
 }
 ```
 
@@ -49,27 +53,30 @@ public interface MyDepartmentApi extends DepartmentApi {
 
 ```java
 public class MyDepartmentApiImpl implements MyDepartmentApi {
-    // 使用第一步创建的自定义部门服务类
-    protected final MyDepartmentService service;
-    
-    @Override
-    public DataResponse<Department> add(DepartmentEntity entity) {
-    	// 实现原接口中的新增接口
-    }
-    
-    @Override
-    public DataResponse<List<Department>> addInBatch(List<DepartmentEntity> entities) {
-    	// 实现自定义的批量创建接口
-    }
+  // 使用第一步创建的自定义部门服务类
+  protected final MyDepartmentService service;
+
+  @Override
+  public DataResponse<Department> add(DepartmentEntity entity) {
+    // 实现原接口中的新增接口
+  }
+
+  @Override
+  public DataResponse<List<Department>> addInBatch(List<DepartmentEntity> entities) {
+    // 实现自定义的批量创建接口
+  }
 }
 ```
 
 4. 将自定义的类注入到Spring IOC容器中, 最简单的方法是使用注解, 需要注意Bean名称:
 
 ```java
+
 @Component("departmentService")
-public class MyDepartmentService implements DepartmentService {}
+public class MyDepartmentService implements DepartmentService {
+}
 
 @Component("departmentApi")
-public class MyDepartmentApiImpl implements MyDepartmentApi {}
+public class MyDepartmentApiImpl implements MyDepartmentApi {
+}
 ```
