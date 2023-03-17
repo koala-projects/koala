@@ -25,6 +25,7 @@
     <pagehelper.version>5.3.1</pagehelper.version>
     <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
     <!--其他依赖-->
+    <commons-compress.version>1.22</commons-compress.version>
     <commons-io.version>2.11.0</commons-io.version>
     <enjoy.version>5.0.3</enjoy.version>
     <guava.version>31.1-jre</guava.version>
@@ -86,6 +87,11 @@
         <version>${pagehelper-spring-boot-starter.version}</version>
       </dependency>
       <!--其他-->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>${commons-compress.version}</version>
+      </dependency>
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
