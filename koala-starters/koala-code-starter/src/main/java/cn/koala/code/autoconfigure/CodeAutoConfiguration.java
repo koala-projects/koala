@@ -8,7 +8,7 @@ import cn.koala.code.processors.DomainProcessor;
 import cn.koala.code.processors.StaticProcessor;
 import cn.koala.code.processors.TableProcessor;
 import cn.koala.code.services.CodeService;
-import cn.koala.code.services.EnjoyCodeService;
+import cn.koala.code.services.KoalaCodeService;
 import cn.koala.database.services.DatabaseService;
 import cn.koala.template.services.TemplateGroupService;
 import cn.koala.template.services.TemplateService;
@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @Configuration
 @EnableConfigurationProperties(CodeProperties.class)
+@Import(WebMvcConfig.class)
 @RequiredArgsConstructor
 public class CodeAutoConfiguration {
 
@@ -44,13 +46,14 @@ public class CodeAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public CodeService codeService(TemplateService templateService, ContextProcessor processor) {
-    return new EnjoyCodeService(templateService, processor);
+  public CodeService codeService(ContextProcessor processor) {
+    return new KoalaCodeService(processor, properties.getDownloadPath());
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public CodeApi codeApi(DatabaseService databaseService, TemplateGroupService templateGroupService, CodeService codeService) {
-    return new CodeApiImpl(databaseService, templateGroupService, codeService);
+  public CodeApi codeApi(DatabaseService databaseService, TemplateGroupService templateGroupService,
+                         TemplateService templateService, CodeService codeService) {
+    return new CodeApiImpl(databaseService, templateGroupService, templateService, codeService);
   }
 }

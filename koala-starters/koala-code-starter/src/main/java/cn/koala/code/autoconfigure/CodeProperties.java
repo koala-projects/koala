@@ -13,4 +13,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class CodeProperties {
   private String packageName = "cn.koala.code";
   private String tablePrefix = "t_";
+  private String downloadPath;
 }

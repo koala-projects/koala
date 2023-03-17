@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public interface CodeApi {
   /**
    * 代码预览
    *
-   * @param request 代码预览请求
+   * @param request 代码请求
    * @return 字典
    */
   @Operation(operationId = "codePreview", summary = "代码预览")
@@ -38,7 +37,24 @@ public interface CodeApi {
   @PostMapping("preview")
   DataResponse<Map<String, List<Code>>> preview(@RequestBody CodeRequest request);
 
-  class PreviewResult extends HashMap<String, List<Code>> {
+  /**
+   * 代码下载
+   *
+   * @param request 代码请求
+   * @return 字典
+   */
+  @Operation(operationId = "codeDownload", summary = "代码下载")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DownloadResult.class))}
+  )
+  @PostMapping("download")
+  DataResponse<String> download(@RequestBody CodeRequest request);
+
+  class PreviewResult extends DataResponse<Map<String, List<Code>>> {
+
+  }
+
+  class DownloadResult extends DataResponse<String> {
 
   }
 }
