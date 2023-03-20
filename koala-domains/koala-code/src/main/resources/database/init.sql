@@ -9,7 +9,6 @@ insert into t_template(name, remark, content, group_id, is_system)
 values ('Api.java', '接口代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
-
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -140,7 +139,6 @@ public interface #(name)Api {
 
 import #(package).entities.#(name)Entity;
 import #(package).services.#(name)Service;
-
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -190,29 +188,6 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 }
 ', 999, 1),
-       ('Service.java', '服务类代码模板', 'package #(package).services;
-
-import #(package).#(name)Entity;
-import #(package).#(name)Repository;
-
-import cn.koala.mybatis.BaseService;
-
-/**
- * #(description)服务类
- *
- * @author Koala Code Generator
- */
-public class #(name)Service extends BaseService<#(name)Entity, #(id.javaType)> {
-  /**
-   * 构造函数
-   *
-   * @param repository 仓库接口
-   */
-  public #(name)Service(#(name)Repository repository) {
-    super(repository, (entity) -> null);
-  }
-}
-', 999, 1),
        ('Entity.java', '数据实体类代码模板', 'package #(package).entities;
 
 #if(implements.contains(''AuditModel<Long>''))
@@ -224,6 +199,7 @@ import cn.koala.mybatis.SortModel;
 #end
 #if(implements.contains(''StateModel''))
 import cn.koala.mybatis.StateModel;
+import cn.koala.mybatis.YesNo;
 #end
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -246,10 +222,31 @@ public class #(name)Entity implements IdModel<#(id.javaType)>#for(implement: imp
 #end
 }
 ', 999, 1),
+       ('Service.java', '服务类代码模板', 'package #(package).services;
+
+import #(package).#(name)Entity;
+import #(package).#(name)Repository;
+import cn.koala.mybatis.BaseService;
+
+/**
+ * #(description)服务类
+ *
+ * @author Koala Code Generator
+ */
+public class #(name)Service extends BaseService<#(name)Entity, #(id.javaType)> {
+  /**
+   * 构造函数
+   *
+   * @param repository 仓库接口
+   */
+  public #(name)Service(#(name)Repository repository) {
+    super(repository, (entity) -> null);
+  }
+}
+', 999, 1),
        ('Repository.java', '仓库接口代码模板', 'package #(package).repositories;
 
 import #(package).#(name)Entity;
-
 import cn.koala.mybatis.CrudRepository;
 
 /**

@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +28,8 @@ import java.util.List;
 @Configuration
 @EnableConfigurationProperties(SensitiveWordProperties.class)
 public class SensitiveWordAutoConfiguration {
+
+  private static final List<String> TEST_WORDS = List.of("考拉");
 
   @Bean
   @ConditionalOnMissingBean
@@ -49,14 +50,14 @@ public class SensitiveWordAutoConfiguration {
   }
 
   private List<String> getWords(SensitiveWordProperties properties) {
-    List<String> result = new ArrayList<>();
     if (StringUtils.hasLength(properties.getWordFile())) {
       try {
-        result.addAll(FileUtils.readLines(new File(properties.getWordFile()), Charset.defaultCharset()));
+        return FileUtils.readLines(new File(properties.getWordFile()), Charset.defaultCharset());
       } catch (IOException e) {
         LOGGER.error("读取词库文件[path=%s]失败".formatted(properties.getWordFile()), e);
       }
     }
-    return result;
+    LOGGER.warn("未检测到词库文件, 启用测试词库");
+    return TEST_WORDS;
   }
 }
