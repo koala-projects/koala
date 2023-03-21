@@ -2,11 +2,9 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-mybatis-starter</artifactId>
-  <description>考拉MyBatis Starter</description>
-
+  <artifactId>koala-persist</artifactId>
+  <description>考拉持久化模块</description>
   <parent>
     <groupId>cn.koala</groupId>
     <artifactId>koala-parent</artifactId>
@@ -16,23 +14,18 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
     </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-persist-starter</artifactId>
+      <artifactId>koala-toolkit</artifactId>
     </dependency>
   </dependencies>
-
 </project>

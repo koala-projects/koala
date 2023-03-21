@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-mybatis-starter</artifactId>
-  <description>考拉MyBatis Starter</description>
+  <artifactId>koala-persist-starter</artifactId>
+  <description>考拉持久化 Starter</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -16,22 +16,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
     </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-persist-starter</artifactId>
+      <artifactId>koala-persist</artifactId>
     </dependency>
   </dependencies>
 

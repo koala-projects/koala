@@ -20,6 +20,7 @@
     <module>koala-log</module>
     <module>koala-mybatis</module>
     <module>koala-open-api</module>
+    <module>koala-persist</module>
     <module>koala-security</module>
     <module>koala-sensitive-word</module>
     <module>koala-system</module>

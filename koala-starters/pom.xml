@@ -19,6 +19,7 @@
     <module>koala-database-starter</module>
     <module>koala-log-starter</module>
     <module>koala-mybatis-starter</module>
+    <module>koala-persist-starter</module>
     <module>koala-security-starter</module>
     <module>koala-sensitive-word-starter</module>
     <module>koala-system-starter</module>
