@@ -1,4 +1,5 @@
-# 设置表
+#
+设置表
 DROP TABLE IF EXISTS system_setting;
 CREATE TABLE system_setting
 (
@@ -23,7 +24,8 @@ CREATE TABLE system_setting
 insert into system_setting(code, name, content, create_user_id, create_time)
 values ('system.default-password', '初始用户默认密码', '123456', 1, now());
 
-# 字典表
+#
+字典表
 DROP TABLE IF EXISTS system_dictionary;
 CREATE TABLE system_dictionary
 (
@@ -48,35 +50,37 @@ insert into system_dictionary(code, name, sort_index, is_system, create_user_id,
 values ('gender', '性别', 1, 1, 1, now()),
        ('camp', '阵营', 2, 0, 1, now());
 
-# 字典项表
-DROP TABLE IF EXISTS system_dictionary_item;
-CREATE TABLE system_dictionary_item
+#
+字典项表
+DROP TABLE IF EXISTS sys_dictionary_item;
+CREATE TABLE sys_dictionary_item
 (
-  `id`                  BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`                VARCHAR(100) NOT NULL COMMENT '字典项代码',
-  `name`                VARCHAR(100) NOT NULL COMMENT '字典项名称',
-  `remark`              VARCHAR(500) COMMENT '字典项备注',
-  `dictionary_id`       BIGINT       NOT NULL COMMENT '字典id',
-  `sort_index`          INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
-  `is_enable`           INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_system`           INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_delete`           INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `create_user_id`      BIGINT       NOT NULL COMMENT '创建人ID',
-  `create_time`         DATETIME     NOT NULL COMMENT '创建时间',
-  `last_update_user_id` BIGINT COMMENT '最后更新人ID',
-  `last_update_time`    DATETIME COMMENT '最后更新时间',
-  `delete_user_id`      BIGINT COMMENT '删除人ID',
-  `delete_time`         DATETIME COMMENT '删除时间',
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(100) NOT NULL COMMENT '字典项代码',
+  `name`               VARCHAR(100) NOT NULL COMMENT '字典项名称',
+  `remark`             VARCHAR(500) COMMENT '字典项备注',
+  `dictionary_id`      BIGINT       NOT NULL COMMENT '字典id',
+  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '系统字典项表';
 
-insert into system_dictionary_item(code, name, dictionary_id, sort_index, is_system, create_user_id, create_time)
+insert into sys_dictionary_item(code, name, dictionary_id, sort_index, is_system, created_by, created_time)
 values ('man', '男', 1, 101, 1, 1, now()),
        ('woman', '女', 1, 102, 1, 1, now()),
        ('tribe', '部落', 2, 201, 0, 1, now()),
        ('alliance', '联盟', 2, 202, 0, 1, now());
 
-# 部门表
+#
+部门表
 DROP TABLE IF EXISTS system_department;
 CREATE TABLE system_department
 (
@@ -102,7 +106,8 @@ values ('考拉开源', null, 1, 1, 1, now()),
        ('研发部', 1, 101, 1, 1, now()),
        ('回家部', 1, 102, 0, 1, now());
 
-# 用户部门关系表
+#
+用户部门关系表
 DROP TABLE IF EXISTS system_user_department;
 CREATE TABLE system_user_department
 (
@@ -112,7 +117,8 @@ CREATE TABLE system_user_department
 
 insert into system_user_department value (1, 1);
 
-# 权限表
+#
+权限表
 DROP TABLE IF EXISTS system_permission;
 CREATE TABLE system_permission
 (
@@ -175,7 +181,8 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
        ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now());
 
-# 角色权限关系表
+#
+角色权限关系表
 DROP TABLE IF EXISTS system_role_permission;
 CREATE TABLE system_role_permission
 (
@@ -189,7 +196,8 @@ insert into system_role_permission
 select 1, id, 0
 from system_permission;
 
-# 角色表
+#
+角色表
 DROP TABLE IF EXISTS system_role;
 CREATE TABLE system_role
 (
@@ -214,7 +222,8 @@ insert into system_role(code, name, sort_index, is_system, create_user_id, creat
 values ('admin', '系统管理员', 1, 1, 1, now()),
        ('visitor', '访问者', 2, 0, 1, now());
 
-# 用户角色关系表
+#
+用户角色关系表
 DROP TABLE IF EXISTS system_user_role;
 CREATE TABLE system_user_role
 (
@@ -225,7 +234,8 @@ CREATE TABLE system_user_role
 insert into system_user_role
 values (1, 1);
 
-# 用户表
+#
+用户表
 DROP TABLE IF EXISTS system_user;
 CREATE TABLE system_user
 (
