@@ -359,15 +359,6 @@
       "id": "73FD2BAD-2358-4336-B96D-45DC897BD792"
     },
     {
-      "defKey": "DescText",
-      "defName": "描述文本",
-      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": "900",
-      "scale": "",
-      "uiHint": "",
-      "id": "3E948CEC-3070-472C-AF92-F3CA11EC9D15"
-    },
-    {
       "defKey": "remark",
       "defName": "备注",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
@@ -375,6 +366,24 @@
       "scale": "",
       "uiHint": "",
       "id": "79F98B7E-549E-4EDB-959B-B2B87E962332"
+    },
+    {
+      "defKey": "LongText",
+      "defName": "长文本",
+      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+      "len": 2000,
+      "scale": "",
+      "uiHint": "",
+      "id": "C4726CFF-54BE-4ADF-B475-065284054815"
+    },
+    {
+      "defKey": "Text",
+      "defName": "大文本",
+      "applyFor": "B17BDED3-085F-40E1-9019-3B79CF2BF075",
+      "len": "",
+      "scale": "",
+      "uiHint": "",
+      "id": "CD2D6622-959E-4FF8-A182-0EEA5AB808A8"
     }
   ]
 }

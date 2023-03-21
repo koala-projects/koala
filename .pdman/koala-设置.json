@@ -38,7 +38,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "is_enable",
+          "defKey": "is_enabled",
           "defName": "是否启用",
           "comment": "",
           "type": "",
@@ -56,7 +56,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "is_system",
+          "defKey": "is_systemic",
           "defName": "是否系统",
           "comment": "",
           "type": "",
@@ -74,7 +74,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "is_delete",
+          "defKey": "is_deleted",
           "defName": "是否删除",
           "comment": "",
           "domain": "Int",
@@ -91,7 +91,7 @@
           "id": "39A46A5D-DD93-4A98-8F1B-4669C3F6F1E6"
         },
         {
-          "defKey": "create_user_id",
+          "defKey": "created_by",
           "defName": "创建人ID",
           "comment": "",
           "type": "",
@@ -109,7 +109,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "create_time",
+          "defKey": "created_time",
           "defName": "创建时间",
           "comment": "",
           "type": "",
@@ -127,7 +127,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "last_update_user_id",
+          "defKey": "last_modified_by",
           "defName": "最后更新人ID",
           "comment": "",
           "type": "",
@@ -145,7 +145,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "last_update_time",
+          "defKey": "last_modified_time",
           "defName": "最后更新时间",
           "comment": "",
           "type": "",
@@ -163,7 +163,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "delete_user_id",
+          "defKey": "deleted_by",
           "defName": "删除人ID",
           "comment": "",
           "type": "",
@@ -181,7 +181,7 @@
           "uiHint": ""
         },
         {
-          "defKey": "delete_time",
+          "defKey": "deleted_time",
           "defName": "删除时间",
           "comment": "",
           "type": "",
@@ -271,7 +271,8 @@
         "defName": "富文本输入",
         "id": "C134EB1F-4CFF-49E0-882F-2C6FB275CB20"
       }
-    ]
+    ],
+    "modelType": "modalAll"
   },
   "dictSQLTemplate": {
     "type": "dbDDL",

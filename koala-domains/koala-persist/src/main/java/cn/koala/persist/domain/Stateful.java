@@ -7,44 +7,44 @@ package cn.koala.persist.domain;
  */
 public interface Stateful {
   /**
-   * 获取是否启用
+   * 获取是否已启用
    *
-   * @return 是否启用
+   * @return 是否已启用
    */
-  YesNo getIsEnable();
+  YesNo getIsEnabled();
 
   /**
-   * 设置是否启动
+   * 设置是否已启用
    *
-   * @param isEnable 是否启用
+   * @param isEnabled 是否启用
    */
-  void setIsEnable(YesNo isEnable);
+  void setIsEnabled(YesNo isEnabled);
 
   /**
-   * 获取是否系统
+   * 获取是否系统的
    *
-   * @return 是否系统
+   * @return 是否系统的
    */
-  YesNo getIsSystem();
+  YesNo getIsSystemic();
 
   /**
-   * 设置是否启动
+   * 设置是否系统的
    *
-   * @param isSystem 是否系统
+   * @param isSystemic 是否系统的
    */
-  void setIsSystem(YesNo isSystem);
+  void setIsSystemic(YesNo isSystemic);
 
   /**
-   * 获取是否删除
+   * 获取是否已删除的
    *
-   * @return 是否删除
+   * @return 否已删除的
    */
-  YesNo getIsDelete();
+  YesNo getIsDeleted();
 
   /**
-   * 设置是否删除
+   * 设置否已删除的
    *
-   * @param isDelete 是否删除
-   */
-  void setIsDelete(YesNo isDelete);
+   * @param isDeleted 否已删除的
+     */
+    void setIsDeleted(YesNo isDeleted);
 }

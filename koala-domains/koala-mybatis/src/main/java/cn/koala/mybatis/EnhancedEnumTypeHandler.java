@@ -1,6 +1,7 @@
 package cn.koala.mybatis;
 
 
+import cn.koala.persist.domain.EnhancedEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;

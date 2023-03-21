@@ -9,61 +9,62 @@
            t.name,
            t.remark,
            t.dictionary_id,
-           t.is_enable,
-           t.is_system,
-           t.is_delete,
-           t.create_user_id,
-           t.create_time,
-           t.last_update_user_id,
-           t.last_update_time,
-           t.delete_user_id,
-           t.delete_time
-    from system_dictionary_item t
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted,
+           t.created_by,
+           t.created_time,
+           t.last_modified_by,
+           t.last_modified_time,
+           t.deleted_by,
+           t.deleted_time
+    from sys_dictionary_item t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.system.entities.DictionaryItemEntity">
-    insert into system_dictionary_item(id, code, name, remark, dictionary_id, create_user_id, create_time)
-    values (#{id}, #{code}, #{name}, #{remark}, #{dictionaryId}, #{createUserId}, #{createTime})
+  <select id="find" parameterType="map" resultType="cn.koala.system.entities.DictionaryItemEntity">
+    <include refid="selectDictionaryItem"/>
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="code != null and code != ''">
+        and t.code like concat(#{code}, '%')
+      </if>
+      <if test="name != null and name != ''">
+        and t.name like concat(#{name}, '%')
+      </if>
+      <if test="dictionaryId != null and dictionaryId != ''">
+        and t.dictionary_id = #{dictionaryId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.system.entities.DictionaryItemEntity">
+    <include refid="selectDictionaryItem"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.system.entities.DictionaryItemEntity">
+    insert into sys_dictionary_item(id, code, name, remark, dictionary_id, created_by, created_time)
+    values (#{id}, #{code}, #{name}, #{remark}, #{dictionaryId}, #{createdBy}, #{createdTime})
   </insert>
 
-  <update id="deleteById" parameterType="cn.koala.system.entities.DictionaryItemEntity">
-    update system_dictionary_item
-    set is_delete      = ${@cn.koala.mybatis.YesNo@YES.value},
-        delete_user_id = #{deleteUserId},
-        delete_time    = #{deleteTime}
-    where id = #{id}
-  </update>
 
-  <update id="updateById" parameterType="cn.koala.system.entities.DictionaryItemEntity">
-    update system_dictionary_item
+  <update id="update" parameterType="cn.koala.system.entities.DictionaryItemEntity">
+    update sys_dictionary_item
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
       <if test="remark != null">remark=#{remark},</if>
-      last_update_user_id = #{lastUpdateUserId},
-      last_update_time = #{lastUpdateTime},
+      last_modified_by = #{lastModifiedBy},
+      last_modified_time = #{lastModifiedTime},
     </trim>
-    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <select id="findById" resultType="cn.koala.system.entities.DictionaryItemEntity">
-    <include refid="selectDictionaryItem"/>
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and t.id = #{id}
-  </select>
-
-  <select id="findAll" resultType="cn.koala.system.entities.DictionaryItemEntity">
-    <include refid="selectDictionaryItem"/>
-    <where>
-      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-      <if test="parameters.code != null and parameters.code != ''">
-        and t.code like concat(#{parameters.code}, '%')
-      </if>
-      <if test="parameters.name != null and parameters.name != ''">
-        and t.name like concat(#{parameters.name}, '%')
-      </if>
-      <if test="parameters.dictionaryId != null and parameters.dictionaryId != ''">
-        and t.dictionary_id = #{parameters.dictionaryId}
-      </if>
-    </where>
-  </select>
+  <update id="delete" parameterType="cn.koala.system.entities.DictionaryItemEntity">
+    update sys_dictionary_item
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+    where id = #{id}
+  </update>
 </mapper>

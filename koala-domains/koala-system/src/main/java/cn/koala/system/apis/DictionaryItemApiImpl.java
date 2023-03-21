@@ -38,7 +38,7 @@ public class DictionaryItemApiImpl implements DictionaryItemApi {
   @Override
   @Log(module = "字典项管理", content = "创建字典项[code=${#entity.code}]")
   public DataResponse<DictionaryItem> add(DictionaryItemEntity entity) {
-    service.save(entity);
+    service.add(entity);
     return DataResponse.ok(entity);
   }
 
@@ -46,7 +46,7 @@ public class DictionaryItemApiImpl implements DictionaryItemApi {
   @Log(module = "字典项管理", content = "更新字典项[id=${#id}]")
   public Response update(Long id, DictionaryItemEntity entity) {
     entity.setIdIfAbsent(id);
-    service.save(entity);
+    service.update(entity);
     return Response.SUCCESS;
   }
 

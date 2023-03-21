@@ -1,5 +1,6 @@
 package cn.koala.system.entities;
 
+import cn.koala.mybatis.BaseUniversalEntity;
 import cn.koala.system.DictionaryItem;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "字典项数据实体")
-public class DictionaryItemEntity extends BaseSystemEntity implements DictionaryItem {
+public class DictionaryItemEntity extends BaseUniversalEntity implements DictionaryItem {
   @Schema(description = "字典项代码")
   protected String code;
   @Schema(description = "字典项名称")

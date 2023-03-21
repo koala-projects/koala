@@ -16,9 +16,9 @@ public class StatefulEntityListener extends BaseEntityListener {
   @Override
   public void beforeAdd(Object entity) {
     if (entity instanceof Stateful state) {
-      state.setIsEnable(YesNo.YES);
-      state.setIsSystem(YesNo.NO);
-      state.setIsDelete(YesNo.NO);
+      state.setIsEnabled(YesNo.YES);
+      state.setIsSystemic(YesNo.NO);
+      state.setIsDeleted(YesNo.NO);
     }
   }
 
@@ -30,8 +30,8 @@ public class StatefulEntityListener extends BaseEntityListener {
   @Override
   public void beforeUpdate(Object entity) {
     if (entity instanceof Stateful state) {
-      state.setIsSystem(YesNo.NO);
-      state.setIsDelete(YesNo.NO);
+      state.setIsSystemic(YesNo.NO);
+      state.setIsDeleted(YesNo.NO);
     }
   }
 
@@ -43,7 +43,7 @@ public class StatefulEntityListener extends BaseEntityListener {
   @Override
   public void beforeDelete(Object entity) {
     if (entity instanceof Stateful state) {
-      state.setIsDelete(YesNo.YES);
+      state.setIsDeleted(YesNo.YES);
     }
   }
 

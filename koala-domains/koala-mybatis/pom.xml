@@ -26,6 +26,10 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-open-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-persist</artifactId>
     </dependency>
   </dependencies>
