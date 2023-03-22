@@ -15,43 +15,43 @@
            t.error,
            t.cost,
            t.log_time
-    from system_log t
+    from sys_log t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.log.LogEntity">
-    insert into system_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
-    values (#{module}, #{content}, #{userId}, #{userIp}, #{isSucceeded}, #{request}, #{response}, #{error}, #{cost},
-            #{logTime})
-  </insert>
-
-  <update id="deleteById" parameterType="cn.koala.log.LogEntity">
-
-  </update>
-
-  <update id="updateById" parameterType="cn.koala.log.LogEntity">
-
-  </update>
+  <select id="find" resultType="cn.koala.log.LogEntity">
+    <include refid="selectLog"/>
+    <where>
+      <if test="module != null and module != ''">
+        t.module like concat(#{module}, '%')
+      </if>
+      <if test="isSucceeded != null and isSucceeded != ''">
+        and t.is_succeeded = #{isSucceeded}
+      </if>
+      <if test="logTimeStart != null and logTimeStart != ''">
+        and t.log_time &gt; #{logTimeStart}
+      </if>
+      <if test="logTimeEnd != null and logTimeEnd != ''">
+        and t.log_time &lt; #{logTimeEnd}
+      </if>
+    </where>
+  </select>
 
   <select id="findById" resultType="cn.koala.log.LogEntity">
     <include refid="selectLog"/>
     where t.id = #{id}
   </select>
 
-  <select id="findAll" resultType="cn.koala.log.LogEntity">
-    <include refid="selectLog"/>
-    <where>
-      <if test="parameters.module != null and parameters.module != ''">
-        t.module like concat(#{parameters.module}, '%')
-      </if>
-      <if test="parameters.isSucceeded != null and parameters.isSucceeded != ''">
-        and t.is_succeeded = #{parameters.isSucceeded}
-      </if>
-      <if test="parameters.logTimeStart != null and parameters.logTimeStart != ''">
-        and t.log_time &gt; #{parameters.logTimeStart}
-      </if>
-      <if test="parameters.logTimeEnd != null and parameters.logTimeEnd != ''">
-        and t.log_time &lt; #{parameters.logTimeEnd}
-      </if>
-    </where>
-  </select>
+  <insert id="add" parameterType="cn.koala.log.LogEntity">
+    insert into sys_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
+    values (#{module}, #{content}, #{userId}, #{userIp}, #{isSucceeded}, #{request}, #{response}, #{error}, #{cost},
+            #{logTime})
+  </insert>
+
+  <update id="update" parameterType="cn.koala.log.LogEntity">
+
+  </update>
+
+  <update id="delete" parameterType="cn.koala.log.LogEntity">
+
+  </update>
 </mapper>

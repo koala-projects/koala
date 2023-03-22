@@ -1,6 +1,6 @@
 package cn.koala.log;
 
-import cn.koala.mybatis.YesNo;
+import cn.koala.persist.domain.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

@@ -1,7 +1,7 @@
 package cn.koala.log;
 
-import cn.koala.mybatis.IdModel;
-import cn.koala.mybatis.YesNo;
+import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.domain.YesNo;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author Houtaroy
  */
-public interface Log extends IdModel<Long> {
+public interface Log extends Persistable<Long> {
   String getModule();
 
   String getContent();

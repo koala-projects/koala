@@ -7,8 +7,10 @@ import cn.koala.log.apis.LogApiImpl;
 import cn.koala.log.repositories.LogRepository;
 import cn.koala.log.services.LogService;
 import cn.koala.log.services.LogServiceImpl;
+import cn.koala.persist.domain.AuditorAware;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -40,7 +42,8 @@ public class LogAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   @ConditionalOnProperty(prefix = "koala.log", name = "enabled", matchIfMissing = true)
-  public LogAspect logAspect(LogService logService, ObjectMapper objectMapper, LogProperties properties) {
-    return new LogAspect(logService, objectMapper, properties);
+  public LogAspect logAspect(LogProperties properties, LogService logService,
+                             ObjectProvider<AuditorAware<?>> auditorAware, ObjectMapper objectMapper) {
+    return new LogAspect(properties, logService, auditorAware, objectMapper);
   }
 }

@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS system_log;
-CREATE TABLE system_log
+DROP TABLE IF EXISTS sys_log;
+CREATE TABLE sys_log
 (
   `id`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `module`       VARCHAR(100) NOT NULL COMMENT '日志模块',
