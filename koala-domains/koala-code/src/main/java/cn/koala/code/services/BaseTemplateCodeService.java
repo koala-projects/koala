@@ -58,12 +58,15 @@ public abstract class BaseTemplateCodeService implements CodeService {
     }
   }
 
-  protected File preview2File(Map<String, List<Code>> codes) throws IOException {
+  protected File preview2File(Map<String, List<Code>> preview) throws IOException {
     File root = new File(downloadPath + UUID.randomUUID());
-    for (String table : codes.keySet()) {
-      String path = root.getPath() + File.separator + table + File.separator;
-      for (Code code : codes.get(table)) {
-        FileUtils.write(new File(path + code.getName()), code.getContent(), Charset.defaultCharset());
+    for (List<Code> codes : preview.values()) {
+      for (Code code : codes) {
+        FileUtils.write(
+          new File(root.getPath() + File.separator + code.getName()),
+          code.getContent(),
+          Charset.defaultCharset()
+        );
       }
     }
     return root;
