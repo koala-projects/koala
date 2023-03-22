@@ -1,14 +1,15 @@
 package cn.koala.persist.autoconfigure;
 
+import cn.koala.persist.domain.AuditorAware;
 import cn.koala.persist.listener.AuditingEntityListener;
 import cn.koala.persist.listener.EntityListener;
 import cn.koala.persist.listener.StatefulEntityListener;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 持久化自动配置
@@ -25,8 +26,8 @@ public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public AuditingEntityListener auditingEntityListener() {
-    return new AuditingEntityListener(Optional::empty);
+  public AuditingEntityListener auditingEntityListener(ObjectProvider<AuditorAware<?>> auditorAware) {
+    return new AuditingEntityListener(auditorAware);
   }
 
   @Bean

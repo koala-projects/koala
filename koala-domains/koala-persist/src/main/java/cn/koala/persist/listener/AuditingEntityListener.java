@@ -4,6 +4,7 @@ import cn.koala.persist.domain.Auditable;
 import cn.koala.persist.domain.AuditorAware;
 import cn.koala.toolkit.DateHelper;
 import lombok.NonNull;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.util.Assert;
 
 /**
@@ -12,9 +13,9 @@ import org.springframework.util.Assert;
  * @author Houtaroy
  */
 public class AuditingEntityListener extends BaseEntityListener {
-  protected final AuditorAware<?> auditorAware;
+  protected final ObjectProvider<AuditorAware<?>> auditorAware;
 
-  public AuditingEntityListener(@NonNull AuditorAware<?> auditorAware) {
+  public AuditingEntityListener(@NonNull ObjectProvider<AuditorAware<?>> auditorAware) {
     super(Auditable.class);
     Assert.notNull(auditorAware, "AuditorAware不能为空");
     this.auditorAware = auditorAware;
@@ -24,7 +25,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   public void beforeAdd(Object entity) {
     if (auditorAware != null && entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditable.setCreatedBy(auditorAware.getCurrentAuditor().orElse(null));
+      auditorAware.ifAvailable(aware -> auditable.setCreatedBy(aware.getCurrentAuditor()));
       auditable.setCreatedTime(DateHelper.now());
     }
   }
@@ -38,7 +39,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   public void beforeUpdate(Object entity) {
     if (entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditable.setLastModifiedBy(auditorAware.getCurrentAuditor().orElse(null));
+      auditorAware.ifAvailable(aware -> auditable.setLastModifiedBy(aware.getCurrentAuditor()));
       auditable.setLastModifiedTime(DateHelper.now());
     }
   }
@@ -52,7 +53,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   public void beforeDelete(Object entity) {
     if (entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditable.setDeletedBy(auditorAware.getCurrentAuditor().orElse(null));
+      auditorAware.ifAvailable(aware -> auditable.setDeletedBy(aware.getCurrentAuditor()));
       auditable.setDeletedTime(DateHelper.now());
     }
   }

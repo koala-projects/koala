@@ -1,17 +1,20 @@
 package cn.koala.persist;
 
 import cn.koala.persist.listener.EntityListener;
+import cn.koala.persist.listener.EntityListenerSupport;
 import lombok.NonNull;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 基础增删改查抽象类
  *
  * @author Houtaroy
  */
-public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T, ID> {
+public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T, ID> implements EntityListenerSupport {
   protected final List<EntityListener> listeners;
 
   public BaseListenableCrudService(CrudRepository<T, ID> repository) {
@@ -43,5 +46,22 @@ public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T
     listeners.forEach(listener -> listener.beforeDelete(entity));
     super.delete(entity);
     listeners.forEach(listener -> listener.afterDelete(entity));
+  }
+
+  @Override
+  public void registerListener(EntityListener listener) {
+    this.listeners.add(listener);
+  }
+
+  @Override
+  public Optional<Class<?>> getEntityType() {
+    return Optional.of(getClass().getGenericSuperclass())
+      .filter(superClass -> superClass instanceof ParameterizedType)
+      .map(ParameterizedType.class::cast)
+      .map(ParameterizedType::getActualTypeArguments)
+      .filter(types -> types.length > 0)
+      .map(types -> types[0])
+      .filter(entityType -> entityType instanceof Class<?>)
+      .map(entityType -> (Class<?>) entityType);
   }
 }
