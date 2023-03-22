@@ -45,7 +45,7 @@ public class SettingApiImpl implements SettingApi {
   @Log(module = "设置管理", content = "更新设置[id=${#id}]")
   public Response update(Long id, SettingEntity entity) {
     entity.setIdIfAbsent(id);
-    service.save(entity);
+    service.update(entity);
     return Response.SUCCESS;
   }
 

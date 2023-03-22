@@ -1,26 +1,27 @@
 # 设置表
-DROP TABLE IF EXISTS system_setting;
-CREATE TABLE system_setting
+DROP TABLE IF EXISTS sys_setting;
+CREATE TABLE sys_setting
 (
-  `id`                  BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`                VARCHAR(100) NOT NULL COMMENT '设置代码',
-  `name`                VARCHAR(100) NOT NULL COMMENT '设置名称',
-  `content`             VARCHAR(100) NOT NULL COMMENT '设置内容',
-  `remark`              VARCHAR(500) COMMENT '设置备注',
-  `sort_index`          INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
-  `is_enable`           INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_system`           INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_delete`           INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `create_user_id`      BIGINT       NOT NULL COMMENT '创建人ID',
-  `create_time`         DATETIME     NOT NULL COMMENT '创建时间',
-  `last_update_user_id` BIGINT COMMENT '最后更新人ID',
-  `last_update_time`    DATETIME COMMENT '最后更新时间',
-  `delete_user_id`      BIGINT COMMENT '删除人ID',
-  `delete_time`         DATETIME COMMENT '删除时间',
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(100) NOT NULL COMMENT '设置代码',
+  `name`               VARCHAR(100) NOT NULL COMMENT '设置名称',
+  `content`            VARCHAR(100) NOT NULL COMMENT '设置内容',
+  `remark`             VARCHAR(500) COMMENT '设置备注',
+  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '系统设置表';
 
-insert into system_setting(code, name, content, create_user_id, create_time)
+
+insert into sys_setting(code, name, content, created_by, created_time)
 values ('system.default-password', '初始用户默认密码', '123456', 1, now());
 
 # 字典表

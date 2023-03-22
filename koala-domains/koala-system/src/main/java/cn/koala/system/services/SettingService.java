@@ -1,6 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.CrudService;
+import cn.koala.persist.CrudService;
 import cn.koala.system.Setting;
 
 /**
