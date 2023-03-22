@@ -6,7 +6,7 @@ import cn.koala.database.DatabaseTable;
 import cn.koala.database.SimpleDatabaseTable;
 import cn.koala.database.SimpleDatabaseTableColumn;
 import cn.koala.database.repositories.DatabaseRepository;
-import cn.koala.mybatis.BaseService;
+import cn.koala.mybatis.BaseMyBatisService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -22,9 +22,9 @@ import java.util.List;
  * @author Houtaroy
  */
 @Slf4j
-public class DatabaseServiceImpl extends BaseService<Database, Long> implements DatabaseService {
+public class DatabaseServiceImpl extends BaseMyBatisService<Database, Long> implements DatabaseService {
   public DatabaseServiceImpl(DatabaseRepository repository) {
-    super(repository, (entity) -> null);
+    super(repository);
   }
 
   @Override

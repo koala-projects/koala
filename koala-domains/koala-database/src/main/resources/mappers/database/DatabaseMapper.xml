@@ -11,24 +11,33 @@
            t.password,
            t.`catalog`,
            t.`schema`,
-           t.is_enable,
-           t.is_system,
-           t.is_delete
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted
     from t_database t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.database.entities.DatabaseEntity">
+  <select id="find" resultType="cn.koala.database.entities.DatabaseEntity">
+    <include refid="selectDatabase"/>
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="name != null and name != ''">
+        and t.name like concat(#{name}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.database.entities.DatabaseEntity">
+    <include refid="selectDatabase"/>
+    where t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.database.entities.DatabaseEntity">
     insert into t_database(id, name, url, username, password, `catalog`, `schema`)
     values (#{id}, #{name}, #{url}, #{username}, #{password}, #{catalog}, #{schema})
   </insert>
 
-  <update id="deleteById" parameterType="cn.koala.database.entities.DatabaseEntity">
-    update t_database
-    set is_delete = ${@cn.koala.mybatis.YesNo@YES.value}
-    where id = #{id}
-  </update>
-
-  <update id="updateById" parameterType="cn.koala.database.entities.DatabaseEntity">
+  <update id="update" parameterType="cn.koala.database.entities.DatabaseEntity">
     update t_database
     <trim prefix="set" suffixOverrides=",">
       <if test="name != null">name=#{name},</if>
@@ -38,21 +47,12 @@
       <if test="catalog != null">`catalog`=#{catalog},</if>
       <if test="schema != null">`schema`=#{schema},</if>
     </trim>
-    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <select id="findById" resultType="cn.koala.database.entities.DatabaseEntity">
-    <include refid="selectDatabase"/>
-    where t.id = #{id}
-  </select>
-
-  <select id="findAll" resultType="cn.koala.database.entities.DatabaseEntity">
-    <include refid="selectDatabase"/>
-    <where>
-      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-      <if test="parameters.name != null and parameters.name != ''">
-        and t.name like concat(#{parameters.name}, '%')
-      </if>
-    </where>
-  </select>
+  <update id="delete" parameterType="cn.koala.database.entities.DatabaseEntity">
+    update t_database
+    set is_deleted = ${@cn.koala.persist.domain.YesNo@YES.value}
+    where id = #{id}
+  </update>
 </mapper>

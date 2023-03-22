@@ -1,7 +1,7 @@
 package cn.koala.database.entities;
 
 import cn.koala.database.Database;
-import cn.koala.mybatis.YesNo;
+import cn.koala.persist.domain.YesNo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,9 +31,9 @@ public class DatabaseEntity implements Database {
   @Schema(description = "数据库模式")
   protected String schema;
   @Schema(description = "是否启用")
-  protected YesNo isEnable;
+  protected YesNo isEnabled;
   @Schema(description = "是否系统")
-  protected YesNo isSystem;
+  protected YesNo isSystemic;
   @Schema(description = "是否删除")
-  protected YesNo isDelete;
+  protected YesNo isDeleted;
 }

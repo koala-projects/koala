@@ -1,7 +1,7 @@
 package cn.koala.database.repositories;
 
 import cn.koala.database.Database;
-import cn.koala.mybatis.CrudRepository;
+import cn.koala.persist.CrudRepository;
 
 /**
  * 数据库仓库接口

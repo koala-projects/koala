@@ -1,14 +1,14 @@
 package cn.koala.database;
 
-import cn.koala.mybatis.IdModel;
-import cn.koala.mybatis.StateModel;
+import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.domain.Stateful;
 
 /**
  * 数据库接口
  *
  * @author Houtaroy
  */
-public interface Database extends IdModel<Long>, StateModel {
+public interface Database extends Persistable<Long>, Stateful {
   String getName();
 
   String getUrl();
