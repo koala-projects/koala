@@ -22,9 +22,9 @@
            t.is_enabled,
            p.code as "permission.code"
     from sys_user t
-           left join system_user_role ur on ur.user_id = t.id
-           left join system_role_permission rp on rp.role_id = ur.role_id
-           left join system_permission p on rp.permission_id = p.id
+           left join sys_user_role ur on ur.user_id = t.id
+           left join sys_role_permission rp on rp.role_id = ur.role_id
+           left join sys_permission p on rp.permission_id = p.id
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
       and t.username = #{username}
   </select>
