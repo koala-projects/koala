@@ -10,11 +10,11 @@ public interface EntityListener {
 
   void afterAdd(Object entity);
 
-  void beforeUpdate(Object entity);
+  void beforeUpdate(Object entity, Object persist);
 
   void afterUpdate(Object entity);
 
-  void beforeDelete(Object entity);
+  void beforeDelete(Object entity, Object persist);
 
   void afterDelete(Object entity);
 }

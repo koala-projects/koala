@@ -36,7 +36,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   }
 
   @Override
-  public void beforeUpdate(Object entity) {
+  public void beforeUpdate(Object entity, Object persist) {
     if (entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
       auditorAware.ifAvailable(aware -> auditable.setLastModifiedBy(aware.getCurrentAuditor()));
@@ -50,7 +50,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   }
 
   @Override
-  public void beforeDelete(Object entity) {
+  public void beforeDelete(Object entity, Object persist) {
     if (entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
       auditorAware.ifAvailable(aware -> auditable.setDeletedBy(aware.getCurrentAuditor()));
