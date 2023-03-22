@@ -30,6 +30,7 @@ public class StatefulEntityListener extends BaseEntityListener {
 
   @Override
   public void beforeUpdate(Object entity, Object persist) {
+    Assert.notNull(persist, "数据不存在");
     Assert.isTrue(isNonSystemic(persist), "系统数据不允许修改");
     if (entity instanceof Stateful state) {
       state.setIsSystemic(YesNo.NO);
@@ -44,6 +45,7 @@ public class StatefulEntityListener extends BaseEntityListener {
 
   @Override
   public void beforeDelete(Object entity, Object persist) {
+    Assert.notNull(persist, "数据不存在");
     Assert.isTrue(isNonSystemic(persist), "系统数据不允许删除");
     if (entity instanceof Stateful state) {
       state.setIsDeleted(YesNo.YES);

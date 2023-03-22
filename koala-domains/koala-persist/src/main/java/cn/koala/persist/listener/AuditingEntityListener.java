@@ -25,7 +25,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   public void beforeAdd(Object entity) {
     if (auditorAware != null && entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditorAware.ifAvailable(aware -> auditable.setCreatedBy(aware.getCurrentAuditor()));
+      auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setCreatedBy));
       auditable.setCreatedTime(DateHelper.now());
     }
   }
@@ -39,7 +39,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   public void beforeUpdate(Object entity, Object persist) {
     if (entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditorAware.ifAvailable(aware -> auditable.setLastModifiedBy(aware.getCurrentAuditor()));
+      auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setLastModifiedBy));
       auditable.setLastModifiedTime(DateHelper.now());
     }
   }
@@ -53,7 +53,7 @@ public class AuditingEntityListener extends BaseEntityListener {
   public void beforeDelete(Object entity, Object persist) {
     if (entity instanceof Auditable<?>) {
       Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditorAware.ifAvailable(aware -> auditable.setDeletedBy(aware.getCurrentAuditor()));
+      auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setDeletedBy));
       auditable.setDeletedTime(DateHelper.now());
     }
   }

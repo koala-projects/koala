@@ -1,16 +1,16 @@
 package cn.koala.system;
 
-import cn.koala.mybatis.AuditModel;
-import cn.koala.mybatis.IdModel;
-import cn.koala.mybatis.SortModel;
-import cn.koala.mybatis.StateModel;
+import cn.koala.persist.domain.Auditable;
+import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.domain.Sortable;
+import cn.koala.persist.domain.Stateful;
 
 /**
  * 字典数据实体接口
  *
  * @author Houtaroy
  */
-public interface Dictionary extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
+public interface Dictionary extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   /**
    * 获取字典代码
    *

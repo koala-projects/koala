@@ -1,7 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.CrudService;
-import cn.koala.mybatis.PagingService;
+import cn.koala.persist.CrudService;
 import cn.koala.system.Dictionary;
 
 /**
@@ -9,5 +8,5 @@ import cn.koala.system.Dictionary;
  *
  * @author Houtaroy
  */
-public interface DictionaryService extends CrudService<Dictionary, Long>, PagingService<Dictionary, Long> {
+public interface DictionaryService extends CrudService<Dictionary, Long> {
 }
