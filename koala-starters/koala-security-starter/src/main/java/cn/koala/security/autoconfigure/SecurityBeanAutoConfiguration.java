@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -47,6 +48,13 @@ import java.util.UUID;
  */
 @MapperScan("cn.koala.security.repositories")
 public class SecurityBeanAutoConfiguration {
+
+  @Bean
+  @ConditionalOnMissingBean
+  public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
+
   @Bean
   public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate,
                                                                PasswordEncoder passwordEncoder) {
