@@ -1,6 +1,6 @@
 package cn.koala.template.entities;
 
-import cn.koala.mybatis.YesNo;
+import cn.koala.persist.domain.YesNo;
 import cn.koala.template.TemplateGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -24,9 +24,9 @@ public class TemplateGroupEntity implements TemplateGroup {
   @Schema(description = "模板组备注")
   protected String remark;
   @Schema(description = "是否启用")
-  protected YesNo isEnable;
+  protected YesNo isEnabled;
   @Schema(description = "是否系统")
-  protected YesNo isSystem;
+  protected YesNo isSystemic;
   @Schema(description = "是否删除")
-  protected YesNo isDelete;
+  protected YesNo isDeleted;
 }

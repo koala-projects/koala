@@ -1,32 +1,33 @@
+# 模板组表
 DROP TABLE IF EXISTS t_template_group;
 CREATE TABLE t_template_group
 (
-  `id`        BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`      VARCHAR(100) NOT NULL COMMENT '模板组名称',
-  `remark`    VARCHAR(500) COMMENT '模板组备注',
-  `is_enable` INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_system` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_delete` INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`        VARCHAR(100) NOT NULL COMMENT '模板组名称',
+  `remark`      VARCHAR(500) COMMENT '模板组备注',
+  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
 ) COMMENT = '模板组表';
 
 insert into t_template_group(name, remark)
 values ('任务消息通知模板', '用于通知任务的执行情况');
 
+# 模板表
 DROP TABLE IF EXISTS t_template;
 CREATE TABLE t_template
 (
-  `id`        BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`      VARCHAR(100) NOT NULL COMMENT '模板名称',
-  `content`   TEXT         NOT NULL COMMENT '模板内容',
-  `remark`    VARCHAR(500) COMMENT '模板备注',
-  `group_id`  BIGINT COMMENT '模板组id',
-  `is_enable` INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_system` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_delete` INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`        VARCHAR(100) NOT NULL COMMENT '模板名称',
+  `content`     TEXT         NOT NULL COMMENT '模板内容',
+  `remark`      VARCHAR(500) COMMENT '模板备注',
+  `group_id`    BIGINT COMMENT '模板组id',
+  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
 ) COMMENT = '模板表';
-
 
 insert into t_template(name, remark, content, group_id)
 values ('开始执行', '任务开始执行通知', '任务[id=#(id)]开始', 1),

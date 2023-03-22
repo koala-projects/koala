@@ -1,14 +1,14 @@
 package cn.koala.template;
 
-import cn.koala.mybatis.IdModel;
-import cn.koala.mybatis.StateModel;
+import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.domain.Stateful;
 
 /**
  * 模板接口
  *
  * @author Houtaroy
  */
-public interface Template extends IdModel<Long>, StateModel {
+public interface Template extends Persistable<Long>, Stateful {
   String getName();
 
   String getContent();

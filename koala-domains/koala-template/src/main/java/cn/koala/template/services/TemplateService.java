@@ -1,7 +1,6 @@
 package cn.koala.template.services;
 
-import cn.koala.mybatis.CrudService;
-import cn.koala.mybatis.PagingService;
+import cn.koala.persist.CrudService;
 import cn.koala.template.Template;
 
 /**
@@ -9,5 +8,5 @@ import cn.koala.template.Template;
  *
  * @author Houtaroy
  */
-public interface TemplateService extends CrudService<Template, Long>, PagingService<Template, Long> {
+public interface TemplateService extends CrudService<Template, Long> {
 }

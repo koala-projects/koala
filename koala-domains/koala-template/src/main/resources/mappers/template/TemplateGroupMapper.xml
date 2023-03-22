@@ -7,44 +7,44 @@
     select t.id,
            t.name,
            t.remark,
-           t.is_enable,
-           t.is_system,
-           t.is_delete
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted
     from t_template_group t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.template.entities.TemplateGroupEntity">
+  <select id="find" resultType="cn.koala.template.entities.TemplateGroupEntity">
+    <include refid="selectTemplateGroup"/>
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="name != null and name != ''">
+        and t.name like concat(#{name}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.template.entities.TemplateGroupEntity">
+    <include refid="selectTemplateGroup"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.template.entities.TemplateGroupEntity">
     insert into t_template_group(id, name, remark)
     values (#{id}, #{name}, #{remark})
   </insert>
 
-  <update id="deleteById" parameterType="cn.koala.template.entities.TemplateGroupEntity">
-    update t_template_group
-    set is_delete = ${@cn.koala.mybatis.YesNo@YES.value}
-    where id = #{id}
-  </update>
-
-  <update id="updateById" parameterType="cn.koala.template.entities.TemplateGroupEntity">
+  <update id="update" parameterType="cn.koala.template.entities.TemplateGroupEntity">
     update t_template_group
     <trim prefix="set" suffixOverrides=",">
       <if test="name != null">name=#{name},</if>
       <if test="remark != null">remark=#{remark},</if>
     </trim>
-    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <select id="findById" resultType="cn.koala.template.entities.TemplateGroupEntity">
-    <include refid="selectTemplateGroup"/>
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and t.id = #{id}
-  </select>
-
-  <select id="findAll" resultType="cn.koala.template.entities.TemplateGroupEntity">
-    <include refid="selectTemplateGroup"/>
-    <where>
-      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-      <if test="parameters.name != null and parameters.name != ''">
-        and t.name like concat(#{parameters.name}, '%')
-      </if>
-    </where>
-  </select>
+  <update id="delete" parameterType="cn.koala.template.entities.TemplateGroupEntity">
+    update t_template_group
+    set is_deleted = ${@cn.koala.persist.domain.YesNo@YES.value}
+    where id = #{id}
+  </update>
 </mapper>

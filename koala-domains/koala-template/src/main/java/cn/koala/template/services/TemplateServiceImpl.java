@@ -1,6 +1,6 @@
 package cn.koala.template.services;
 
-import cn.koala.mybatis.BaseService;
+import cn.koala.mybatis.BaseMyBatisService;
 import cn.koala.template.Template;
 import cn.koala.template.repositories.TemplateRepository;
 
@@ -9,9 +9,9 @@ import cn.koala.template.repositories.TemplateRepository;
  *
  * @author Houtaroy
  */
-public class TemplateServiceImpl extends BaseService<Template, Long> implements TemplateService {
+public class TemplateServiceImpl extends BaseMyBatisService<Template, Long> implements TemplateService {
 
   public TemplateServiceImpl(TemplateRepository repository) {
-    super(repository, (entity) -> null);
+    super(repository);
   }
 }
