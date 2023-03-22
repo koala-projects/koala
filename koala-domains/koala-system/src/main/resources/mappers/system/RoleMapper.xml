@@ -8,77 +8,77 @@
            t.code,
            t.name,
            t.remark,
-           t.is_enable,
-           t.is_system,
-           t.is_delete,
-           t.create_user_id,
-           t.create_time,
-           t.last_update_user_id,
-           t.last_update_time,
-           t.delete_user_id,
-           t.delete_time
-    from system_role t
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted,
+           t.created_by,
+           t.created_time,
+           t.last_modified_by,
+           t.last_modified_time,
+           t.deleted_by,
+           t.deleted_time
+    from sys_role t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.system.entities.RoleEntity">
-    insert into system_role(id, code, name, remark, create_user_id, create_time)
-    values (#{id}, #{code}, #{name}, #{remark}, #{createUserId}, #{createTime})
-  </insert>
-
-  <update id="deleteById" parameterType="cn.koala.system.entities.RoleEntity">
-    update system_role
-    set is_delete      = ${@cn.koala.mybatis.YesNo@YES.value},
-        delete_user_id = #{deleteUserId},
-        delete_time    = #{deleteTime}
-    where id = #{id}
-  </update>
-
-  <update id="updateById" parameterType="cn.koala.system.entities.RoleEntity">
-    update system_role
-    <trim prefix="set" suffixOverrides=",">
-      <if test="code != null">code=#{code},</if>
-      <if test="name != null">name=#{name},</if>
-      <if test="remark != null">remark=#{remark},</if>
-      last_update_user_id = #{lastUpdateUserId},
-      last_update_time = #{lastUpdateTime},
-    </trim>
-    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
-  </update>
-
-  <select id="findById" resultType="cn.koala.system.entities.RoleEntity">
-    <include refid="selectRole"/>
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and t.id = #{id}
-  </select>
-
-  <select id="findAll" resultType="cn.koala.system.entities.RoleEntity">
+  <select id="find" resultType="cn.koala.system.entities.RoleEntity">
     <include refid="selectRole"/>
     <where>
-      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-      <if test="parameters.code != null and parameters.code != ''">
-        and t.code like concat(#{parameters.code}, '%')
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="code != null and code != ''">
+        and t.code like concat(#{code}, '%')
       </if>
-      <if test="parameters.name != null and parameters.name != ''">
-        and t.name like concat(#{parameters.name}, '%')
+      <if test="name != null and name != ''">
+        and t.name like concat(#{name}, '%')
       </if>
     </where>
   </select>
 
+  <insert id="add" parameterType="cn.koala.system.entities.RoleEntity">
+    insert into sys_role(id, code, name, remark, created_by, created_time)
+    values (#{id}, #{code}, #{name}, #{remark}, #{createdBy}, #{createdTime})
+  </insert>
+
+  <update id="update" parameterType="cn.koala.system.entities.RoleEntity">
+    update sys_role
+    <trim prefix="set" suffixOverrides=",">
+      <if test="code != null">code=#{code},</if>
+      <if test="name != null">name=#{name},</if>
+      <if test="remark != null">remark=#{remark},</if>
+      last_modified_by = #{lastModifiedBy},
+      last_modified_time = #{lastModifiedTime},
+    </trim>
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
+  </update>
+
+  <update id="delete" parameterType="cn.koala.system.entities.RoleEntity">
+    update sys_role
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+    where id = #{id}
+  </update>
+
+  <select id="findById" resultType="cn.koala.system.entities.RoleEntity">
+    <include refid="selectRole"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  </select>
+
   <select id="findAllCheckedPermissionIdById" resultType="java.lang.Long">
     select permission_id
-    from system_role_permission
+    from sys_role_permission
     where role_id = #{id}
-      and is_half_checked = ${@cn.koala.mybatis.YesNo@NO.value}
+      and is_half_checked = ${@cn.koala.persist.domain.YesNo@NO.value}
   </select>
 
   <insert id="authorize">
-    delete from system_role_permission where role_id = #{id};
+    delete from sys_role_permission where role_id = #{id};
     <if test="!checkedIds.isEmpty() || !halfCheckedIds.isEmpty()">
-      insert into system_role_permission values
+      insert into sys_role_permission values
       <foreach item="checkedId" index="index" collection="checkedIds">
-        (#{id}, #{checkedId}, ${@cn.koala.mybatis.YesNo@NO.value}),
+        (#{id}, #{checkedId}, ${@cn.koala.persist.domain.YesNo@NO.value}),
       </foreach>
       <foreach item="halfCheckedId" index="index" collection="halfCheckedIds" separator=",">
-        (#{id}, #{halfCheckedId}, ${@cn.koala.mybatis.YesNo@YES.value})
+        (#{id}, #{halfCheckedId}, ${@cn.koala.persist.domain.YesNo@YES.value})
       </foreach>
     </if>
   </insert>

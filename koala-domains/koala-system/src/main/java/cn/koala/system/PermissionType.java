@@ -1,6 +1,6 @@
 package cn.koala.system;
 
-import cn.koala.mybatis.EnhancedEnum;
+import cn.koala.persist.domain.EnhancedEnum;
 import lombok.Getter;
 
 /**

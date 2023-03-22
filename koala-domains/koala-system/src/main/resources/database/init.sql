@@ -114,34 +114,33 @@ CREATE TABLE system_user_department
 insert into system_user_department value (1, 1);
 
 # 权限表
-DROP TABLE IF EXISTS system_permission;
-CREATE TABLE system_permission
+DROP TABLE IF EXISTS sys_permission;
+CREATE TABLE sys_permission
 (
-  `id`                  BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`                VARCHAR(100) NOT NULL COMMENT '权限代码',
-  `name`                VARCHAR(100) NOT NULL COMMENT '权限名称',
-  `type`                INT          NOT NULL COMMENT '权限类型',
-  `icon`                VARCHAR(100) COMMENT '权限图标',
-  `url`                 VARCHAR(500) COMMENT '权限路径',
-  `component`           VARCHAR(100) COMMENT '权限组件',
-  `remark`              VARCHAR(500) COMMENT '权限备注',
-  `parent_id`           BIGINT COMMENT '上级权限id',
-  `sort_index`          INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
-  `is_enable`           INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_system`           INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_delete`           INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `create_user_id`      BIGINT       NOT NULL COMMENT '创建人ID',
-  `create_time`         DATETIME     NOT NULL COMMENT '创建时间',
-  `last_update_user_id` BIGINT COMMENT '最后更新人ID',
-  `last_update_time`    DATETIME COMMENT '最后更新时间',
-  `delete_user_id`      BIGINT COMMENT '删除人ID',
-  `delete_time`         DATETIME COMMENT '删除时间',
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(100) NOT NULL COMMENT '权限代码',
+  `name`               VARCHAR(100) NOT NULL COMMENT '权限名称',
+  `type`               INT          NOT NULL COMMENT '权限类型',
+  `icon`               VARCHAR(100) COMMENT '权限图标',
+  `url`                VARCHAR(500) COMMENT '权限路径',
+  `component`          VARCHAR(100) COMMENT '权限组件',
+  `remark`             VARCHAR(500) COMMENT '权限备注',
+  `parent_id`          BIGINT COMMENT '上级权限id',
+  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '系统权限表';
 
-
-insert into system_permission(code, name, type, icon, url, component, parent_id, sort_index, is_system, create_user_id,
-                              create_time)
+insert into sys_permission(code, name, type, icon, url, component, parent_id, sort_index, is_systemic, created_by,
+                           created_time)
 values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1, 1, 1, now()),
        ('system:user', '用户管理', 1, null, null, 'system/user/index.vue', 1, 101, 1, 1, now()),
        ('system:role', '角色管理', 1, null, null, 'system/role/index.vue', 1, 102, 1, 1, now()),
@@ -177,41 +176,41 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now());
 
 # 角色权限关系表
-DROP TABLE IF EXISTS system_role_permission;
-CREATE TABLE system_role_permission
+DROP TABLE IF EXISTS sys_role_permission;
+CREATE TABLE sys_role_permission
 (
   `role_id`         BIGINT NOT NULL COMMENT '角色id',
   `permission_id`   BIGINT NOT NULL DEFAULT 0 COMMENT '权限id',
   `is_half_checked` INT    NOT NULL COMMENT '是否半选'
 ) COMMENT = '系统角色权限关系表';
 
-
-insert into system_role_permission
+insert into sys_role_permission
 select 1, id, 0
-from system_permission;
+from sys_permission;
 
 # 角色表
-DROP TABLE IF EXISTS system_role;
-CREATE TABLE system_role
+DROP TABLE IF EXISTS sys_role;
+CREATE TABLE sys_role
 (
-  `id`                  BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`                VARCHAR(100) NOT NULL COMMENT '角色代码',
-  `name`                VARCHAR(100) NOT NULL COMMENT '角色名称',
-  `remark`              VARCHAR(500) COMMENT '角色备注',
-  `sort_index`          INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
-  `is_enable`           INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_system`           INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_delete`           INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `create_user_id`      BIGINT       NOT NULL COMMENT '创建人ID',
-  `create_time`         DATETIME     NOT NULL COMMENT '创建时间',
-  `last_update_user_id` BIGINT COMMENT '最后更新人ID',
-  `last_update_time`    DATETIME COMMENT '最后更新时间',
-  `delete_user_id`      BIGINT COMMENT '删除人ID',
-  `delete_time`         DATETIME COMMENT '删除时间',
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(100) NOT NULL COMMENT '角色代码',
+  `name`               VARCHAR(100) NOT NULL COMMENT '角色名称',
+  `remark`             VARCHAR(500) COMMENT '角色备注',
+  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '系统角色表';
 
-insert into system_role(code, name, sort_index, is_system, create_user_id, create_time)
+
+insert into sys_role(code, name, sort_index, is_systemic, created_by, created_time)
 values ('admin', '系统管理员', 1, 1, 1, now()),
        ('visitor', '访问者', 2, 0, 1, now());
 

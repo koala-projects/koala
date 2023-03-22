@@ -1,16 +1,16 @@
 package cn.koala.system;
 
-import cn.koala.mybatis.AuditModel;
-import cn.koala.mybatis.IdModel;
-import cn.koala.mybatis.SortModel;
-import cn.koala.mybatis.StateModel;
+import cn.koala.persist.domain.Auditable;
+import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.domain.Sortable;
+import cn.koala.persist.domain.Stateful;
 
 /**
  * 权限数据实体接口
  *
  * @author Houtaroy
  */
-public interface Permission extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
+public interface Permission extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   String getCode();
 
   String getName();
