@@ -1,7 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.CrudService;
-import cn.koala.mybatis.PagingService;
+import cn.koala.persist.CrudService;
 import cn.koala.system.Department;
 import cn.koala.toolkit.tree.TreeNode;
 
@@ -12,7 +11,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-public interface DepartmentService extends CrudService<Department, Long>, PagingService<Department, Long> {
+public interface DepartmentService extends CrudService<Department, Long> {
   /**
    * 查询全部部门, 以树形形式返回
    *

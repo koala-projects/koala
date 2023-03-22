@@ -1,5 +1,6 @@
 package cn.koala.system.services;
 
+import cn.koala.mybatis.BaseMyBatisService;
 import cn.koala.system.Department;
 import cn.koala.system.repositories.DepartmentRepository;
 import cn.koala.toolkit.tree.TreeHelper;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public class DepartmentServiceImpl extends BaseSystemService<Department> implements DepartmentService {
+public class DepartmentServiceImpl extends BaseMyBatisService<Department, Long> implements DepartmentService {
   public DepartmentServiceImpl(DepartmentRepository repository) {
     super(repository);
   }

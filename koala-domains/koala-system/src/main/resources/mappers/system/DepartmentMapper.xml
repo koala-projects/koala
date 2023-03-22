@@ -8,50 +8,50 @@
            t.name,
            t.remark,
            t.parent_id,
-           t.is_enable,
-           t.is_system,
-           t.is_delete,
-           t.create_user_id,
-           t.create_time,
-           t.last_update_user_id,
-           t.last_update_time,
-           t.delete_user_id,
-           t.delete_time
-    from system_department t
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted,
+           t.created_by,
+           t.created_time,
+           t.last_modified_by,
+           t.last_modified_time,
+           t.deleted_by,
+           t.deleted_time
+    from sys_department t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.system.entities.DepartmentEntity">
-    insert into system_department(id, name, remark, parent_id, create_user_id, create_time)
-    values (#{id}, #{name}, #{remark}, #{parentId}, #{createUserId}, #{createTime})
+  <select id="find" resultType="cn.koala.system.entities.DepartmentEntity">
+    <include refid="selectDepartment"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+  </select>
+
+  <select id="findById" resultType="cn.koala.system.entities.DepartmentEntity">
+    <include refid="selectDepartment"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.system.entities.DepartmentEntity">
+    insert into sys_department(id, name, remark, parent_id, created_by, created_time)
+    values (#{id}, #{name}, #{remark}, #{parentId}, #{createdBy}, #{createdTime})
   </insert>
 
-  <update id="deleteById" parameterType="cn.koala.system.entities.DepartmentEntity">
-    update system_department
-    set is_delete      = ${@cn.koala.mybatis.YesNo@YES.value},
-        delete_user_id = #{deleteUserId},
-        delete_time    = #{deleteTime}
-    where id = #{id}
-  </update>
-
-  <update id="updateById" parameterType="cn.koala.system.entities.DepartmentEntity">
-    update system_department
+  <update id="update" parameterType="cn.koala.system.entities.DepartmentEntity">
+    update sys_department
     <trim prefix="set" suffixOverrides=",">
       <if test="name != null">name=#{name},</if>
       <if test="remark != null">remark=#{remark},</if>
       <if test="parentId != null">parent_id=#{parentId},</if>
-      last_update_user_id = #{lastUpdateUserId},
-      last_update_time = #{lastUpdateTime},
+      last_modified_by = #{lastModifiedBy},
+      last_modified_time = #{lastModifiedTime},
     </trim>
-    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <select id="findById" resultType="cn.koala.system.entities.DepartmentEntity">
-    <include refid="selectDepartment"/>
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and t.id = #{id}
-  </select>
-
-  <select id="findAll" resultType="cn.koala.system.entities.DepartmentEntity">
-    <include refid="selectDepartment"/>
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-  </select>
+  <update id="delete" parameterType="cn.koala.system.entities.DepartmentEntity">
+    update sys_department
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+    where id = #{id}
+  </update>
 </mapper>
