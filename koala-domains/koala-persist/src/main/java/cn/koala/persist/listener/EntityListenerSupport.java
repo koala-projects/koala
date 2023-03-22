@@ -1,5 +1,6 @@
 package cn.koala.persist.listener;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -9,6 +10,8 @@ import java.util.Optional;
  */
 public interface EntityListenerSupport {
   void registerListener(EntityListener listener);
+
+  void registerListeners(List<EntityListener> listeners);
 
   Optional<Class<?>> getEntityType();
 }

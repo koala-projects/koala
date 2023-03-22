@@ -2,6 +2,7 @@ package cn.koala.persist.listener;
 
 import cn.koala.persist.domain.Stateful;
 import cn.koala.persist.domain.YesNo;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.Assert;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.util.Assert;
  *
  * @author Houtaroy
  */
+@Order(1000)
 public class StatefulEntityListener extends BaseEntityListener {
   public StatefulEntityListener() {
     super(Stateful.class);

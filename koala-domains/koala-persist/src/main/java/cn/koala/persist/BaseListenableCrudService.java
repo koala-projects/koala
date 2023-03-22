@@ -55,6 +55,12 @@ public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T
   }
 
   @Override
+  public void registerListeners(List<EntityListener> listeners) {
+    this.listeners.clear();
+    this.listeners.addAll(listeners);
+  }
+
+  @Override
   public Optional<Class<?>> getEntityType() {
     return Optional.of(getClass().getGenericSuperclass())
       .filter(superClass -> superClass instanceof ParameterizedType)

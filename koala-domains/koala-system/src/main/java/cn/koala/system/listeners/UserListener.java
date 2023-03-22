@@ -3,6 +3,7 @@ package cn.koala.system.listeners;
 import cn.koala.persist.listener.BaseEntityListener;
 import cn.koala.system.User;
 import cn.koala.system.repositories.UserRepository;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Order(100)
 public class UserListener extends BaseEntityListener {
   protected final UserRepository userRepository;
   protected final PasswordEncoder passwordEncoder;

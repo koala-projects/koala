@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.core.OrderComparator;
 
 import java.util.List;
 
@@ -27,18 +28,24 @@ public class CrudServicePostProcessor implements BeanPostProcessor {
   @Override
   public Object postProcessBeforeInitialization(@NonNull Object bean, @NonNull String beanName) throws BeansException {
     if (bean instanceof CrudService<?, ?> service) {
-      listeners.forEach(listener -> registerListener(service, listener));
+      registerListeners(service, listeners);
     }
     return bean;
   }
 
-  protected void registerListener(CrudService<?, ?> service, EntityListener listener) {
+  protected void registerListeners(CrudService<?, ?> service, List<EntityListener> listeners) {
     if (service instanceof EntityListenerSupport support) {
-      if (listener instanceof EntityListenerSelector selector) {
-        support.getEntityType().filter(selector::match).ifPresent(type -> support.registerListener(listener));
-      } else {
-        support.registerListener(listener);
-      }
+      support.registerListeners(listeners.stream()
+        .filter(listener -> isRegistrable(listener, support))
+        .sorted(OrderComparator.INSTANCE)
+        .toList());
     }
+  }
+
+  protected boolean isRegistrable(EntityListener listener, EntityListenerSupport support) {
+    if (listener instanceof EntityListenerSelector selector) {
+      return support.getEntityType().filter(selector::match).isPresent();
+    }
+    return true;
   }
 }

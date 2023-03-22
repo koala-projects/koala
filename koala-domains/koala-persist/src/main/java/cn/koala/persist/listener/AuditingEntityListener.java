@@ -5,6 +5,7 @@ import cn.koala.persist.domain.AuditorAware;
 import cn.koala.toolkit.DateHelper;
 import lombok.NonNull;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.Assert;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
  *
  * @author Houtaroy
  */
+@Order(2000)
 public class AuditingEntityListener extends BaseEntityListener {
   protected final ObjectProvider<AuditorAware<?>> auditorAware;
 
