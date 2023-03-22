@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.security.entities;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

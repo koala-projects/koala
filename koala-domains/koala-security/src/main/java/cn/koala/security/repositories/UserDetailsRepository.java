@@ -1,6 +1,6 @@
 package cn.koala.security.repositories;
 
-import cn.koala.security.UserDetailsImpl;
+import cn.koala.security.entities.UserDetailsImpl;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Optional;

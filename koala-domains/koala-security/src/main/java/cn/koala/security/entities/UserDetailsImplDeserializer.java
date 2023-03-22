@@ -1,6 +1,6 @@
-package cn.koala.security;
+package cn.koala.security.entities;
 
-import cn.koala.mybatis.YesNo;
+import cn.koala.persist.domain.YesNo;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -39,7 +39,7 @@ public class UserDetailsImplDeserializer extends JsonDeserializer<UserDetailsImp
       .username(username)
       .password(password)
       .nickname(nickname)
-      .isEnable(isEnable)
+      .isEnabled(isEnable)
       .authorities(authorities)
       .build();
   }

@@ -1,6 +1,6 @@
-package cn.koala.security;
+package cn.koala.security.entities;
 
-import cn.koala.mybatis.YesNo;
+import cn.koala.persist.domain.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -26,7 +26,7 @@ public class UserDetailsImpl implements UserDetails {
   private String username;
   private String password;
   private String nickname;
-  private YesNo isEnable;
+  private YesNo isEnabled;
   private List<String> permissionCodes;
   private Collection<SimpleGrantedAuthority> authorities;
 
@@ -63,6 +63,6 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return isEnable == YesNo.YES;
+    return isEnabled == YesNo.YES;
   }
 }

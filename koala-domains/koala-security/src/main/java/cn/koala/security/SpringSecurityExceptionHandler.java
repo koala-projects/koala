@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Order(400)
 @RestControllerAdvice
 @Slf4j
-public class SecurityExceptionHandler {
+public class SpringSecurityExceptionHandler {
   /**
    * 默认的异常处理
    *

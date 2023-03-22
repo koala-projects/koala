@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.security.apis;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

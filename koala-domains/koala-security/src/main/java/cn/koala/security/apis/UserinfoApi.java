@@ -1,5 +1,6 @@
-package cn.koala.security;
+package cn.koala.security.apis;
 
+import cn.koala.security.entities.UserDetailsImpl;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;

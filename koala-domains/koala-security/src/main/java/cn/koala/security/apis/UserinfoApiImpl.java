@@ -1,5 +1,6 @@
-package cn.koala.security;
+package cn.koala.security.apis;
 
+import cn.koala.security.services.UserinfoService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;

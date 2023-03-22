@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.security.apis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

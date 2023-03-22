@@ -1,5 +1,7 @@
-package cn.koala.security;
+package cn.koala.security.services;
 
+import cn.koala.security.SpringSecurityHelper;
+import cn.koala.security.entities.UserDetailsImpl;
 import cn.koala.security.repositories.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -22,7 +24,7 @@ public class UserinfoServiceImpl implements UserinfoService {
 
   @Override
   public UserDetails getUserinfo() {
-    return Optional.ofNullable(SecurityHelper.getCurrentUserDetails())
+    return Optional.ofNullable(SpringSecurityHelper.getCurrentUserDetails())
       .map(this::cleanPassword)
       .orElse(null);
   }

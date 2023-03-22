@@ -1,17 +1,17 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.mybatis.AuditorIdSupplier;
-import cn.koala.security.LoginController;
-import cn.koala.security.SecurityExceptionHandler;
-import cn.koala.security.SecurityHelper;
-import cn.koala.security.UserDetailsImpl;
-import cn.koala.security.UserDetailsImplMixin;
-import cn.koala.security.UserDetailsServiceImpl;
-import cn.koala.security.UserinfoApi;
-import cn.koala.security.UserinfoApiImpl;
-import cn.koala.security.UserinfoService;
-import cn.koala.security.UserinfoServiceImpl;
+import cn.koala.persist.domain.AuditorAware;
+import cn.koala.security.SpringSecurityExceptionHandler;
+import cn.koala.security.apis.LoginController;
+import cn.koala.security.apis.UserinfoApi;
+import cn.koala.security.apis.UserinfoApiImpl;
+import cn.koala.security.entities.UserDetailsImpl;
+import cn.koala.security.entities.UserDetailsImplMixin;
+import cn.koala.security.persist.SpringSecurityAuditorAware;
 import cn.koala.security.repositories.UserDetailsRepository;
+import cn.koala.security.services.UserDetailsServiceImpl;
+import cn.koala.security.services.UserinfoService;
+import cn.koala.security.services.UserinfoServiceImpl;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
@@ -124,12 +124,12 @@ public class SecurityBeanAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public AuditorIdSupplier<?> auditorIdSupplier() {
-    return SecurityHelper::getCurrentUserId;
+  public AuditorAware<?> auditorAware() {
+    return new SpringSecurityAuditorAware();
   }
 
   @Bean
-  public SecurityExceptionHandler securityExceptionHandler() {
-    return new SecurityExceptionHandler();
+  public SpringSecurityExceptionHandler securityExceptionHandler() {
+    return new SpringSecurityExceptionHandler();
   }
 }

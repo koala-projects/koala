@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.security.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

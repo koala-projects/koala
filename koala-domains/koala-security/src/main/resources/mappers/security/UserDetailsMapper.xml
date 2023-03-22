@@ -3,12 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.koala.security.repositories.UserDetailsRepository">
 
-  <resultMap id="userDetailsResultMap" type="cn.koala.security.UserDetailsImpl">
+  <resultMap id="userDetailsResultMap" type="cn.koala.security.entities.UserDetailsImpl">
     <id property="id" column="id"/>
     <result property="username" column="username"/>
     <result property="password" column="password"/>
     <result property="nickname" column="nickname"/>
-    <result property="isEnable" column="is_enable"/>
+    <result property="isEnabled" column="is_enabled"/>
     <collection property="permissionCodes" ofType="java.lang.String">
       <result column="permission.code"/>
     </collection>
@@ -19,18 +19,18 @@
            t.username,
            t.password,
            t.nickname,
-           t.is_enable,
+           t.is_enabled,
            p.code as "permission.code"
-    from system_user t
+    from sys_user t
            left join system_user_role ur on ur.user_id = t.id
            left join system_role_permission rp on rp.role_id = ur.role_id
            left join system_permission p on rp.permission_id = p.id
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
       and t.username = #{username}
   </select>
 
   <update id="changePassword">
-    update system_user
+    update sys_user
     set password = #{password}
     where username = #{username}
   </update>
