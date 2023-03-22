@@ -40,7 +40,7 @@ public class UserApiImpl implements UserApi {
   @Override
   @Log(module = "用户管理", content = "创建用户[username=${#user.username}]")
   public DataResponse<User> create(UserEntity user) {
-    service.save(user);
+    service.add(user);
     user.setPassword(null);
     return DataResponse.ok(user);
   }
@@ -49,7 +49,7 @@ public class UserApiImpl implements UserApi {
   @Log(module = "用户管理", content = "更新用户[id=${#id}]")
   public Response update(Long id, UserEntity user) {
     user.setIdIfAbsent(id);
-    service.save(user);
+    service.update(user);
     return Response.SUCCESS;
   }
 

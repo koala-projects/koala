@@ -1,16 +1,16 @@
 package cn.koala.system;
 
-import cn.koala.mybatis.AuditModel;
-import cn.koala.mybatis.IdModel;
-import cn.koala.mybatis.SortModel;
-import cn.koala.mybatis.StateModel;
+import cn.koala.persist.domain.Auditable;
+import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.domain.Sortable;
+import cn.koala.persist.domain.Stateful;
 
 /**
  * 用户数据实体接口
  *
  * @author Houtaroy
  */
-public interface User extends IdModel<Long>, SortModel, StateModel, AuditModel<Long> {
+public interface User extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   String getUsername();
 
   String getPassword();

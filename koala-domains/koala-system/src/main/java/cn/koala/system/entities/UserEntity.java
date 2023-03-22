@@ -1,5 +1,6 @@
 package cn.koala.system.entities;
 
+import cn.koala.mybatis.BaseUniversalEntity;
 import cn.koala.system.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "用户数据实体")
-public class UserEntity extends BaseSystemEntity implements User {
+public class UserEntity extends BaseUniversalEntity implements User {
   @Schema(description = "登录名")
   String username;
   @Schema(description = "密码")

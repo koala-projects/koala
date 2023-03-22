@@ -12,35 +12,50 @@
            t.mobile,
            t.remark,
            t.sort_index,
-           t.is_enable,
-           t.is_system,
-           t.is_delete,
-           t.create_user_id,
-           t.create_time,
-           t.last_update_user_id,
-           t.last_update_time,
-           t.delete_user_id,
-           t.delete_time
-    from system_user t
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted,
+           t.created_by,
+           t.created_time,
+           t.last_modified_by,
+           t.last_modified_time,
+           t.deleted_by,
+           t.deleted_time
+    from sys_user t
   </sql>
 
-  <insert id="insert" parameterType="cn.koala.system.entities.UserEntity">
-    insert into system_user(id, username, password, nickname, avatar, email, mobile, remark, create_user_id,
-                            create_time)
-    values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{remark}, #{createUserId},
-            #{createTime})
+  <select id="find" resultType="cn.koala.system.entities.UserEntity">
+    <include refid="selectUser"/>
+    <if test="departmentId != null and departmentId != ''">
+      left join sys_user_department ud on ud.user_id = t.id
+    </if>
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="username != null and username != ''">
+        and t.username = #{username}
+      </if>
+      <if test="nickname != null and nickname != ''">
+        and t.nickname like concat(#{username}, '%')
+      </if>
+      <if test="departmentId != null and departmentId != ''">
+        and ud.department_id = #{departmentId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.system.entities.UserEntity">
+    <include refid="selectUser"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.system.entities.UserEntity">
+    insert into sys_user(id, username, password, nickname, avatar, email, mobile, remark, created_by, created_time)
+    values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{remark}, #{createdBy},
+            #{createdTime})
   </insert>
 
-  <update id="deleteById" parameterType="cn.koala.system.entities.UserEntity">
-    update system_user
-    set is_delete      = ${@cn.koala.mybatis.YesNo@YES.value},
-        delete_user_id = #{deleteUserId},
-        delete_time    = #{deleteTime}
-    where id = #{id}
-  </update>
-
-  <update id="updateById" parameterType="cn.koala.system.entities.UserEntity">
-    update system_user
+  <update id="update" parameterType="cn.koala.system.entities.UserEntity">
+    update sys_user
     <trim prefix="set" suffixOverrides=",">
       <if test="username != null">username=#{username},</if>
       <if test="nickname != null">nickname=#{nickname},</if>
@@ -48,46 +63,30 @@
       <if test="email != null">email=#{email},</if>
       <if test="mobile != null">mobile=#{mobile},</if>
       <if test="remark != null">remark=#{remark},</if>
-      last_update_user_id = #{lastUpdateUserId},
-      last_update_time = #{lastUpdateTime},
+      last_modified_by = #{lastModifiedBy},
+      last_modified_time = #{lastModifiedTime},
     </trim>
-    where is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and id=#{id}
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <select id="findById" resultType="cn.koala.system.entities.UserEntity">
-    <include refid="selectUser"/>
-    where t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and t.id = #{id}
-  </select>
-
-  <select id="findAll" resultType="cn.koala.system.entities.UserEntity">
-    <include refid="selectUser"/>
-    <if test="parameters.departmentId != null and parameters.departmentId != ''">
-      left join system_user_department ud on ud.user_id = t.id
-    </if>
-    <where>
-      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
-      <if test="parameters.username != null and parameters.username != ''">
-        and t.username = #{parameters.username}
-      </if>
-      <if test="parameters.nickname != null and parameters.nickname != ''">
-        and t.nickname like concat(#{parameters.username}, '%')
-      </if>
-      <if test="parameters.departmentId != null and parameters.departmentId != ''">
-        and ud.department_id = #{parameters.departmentId}
-      </if>
-    </where>
-  </select>
+  <update id="delete" parameterType="cn.koala.system.entities.UserEntity">
+    update sys_user
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+    where id = #{id}
+  </update>
 
   <select id="findAllRoleIdById" resultType="java.lang.Long">
     select role_id
-    from system_user_role
+    from sys_user_role
     where user_id = #{id}
   </select>
 
   <insert id="updateRoleIdById">
-    delete from system_user_role where user_id = #{id};
+    delete from sys_user_role where user_id = #{id};
     <if test="!roleIds.isEmpty()">
-      insert into system_user_role values
+      insert into sys_user_role values
       <foreach item="roleId" index="index" collection="roleIds" separator=",">
         (#{id}, #{roleId})
       </foreach>
@@ -96,14 +95,14 @@
 
   <select id="findAllDepartmentIdById" resultType="java.lang.Long">
     select department_id
-    from system_user_department
+    from sys_user_department
     where user_id = #{id}
   </select>
 
   <insert id="updateDepartmentIdById">
-    delete from system_user_department where user_id = #{id};
+    delete from sys_user_department where user_id = #{id};
     <if test="!departmentIds.isEmpty()">
-      insert into system_user_department values
+      insert into sys_user_department values
       <foreach item="departmentId" index="index" collection="departmentIds" separator=",">
         (#{id}, #{departmentId})
       </foreach>

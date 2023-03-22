@@ -1,5 +1,6 @@
 package cn.koala.system.autoconfigure;
 
+import cn.koala.persist.listener.EntityListener;
 import cn.koala.security.autoconfigure.SecurityFilterChainConfigurer;
 import cn.koala.system.apis.DepartmentApi;
 import cn.koala.system.apis.DepartmentApiImpl;
@@ -14,6 +15,7 @@ import cn.koala.system.apis.SettingApi;
 import cn.koala.system.apis.SettingApiImpl;
 import cn.koala.system.apis.UserApi;
 import cn.koala.system.apis.UserApiImpl;
+import cn.koala.system.listeners.UserListener;
 import cn.koala.system.repositories.DepartmentRepository;
 import cn.koala.system.repositories.DictionaryItemRepository;
 import cn.koala.system.repositories.DictionaryRepository;
@@ -112,9 +114,14 @@ public class SystemAutoConfiguration {
   }
 
   @Bean
+  public EntityListener userListener(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    return new UserListener(userRepository, passwordEncoder);
+  }
+
+  @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    return new UserServiceImpl(userRepository, passwordEncoder);
+  public UserService userService(UserRepository userRepository) {
+    return new UserServiceImpl(userRepository);
   }
 
   @Bean

@@ -104,14 +104,15 @@ values ('考拉开源', null, 1, 1, 1, now()),
        ('回家部', 1, 102, 0, 1, now());
 
 # 用户部门关系表
-DROP TABLE IF EXISTS system_user_department;
-CREATE TABLE system_user_department
+DROP TABLE IF EXISTS sys_user_department;
+CREATE TABLE sys_user_department
 (
   `user_id`       BIGINT NOT NULL COMMENT '用户id',
   `department_id` BIGINT NOT NULL COMMENT '部门id'
 ) COMMENT = '系统用户部门关系表';
 
-insert into system_user_department value (1, 1);
+
+insert into sys_user_department value (1, 1);
 
 # 权限表
 DROP TABLE IF EXISTS sys_permission;
@@ -215,14 +216,15 @@ values ('admin', '系统管理员', 1, 1, 1, now()),
        ('visitor', '访问者', 2, 0, 1, now());
 
 # 用户角色关系表
-DROP TABLE IF EXISTS system_user_role;
-CREATE TABLE system_user_role
+DROP TABLE IF EXISTS sys_user_role;
+CREATE TABLE sys_user_role
 (
   `user_id` BIGINT NOT NULL COMMENT '用户id',
   `role_id` BIGINT NOT NULL COMMENT '角色id'
 ) COMMENT = '系统用户角色关系表';
 
-insert into system_user_role
+
+insert into sys_user_role
 values (1, 1);
 
 # 用户表

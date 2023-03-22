@@ -1,7 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.CrudService;
-import cn.koala.mybatis.PagingService;
+import cn.koala.persist.CrudService;
 import cn.koala.system.User;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-public interface UserService extends CrudService<User, Long>, PagingService<User, Long> {
+public interface UserService extends CrudService<User, Long> {
   List<Long> getRoleIds(Long id);
 
   void setRoleIds(Long id, List<Long> roleIds);
