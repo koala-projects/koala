@@ -72,9 +72,7 @@ public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T
       .map(entityType -> (Class<?>) entityType);
   }
 
-  protected <S extends T> T loadPersist(S entity) {
-    return Optional.of(entity).filter(data -> data instanceof Persistable<?>)
-      .map(data -> load(((Persistable<ID>) data).getId()))
-      .orElse(entity);
+  protected T loadPersist(T entity) {
+    return entity instanceof Persistable<?> ? load(((Persistable<ID>) entity).getId()) : entity;
   }
 }

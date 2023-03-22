@@ -12,5 +12,5 @@ public interface DatabaseTable {
 
   String getRemarks();
 
-  <T extends DatabaseTableColumn> List<T> getColumns();
+  List<? extends DatabaseTableColumn> getColumns();
 }
