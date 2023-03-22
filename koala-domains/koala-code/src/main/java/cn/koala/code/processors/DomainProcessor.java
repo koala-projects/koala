@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class DomainProcessor extends BaseContextProcessor<DatabaseTable> {
 
   private static final String SORT_COLUMN_NAME = "sort_index";
-  private static final Set<String> STATE_COLUMN_NAMES = Set.of("is_enable", "is_system", "is_delete");
-  private static final Set<String> AUDIT_COLUMN_NAMES = Set.of("create_user_id", "create_time", "last_update_user_id", "last_update_time", "delete_user_id", "delete_time");
-  private static final List<String> IGNORED_PARAMETER_NAMES = List.of("sortIndex", "isDelete", "deleteUserId", "deleteTime");
+  private static final Set<String> STATE_COLUMN_NAMES = Set.of("is_enabled", "is_systemic", "is_deleted");
+  private static final Set<String> AUDIT_COLUMN_NAMES = Set.of("created_by", "created_time", "last_modified_by", "last_modified_time", "deleted_by", "deleted_time");
+  private static final List<String> IGNORED_PARAMETER_NAMES = List.of("sortIndex", "isDeleted", "deletedBy", "deletedTime");
   private static final JavaTypeConverter JAVA_TYPE_CONVERTER = new JavaTypeConverter();
   private static final JsonTypeConverter JSON_TYPE_CONVERTER = new JsonTypeConverter();
   private final String tablePrefix;
@@ -98,13 +98,13 @@ public class DomainProcessor extends BaseContextProcessor<DatabaseTable> {
     Set<String> result = new HashSet<>(3);
     Set<String> columnNames = table.getColumns().stream().map(DatabaseTableColumn::getName).collect(Collectors.toSet());
     if (columnNames.contains(SORT_COLUMN_NAME)) {
-      result.add("SortModel");
+      result.add("Sortable");
     }
     if (columnNames.containsAll(STATE_COLUMN_NAMES)) {
-      result.add("StateModel");
+      result.add("Stateful");
     }
     if (columnNames.containsAll(AUDIT_COLUMN_NAMES)) {
-      result.add("AuditModel<Long>");
+      result.add("Auditable<Long>");
     }
     return result;
   }

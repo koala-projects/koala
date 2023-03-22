@@ -20,7 +20,6 @@ CREATE TABLE sys_setting
   PRIMARY KEY (id)
 ) COMMENT = '系统设置表';
 
-
 insert into sys_setting(code, name, content, created_by, created_time)
 values ('system.default-password', '初始用户默认密码', '123456', 1, now());
 

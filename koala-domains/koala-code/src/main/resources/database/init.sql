@@ -1,12 +1,12 @@
-insert into t_database(name, url, username, password, catalog, `schema`, is_system)
+insert into t_database(name, url, username, password, catalog, `schema`, is_systemic)
 values ('演示数据库', 'jdbc:mysql://bj-cdb-9amt73r4.sql.tencentcdb.com:59997/koala_demo', 'koala_demo', 'koala_demo',
         'koala_demo', 'koala_demo', 1);
 
-insert into t_template_group(id, name, remark, is_system)
+insert into t_template_group(id, name, remark, is_systemic)
 values (999, '考拉代码', '考拉代码生成模板', 1);
 
-insert into t_template(name, remark, content, group_id, is_system)
-values ('Api.java', '接口代码模板', 'package #(package).apis;
+insert into t_template(name, remark, content, group_id, is_systemic)
+values ('apis/Api.java', '接口代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
 import cn.koala.openapi.PageableAsQueryParam;
@@ -135,7 +135,7 @@ public interface #(name)Api {
   }
 }
 ', 999, 1),
-       ('ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
+       ('apis/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
 import #(package).services.#(name)Service;
@@ -188,18 +188,18 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 }
 ', 999, 1),
-       ('Entity.java', '数据实体类代码模板', 'package #(package).entities;
+       ('entities/Entity.java', '数据实体类代码模板', 'package #(package).entities;
 
-#if(implements.contains(''AuditModel<Long>''))
-import cn.koala.mybatis.AuditModel;
+#if(implements.contains(''Auditable<Long>''))
+import cn.koala.persist.domain.Auditable;
 #end
-import cn.koala.mybatis.IdModel;
-#if(implements.contains(''SortModel''))
-import cn.koala.mybatis.SortModel;
+import cn.koala.persist.domain.Persistable;
+#if(implements.contains(''Sortable''))
+import cn.koala.persist.domain.Sortable;
 #end
-#if(implements.contains(''StateModel''))
-import cn.koala.mybatis.StateModel;
-import cn.koala.mybatis.YesNo;
+#if(implements.contains(''Stateful''))
+import cn.koala.persist.domain.Stateful;
+import cn.koala.persist.domain.YesNo;
 #end
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -215,39 +215,39 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "#(description)数据实体类")
-public class #(name)Entity implements IdModel<#(id.javaType)>#for(implement: implements), #(implement)#end  {
+public class #(name)Entity implements Persistable<#(id.javaType)>#for(implement: implements), #(implement)#end  {
 #for(property: properties)
   @Schema(description = "#(property.description)")
   private #(property.javaType) #(property.name);
 #end
 }
 ', 999, 1),
-       ('Service.java', '服务类代码模板', 'package #(package).services;
+       ('services/Service.java', '服务类代码模板', 'package #(package).services;
 
 import #(package).#(name)Entity;
 import #(package).#(name)Repository;
-import cn.koala.mybatis.BaseService;
+import cn.koala.mybatis.BaseMyBatisService;
 
 /**
  * #(description)服务类
  *
  * @author Koala Code Generator
  */
-public class #(name)Service extends BaseService<#(name)Entity, #(id.javaType)> {
+public class #(name)Service extends BaseMyBatisService<#(name)Entity, #(id.javaType)> {
   /**
    * 构造函数
    *
    * @param repository 仓库接口
    */
   public #(name)Service(#(name)Repository repository) {
-    super(repository, (entity) -> null);
+    super(repository);
   }
 }
 ', 999, 1),
-       ('Repository.java', '仓库接口代码模板', 'package #(package).repositories;
+       ('repositories/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
 
 import #(package).#(name)Entity;
-import cn.koala.mybatis.CrudRepository;
+import cn.koala.persist.CrudRepository;
 
 /**
  * #(description)仓库接口
@@ -257,7 +257,7 @@ import cn.koala.mybatis.CrudRepository;
 public interface #(name)Repository extends CrudRepository<#(name)Entity, #(id.javaType)> {
 }
 ', 999, 1),
-       ('Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+       ('mappers/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repositories.#(name)Repository">
@@ -270,7 +270,26 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(id.ja
     from #(table.name) t
   </sql>
 
-  <insert id="insert" parameterType="#(package).entities.#(name)Entity">
+  <select id="find" resultType="#(package).entities.#(name)Entity">
+    <include refid="select#(name)"/>
+    <where>
+#if(implements.contains(''Stateful''))
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+#end
+#for(i = 0; i < columns.size(); i++)
+      <if test="#(properties[i].name) != null and #(properties[i].name) != ''''">
+       #if(implements.contains(''Stateful'')) and#end  t.#(columns[i].name) = #{#(properties[i].name)}
+      </if>
+#end
+    </where>
+  </select>
+
+  <select id="findById" resultType="#(package).entities.#(name)Entity">
+    <include refid="select#(name)"/>
+    where#if(implements.contains(''Stateful'')) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+  </select>
+
+  <insert id="add" parameterType="#(package).entities.#(name)Entity">
     insert into #(table.name)
 	value (
 #for(property : properties)
@@ -279,49 +298,30 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(id.ja
     )
   </insert>
 
-#if(implements.contains(''StateModel''))
-  <update id="deleteById" parameterType="#(package).entities.#(name)Entity">
-    update #(table.name)
-    set is_delete      = ${@cn.koala.mybatis.YesNo@YES.value}#if(auditModel),#end
-#if(implements.contains(''AuditModel<Long>''))
-        delete_user_id = #{deleteUserId},
-        delete_time    = #{deleteTime}
-#end
-    where id = #{id}
-  </update>
-#else
-  <delete id="deleteById" parameterType="#(package).entities.#(name)Entity">
-    delete from #(table.name) where id = #{id}
-  </delete>
-#end
-
-  <update id="updateById" parameterType="#(package).entities.#(name)Entity">
+  <update id="update" parameterType="#(package).entities.#(name)Entity">
     update #(table.name)
     <trim prefix="set" suffixOverrides=",">
 #for(i = 0; i < columns.size(); i++)
       <if test="#(properties[i].name) != null">#(columns[i].name)=#{#(properties[i].name)},</if>
 #end
     </trim>
-    where#if(implements.contains(''StateModel'')) is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and#end  id=#{id}
+    where#if(implements.contains(''Stateful'')) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id=#{id}
   </update>
 
-  <select id="findById" resultType="#(package).entities.#(name)Entity">
-    <include refid="select#(name)"/>
-    where#if(implements.contains(''StateModel'')) t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value} and#end  t.id=#{id}
-  </select>
-
-  <select id="findAll" resultType="#(package).entities.#(name)Entity">
-    <include refid="select#(name)"/>
-    <where>
-#if(implements.contains(''StateModel''))
-      t.is_delete = ${@cn.koala.mybatis.YesNo@NO.value}
+#if(implements.contains(''Stateful''))
+  <update id="delete" parameterType="#(package).entities.#(name)Entity">
+    update #(table.name)
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(implements.contains(''Auditable<Long>'')),#end
+#if(implements.contains(''Auditable<Long>''))
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
 #end
-#for(i = 0; i < columns.size(); i++)
-      <if test="parameters.#(properties[i].name) != null and parameters.#(properties[i].name) != ''''">
-       #if(implements.contains(''StateModel'')) and#end  t.#(columns[i].name) = #{parameters.#(properties[i].name)}
-      </if>
+    where id = #{id}
+  </update>
+#else
+  <delete id="delete" parameterType="#(package).entities.#(name)Entity">
+    delete from #(table.name) where id = #{id}
+  </delete>
 #end
-    </where>
-  </select>
 </mapper>
 ', 999, 1);
