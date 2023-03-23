@@ -50,15 +50,16 @@
 
 ### 组件列表
 
-| 组件名称                                                     | 组件说明                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                           |
-| [koala-database-starter](../../koala-starters/koala-database-starter) | 提供了数据库管理功能                                         |
-| [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                           |
-| [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter) | 抽象出部分通用的数据模型, 并在此基础上对增删改查进行简单封装 |
-| [koala-security-starter](../../koala-starters/koala-security-starter) | 实现了基于OAuth2.1的认证授权体系                             |
-| [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter) | 提供了敏感词过滤功能, 支持Jackson                            |
-| [koala-system-starter](../../koala-starters/koala-system-starter) | 提供了用户管理/角色管理/部门管理/字典管理功能                |
-| [koala-template-starter](../../koala-starters/koala-template-starter) | 提供了模板组管理/模板管理功能                                |
-| [koala-web-starter](../../koala-starters/koala-web-starter)  | 抽象出通用返回模型, 增加全局异常拦截器                       |
+| 组件名称                                                     | 组件说明                                          |
+| ------------------------------------------------------------ | ------------------------------------------------- |
+| [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                |
+| [koala-database-starter](../../koala-starters/koala-database-starter) | 提供了数据库管理功能                              |
+| [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                |
+| [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter) | 持久化功能的 MyBatis 版本实现                     |
+| [koala-persist-starter](../../koala-starters/koala-persist-starter) | 定义部分持久化功能, 如模型/仓库/服务/实体监听器等 |
+| [koala-security-starter](../../koala-starters/koala-security-starter) | 实现了基于OAuth2.1的认证授权体系                  |
+| [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter) | 提供了敏感词过滤功能, 支持Jackson                 |
+| [koala-system-starter](../../koala-starters/koala-system-starter) | 提供了用户管理/角色管理/部门管理/字典管理功能     |
+| [koala-template-starter](../../koala-starters/koala-template-starter) | 提供了模板组管理/模板管理功能                     |
+| [koala-web-starter](../../koala-starters/koala-web-starter)  | 抽象出通用返回模型, 增加全局异常拦截器            |
 
