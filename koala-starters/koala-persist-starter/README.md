@@ -141,3 +141,5 @@ public class MyService implements EntityListenerSupport {
   }
 }
 ```
+
+模块内置了`BaseEntityListener`和`BaseListenableCrudService`, 实现了上述接口的部分方法, 供开发者参考
