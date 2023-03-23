@@ -1,6 +1,5 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.persist.domain.AuditorAware;
 import cn.koala.security.SpringSecurityExceptionHandler;
 import cn.koala.security.apis.LoginController;
 import cn.koala.security.apis.UserinfoApi;
@@ -17,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.security.core.userdetails.UserDetailsService;

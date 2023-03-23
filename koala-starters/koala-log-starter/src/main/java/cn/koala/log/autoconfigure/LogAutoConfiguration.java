@@ -7,7 +7,6 @@ import cn.koala.log.apis.LogApiImpl;
 import cn.koala.log.repositories.LogRepository;
 import cn.koala.log.services.LogService;
 import cn.koala.log.services.LogServiceImpl;
-import cn.koala.persist.domain.AuditorAware;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.ObjectProvider;
@@ -16,6 +15,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 
 /**
  * 日志自动配置类

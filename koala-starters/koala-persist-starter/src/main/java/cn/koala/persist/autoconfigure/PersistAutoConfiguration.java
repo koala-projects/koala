@@ -1,6 +1,5 @@
 package cn.koala.persist.autoconfigure;
 
-import cn.koala.persist.domain.AuditorAware;
 import cn.koala.persist.listener.AuditingEntityListener;
 import cn.koala.persist.listener.EntityListener;
 import cn.koala.persist.listener.StatefulEntityListener;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 
 import java.util.List;
 

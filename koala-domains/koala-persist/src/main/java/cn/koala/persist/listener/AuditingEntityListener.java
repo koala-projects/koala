@@ -1,11 +1,11 @@
 package cn.koala.persist.listener;
 
 import cn.koala.persist.domain.Auditable;
-import cn.koala.persist.domain.AuditorAware;
 import cn.koala.toolkit.DateHelper;
 import lombok.NonNull;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.util.Assert;
 
 /**

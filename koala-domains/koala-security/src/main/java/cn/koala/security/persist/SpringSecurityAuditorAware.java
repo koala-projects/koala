@@ -1,8 +1,9 @@
 package cn.koala.security.persist;
 
-import cn.koala.persist.domain.AuditorAware;
 import cn.koala.security.SpringSecurityHelper;
 import cn.koala.security.entities.UserDetailsImpl;
+import lombok.NonNull;
+import org.springframework.data.domain.AuditorAware;
 
 import java.util.Optional;
 
@@ -13,9 +14,11 @@ import java.util.Optional;
  */
 public class SpringSecurityAuditorAware implements AuditorAware<Long> {
   @Override
+  @NonNull
   public Optional<Long> getCurrentAuditor() {
     return Optional.ofNullable(SpringSecurityHelper.getCurrentUserDetails())
       .filter(principal -> principal instanceof UserDetailsImpl)
-      .map(principal -> ((UserDetailsImpl) principal).getId());
+      .map(UserDetailsImpl.class::cast)
+      .map(UserDetailsImpl::getId);
   }
 }

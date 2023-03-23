@@ -7,26 +7,26 @@ import java.util.Date;
  *
  * @author Houtaroy
  */
-public interface Auditable<U> {
-  U getCreatedBy();
+public interface Auditable<ID> {
+  ID getCreatedBy();
 
-  void setCreatedBy(U createdBy);
+  void setCreatedBy(ID createdBy);
 
   Date getCreatedTime();
 
   void setCreatedTime(Date createdTime);
 
-  U getLastModifiedBy();
+  ID getLastModifiedBy();
 
-  void setLastModifiedBy(U lastModifiedBy);
+  void setLastModifiedBy(ID lastModifiedBy);
 
   Date getLastModifiedTime();
 
   void setLastModifiedTime(Date lastModifiedTime);
 
-  U getDeletedBy();
+  ID getDeletedBy();
 
-  void setDeletedBy(U deletedBy);
+  void setDeletedBy(ID deletedBy);
 
   Date getDeletedTime();
 

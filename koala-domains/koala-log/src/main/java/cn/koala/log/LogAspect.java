@@ -2,7 +2,6 @@ package cn.koala.log;
 
 import cn.koala.log.annotations.Log;
 import cn.koala.log.services.LogService;
-import cn.koala.persist.domain.AuditorAware;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.toolkit.DateHelper;
 import cn.koala.toolkit.HttpHelper;
@@ -19,6 +18,7 @@ import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.lang.NonNull;
