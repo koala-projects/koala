@@ -47,7 +47,7 @@ public interface DictionaryItemApi {
    * @return 字典项列表
    */
   @PreAuthorize("hasAuthority('system:dictionary:update')")
-  @Operation(summary = "根据条件分页查询字典项")
+  @Operation(operationId = "listDictionaryItems", summary = "根据条件分页查询字典项")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemPageResult.class))}
   )
@@ -66,7 +66,7 @@ public interface DictionaryItemApi {
    * @return 字典项
    */
   @PreAuthorize("hasAuthority('system:dictionary:update')")
-  @Operation(summary = "根据id查询字典项")
+  @Operation(operationId = "loadDictionaryItem", summary = "根据id查询字典项")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemResult.class))}
   )
@@ -81,7 +81,7 @@ public interface DictionaryItemApi {
    * @return 字典
    */
   @PreAuthorize("hasAuthority('system:dictionary:update')")
-  @Operation(summary = "创建字典项")
+  @Operation(operationId = "createDictionaryItem", summary = "创建字典项")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemResult.class))}
   )
@@ -96,7 +96,7 @@ public interface DictionaryItemApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:dictionary:update')")
-  @Operation(summary = "更新字典")
+  @Operation(operationId = "updateDictionaryItem", summary = "更新字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -111,7 +111,7 @@ public interface DictionaryItemApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:dictionary:update')")
-  @Operation(summary = "删除字典")
+  @Operation(operationId = "deleteDictionaryItem", summary = "删除字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )

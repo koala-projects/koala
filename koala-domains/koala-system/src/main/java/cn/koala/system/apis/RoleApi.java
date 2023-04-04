@@ -48,7 +48,7 @@ public interface RoleApi {
    * @return 角色列表
    */
   @PreAuthorize("hasAuthority('system:role:page')")
-  @Operation(summary = "根据条件分页查询角色")
+  @Operation(operationId = "listRoles", summary = "根据条件分页查询角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RolePageResult.class))}
   )
@@ -66,7 +66,7 @@ public interface RoleApi {
    * @return 角色
    */
   @PreAuthorize("hasAuthority('system:role:load')")
-  @Operation(summary = "根据id查询角色")
+  @Operation(operationId = "loadRole", summary = "根据id查询角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RoleResult.class))}
   )
@@ -81,7 +81,7 @@ public interface RoleApi {
    * @return 角色
    */
   @PreAuthorize("hasAuthority('system:role:create')")
-  @Operation(summary = "创建角色")
+  @Operation(operationId = "createRole", summary = "创建角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RoleResult.class))}
   )
@@ -96,7 +96,7 @@ public interface RoleApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:role:update')")
-  @Operation(summary = "更新角色")
+  @Operation(operationId = "updateRole", summary = "更新角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -111,7 +111,7 @@ public interface RoleApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:role:delete')")
-  @Operation(summary = "删除角色")
+  @Operation(operationId = "deleteRole", summary = "删除角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -126,7 +126,7 @@ public interface RoleApi {
    * @return 全选权限id列表
    */
   @PreAuthorize("hasAuthority('system:role:update')")
-  @Operation(summary = "根据id查询角色权限关系列表")
+  @Operation(operationId = "listRoleCheckedPermissionIds", summary = "根据id查询角色权限关系列表")
   @ApiResponse(responseCode = "200", description = "成功", content = {
     @Content(mediaType = "application/json", schema = @Schema(implementation = CheckedPermissionIdsResult.class))
   })
@@ -142,7 +142,7 @@ public interface RoleApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:role:update')")
-  @Operation(summary = "角色授权")
+  @Operation(operationId = "setRolePermissions", summary = "角色授权")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )

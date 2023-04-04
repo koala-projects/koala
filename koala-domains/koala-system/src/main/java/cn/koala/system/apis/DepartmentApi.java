@@ -40,7 +40,7 @@ public interface DepartmentApi {
    * @return 树形结构部门列表
    */
   @PreAuthorize("hasAuthority('system:department:tree')")
-  @Operation(summary = "查询部门树")
+  @Operation(operationId = "departmentTree", summary = "查询部门树")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentTreeResult.class))}
   )
@@ -54,7 +54,7 @@ public interface DepartmentApi {
    * @return 部门
    */
   @PreAuthorize("hasAuthority('system:department:load')")
-  @Operation(summary = "根据id查询部门")
+  @Operation(operationId = "loadDepartment", summary = "根据id查询部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentResult.class))}
   )
@@ -69,7 +69,7 @@ public interface DepartmentApi {
    * @return 部门
    */
   @PreAuthorize("hasAuthority('system:department:create')")
-  @Operation(summary = "创建部门")
+  @Operation(operationId = "createDepartment", summary = "创建部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentResult.class))}
   )
@@ -84,7 +84,7 @@ public interface DepartmentApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:department:update')")
-  @Operation(summary = "更新部门")
+  @Operation(operationId = "updateDepartment", summary = "更新部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -99,7 +99,7 @@ public interface DepartmentApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:department:delete')")
-  @Operation(summary = "删除部门")
+  @Operation(operationId = "deleteDepartment", summary = "删除部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )

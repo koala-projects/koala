@@ -41,7 +41,7 @@ public interface LogApi {
    * @return 日志列表
    */
   @PreAuthorize("hasAuthority('system:log:page')")
-  @Operation(summary = "根据条件分页查询日志")
+  @Operation(operationId = "listLogs", summary = "根据条件分页查询日志")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = LogPageResult.class))}
   )

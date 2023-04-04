@@ -42,7 +42,7 @@ public interface PermissionApi {
    * @return 权限树
    */
   @PreAuthorize("hasAuthority('system:permission:tree')")
-  @Operation(summary = "查询权限树")
+  @Operation(operationId = "permissionTree", summary = "查询权限树")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionTreeResult.class))}
   )
@@ -56,7 +56,7 @@ public interface PermissionApi {
    * @return 权限
    */
   @PreAuthorize("hasAuthority('system:permission:load')")
-  @Operation(summary = "根据id查询权限")
+  @Operation(operationId = "loadPermission", summary = "根据id查询权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionResult.class))}
   )
@@ -71,7 +71,7 @@ public interface PermissionApi {
    * @return 权限
    */
   @PreAuthorize("hasAuthority('system:permission:create')")
-  @Operation(summary = "创建权限")
+  @Operation(operationId = "createPermission", summary = "创建权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionResult.class))}
   )
@@ -86,7 +86,7 @@ public interface PermissionApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:permission:update')")
-  @Operation(summary = "更新权限")
+  @Operation(operationId = "updatePermission", summary = "更新权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -101,7 +101,7 @@ public interface PermissionApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:permission:delete')")
-  @Operation(summary = "删除权限")
+  @Operation(operationId = "deletePermission", summary = "删除权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )

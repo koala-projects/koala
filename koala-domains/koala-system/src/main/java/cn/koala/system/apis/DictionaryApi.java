@@ -47,7 +47,7 @@ public interface DictionaryApi {
    * @return 字典列表
    */
   @PreAuthorize("hasAuthority('system:dictionary:page')")
-  @Operation(summary = "根据条件分页查询字典")
+  @Operation(operationId = "listDictionaries", summary = "根据条件分页查询字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryPageResult.class))}
   )
@@ -65,7 +65,7 @@ public interface DictionaryApi {
    * @return 字典
    */
   @PreAuthorize("hasAuthority('system:dictionary:load')")
-  @Operation(summary = "根据id查询字典")
+  @Operation(operationId = "loadDictionary", summary = "根据id查询字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryResult.class))}
   )
@@ -80,7 +80,7 @@ public interface DictionaryApi {
    * @return 字典
    */
   @PreAuthorize("hasAuthority('system:dictionary:create')")
-  @Operation(summary = "创建字典")
+  @Operation(operationId = "createDictionary", summary = "创建字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryResult.class))}
   )
@@ -95,7 +95,7 @@ public interface DictionaryApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:dictionary:update')")
-  @Operation(summary = "更新字典")
+  @Operation(operationId = "updateDictionary", summary = "更新字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -110,7 +110,7 @@ public interface DictionaryApi {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority('system:dictionary:delete')")
-  @Operation(summary = "删除字典")
+  @Operation(operationId = "deleteDictionary", summary = "删除字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
