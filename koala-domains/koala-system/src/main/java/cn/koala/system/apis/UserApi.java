@@ -2,6 +2,7 @@ package cn.koala.system.apis;
 
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.system.User;
+import cn.koala.system.apis.request.CreateUserRequest;
 import cn.koala.system.entities.UserEntity;
 import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
@@ -88,7 +89,7 @@ public interface UserApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResult.class))}
   )
   @PostMapping
-  DataResponse<User> create(@RequestBody UserEntity user);
+  DataResponse<User> create(@RequestBody CreateUserRequest user);
 
   /**
    * 更新用户

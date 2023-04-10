@@ -2,6 +2,7 @@ package cn.koala.system.listeners;
 
 import cn.koala.persist.listener.BaseEntityListener;
 import cn.koala.system.User;
+import cn.koala.system.apis.request.CreateUserRequest;
 import cn.koala.system.repositories.UserRepository;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,13 +30,17 @@ public class UserListener extends BaseEntityListener {
   public void beforeAdd(Object entity) {
     if (entity instanceof User user) {
       Assert.isTrue(usernameIsNotDuplicate(user), "用户账号已存在");
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
+    }
+    if (entity instanceof CreateUserRequest request) {
+      request.setPassword(passwordEncoder.encode(request.getPlainPassword()));
     }
   }
 
   @Override
   public void afterAdd(Object entity) {
-
+    if (entity instanceof User user) {
+      user.setPassword(null);
+    }
   }
 
   @Override
