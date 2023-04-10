@@ -174,7 +174,8 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:setting:create', '设置创建', 2, null, null, null, 7, 10601, 1, 1, now()),
        ('system:setting:update', '设置修改', 2, null, null, null, 7, 10602, 1, 1, now()),
        ('system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
-       ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now());
+       ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now()),
+       ('system:log:page', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now());
 
 # 角色权限关系表
 DROP TABLE IF EXISTS sys_role_permission;

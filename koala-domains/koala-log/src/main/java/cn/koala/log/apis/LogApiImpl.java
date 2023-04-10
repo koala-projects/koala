@@ -24,4 +24,9 @@ public class LogApiImpl implements LogApi {
   public DataResponse<Page<Log>> page(Map<String, Object> parameters, Pageable pageable) {
     return DataResponse.ok(service.page(parameters, pageable));
   }
+
+  @Override
+  public DataResponse<Log> load(Long id) {
+    return DataResponse.ok(service.load(id));
+  }
 }

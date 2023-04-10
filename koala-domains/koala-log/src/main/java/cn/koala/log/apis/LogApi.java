@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,8 +55,26 @@ public interface LogApi {
   DataResponse<Page<Log>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
                                @Parameter(hidden = true) Pageable pageable);
 
+  /**
+   * 根据id查询日志
+   *
+   * @param id 模板id
+   * @return 模板
+   */
+  @Operation(operationId = "loadLog", summary = "根据id查询日志")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = LogResult.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "日志id", schema = @Schema(type = "integer"))
+  @GetMapping("{id}")
+  DataResponse<Log> load(@PathVariable("id") Long id);
+
 
   class LogPageResult extends DataResponse<Page<LogEntity>> {
+
+  }
+
+  class LogResult extends DataResponse<LogEntity> {
 
   }
 }
