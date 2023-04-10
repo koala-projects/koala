@@ -11,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.ObjectProvider;
@@ -24,6 +27,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -40,29 +44,38 @@ public class LogAspect {
   private final LogService logService;
   private final ObjectProvider<AuditorAware<?>> auditorAware;
   private final ObjectMapper objectMapper;
+  private final ThreadLocal<Long> startTime = new ThreadLocal<>();
   private final SpelExpressionParser parser = new SpelExpressionParser();
   private final TemplateParserContext parserContext = new TemplateParserContext("${", "}");
   private final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
-  @Around(value = "@annotation(log)")
-  public Object around(ProceedingJoinPoint joinPoint, Log log) throws Throwable {
+  @Before(value = "@annotation(log)")
+  public void before(JoinPoint joinPoint, Log log) {
+    startTime.set(System.currentTimeMillis());
+  }
+
+  @AfterReturning(value = "@annotation(log)", returning = "response")
+  public void afterReturning(JoinPoint joinPoint, Log log, Object response) {
     if (isIgnored(log)) {
-      return joinPoint.proceed();
+      return;
     }
-    long start = System.currentTimeMillis();
     LogEntity logEntity = getLogEntity(joinPoint, log);
-    Object result;
-    try {
-      result = joinPoint.proceed();
-      doSuccess(logEntity, result);
-      return result;
-    } catch (Throwable e) {
-      doThrowable(logEntity, e);
-      throw e;
-    } finally {
-      logEntity.setCost(System.currentTimeMillis() - start);
-      logService.add(logEntity);
+    logEntity.setIsSucceeded(YesNo.YES);
+    logEntity.setResponse(object2json(response, "序列化日志响应失败"));
+    logEntity.setCost(getCost());
+    logService.add(logEntity);
+  }
+
+  @AfterThrowing(value = "@annotation(log)", throwing = "throwing")
+  public void afterThrowing(JoinPoint joinPoint, Log log, Exception throwing) {
+    if (isIgnored(log)) {
+      return;
     }
+    LogEntity logEntity = getLogEntity(joinPoint, log);
+    logEntity.setIsSucceeded(YesNo.NO);
+    logEntity.setError(throwing.getMessage());
+    logEntity.setCost(getCost());
+    logService.add(logEntity);
   }
 
   protected boolean isIgnored(Log log) {
@@ -111,16 +124,6 @@ public class LogAspect {
       .orElse(UNKNOWN_USER_ID);
   }
 
-  protected void doSuccess(LogEntity log, Object result) {
-    log.setIsSucceeded(YesNo.YES);
-    log.setResponse(object2json(result, "序列化日志响应失败"));
-  }
-
-  protected void doThrowable(LogEntity log, Throwable e) {
-    log.setIsSucceeded(YesNo.NO);
-    log.setError(e.getMessage());
-  }
-
   protected String object2json(Object data, String errorMessage) {
     try {
       return objectMapper.writeValueAsString(data);
@@ -128,5 +131,11 @@ public class LogAspect {
       LOGGER.error(errorMessage, e);
     }
     return null;
+  }
+
+  protected Long getCost() {
+    return Optional.ofNullable(startTime.get())
+      .map(start -> System.currentTimeMillis() - start)
+      .orElse(null);
   }
 }
