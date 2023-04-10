@@ -142,6 +142,19 @@ public interface DatabaseApi {
   @GetMapping("{id}/tables/{name}")
   DataResponse<DatabaseTable> tables(@PathVariable("id") Long id, @PathVariable("name") String name);
 
+  /**
+   * 连接数据库
+   *
+   * @param entity 数据库数据实体
+   * @return 数据库
+   */
+  @Operation(operationId = "connectDatabase", summary = "连接数据库")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseConnectResult.class))}
+  )
+  @PostMapping("connect")
+  DataResponse<Boolean> connect(@RequestBody DatabaseEntity entity);
+
   class DatabasePageResult extends DataResponse<Page<DatabaseEntity>> {
 
   }
@@ -151,6 +164,10 @@ public interface DatabaseApi {
   }
 
   class DatabaseTablesResult extends DataResponse<List<SimpleDatabaseTable>> {
+
+  }
+
+  class DatabaseConnectResult extends DataResponse<Boolean> {
 
   }
 }

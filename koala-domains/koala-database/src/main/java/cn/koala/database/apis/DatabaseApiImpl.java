@@ -69,4 +69,9 @@ public class DatabaseApiImpl implements DatabaseApi {
     Assert.notNull(database, "数据库不存在");
     return DataResponse.ok(service.getTable(database, name));
   }
+
+  @Override
+  public DataResponse<Boolean> connect(DatabaseEntity entity) {
+    return DataResponse.ok(service.isConnectable(entity));
+  }
 }

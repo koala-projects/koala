@@ -15,4 +15,6 @@ public interface DatabaseService extends CrudService<Database, Long> {
   List<DatabaseTable> getTables(Database database);
 
   DatabaseTable getTable(Database database, String table);
+
+  boolean isConnectable(Database database);
 }

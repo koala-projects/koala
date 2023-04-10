@@ -23,6 +23,7 @@ import java.util.List;
  */
 @Slf4j
 public class DatabaseServiceImpl extends BaseMyBatisService<Database, Long> implements DatabaseService {
+  public static final int TIME_OUT = 60;
   public DatabaseServiceImpl(DatabaseRepository repository) {
     super(repository);
   }
@@ -55,6 +56,15 @@ public class DatabaseServiceImpl extends BaseMyBatisService<Database, Long> impl
         .columns(getColumns(database, table))
         .build();
     }));
+  }
+
+  @Override
+  public boolean isConnectable(Database database) {
+    try(Connection connection = getConnection(database)) {
+      return connection.isValid(TIME_OUT);
+    } catch (SQLException e) {
+      return false;
+    }
   }
 
   protected List<SimpleDatabaseTableColumn> getColumns(Database database, String table) {
