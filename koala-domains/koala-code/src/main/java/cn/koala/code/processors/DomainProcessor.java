@@ -40,10 +40,12 @@ public class DomainProcessor extends BaseContextProcessor<DatabaseTable> {
   protected Map<String, Object> doProcess(DatabaseTable context) {
     DomainProperty id = getId(context);
     Assert.notNull(id, "表[%s]不存在列名为id的主键".formatted(context.getName()));
+    String name = getDomainName(context);
     String permission = getPermission(context);
     List<DomainProperty> properties = getProperties(context);
     return Map.of(
-      "name", getDomainName(context),
+      "name", name,
+      "pluralName", WordHelper.plural(name),
       "description", getDomainDescription(context),
       "properties", properties,
       "implements", getImplements(context),

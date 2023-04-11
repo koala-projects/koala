@@ -9,6 +9,7 @@ insert into t_template(name, remark, content, group_id, is_systemic)
 values ('apis/Api.java', '接口代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
+
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -54,7 +55,7 @@ public interface #(name)Api {
    * @return #(description)分页结果
    */
   @PreAuthorize("hasAuthority(''#(permission):page'')")
-  @Operation(summary = "根据条件分页查询#(description)")
+  @Operation(operationId = "list#(pluralName)", summary = "根据条件分页查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)PageResult.class))}
   )
@@ -73,7 +74,7 @@ public interface #(name)Api {
    * @return #(description)数据实体
    */
   @PreAuthorize("hasAuthority(''#(permission):load'')")
-  @Operation(summary = "根据id查询#(description)")
+  @Operation(operationId = "load#(name)", summary = "根据id查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
   )
@@ -88,7 +89,7 @@ public interface #(name)Api {
    * @return #(description)数据实体
    */
   @PreAuthorize("hasAuthority(''#(permission):create'')")
-  @Operation(summary = "创建数据实体")
+  @Operation(operationId = "create#(name)", summary = "创建数据实体")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
   )
@@ -103,7 +104,7 @@ public interface #(name)Api {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority(''#(permission):update'')")
-  @Operation(summary = "更新#(description)")
+  @Operation(operationId = "update#(name)", summary = "更新#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -118,7 +119,7 @@ public interface #(name)Api {
    * @return 操作结果
    */
   @PreAuthorize("hasAuthority(''#(permission):delete'')")
-  @Operation(summary = "删除#(description)")
+  @Operation(operationId = "delete#(name)", summary = "删除#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
@@ -139,6 +140,7 @@ public interface #(name)Api {
 
 import #(package).entities.#(name)Entity;
 import #(package).services.#(name)Service;
+
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -156,6 +158,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 public class #(name)ApiImpl implements #(name)Api {
+
   protected final #(name)Service service;
 
   @Override
@@ -226,6 +229,7 @@ public class #(name)Entity implements Persistable<#(id.javaType)>#for(implement:
 
 import #(package).#(name)Entity;
 import #(package).#(name)Repository;
+
 import cn.koala.mybatis.BaseMyBatisService;
 
 /**
@@ -247,6 +251,7 @@ public class #(name)Service extends BaseMyBatisService<#(name)Entity, #(id.javaT
        ('repositories/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
 
 import #(package).#(name)Entity;
+
 import cn.koala.persist.CrudRepository;
 
 /**
