@@ -1,5 +1,6 @@
 package cn.koala.security;
 
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.DefaultOAuth2AuthenticatedPrincipal;
@@ -19,9 +20,12 @@ import java.util.Set;
  *
  * @author Houtaroy
  */
-public class CustomAuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
-  private final OpaqueTokenIntrospector delegate =
-    new NimbusOpaqueTokenIntrospector("http://127.0.0.1:9000/oauth2/introspect", "koala-admin", "123456");
+public class AuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
+  protected final OpaqueTokenIntrospector delegate;
+
+  public AuthoritiesOpaqueTokenIntrospector(String introspectionUri, String clientId, String clientSecret) {
+    this.delegate = new NimbusOpaqueTokenIntrospector(introspectionUri, clientId, clientSecret);
+  }
 
   public OAuth2AuthenticatedPrincipal introspect(String token) {
     OAuth2AuthenticatedPrincipal principal = this.delegate.introspect(token);

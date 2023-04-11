@@ -46,6 +46,13 @@ spring:
       pageable:
         default-page-size: 50
         max-page-size: 2000
+  security:
+    oauth2:
+      resourceserver:
+        opaque-token:
+          introspection-uri: http://127.0.0.1:9000/oauth2/introspect
+          client-id: koala-admin
+          client-secret: 123456
 
 mybatis:
   mapper-locations: classpath*:mappers/**/*Mapper.xml

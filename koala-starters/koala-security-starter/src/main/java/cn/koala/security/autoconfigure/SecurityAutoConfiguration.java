@@ -1,7 +1,8 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.security.CustomAuthoritiesOpaqueTokenIntrospector;
+import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -88,7 +90,12 @@ public class SecurityAutoConfiguration {
   }
 
   @Bean
-  public OpaqueTokenIntrospector introspector() {
-    return new CustomAuthoritiesOpaqueTokenIntrospector();
+  public OpaqueTokenIntrospector introspector(OAuth2ResourceServerProperties properties) {
+    OAuth2ResourceServerProperties.Opaquetoken opaquetoken = properties.getOpaquetoken();
+    return new AuthoritiesOpaqueTokenIntrospector(
+      opaquetoken.getIntrospectionUri(),
+      opaquetoken.getClientId(),
+      opaquetoken.getClientSecret()
+    );
   }
 }
