@@ -1,5 +1,5 @@
 insert into t_database(name, url, username, password, catalog, `schema`, is_systemic)
-values ('演示数据库', 'jdbc:mysql://bj-cdb-9amt73r4.sql.tencentcdb.com:59997/koala_demo', 'koala_demo', 'koala_demo',
+values ('演示数据库', 'jdbc:mysql://120.46.222.245:3306/koala_demo', 'koala_demo', 'koala_demo',
         'koala_demo', 'koala_demo', 1);
 
 insert into t_template_group(id, name, remark, is_systemic)
