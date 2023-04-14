@@ -24,6 +24,7 @@
     <module>koala-sensitive-word-starter</module>
     <module>koala-system-starter</module>
     <module>koala-template-starter</module>
+    <module>koala-validation-starter</module>
     <module>koala-web-starter</module>
   </modules>
 </project>

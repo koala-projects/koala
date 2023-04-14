@@ -1,11 +1,15 @@
 package cn.koala.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Optional;
 
 
 /**
@@ -26,7 +30,18 @@ public class RestExceptionHandler {
   @ExceptionHandler(value = Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(Exception e) {
-    LOGGER.error(e.getMessage(), e);
-    return Response.error(e.getMessage());
+    LOGGER.error("错误", e);
+    return Response.error("服务器错误, 请联系管理员");
+  }
+
+  @ExceptionHandler(value = MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public Response defaultErrorHandler(MethodArgumentNotValidException e) {
+    LOGGER.error("参数校验失败", e);
+    return Response.error(
+      Optional.ofNullable(e.getFieldError())
+        .map(DefaultMessageSourceResolvable::getDefaultMessage)
+        .orElse("参数校验失败")
+    );
   }
 }

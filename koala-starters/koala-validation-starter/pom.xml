@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-web-starter</artifactId>
-  <description>考拉Web Starter</description>
+  <artifactId>koala-validation-starter</artifactId>
+  <description>考拉校验 Starter</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -17,26 +17,12 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid-spring-boot-starter</artifactId>
+      <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-validation-starter</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-open-api</artifactId>
+      <artifactId>koala-validation</artifactId>
     </dependency>
   </dependencies>
 

@@ -186,6 +186,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-validation</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-web</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -233,6 +238,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-template-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-validation-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
