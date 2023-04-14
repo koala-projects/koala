@@ -5,6 +5,8 @@ import cn.koala.database.DatabaseTable;
 import cn.koala.database.SimpleDatabaseTable;
 import cn.koala.database.entities.DatabaseEntity;
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.validation.group.Add;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +18,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -81,7 +84,7 @@ public interface DatabaseApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseResult.class))}
   )
   @PostMapping
-  DataResponse<Database> add(@RequestBody DatabaseEntity entity);
+  DataResponse<Database> add(@Validated(Add.class) @RequestBody DatabaseEntity entity);
 
   /**
    * 更新数据库
@@ -96,7 +99,7 @@ public interface DatabaseApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据库id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") Long id, @RequestBody DatabaseEntity entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody DatabaseEntity entity);
 
   /**
    * 删除数据库
@@ -153,7 +156,7 @@ public interface DatabaseApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseConnectResult.class))}
   )
   @PostMapping("connect")
-  DataResponse<Boolean> connect(@RequestBody DatabaseEntity entity);
+  DataResponse<Boolean> connect(@Validated(Add.class) @RequestBody DatabaseEntity entity);
 
   class DatabasePageResult extends DataResponse<Page<DatabaseEntity>> {
 
