@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
@@ -38,10 +38,12 @@ public class RestExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Response defaultErrorHandler(MethodArgumentNotValidException e) {
     LOGGER.error("参数校验失败", e);
-    return Response.error(
-      Optional.ofNullable(e.getFieldError())
-        .map(DefaultMessageSourceResolvable::getDefaultMessage)
-        .orElse("参数校验失败")
-    );
+    return Response.error(getFieldErrorDefaultMessages(e));
+  }
+
+  protected String getFieldErrorDefaultMessages(MethodArgumentNotValidException e) {
+    return e.getBindingResult().getFieldErrors().stream()
+      .map(DefaultMessageSourceResolvable::getDefaultMessage)
+      .collect(Collectors.joining(", "));
   }
 }
