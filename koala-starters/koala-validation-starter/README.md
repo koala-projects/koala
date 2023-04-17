@@ -66,7 +66,7 @@ public class UserEntity {
 }
 ```
 
-在`resources`目录下创建配置文件`messges.properties`:
+在`resources`目录下创建配置文件`messages.properties`:
 
 ```properties
 user.name.not-blank=用户名不能为空
