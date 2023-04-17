@@ -61,5 +61,6 @@
 | [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter) | 提供了敏感词过滤功能, 支持Jackson                 |
 | [koala-system-starter](../../koala-starters/koala-system-starter) | 提供了用户管理/角色管理/部门管理/字典管理功能     |
 | [koala-template-starter](../../koala-starters/koala-template-starter) | 提供了模板组管理/模板管理功能                     |
+| [koala-validation-starter](../../koala-starters/koala-validation-starter) | 提供了参数校验功能, 支持提示消息自定义            |
 | [koala-web-starter](../../koala-starters/koala-web-starter)  | 抽象出通用返回模型, 增加全局异常拦截器            |
 
