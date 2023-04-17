@@ -1,6 +1,7 @@
 package cn.koala.security.autoconfigure;
 
 import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
+import cn.koala.security.AuthorizationServerCustomizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -37,21 +38,12 @@ public class SecurityAutoConfiguration {
 
   @Bean
   @Order(1)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
-    throws Exception {
+  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, List<AuthorizationServerCustomizer> customizers) throws Exception {
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-      .oidc(Customizer.withDefaults());  // Enable OpenID Connect 1.0
-    http
-      // Redirect to the login page when not authenticated from the
-      // authorization endpoint
-      .exceptionHandling((exceptions) -> exceptions
-        .authenticationEntryPoint(
-          new LoginUrlAuthenticationEntryPoint("/login"))
-      )
-      // Accept access tokens for User Info and/or Client Registration
-      .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-
+    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
+    http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
+    http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+    customizers.forEach(customizer -> customizer.customize(http));
     return http.build();
   }
 

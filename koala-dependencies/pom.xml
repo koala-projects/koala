@@ -18,7 +18,7 @@
     <!--Spring相关-->
     <spring-boot.version>3.0.2</spring-boot.version>
     <springdoc-openapi-starter-webmvc-ui.version>2.0.2</springdoc-openapi-starter-webmvc-ui.version>
-    <spring-security-oauth2-authorization-server.version>1.0.0</spring-security-oauth2-authorization-server.version>
+    <spring-security-oauth2-authorization-server.version>1.0.1</spring-security-oauth2-authorization-server.version>
     <!--MyBatis相关-->
     <mybatis.version>3.5.11</mybatis.version>
     <mybatis-spring-boot-starter.version>3.0.1</mybatis-spring-boot-starter.version>
