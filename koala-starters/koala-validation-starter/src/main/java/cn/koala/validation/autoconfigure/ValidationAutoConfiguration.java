@@ -2,6 +2,7 @@ package cn.koala.validation.autoconfigure;
 
 import cn.koala.validation.MessageSourceLocator;
 import cn.koala.validation.SimpleMessageSourceLocator;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.autoconfigure.validation.ValidationConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +19,9 @@ import java.util.List;
 public class ValidationAutoConfiguration {
 
   @Bean
-  public ValidationConfigurationCustomizer messageSourceCustomizer(MessageSourceProperties properties,
+  public ValidationConfigurationCustomizer messageSourceCustomizer(ObjectProvider<MessageSourceProperties> properties,
                                                                    List<MessageSourceLocator> locators) {
-    locators.add(0, new SimpleMessageSourceLocator(properties.getBasename()));
+    properties.ifAvailable(data -> locators.add(0, new SimpleMessageSourceLocator(data.getBasename())));
     return new ValidationMessageSourceCustomizer(locators);
   }
 }
