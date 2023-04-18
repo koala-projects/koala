@@ -14,5 +14,5 @@ import java.util.List;
 @ConfigurationProperties(prefix = "koala.security")
 @Data
 public class SecurityProperties {
-  private List<String> permitAllPatterns = new ArrayList<>();
+  private final List<String> permitAllPatterns = new ArrayList<>();
 }

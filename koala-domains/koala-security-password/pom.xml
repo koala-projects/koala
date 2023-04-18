@@ -2,9 +2,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-security-starter</artifactId>
-  <description>考拉安全Starter</description>
+  <artifactId>koala-security-password</artifactId>
+  <description>考拉安全模块拓展, 支持密码模式</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -15,28 +16,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-security</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-security-password</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis-starter</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>oauth2-oidc-sdk</artifactId>
     </dependency>
   </dependencies>
 </project>

@@ -1,7 +1,8 @@
 package cn.koala.security.autoconfigure;
 
 import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
-import cn.koala.security.AuthorizationServerCustomizer;
+import cn.koala.security.AuthorizationServerPostProcessor;
+import cn.koala.security.password.OAuth2ResourceOwnerPasswordPostProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,13 +39,15 @@ public class SecurityAutoConfiguration {
 
   @Bean
   @Order(1)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, List<AuthorizationServerCustomizer> customizers) throws Exception {
+  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, List<AuthorizationServerPostProcessor> processors) throws Exception {
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
     http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
     http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
     http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-    customizers.forEach(customizer -> customizer.customize(http));
-    return http.build();
+    processors.forEach(processor -> processor.postProcessBeforeInitialization(http));
+    SecurityFilterChain result = http.build();
+    processors.forEach(processor -> processor.postProcessAfterInitialization(http));
+    return result;
   }
 
   @Bean
@@ -88,5 +91,10 @@ public class SecurityAutoConfiguration {
       opaquetoken.getClientId(),
       opaquetoken.getClientSecret()
     );
+  }
+
+  @Bean
+  public AuthorizationServerPostProcessor OAuth2ResourceOwnerPasswordPostProcessor() {
+    return new OAuth2ResourceOwnerPasswordPostProcessor();
   }
 }
