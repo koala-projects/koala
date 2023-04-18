@@ -1,6 +1,7 @@
-package cn.koala.security.password;
+package cn.koala.security.processor;
 
-import cn.koala.security.AuthorizationServerPostProcessor;
+import cn.koala.security.authentication.OAuth2ResourceOwnerPasswordAuthenticationConverter;
+import cn.koala.security.authentication.OAuth2ResourceOwnerPasswordAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.core.OAuth2Token;

@@ -1,4 +1,4 @@
-package cn.koala.security.password;
+package cn.koala.security.authentication;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;

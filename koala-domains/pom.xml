@@ -22,12 +22,12 @@
     <module>koala-open-api</module>
     <module>koala-persist</module>
     <module>koala-security</module>
-    <module>koala-security-password</module>
     <module>koala-sensitive-word</module>
     <module>koala-system</module>
     <module>koala-template</module>
     <module>koala-toolkit</module>
     <module>koala-validation</module>
     <module>koala-web</module>
+    <module>koala-wechat-mini-app</module>
   </modules>
 </project>

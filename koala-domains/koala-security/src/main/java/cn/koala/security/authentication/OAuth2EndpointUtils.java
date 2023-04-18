@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.koala.security.password;
+package cn.koala.security.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;

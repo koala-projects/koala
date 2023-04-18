@@ -1,4 +1,4 @@
-package cn.koala.security.password;
+package cn.koala.security.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;

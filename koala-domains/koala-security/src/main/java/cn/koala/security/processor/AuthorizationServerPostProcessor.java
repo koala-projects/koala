@@ -1,4 +1,4 @@
-package cn.koala.security;
+package cn.koala.security.processor;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 

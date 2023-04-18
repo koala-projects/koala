@@ -1,9 +1,10 @@
 package cn.koala.security.autoconfigure;
 
 import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
-import cn.koala.security.AuthorizationServerPostProcessor;
-import cn.koala.security.password.OAuth2ResourceOwnerPasswordPostProcessor;
+import cn.koala.security.processor.AuthorizationServerPostProcessor;
+import cn.koala.security.processor.OAuth2ResourceOwnerPasswordPostProcessor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -94,6 +95,7 @@ public class SecurityAutoConfiguration {
   }
 
   @Bean
+  @ConditionalOnProperty(prefix = "koala.security.grant-type", name = "password", havingValue = "true")
   public AuthorizationServerPostProcessor OAuth2ResourceOwnerPasswordPostProcessor() {
     return new OAuth2ResourceOwnerPasswordPostProcessor();
   }

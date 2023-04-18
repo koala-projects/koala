@@ -21,12 +21,13 @@
     </dependency>
 
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-security</artifactId>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>oauth2-oidc-sdk</artifactId>
     </dependency>
+
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-security-password</artifactId>
+      <artifactId>koala-security</artifactId>
     </dependency>
 
     <dependency>
@@ -34,9 +35,5 @@
       <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>oauth2-oidc-sdk</artifactId>
-    </dependency>
   </dependencies>
 </project>

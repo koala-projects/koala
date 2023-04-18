@@ -151,11 +151,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-security-password</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-sensitive-word</artifactId>
         <version>${revision}</version>
       </dependency>
