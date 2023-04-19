@@ -35,7 +35,7 @@
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.system.entities.PermissionEntity">
+  <insert id="add" parameterType="cn.koala.system.entities.PermissionEntity" useGeneratedKeys="true" keyProperty="id">
     insert into sys_permission(id, code, name, type, icon, url, component, remark, parent_id, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{type}, #{icon}, #{url}, #{component}, #{remark}, #{parentId}, #{createdBy},
             #{createdTime})

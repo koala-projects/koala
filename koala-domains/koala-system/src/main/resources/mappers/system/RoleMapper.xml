@@ -33,7 +33,7 @@
     </where>
   </select>
 
-  <insert id="add" parameterType="cn.koala.system.entities.RoleEntity">
+  <insert id="add" parameterType="cn.koala.system.entities.RoleEntity" useGeneratedKeys="true" keyProperty="id">
     insert into sys_role(id, code, name, remark, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{remark}, #{createdBy}, #{createdTime})
   </insert>

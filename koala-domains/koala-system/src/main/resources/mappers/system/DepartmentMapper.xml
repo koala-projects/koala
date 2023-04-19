@@ -30,7 +30,7 @@
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.system.entities.DepartmentEntity">
+  <insert id="add" parameterType="cn.koala.system.entities.DepartmentEntity" useGeneratedKeys="true" keyProperty="id">
     insert into sys_department(id, name, remark, parent_id, created_by, created_time)
     values (#{id}, #{name}, #{remark}, #{parentId}, #{createdBy}, #{createdTime})
   </insert>

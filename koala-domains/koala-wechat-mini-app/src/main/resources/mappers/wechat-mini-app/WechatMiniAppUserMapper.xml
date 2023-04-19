@@ -32,7 +32,7 @@
     where t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <insert id="add" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity" useGeneratedKeys="true" keyProperty="id">
     insert into wechat_mini_app_user(id, openid, unionid, session_key, user_id)
     values (#{id}, #{openid}, #{unionid}, #{sessionKey}, #{userId})
   </insert>

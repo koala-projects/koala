@@ -33,7 +33,7 @@
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.template.entities.TemplateEntity">
+  <insert id="add" parameterType="cn.koala.template.entities.TemplateEntity" useGeneratedKeys="true" keyProperty="id">
     insert into t_template(id, name, content, remark, group_id)
     values (#{id}, #{name}, #{content}, #{remark}, #{groupId})
   </insert>
