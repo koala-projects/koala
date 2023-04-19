@@ -1,7 +1,6 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.persist.listener.EntityListener;
-import cn.koala.security.autoconfigure.SecurityFilterChainConfigurer;
 import cn.koala.system.apis.DepartmentApi;
 import cn.koala.system.apis.DepartmentApiImpl;
 import cn.koala.system.apis.DictionaryApi;
@@ -140,10 +139,5 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public SettingApi settingApi(SettingService settingService) {
     return new SettingApiImpl(settingService);
-  }
-
-  @Bean
-  public SecurityFilterChainConfigurer systemSecurityFilterChainConfigurer() {
-    return new SystemSecurityFilterChainConfigurer();
   }
 }

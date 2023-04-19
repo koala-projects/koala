@@ -16,9 +16,12 @@
 package cn.koala.security.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.endpoint.PkceParameterNames;
 import org.springframework.util.LinkedMultiValueMap;
@@ -35,49 +38,59 @@ import java.util.Map;
  * @since 0.1.2
  */
 public final class OAuth2EndpointUtils {
-	static final String ACCESS_TOKEN_REQUEST_ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
+  public static final String ACCESS_TOKEN_REQUEST_ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
 
-	private OAuth2EndpointUtils() {
-	}
+  private OAuth2EndpointUtils() {
+  }
 
-	static MultiValueMap<String, String> getParameters(HttpServletRequest request) {
-		Map<String, String[]> parameterMap = request.getParameterMap();
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>(parameterMap.size());
-		parameterMap.forEach((key, values) -> {
-			if (values.length > 0) {
-				for (String value : values) {
-					parameters.add(key, value);
-				}
-			}
-		});
-		return parameters;
-	}
+  public static MultiValueMap<String, String> getParameters(HttpServletRequest request) {
+    Map<String, String[]> parameterMap = request.getParameterMap();
+    MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>(parameterMap.size());
+    parameterMap.forEach((key, values) -> {
+      if (values.length > 0) {
+        for (String value : values) {
+          parameters.add(key, value);
+        }
+      }
+    });
+    return parameters;
+  }
 
-	static Map<String, Object> getParametersIfMatchesAuthorizationCodeGrantRequest(HttpServletRequest request, String... exclusions) {
-		if (!matchesAuthorizationCodeGrantRequest(request)) {
-			return Collections.emptyMap();
-		}
-		Map<String, Object> parameters = new HashMap<>(getParameters(request).toSingleValueMap());
-		for (String exclusion : exclusions) {
-			parameters.remove(exclusion);
-		}
-		return parameters;
-	}
+  static Map<String, Object> getParametersIfMatchesAuthorizationCodeGrantRequest(HttpServletRequest request, String... exclusions) {
+    if (!matchesAuthorizationCodeGrantRequest(request)) {
+      return Collections.emptyMap();
+    }
+    Map<String, Object> parameters = new HashMap<>(getParameters(request).toSingleValueMap());
+    for (String exclusion : exclusions) {
+      parameters.remove(exclusion);
+    }
+    return parameters;
+  }
 
-	static boolean matchesAuthorizationCodeGrantRequest(HttpServletRequest request) {
-		return AuthorizationGrantType.AUTHORIZATION_CODE.getValue().equals(
-				request.getParameter(OAuth2ParameterNames.GRANT_TYPE)) &&
-				request.getParameter(OAuth2ParameterNames.CODE) != null;
-	}
+  static boolean matchesAuthorizationCodeGrantRequest(HttpServletRequest request) {
+    return AuthorizationGrantType.AUTHORIZATION_CODE.getValue().equals(
+      request.getParameter(OAuth2ParameterNames.GRANT_TYPE)) &&
+      request.getParameter(OAuth2ParameterNames.CODE) != null;
+  }
 
-	static boolean matchesPkceTokenRequest(HttpServletRequest request) {
-		return matchesAuthorizationCodeGrantRequest(request) &&
-				request.getParameter(PkceParameterNames.CODE_VERIFIER) != null;
-	}
+  static boolean matchesPkceTokenRequest(HttpServletRequest request) {
+    return matchesAuthorizationCodeGrantRequest(request) &&
+      request.getParameter(PkceParameterNames.CODE_VERIFIER) != null;
+  }
 
-	static void throwError(String errorCode, String parameterName, String errorUri) {
-		OAuth2Error error = new OAuth2Error(errorCode, "OAuth 2.0 Parameter: " + parameterName, errorUri);
-		throw new OAuth2AuthenticationException(error);
-	}
+  public static void throwError(String errorCode, String parameterName, String errorUri) {
+    OAuth2Error error = new OAuth2Error(errorCode, "OAuth 2.0 Parameter: " + parameterName, errorUri);
+    throw new OAuth2AuthenticationException(error);
+  }
 
+  public static Authentication getClientPrincipalElseThrowInvalidClient() {
+    Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
+    if (clientPrincipal == null) {
+      OAuth2EndpointUtils.throwError(
+        OAuth2ErrorCodes.INVALID_REQUEST,
+        OAuth2ErrorCodes.INVALID_CLIENT,
+        OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
+    }
+    return clientPrincipal;
+  }
 }

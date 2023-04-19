@@ -1,102 +1,70 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
-import cn.koala.security.processor.AuthorizationServerPostProcessor;
-import cn.koala.security.processor.OAuth2ResourceOwnerPasswordPostProcessor;
+import cn.koala.security.JwtProperties;
+import cn.koala.security.SecurityProperties;
+import cn.koala.security.SpringSecurityExceptionHandler;
+import cn.koala.security.apis.LoginController;
+import cn.koala.security.apis.UserinfoApi;
+import cn.koala.security.apis.UserinfoApiImpl;
+import cn.koala.security.persist.SpringSecurityAuditorAware;
+import cn.koala.security.repositories.UserDetailsRepository;
+import cn.koala.security.services.UserinfoService;
+import cn.koala.security.services.UserinfoServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
-import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
-
-import java.util.List;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Spring Authorization Server自动配置
+ * 安全自动配置类
  *
  * @author Houtaroy
  */
-@Import({SecurityBeanAutoConfiguration.class, JwtAutoConfiguration.class})
 @EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
+@Import({AuthorizationServerAutoConfiguration.class, DefaultSecurityAutoConfiguration.class})
+@MapperScan("cn.koala.security.repositories")
 @Configuration
-@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityAutoConfiguration {
-  protected final SecurityProperties properties;
 
   @Bean
-  @Order(1)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, List<AuthorizationServerPostProcessor> processors) throws Exception {
-    OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
-    http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
-    http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-    processors.forEach(processor -> processor.postProcessBeforeInitialization(http));
-    SecurityFilterChain result = http.build();
-    processors.forEach(processor -> processor.postProcessAfterInitialization(http));
-    return result;
+  @ConditionalOnMissingBean
+  public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
   }
 
   @Bean
-  @Order(2)
-  public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, List<SecurityFilterChainConfigurer> configurers)
-    throws Exception {
-    addDefaultConfigurers(configurers);
-    http.csrf().disable();
-    for (SecurityFilterChainConfigurer configurer : configurers) {
-      configurer.configure(http);
-    }
-    http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated());
-    http.formLogin().loginPage("/login").permitAll();
-    logoutSuccessHandlerCustomizer(http);
-    http.oauth2ResourceServer().opaqueToken();
-    return http.build();
-  }
-
-  protected void addDefaultConfigurers(List<SecurityFilterChainConfigurer> configurers) {
-    configurers.add(new PermitAllConfigurer(List.of("/swagger*/**", "/v3/api-docs/**")));
-    configurers.add(new PermitAllConfigurer(List.of("/login/**")));
-    configurers.add(new PermitAllConfigurer(properties.getPermitAllPatterns()));
-  }
-
-  protected void logoutSuccessHandlerCustomizer(HttpSecurity http) throws Exception {
-    SimpleUrlLogoutSuccessHandler logoutSuccessHandler = new SimpleUrlLogoutSuccessHandler();
-    logoutSuccessHandler.setTargetUrlParameter("redirect_uri");
-    http.logout().logoutSuccessHandler(logoutSuccessHandler);
+  @ConditionalOnMissingBean
+  public LoginController loginController() {
+    return new LoginController();
   }
 
   @Bean
-  public AuthorizationServerSettings authorizationServerSettings() {
-    return AuthorizationServerSettings.builder().build();
+  @ConditionalOnMissingBean
+  public UserinfoService userinfoService(PasswordEncoder passwordEncoder, UserDetailsRepository userDetailsRepository) {
+    return new UserinfoServiceImpl(passwordEncoder, userDetailsRepository);
   }
 
   @Bean
-  public OpaqueTokenIntrospector introspector(OAuth2ResourceServerProperties properties) {
-    OAuth2ResourceServerProperties.Opaquetoken opaquetoken = properties.getOpaquetoken();
-    return new AuthoritiesOpaqueTokenIntrospector(
-      opaquetoken.getIntrospectionUri(),
-      opaquetoken.getClientId(),
-      opaquetoken.getClientSecret()
-    );
+  @ConditionalOnMissingBean
+  public UserinfoApi userinfoApi(UserinfoService userinfoService) {
+    return new UserinfoApiImpl(userinfoService);
   }
 
   @Bean
-  @ConditionalOnProperty(prefix = "koala.security.grant-type", name = "password", havingValue = "true")
-  public AuthorizationServerPostProcessor OAuth2ResourceOwnerPasswordPostProcessor() {
-    return new OAuth2ResourceOwnerPasswordPostProcessor();
+  @ConditionalOnMissingBean
+  public AuditorAware<?> auditorAware() {
+    return new SpringSecurityAuditorAware();
+  }
+
+  @Bean
+  public SpringSecurityExceptionHandler securityExceptionHandler() {
+    return new SpringSecurityExceptionHandler();
   }
 }

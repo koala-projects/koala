@@ -1,4 +1,4 @@
-package cn.koala.security.autoconfigure;
+package cn.koala.security.processor;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,13 +12,19 @@ import java.util.List;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class PermitAllConfigurer implements SecurityFilterChainConfigurer {
+public class PermitAllPostProcessor implements DefaultSecurityPostProcessor {
+
   private final List<String> patterns;
 
   @Override
-  public void configure(HttpSecurity http) throws Exception {
+  public void postProcessBeforeInitialization(HttpSecurity http) throws Exception {
     if (!CollectionUtils.isEmpty(patterns)) {
       http.authorizeHttpRequests().requestMatchers(patterns.toArray(new String[0])).permitAll();
     }
+  }
+
+  @Override
+  public void postProcessAfterInitialization(HttpSecurity http) {
+
   }
 }

@@ -1,4 +1,4 @@
-package cn.koala.security.autoconfigure;
+package cn.koala.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
