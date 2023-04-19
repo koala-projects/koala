@@ -30,6 +30,7 @@ public class WechatMiniAppAutoConfiguration {
   }
 
   @Bean
+  @ConditionalOnMissingBean
   public WechatMiniAppUserRegistry wechatMiniAppUserRegistry(PasswordEncoder passwordEncoder,
                                                              UserRepository userRepository,
                                                              WechatMiniAppUserRepository wechatMiniAppUserRepository) {
