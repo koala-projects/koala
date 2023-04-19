@@ -34,6 +34,7 @@
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
     <druid-spring-boot-starter.version>1.2.15</druid-spring-boot-starter.version>
     <oauth2-oidc-sdk.version>9.19</oauth2-oidc-sdk.version>
+    <wxjava.version>4.4.9.B</wxjava.version>
     <!--maven-->
     <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
   </properties>
@@ -128,6 +129,16 @@
         <artifactId>oauth2-oidc-sdk</artifactId>
         <version>${oauth2-oidc-sdk.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.github.binarywang</groupId>
+        <artifactId>weixin-java-miniapp</artifactId>
+        <version>${wxjava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.binarywang</groupId>
+        <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
+        <version>${wxjava.version}</version>
+      </dependency>
       <!--考拉-->
       <dependency>
         <groupId>cn.koala</groupId>
@@ -194,6 +205,11 @@
         <artifactId>koala-web</artifactId>
         <version>${revision}</version>
       </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-wechat-mini-app</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--考拉启动模块-->
       <dependency>
         <groupId>cn.koala</groupId>
@@ -248,6 +264,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-web-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-wechat-mini-app-starter</artifactId>
         <version>${revision}</version>
       </dependency>
     </dependencies>

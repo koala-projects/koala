@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.wechat.miniapp.repository.WechatMiniAppUserRepository">
+
+  <sql id="selectWechatMiniAppUser">
+    select t.id,
+           t.openid,
+           t.unionid,
+           t.session_key,
+           t.user_id
+    from wechat_mini_app_user t
+  </sql>
+
+  <select id="find" parameterType="map" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+    <include refid="selectWechatMiniAppUser"/>
+    <where>
+      <if test="openid != null and openid != ''">
+        and t.openid = #{openid}
+      </if>
+      <if test="unionid != null and unionid != ''">
+        and t.unionid = #{openid}
+      </if>
+      <if test="userId != null and userId != ''">
+        and t.user_id = #{userId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findById" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+    <include refid="selectWechatMiniAppUser"/>
+    where t.id = #{id}
+  </select>
+
+  <insert id="add" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+    insert into wechat_mini_app_user(id, openid, unionid, session_key, user_id)
+    values (#{id}, #{openid}, #{unionid}, #{sessionKey}, #{userId})
+  </insert>
+
+  <update id="update" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+    update wechat_mini_app_user
+    <trim prefix="set" suffixOverrides=",">
+      <if test="openid != null">openid=#{openid},</if>
+      <if test="unionid != null">unionid=#{unionid},</if>
+      <if test="sessionKey != null">session_key=#{sessionKey},</if>
+      <if test="userId != null">user_id=#{userId},</if>
+    </trim>
+    where id=#{id}
+  </update>
+
+  <delete id="delete" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+    delete
+    from wechat_mini_app_user
+    where id = #{id}
+  </delete>
+</mapper>

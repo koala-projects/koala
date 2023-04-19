@@ -2,9 +2,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-demo</artifactId>
-  <description>考拉示例</description>
+  <artifactId>koala-wechat-mini-app</artifactId>
+  <description>考拉微信小程序</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -15,34 +16,22 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <version>8.0.32</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.binarywang</groupId>
+      <artifactId>weixin-java-miniapp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-security</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-code-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-sensitive-word-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-wechat-mini-app-starter</artifactId>
+      <artifactId>koala-system</artifactId>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-
-  <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
-  </properties>
 </project>

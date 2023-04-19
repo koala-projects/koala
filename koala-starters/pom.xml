@@ -26,5 +26,6 @@
     <module>koala-template-starter</module>
     <module>koala-validation-starter</module>
     <module>koala-web-starter</module>
+    <module>koala-wechat-mini-app-starter</module>
   </modules>
 </project>
