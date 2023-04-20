@@ -29,7 +29,7 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-wechat-mini-app-starter</artifactId>
+      <artifactId>koala-system-starter</artifactId>
     </dependency>
   </dependencies>
 

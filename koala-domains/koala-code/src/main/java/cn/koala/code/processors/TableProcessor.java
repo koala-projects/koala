@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public class TableProcessor extends BaseContextProcessor<DatabaseTable> {
+public class TableProcessor extends AbstractContextProcessor<DatabaseTable> {
   public TableProcessor() {
     super(DatabaseTable.class);
   }

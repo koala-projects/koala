@@ -11,6 +11,8 @@ values ('apis/Api.java', '接口代码模板', 'package #(package).apis;
 import #(package).entities.#(name)Entity;
 
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.validation.group.Add;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +25,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +45,7 @@ import java.util.Map;
  * @author Koala Code Generator
  */
 @RestController
-@RequestMapping("/api/#(api)")
+@RequestMapping("/api/#(api.path)")
 @Tag(name = "#(description)")
 @SecurityRequirement(name = "spring-security")
 public interface #(name)Api {
@@ -54,13 +57,13 @@ public interface #(name)Api {
    * @param pageable   分页条件
    * @return #(description)分页结果
    */
-  @PreAuthorize("hasAuthority(''#(permission):page'')")
+  @PreAuthorize("hasAuthority(''#(api.permission):page'')")
   @Operation(operationId = "list#(pluralName)", summary = "根据条件分页查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)PageResult.class))}
   )
-#for(parameter: parameters)
-  @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.jsonType)"))
+#for(parameter: api.parameters.others)
+  @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.type)"))
 #end
   @PageableAsQueryParam
   @GetMapping
@@ -73,14 +76,14 @@ public interface #(name)Api {
    * @param id #(description)id
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority(''#(permission):load'')")
+  @PreAuthorize("hasAuthority(''#(api.permission):load'')")
   @Operation(operationId = "load#(name)", summary = "根据id查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.jsonType)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
   @GetMapping("{id}")
-  DataResponse<#(name)Entity> load(@PathVariable("id") #(id.javaType) id);
+  DataResponse<#(name)Entity> load(@PathVariable("id") #(entity.properties.id.type) id);
 
   /**
    * 创建#(description)
@@ -88,13 +91,13 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority(''#(permission):create'')")
+  @PreAuthorize("hasAuthority(''#(api.permission):create'')")
   @Operation(operationId = "create#(name)", summary = "创建数据实体")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
   )
   @PostMapping
-  DataResponse<#(name)Entity> add(@RequestBody #(name)Entity entity);
+  DataResponse<#(name)Entity> add(@Validated(Add.class) @RequestBody #(name)Entity entity);
 
   /**
    * 更新#(description)
@@ -103,14 +106,14 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority(''#(permission):update'')")
+  @PreAuthorize("hasAuthority(''#(api.permission):update'')")
   @Operation(operationId = "update#(name)", summary = "更新#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.jsonType)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") #(id.javaType) id, @RequestBody #(name)Entity entity);
+  Response update(@PathVariable("id") #(entity.properties.id.type) id, @Validated(Update.class) @RequestBody #(name)Entity entity);
 
   /**
    * 删除#(description)
@@ -118,14 +121,14 @@ public interface #(name)Api {
    * @param id #(description)id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority(''#(permission):delete'')")
+  @PreAuthorize("hasAuthority(''#(api.permission):delete'')")
   @Operation(operationId = "delete#(name)", summary = "删除#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.jsonType)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
   @DeleteMapping("{id}")
-  Response delete(@PathVariable("id") #(id.javaType) id);
+  Response delete(@PathVariable("id") #(entity.properties.id.type) id);
 
   class #(name)PageResult extends DataResponse<Page<#(name)Entity>> {
 
@@ -167,7 +170,7 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 
   @Override
-  public DataResponse<#(name)Entity> load(#(id.javaType) id) {
+  public DataResponse<#(name)Entity> load(#(entity.properties.id.type) id) {
     return DataResponse.ok(service.load(id));
   }
 
@@ -178,14 +181,14 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 
   @Override
-  public Response update(#(id.javaType) id, #(name)Entity entity) {
+  public Response update(#(entity.properties.id.type) id, #(name)Entity entity) {
     entity.setIdIfAbsent(id);
     service.update(entity);
     return Response.SUCCESS;
   }
 
   @Override
-  public Response delete(#(id.javaType) id) {
+  public Response delete(#(entity.properties.id.type) id) {
     service.delete(#(name)Entity.builder().id(id).build());
     return Response.SUCCESS;
   }
@@ -193,18 +196,9 @@ public class #(name)ApiImpl implements #(name)Api {
 ', 999, 1),
        ('entities/Entity.java', '数据实体类代码模板', 'package #(package).entities;
 
-#if(implements.contains(''Auditable<Long>''))
-import cn.koala.persist.domain.Auditable;
+#for(import: entity.imports)
+import #(import);
 #end
-import cn.koala.persist.domain.Persistable;
-#if(implements.contains(''Sortable''))
-import cn.koala.persist.domain.Sortable;
-#end
-#if(implements.contains(''Stateful''))
-import cn.koala.persist.domain.Stateful;
-import cn.koala.persist.domain.YesNo;
-#end
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -218,10 +212,17 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "#(description)数据实体类")
-public class #(name)Entity implements Persistable<#(id.javaType)>#for(implement: implements), #(implement)#end  {
-#for(property: properties)
+public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#for(interface: entity.interfaces), #(interface)#end  {
+
+  @Schema(description = "#(entity.properties.id.description)")
+  private #(entity.properties.id.type) id;
+#for(property: entity.properties.others)
+
+#for(validation: property.validations)
+  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
+#end
   @Schema(description = "#(property.description)")
-  private #(property.javaType) #(property.name);
+  private #(property.type) #(property.name);
 #end
 }
 ', 999, 1),
@@ -237,7 +238,7 @@ import cn.koala.mybatis.BaseMyBatisService;
  *
  * @author Koala Code Generator
  */
-public class #(name)Service extends BaseMyBatisService<#(name)Entity, #(id.javaType)> {
+public class #(name)Service extends BaseMyBatisService<#(name)Entity, #(entity.properties.id.type)> {
   /**
    * 构造函数
    *
@@ -259,7 +260,7 @@ import cn.koala.persist.CrudRepository;
  *
  * @author Koala Code Generator
  */
-public interface #(name)Repository extends CrudRepository<#(name)Entity, #(id.javaType)> {
+public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entity.properties.id.type)> {
 }
 ', 999, 1),
        ('mappers/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
@@ -278,27 +279,29 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(id.ja
   <select id="find" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
     <where>
-#if(implements.contains(''Stateful''))
+#if(mybatis.isStateful())
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
 #end
-#for(i = 0; i < columns.size(); i++)
-      <if test="#(properties[i].name) != null and #(properties[i].name) != ''''">
-       #if(implements.contains(''Stateful'')) and#end  t.#(columns[i].name) = #{#(properties[i].name)}
+#for(column: mybatis.columns)
+#if(column.columnName != ''id'')
+      <if test="#(column.propertyName) != null and #(column.propertyName) != ''''">
+       and t.#(column.columnName) = #{#(column.propertyName)}
       </if>
+#end
 #end
     </where>
   </select>
 
   <select id="findById" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
-    where#if(implements.contains(''Stateful'')) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+    where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>
 
-  <insert id="add" parameterType="#(package).entities.#(name)Entity">
+  <insert id="add" parameterType="#(package).entities.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
     insert into #(table.name)
 	value (
-#for(property : properties)
-    #{#(property.name)}#if(!for.last),#end
+#for(column: mybatis.columns)
+    #{#(column.propertyName)}#if(!for.last),#end
 #end
     )
   </insert>
@@ -306,18 +309,20 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(id.ja
   <update id="update" parameterType="#(package).entities.#(name)Entity">
     update #(table.name)
     <trim prefix="set" suffixOverrides=",">
-#for(i = 0; i < columns.size(); i++)
-      <if test="#(properties[i].name) != null">#(columns[i].name)=#{#(properties[i].name)},</if>
+#for(column: mybatis.columns)
+#if(column.columnName != ''id'')
+      <if test="#(column.propertyName) != null">#(column.columnName)=#{#(column.propertyName)},</if>
+#end
 #end
     </trim>
-    where#if(implements.contains(''Stateful'')) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id=#{id}
+    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id=#{id}
   </update>
 
-#if(implements.contains(''Stateful''))
+#if(mybatis.isStateful())
   <update id="delete" parameterType="#(package).entities.#(name)Entity">
     update #(table.name)
-    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(implements.contains(''Auditable<Long>'')),#end
-#if(implements.contains(''Auditable<Long>''))
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
+#if(mybatis.isAuditable())
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
 #end

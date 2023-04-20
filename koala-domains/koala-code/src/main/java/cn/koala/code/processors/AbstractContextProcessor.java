@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public abstract class BaseContextProcessor<T> implements ContextProcessor {
+public abstract class AbstractContextProcessor<T> implements ContextProcessor {
   protected final Class<T> objectClass;
 
   @Override

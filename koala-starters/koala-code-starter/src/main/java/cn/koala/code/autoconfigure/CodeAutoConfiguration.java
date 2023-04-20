@@ -4,9 +4,12 @@ import cn.koala.code.apis.CodeApi;
 import cn.koala.code.apis.CodeApiImpl;
 import cn.koala.code.processors.ContextProcessor;
 import cn.koala.code.processors.DelegatingContextProcessor;
-import cn.koala.code.processors.DomainProcessor;
 import cn.koala.code.processors.StaticProcessor;
 import cn.koala.code.processors.TableProcessor;
+import cn.koala.code.processors.java.ApiProcessor;
+import cn.koala.code.processors.java.DomainNameProcessor;
+import cn.koala.code.processors.java.EntityProcessor;
+import cn.koala.code.processors.java.MyBatisProcessor;
 import cn.koala.code.services.CodeService;
 import cn.koala.code.services.KoalaCodeService;
 import cn.koala.database.services.DatabaseService;
@@ -18,8 +21,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import java.util.List;
 
 /**
  * 代码自动配置类
@@ -37,11 +38,14 @@ public class CodeAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public ContextProcessor contextProcessor() {
-    return new DelegatingContextProcessor(List.of(
+    return new DelegatingContextProcessor(
       new StaticProcessor("package", properties.getPackageName()),
       new TableProcessor(),
-      new DomainProcessor(properties.getTablePrefix())
-    ));
+      new DomainNameProcessor(properties.getTablePrefix()),
+      new ApiProcessor(properties.getTablePrefix()),
+      new EntityProcessor(),
+      new MyBatisProcessor()
+    );
   }
 
   @Bean
