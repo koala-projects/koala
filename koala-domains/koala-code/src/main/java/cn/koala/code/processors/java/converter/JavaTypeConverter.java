@@ -1,6 +1,6 @@
 package cn.koala.code.processors.java.converter;
 
-import cn.koala.toolkit.converter.AbstractDefaultableMapConverter;
+import cn.koala.toolkit.converter.DefaultableMapConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public class JavaTypeConverter extends AbstractDefaultableMapConverter<Integer, String> {
+public class JavaTypeConverter extends DefaultableMapConverter<Integer, String> {
 
   public static final Map<Integer, String> Map;
 

@@ -10,16 +10,16 @@ import java.util.Map;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class StaticConverter<S, T> implements Converter<S, T> {
-  protected final Map<S, T> data;
+public class MapConverter<S, T> implements Converter<S, T> {
+  protected final Map<S, T> map;
 
   @Override
   public T convert(S source) {
-    return data.get(source);
+    return map.get(source);
   }
 
   @Override
   public boolean isSupported(S source) {
-    return data.containsKey(source);
+    return map.containsKey(source);
   }
 }

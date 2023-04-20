@@ -1,8 +1,5 @@
 package cn.koala.toolkit.converter;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Map;
 
 /**
@@ -10,11 +7,13 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@Data
-@RequiredArgsConstructor
-public abstract class AbstractDefaultableMapConverter<S, T> implements Converter<S, T> {
-  private final Map<S, T> map;
+public class DefaultableMapConverter<S, T> extends MapConverter<S, T> {
   private final T defaultValue;
+
+  public DefaultableMapConverter(Map<S, T> data, T defaultValue) {
+    super(data);
+    this.defaultValue = defaultValue;
+  }
 
   @Override
   public T convert(S source) {
