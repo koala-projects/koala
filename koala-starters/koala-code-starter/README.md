@@ -46,19 +46,17 @@ flowchart LR
 
 上下文处理器用于生成模板渲染的上下文, 系统内置的处理器提供如下参数:
 
-| 键值          | 类型         | 描述                                          |
-| ------------- | ------------ | --------------------------------------------- |
-| `package`     | 包名         | 配置文件中的`koala.code.package-name`         |
-| `table`       | 表对象       | 数据库表对象, 参照`SimpleDatabaseTable`       |
-| `columns`     | 列数组       | 数据库列数组, 参照`SimpleDatabaseTableColumn` |
-| `name`        | 领域名称     | 领域名称, 例如`t_user`表则为`User`            |
-| `description` | 领域描述     | 领域描述, 依据表备注生成                      |
-| `properties`  | 领域属性     | 领域属性数组, 参照`DomainProperty`            |
-| `implements`  | 实现接口数组 | 实现接口数组                                  |
-| `id`          | 主键属性     | 主键属性对象, 参照`DomainProperty`            |
-| `api`         | 接口名称     | 接口名称, 例如`t_user`表则为`users`           |
-| `permission`  | 权限名称     | 权限名称, 例如`t_user`表则为`user`            |
-| `parameters`  | 查询属性数组 | 查询参数数组, 参照`DomainProperty`            |
+| 键值          | 类型              | 描述                                          |
+| ------------- | ----------------- | --------------------------------------------- |
+| `package`     | 字符串            | 配置文件中的`koala.code.package-name`         |
+| `table`       | 表对象            | 数据库表对象, 参照`SimpleDatabaseTable`       |
+| `columns`     | 列数组            | 数据库列数组, 参照`SimpleDatabaseTableColumn` |
+| `name`        | 字符串            | 领域名称, 例如`t_user`表则为`User`            |
+| `pluralName`  | 字符串            | 领域名称复数形式, 例如`t_user`表则为`Users`   |
+| `description` | 字符串            | 领域描述, 依据表备注生成                      |
+| `api`         | 接口上下文对象    | 接口上下文对象, 参照`ApiContext`              |
+| `entity`      | 实体上下文对象    | 实体上下文对象, 参照`EntityContext`           |
+| `mybatis`     | MyBatis上下文对象 | MyBatis上下文对象, 参照`MyBatisContext`       |
 
 如上述内容不满足需求, 可通过实现接口`ContextProcessor`来创建自定义上下文处理器:
 
