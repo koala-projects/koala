@@ -17,6 +17,28 @@
     from t_database t
   </sql>
 
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.id asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+    <if test="order.property == 'name'">
+      t.name <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+    </if>
+    <if test="order.property == 'isEnabled'">
+      t.is_enabled <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+    </if>
+  </sql>
+
   <select id="find" resultType="cn.koala.database.entities.DatabaseEntity">
     <include refid="selectDatabase"/>
     <where>
@@ -25,6 +47,7 @@
         and t.name like concat(#{name}, '%')
       </if>
     </where>
+    <include refid="orderBy"/>
   </select>
 
   <select id="findById" resultType="cn.koala.database.entities.DatabaseEntity">

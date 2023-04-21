@@ -27,6 +27,7 @@ public class BaseMyBatisService<T, ID> extends BaseListenableCrudService<T, ID> 
 
   @Override
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
+    parameters.put("orders", pageable.getSort().toList());
     com.github.pagehelper.Page<T> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
       .doSelectPage(() -> repository.find(parameters));

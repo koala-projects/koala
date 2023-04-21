@@ -9,7 +9,7 @@
 1. 创建仓库接口:
 
 ```java
-public interface MyRepository extends CrudRepository<MyEntity, Long> {}
+public interface UserRepository extends CrudRepository<UserEntity, Long> {}
 ```
 
 2. 编写XML文件:
@@ -18,7 +18,7 @@ public interface MyRepository extends CrudRepository<MyEntity, Long> {}
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.koala.test.repositories.MyRepository">
+<mapper namespace="cn.koala.test.repositories.UserRepository">
     <!--查询语句-->
 </mapper>
 ```
@@ -27,8 +27,8 @@ public interface MyRepository extends CrudRepository<MyEntity, Long> {}
 
 ```java
 @Component
-public class MyService extends BaseMyBatisService<User, Long> {
-  public MyService(MyRepository repository) {
+public class UserService extends BaseMyBatisService<User, Long> {
+  public UserService(UserRepository repository) {
     super(repository);
   }
 }
@@ -38,11 +38,11 @@ public class MyService extends BaseMyBatisService<User, Long> {
 
 ```java
 @RestController
-@RequestMapping("/my")
+@RequestMapping("/users")
 @RequiredArgsConstructor
-public class MyApi {
+public class UserApi {
     
-  protected final MyService service;
+  protected final UserService service;
   
   @GetMapping("{id}")
   public User load(@PathVariable("id") Long id) {
@@ -51,7 +51,80 @@ public class MyApi {
 }
 ```
 
-## 功能特点
+## 进阶
+
+### 增强枚举支持
+
+在XML文件中, 可以直接引用增强枚举: `t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}`
+
+自动装配`EnhancedEnumTypeHandler`, 用于处理增强枚举在 MyBatis 中的值转换问题
+
+### 分页查询
+
+分页查询基于`Spring Data`和[MyBatis Pagehelper](https://github.com/pagehelper/Mybatis-PageHelper), 可以在接口添加分页参数`Pageable`, 调用服务类分页查询方法:
+
+```java
+@RestController
+@RequestMapping("/users")
+public class UserApi {
+   
+  @GetMapping
+  public Page<User> page(Map<String, Object> parameters, Pageable pageable) {
+    return service.page(parameters, pageable);
+  }
+}
+```
+
+请求如下:
+
+```http
+GET http://127.0.0.1:9000/user?page=0&size=10
+```
+
+### 自定义排序
+
+分页参数支持排序, 请求如下:
+
+```http
+GET http://127.0.0.1:9000/user?page=0&size=10&sort=created_time,desc&sort=name,asc
+```
+
+服务类会自动将排序属性添加到参数`orders`中, 之后可修改`UserMapper.xml`:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.test.repositories.UserRepository">
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.created_time asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+    <!--注意: 如果前端传值错误, 此处会抛出异常-->
+    <if test="order.property == 'name'">
+      t.name <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+    </if>
+    <if test="order.property == 'createdTime'">
+      t.created_time <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+    </if>
+  </sql>
+    
+  <select id="find" resultType="cn.koala.test.entities.UserEntity">
+    <!--查询语句-->
+    <include refid="orderBy"/>
+  </select>
+</mapper>
+```
 
 ### 全能抽象类
 
@@ -60,13 +133,3 @@ public class MyApi {
 ```java
 public abstract class BaseUniversalEntity implements Persistable<Long>, Sortable, Stateful, Auditable<Long> {}
 ```
-
-### 服务抽象类
-
-提供了基于 MyBatis 的持久化服务抽象类`BaseMyBatisService<T, ID>`, 支持实体监听器, 采用[pagehelper](https://github.com/pagehelper/Mybatis-PageHelper)进行分页查询
-
-### 增强枚举支持
-
-在XML文件中, 可以直接引用增强枚举: `t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}`
-
-自动装配`EnhancedEnumTypeHandler`, 用于处理增强枚举在 MyBatis 中的值转换问题

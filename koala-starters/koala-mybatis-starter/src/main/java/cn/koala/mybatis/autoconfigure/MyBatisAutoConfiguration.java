@@ -1,6 +1,7 @@
 package cn.koala.mybatis.autoconfigure;
 
 import cn.koala.mybatis.EnhancedEnumTypeHandler;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @AutoConfigureAfter(MybatisAutoConfiguration.class)
 @EnableTransactionManagement
+@MapperScan("cn.koala.mybatis.repository")
 public class MyBatisAutoConfiguration {
   /**
    * MyBatis中文枚举TypeHandler自定义配置

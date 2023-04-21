@@ -276,6 +276,31 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
     from #(table.name) t
   </sql>
 
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+#if(mybatis.isAuditable())
+        order by t.created_time desc
+#else
+		order by t.id asc
+#end
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+#for(column: mybatis.columns)
+    <if test="order.property == ''#(column.propertyName)''">
+        t.#(column.columnName) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+    </if>
+#end
+  </sql>
+
   <select id="find" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
     <where>
@@ -290,6 +315,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 #end
 #end
     </where>
+	<include refid="orderBy"/>
   </select>
 
   <select id="findById" resultType="#(package).entities.#(name)Entity">
