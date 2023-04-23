@@ -52,6 +52,7 @@
 
 | 组件名称                                                     | 组件说明                                           |
 | ------------------------------------------------------------ | -------------------------------------------------- |
+| [koala-attachment-starter](../../koala-starters/koala-attachment-starter) | 提供了附件上传和下载功能                           |
 | [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                 |
 | [koala-database-starter](../../koala-starters/koala-database-starter) | 提供了数据库管理功能                               |
 | [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                 |
