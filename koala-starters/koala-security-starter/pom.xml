@@ -15,12 +15,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
       <groupId>com.nimbusds</groupId>
       <artifactId>oauth2-oidc-sdk</artifactId>
     </dependency>
@@ -34,6 +28,5 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
-
   </dependencies>
 </project>
