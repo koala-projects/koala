@@ -42,6 +42,7 @@ public class DefaultAttachmentService extends BaseMyBatisService<Attachment, Lon
     FileUtils.forceMkdirParent(storage);
     attachment.transferTo(storage);
     add(result);
+    result.setStoragePath(null);
     return result;
   }
 
