@@ -91,8 +91,8 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):create'')")
-  @Operation(operationId = "create#(name)", summary = "创建数据实体")
+  @PreAuthorize("hasAuthority(''#(api.permission):add'')")
+  @Operation(operationId = "add#(name)", summary = "创建#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
   )
@@ -175,7 +175,7 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 
   @Override
-  public DataResponse<#(name)Entity> create(#(name)Entity entity) {
+  public DataResponse<#(name)Entity> add(#(name)Entity entity) {
     service.add(entity);
     return DataResponse.ok(entity);
   }

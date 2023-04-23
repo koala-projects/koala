@@ -25,6 +25,14 @@ import java.util.stream.Collectors;
  */
 public class EntityProcessor extends AbstractContextProcessor<DatabaseTable> {
 
+  private static final Set<String> DEFAULT_IMPORTS = Set.of(
+    "lombok.Data",
+    "lombok.NoArgsConstructor",
+    "lombok.experimental.SuperBuilder",
+    "cn.koala.persist.domain.Persistable",
+    "io.swagger.v3.oas.annotations.media.Schema"
+  );
+
   private final Converter<Integer, String> typeConverter;
 
   public EntityProcessor() {
@@ -53,9 +61,7 @@ public class EntityProcessor extends AbstractContextProcessor<DatabaseTable> {
   }
 
   protected Set<String> processImports(DatabaseTable context) {
-    Set<String> result = new HashSet<>();
-    result.add("cn.koala.persist.domain.Persistable");
-    result.add("io.swagger.v3.oas.annotations.media.Schema");
+    Set<String> result = new HashSet<>(DEFAULT_IMPORTS);
     if (KoalaHelper.isAuditable(context)) {
       result.add("cn.koala.persist.domain.Auditable");
     }
@@ -70,10 +76,14 @@ public class EntityProcessor extends AbstractContextProcessor<DatabaseTable> {
   }
 
   protected Set<String> processImports(List<Property> properties) {
-    Set<String> result = properties.stream()
+    Set<String> result = new HashSet<>();
+    if (properties.stream().anyMatch(property -> JavaType.Date.getName().equals(property.getType()))) {
+      result.add("java.util.Date");
+    }
+    result.addAll(properties.stream()
       .flatMap(property -> property.getValidations().stream())
       .map(validation -> "jakarta.validation.constraints.%s".formatted(validation.getName()))
-      .collect(Collectors.toSet());
+      .collect(Collectors.toSet()));
     result.addAll(properties.stream()
       .flatMap(property -> property.getValidations().stream())
       .flatMap(validation -> validation.getGroups().stream())
