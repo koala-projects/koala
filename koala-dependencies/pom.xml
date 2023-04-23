@@ -142,6 +142,11 @@
       <!--考拉-->
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-attachment</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-code</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -211,6 +216,11 @@
         <version>${revision}</version>
       </dependency>
       <!--考拉启动模块-->
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-attachment-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-code-starter</artifactId>
