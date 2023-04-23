@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @Slf4j
-public class AttachmentApiImpl implements AttachmentApi {
+public class DefaultAttachmentApi implements AttachmentApi {
 
   protected final AttachmentService service;
 

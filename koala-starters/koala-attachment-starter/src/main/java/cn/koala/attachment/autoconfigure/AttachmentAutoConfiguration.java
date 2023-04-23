@@ -1,7 +1,7 @@
 package cn.koala.attachment.autoconfigure;
 
 import cn.koala.attachment.AttachmentApi;
-import cn.koala.attachment.AttachmentApiImpl;
+import cn.koala.attachment.DefaultAttachmentApi;
 import cn.koala.attachment.AttachmentFactory;
 import cn.koala.attachment.AttachmentListener;
 import cn.koala.attachment.AttachmentProperties;
@@ -48,6 +48,6 @@ public class AttachmentAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public AttachmentApi attachmentApi(AttachmentService attachmentService) {
-    return new AttachmentApiImpl(attachmentService);
+    return new DefaultAttachmentApi(attachmentService);
   }
 }
