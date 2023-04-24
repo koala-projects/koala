@@ -10,7 +10,7 @@
   <version>${revision}</version>
 
   <properties>
-    <revision>2023.0.2-SNAPSHOT</revision>
+    <revision>2023.1.0-SNAPSHOT</revision>
     <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
