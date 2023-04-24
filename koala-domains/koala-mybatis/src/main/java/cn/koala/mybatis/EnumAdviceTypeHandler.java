@@ -1,7 +1,7 @@
 package cn.koala.mybatis;
 
 
-import cn.koala.persist.domain.EnhancedEnum;
+import cn.koala.persist.domain.EnumAdvice;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
@@ -17,8 +17,8 @@ import java.sql.SQLException;
  * @param <E> 枚举的泛型
  * @author shihongjun
  */
-@MappedTypes(EnhancedEnum.class)
-public class EnhancedEnumTypeHandler<E extends EnhancedEnum> extends BaseTypeHandler<EnhancedEnum> {
+@MappedTypes(EnumAdvice.class)
+public class EnumAdviceTypeHandler<E extends EnumAdvice> extends BaseTypeHandler<EnumAdvice> {
   private final Class<E> type;
 
   /**
@@ -26,7 +26,7 @@ public class EnhancedEnumTypeHandler<E extends EnhancedEnum> extends BaseTypeHan
    *
    * @param type 枚举类型
    */
-  public EnhancedEnumTypeHandler(Class<E> type) {
+  public EnumAdviceTypeHandler(Class<E> type) {
     if (type == null) {
       throw new IllegalArgumentException("Type argument cannot be null");
     }
@@ -34,7 +34,7 @@ public class EnhancedEnumTypeHandler<E extends EnhancedEnum> extends BaseTypeHan
   }
 
   @Override
-  public void setNonNullParameter(PreparedStatement ps, int i, EnhancedEnum parameter, JdbcType jdbcType)
+  public void setNonNullParameter(PreparedStatement ps, int i, EnumAdvice parameter, JdbcType jdbcType)
     throws SQLException {
     ps.setInt(i, parameter.getValue());
   }

@@ -1,6 +1,6 @@
 package cn.koala.mybatis.autoconfigure;
 
-import cn.koala.mybatis.EnhancedEnumTypeHandler;
+import cn.koala.mybatis.EnumAdviceTypeHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
@@ -26,6 +26,6 @@ public class MyBatisAutoConfiguration {
    */
   @Bean
   public ConfigurationCustomizer enhancedEnumTypeConfigurationCustomizer() {
-    return configuration -> configuration.getTypeHandlerRegistry().register(EnhancedEnumTypeHandler.class);
+    return configuration -> configuration.getTypeHandlerRegistry().register(EnumAdviceTypeHandler.class);
   }
 }

@@ -1,6 +1,6 @@
 package cn.koala.system;
 
-import cn.koala.persist.domain.EnhancedEnum;
+import cn.koala.persist.domain.EnumAdvice;
 import lombok.Getter;
 
 /**
@@ -9,7 +9,7 @@ import lombok.Getter;
  * @author Houtaroy
  */
 @Getter
-public enum PermissionType implements EnhancedEnum {
+public enum PermissionType implements EnumAdvice {
   MENU("菜单", 1),
   BUTTON("按钮", 2);
 

@@ -98,20 +98,7 @@ public class MyRegisteredClientRegistry extends AbstractRegisteredClientRegistry
 
 ### 审计员感知器
 
-在实际业务中, 我们可能会需要获取当前登录的用户作为审计对象, 例如创建用户时
-
 模块内置了一个安全审计员感知器`SpringSecurityAuditorAware`
 
-如果此感知器无法满足需求, 可手动实现`AuditorAware`接口进行自定义:
-
-```java
-public class MyAuditorAware implements AuditorAware<MyUser> {
-  
-  @Override
-  @NonNull
-  public Optional<MyUser> getCurrentAuditor() {
-    // 获取当前用户逻辑...
-  }
-}
-```
+若此感知器无法满足需求, 可参照 [koala-persist-starter](../koala-persist-starter) 中的说明进行自定义
 

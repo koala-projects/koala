@@ -8,7 +8,7 @@ import lombok.Getter;
  * @author Houtaroy
  */
 @Getter
-public enum YesNo implements EnhancedEnum {
+public enum YesNo implements EnumAdvice {
   YES("是", 1),
   NO("否", 0);
 

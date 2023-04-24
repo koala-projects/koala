@@ -1,6 +1,6 @@
 package cn.koala.code.processors.java.converter;
 
-import cn.koala.persist.domain.EnhancedEnum;
+import cn.koala.persist.domain.EnumAdvice;
 import lombok.Getter;
 
 /**
@@ -9,7 +9,7 @@ import lombok.Getter;
  * @author Houtaroy
  */
 @Getter
-public enum JavaType implements EnhancedEnum {
+public enum JavaType implements EnumAdvice {
   Integer("Integer", 1),
   Long("Long", 2),
   Float("Float", 3),

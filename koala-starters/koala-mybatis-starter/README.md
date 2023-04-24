@@ -53,15 +53,18 @@ public class UserApi {
 
 ## 进阶
 
-### 增强枚举支持
+### 枚举增强支持
+
+枚举增强请参照 [koala-persist-starter](../koala-persist-starter) 中的说明
 
 在XML文件中, 可以直接引用增强枚举: `t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}`
 
-自动装配`EnhancedEnumTypeHandler`, 用于处理增强枚举在 MyBatis 中的值转换问题
+自动装配`EnumAdviceTypeHandler`, 用于处理增强枚举在 MyBatis 中的值转换问题
 
 ### 分页查询
 
-分页查询基于`Spring Data`和[MyBatis Pagehelper](https://github.com/pagehelper/Mybatis-PageHelper), 可以在接口添加分页参数`Pageable`, 调用服务类分页查询方法:
+分页查询基于`Spring Data`和[MyBatis Pagehelper](https://github.com/pagehelper/Mybatis-PageHelper),
+可以在接口添加分页参数`Pageable`, 调用服务类分页查询方法:
 
 ```java
 @RestController
