@@ -5,16 +5,25 @@ package cn.koala.persist.listener;
  *
  * @author Houtaroy
  */
-public interface EntityListener {
-  void beforeAdd(Object entity);
+public interface EntityListener<T> {
+  Class<T> getEntityClass();
 
-  void afterAdd(Object entity);
+  default <S extends T> void preAdd(S entity) {
 
-  void beforeUpdate(Object entity, Object persist);
+  }
 
-  void afterUpdate(Object entity);
+  default <S extends T> void postAdd(S entity) {
+  }
 
-  void beforeDelete(Object entity, Object persist);
+  default <S extends T> void preUpdate(S entity, S persist) {
+  }
 
-  void afterDelete(Object entity);
+  default <S extends T> void postUpdate(S entity) {
+  }
+
+  default <S extends T> void preDelete(S entity, S persist) {
+  }
+
+  default <S extends T> void postDelete(S entity) {
+  }
 }

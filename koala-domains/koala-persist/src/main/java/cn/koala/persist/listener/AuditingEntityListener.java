@@ -14,54 +14,33 @@ import org.springframework.util.Assert;
  * @author Houtaroy
  */
 @Order(2000)
-public class AuditingEntityListener extends BaseEntityListener {
+@SuppressWarnings({"unchecked", "rawtypes"})
+public class AuditingEntityListener extends AbstractEntityListener<Auditable> {
   protected final ObjectProvider<AuditorAware<?>> auditorAware;
 
   public AuditingEntityListener(@NonNull ObjectProvider<AuditorAware<?>> auditorAware) {
-    super(Auditable.class);
     Assert.notNull(auditorAware, "AuditorAware不能为空");
     this.auditorAware = auditorAware;
   }
 
   @Override
-  public void beforeAdd(Object entity) {
-    if (auditorAware != null && entity instanceof Auditable<?>) {
-      Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setCreatedBy));
-      auditable.setCreatedTime(DateHelper.now());
-    }
+  public void preAdd(Auditable entity) {
+    Auditable<Object> auditable = ((Auditable<Object>) entity);
+    auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setCreatedBy));
+    auditable.setCreatedTime(DateHelper.now());
   }
 
   @Override
-  public void afterAdd(Object entity) {
-
+  public void preUpdate(Auditable entity, Auditable persist) {
+    Auditable<Object> auditable = ((Auditable<Object>) entity);
+    auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setLastModifiedBy));
+    auditable.setLastModifiedTime(DateHelper.now());
   }
 
   @Override
-  public void beforeUpdate(Object entity, Object persist) {
-    if (entity instanceof Auditable<?>) {
-      Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setLastModifiedBy));
-      auditable.setLastModifiedTime(DateHelper.now());
-    }
-  }
-
-  @Override
-  public void afterUpdate(Object entity) {
-
-  }
-
-  @Override
-  public void beforeDelete(Object entity, Object persist) {
-    if (entity instanceof Auditable<?>) {
-      Auditable<Object> auditable = ((Auditable<Object>) entity);
-      auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setDeletedBy));
-      auditable.setDeletedTime(DateHelper.now());
-    }
-  }
-
-  @Override
-  public void afterDelete(Object entity) {
-
+  public void preDelete(Auditable entity, Auditable persist) {
+    Auditable<Object> auditable = ((Auditable<Object>) entity);
+    auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setDeletedBy));
+    auditable.setDeletedTime(DateHelper.now());
   }
 }

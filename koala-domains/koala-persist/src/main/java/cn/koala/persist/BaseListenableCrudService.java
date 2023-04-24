@@ -3,75 +3,70 @@ package cn.koala.persist;
 import cn.koala.persist.domain.Persistable;
 import cn.koala.persist.listener.EntityListener;
 import cn.koala.persist.listener.EntityListenerSupport;
+import cn.koala.toolkit.ClassHelper;
 import lombok.NonNull;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 基础增删改查抽象类
  *
  * @author Houtaroy
  */
-public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T, ID> implements EntityListenerSupport {
-  protected final List<EntityListener> listeners;
+public abstract class BaseListenableCrudService<T, ID> extends BaseCrudService<T, ID> implements EntityListenerSupport<T> {
+  protected final Class<T> entityClass;
+  protected final List<EntityListener<? super T>> listeners;
 
   public BaseListenableCrudService(CrudRepository<T, ID> repository) {
-    super(repository);
-    this.listeners = new ArrayList<>();
+    this(repository, new ArrayList<>());
   }
 
-  public BaseListenableCrudService(CrudRepository<T, ID> repository, List<EntityListener> listeners) {
+  @SuppressWarnings("unchecked")
+  public BaseListenableCrudService(CrudRepository<T, ID> repository, List<EntityListener<? super T>> listeners) {
     super(repository);
+    this.entityClass = (Class<T>) ClassHelper.getSuperGenericClass(this, BaseCrudService.class);
     this.listeners = new ArrayList<>(listeners);
   }
 
   @Override
   public <S extends T> void add(@NonNull S entity) {
-    listeners.forEach(listener -> listener.beforeAdd(entity));
+    listeners.forEach(listener -> listener.preAdd(entity));
     super.add(entity);
-    listeners.forEach(listener -> listener.afterAdd(entity));
+    listeners.forEach(listener -> listener.postAdd(entity));
   }
 
   @Override
   public <S extends T> void update(@NonNull S entity) {
-    listeners.forEach(listener -> listener.beforeUpdate(entity, loadPersist(entity)));
+    listeners.forEach(listener -> listener.preUpdate(entity, loadPersist(entity)));
     super.update(entity);
-    listeners.forEach(listener -> listener.afterUpdate(entity));
+    listeners.forEach(listener -> listener.postUpdate(entity));
   }
 
   @Override
   public <S extends T> void delete(@NonNull S entity) {
-    listeners.forEach(listener -> listener.beforeDelete(entity, loadPersist(entity)));
+    listeners.forEach(listener -> listener.preDelete(entity, loadPersist(entity)));
     super.delete(entity);
-    listeners.forEach(listener -> listener.afterDelete(entity));
+    listeners.forEach(listener -> listener.postDelete(entity));
   }
 
   @Override
-  public void registerListener(EntityListener listener) {
+  public Class<T> getEntityClass() {
+    return this.entityClass;
+  }
+
+  @Override
+  public void registerListener(EntityListener<? super T> listener) {
     this.listeners.add(listener);
   }
 
   @Override
-  public void registerListeners(List<EntityListener> listeners) {
+  public void registerListeners(List<EntityListener<? super T>> listeners) {
     this.listeners.clear();
     this.listeners.addAll(listeners);
   }
 
-  @Override
-  public Optional<Class<?>> getEntityType() {
-    return Optional.of(getClass().getGenericSuperclass())
-      .filter(superClass -> superClass instanceof ParameterizedType)
-      .map(ParameterizedType.class::cast)
-      .map(ParameterizedType::getActualTypeArguments)
-      .filter(types -> types.length > 0)
-      .map(types -> types[0])
-      .filter(entityType -> entityType instanceof Class<?>)
-      .map(entityType -> (Class<?>) entityType);
-  }
-
+  @SuppressWarnings("unchecked")
   protected T loadPersist(T entity) {
     return entity instanceof Persistable<?> ? load(((Persistable<ID>) entity).getId()) : entity;
   }

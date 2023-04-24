@@ -1,7 +1,10 @@
 package cn.koala.persist.autoconfigure;
 
 import cn.koala.persist.listener.AuditingEntityListener;
+import cn.koala.persist.listener.DefaultEntityListenerRegistry;
 import cn.koala.persist.listener.EntityListener;
+import cn.koala.persist.listener.EntityListenerInjector;
+import cn.koala.persist.listener.EntityListenerRegistry;
 import cn.koala.persist.listener.StatefulEntityListener;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -32,7 +35,13 @@ public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public CrudServicePostProcessor crudServicePostProcessor(List<EntityListener> listeners) {
-    return new CrudServicePostProcessor(listeners);
+  public EntityListenerRegistry entityListenerRegistry(List<EntityListener<?>> listeners) {
+    return new DefaultEntityListenerRegistry(listeners);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public EntityListenerInjector entityListenerInjector(EntityListenerRegistry entityListenerRegistry) {
+    return new EntityListenerInjector(entityListenerRegistry);
   }
 }

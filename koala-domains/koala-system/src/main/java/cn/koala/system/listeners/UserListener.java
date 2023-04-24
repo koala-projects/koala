@@ -1,6 +1,6 @@
 package cn.koala.system.listeners;
 
-import cn.koala.persist.listener.BaseEntityListener;
+import cn.koala.persist.listener.AbstractEntityListener;
 import cn.koala.system.User;
 import cn.koala.system.apis.request.CreateUserRequest;
 import cn.koala.system.repositories.UserRepository;
@@ -16,51 +16,26 @@ import java.util.Map;
  * @author Houtaroy
  */
 @Order(100)
-public class UserListener extends BaseEntityListener {
+public class UserListener extends AbstractEntityListener<User> {
   protected final UserRepository userRepository;
   protected final PasswordEncoder passwordEncoder;
 
   public UserListener(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    super(User.class);
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
   }
 
   @Override
-  public void beforeAdd(Object entity) {
-    if (entity instanceof User user) {
-      Assert.isTrue(usernameIsNotDuplicate(user), "用户账号已存在");
-    }
+  public void preAdd(User entity) {
+    Assert.isTrue(usernameIsNotDuplicate(entity), "用户账号已存在");
     if (entity instanceof CreateUserRequest request) {
       request.setPassword(passwordEncoder.encode(request.getPlainPassword()));
     }
   }
 
   @Override
-  public void afterAdd(Object entity) {
-    if (entity instanceof User user) {
-      user.setPassword(null);
-    }
-  }
-
-  @Override
-  public void beforeUpdate(Object entity, Object persist) {
-
-  }
-
-  @Override
-  public void afterUpdate(Object entity) {
-
-  }
-
-  @Override
-  public void beforeDelete(Object entity, Object persist) {
-
-  }
-
-  @Override
-  public void afterDelete(Object entity) {
-
+  public void postAdd(User entity) {
+    entity.setPassword(null);
   }
 
   protected boolean usernameIsNotDuplicate(User user) {

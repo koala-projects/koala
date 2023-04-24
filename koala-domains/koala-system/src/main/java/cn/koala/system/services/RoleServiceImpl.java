@@ -30,7 +30,7 @@ public class RoleServiceImpl extends BaseMyBatisService<Role, Long> implements R
   @Override
   public void authorize(Long id, List<Long> checkedIds, List<Long> halfCheckedIds) {
     Role persist = load(id);
-    listeners.forEach(listener -> listener.beforeUpdate(persist, persist));
+    listeners.forEach(listener -> listener.preUpdate(persist, persist));
     ((RoleRepository) repository).authorize(id, checkedIds, halfCheckedIds);
   }
 }

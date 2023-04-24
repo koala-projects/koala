@@ -30,7 +30,7 @@ public class UserServiceImpl extends BaseMyBatisService<User, Long> implements U
   @Override
   public void setRoleIds(Long id, List<Long> roleIds) {
     User persist = load(id);
-    listeners.forEach(listener -> listener.beforeUpdate(persist, persist));
+    listeners.forEach(listener -> listener.preUpdate(persist, persist));
     ((UserRepository) repository).updateRoleIdById(id, roleIds);
   }
 
@@ -42,7 +42,7 @@ public class UserServiceImpl extends BaseMyBatisService<User, Long> implements U
   @Override
   public void setDepartmentIds(Long id, List<Long> departmentIds) {
     User persist = load(id);
-    listeners.forEach(listener -> listener.beforeUpdate(persist, persist));
+    listeners.forEach(listener -> listener.preUpdate(persist, persist));
     ((UserRepository) repository).updateDepartmentIdById(id, departmentIds);
   }
 }

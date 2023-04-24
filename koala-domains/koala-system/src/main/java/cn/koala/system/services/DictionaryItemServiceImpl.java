@@ -1,11 +1,8 @@
 package cn.koala.system.services;
 
 import cn.koala.mybatis.BaseMyBatisService;
-import cn.koala.persist.listener.EntityListener;
 import cn.koala.system.DictionaryItem;
 import cn.koala.system.repositories.DictionaryItemRepository;
-
-import java.util.List;
 
 /**
  * 字典项服务实现类
@@ -20,9 +17,5 @@ public class DictionaryItemServiceImpl extends BaseMyBatisService<DictionaryItem
    */
   public DictionaryItemServiceImpl(DictionaryItemRepository repository) {
     super(repository);
-  }
-
-  public DictionaryItemServiceImpl(DictionaryItemRepository repository, List<EntityListener> listeners) {
-    super(repository, listeners);
   }
 }
