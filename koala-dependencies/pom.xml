@@ -30,6 +30,7 @@
     <enjoy.version>5.0.3</enjoy.version>
     <guava.version>31.1-jre</guava.version>
     <junit.version>5.8.2</junit.version>
+    <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
     <slf4j.version>2.0.7</slf4j.version>
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
     <druid-spring-boot-starter.version>1.2.17</druid-spring-boot-starter.version>
@@ -113,6 +114,11 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-spring-boot-starter</artifactId>
+        <version>${rocketmq-spring-boot-starter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -244,6 +250,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-persist-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-rocketmq-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
