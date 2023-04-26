@@ -58,8 +58,9 @@
 | [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                 |
 | [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter) | 持久化功能的 MyBatis 版本实现                      |
 | [koala-persist-starter](../../koala-starters/koala-persist-starter) | 定义部分持久化功能, 如模型/仓库/服务/实体监听器等  |
-| [koala-security-starter](../../koala-starters/koala-security-starter) | 实现了基于OAuth2.1的认证授权体系                   |
-| [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter) | 提供了敏感词过滤功能, 支持Jackson                  |
+| [koala-rocketmq-starter](../../koala-starters/koala-rocketmq-starter) | 集成Apache RocketMQ, 提供 Spring Boot 3 适配       |
+| [koala-security-starter](../../koala-starters/koala-security-starter) | 实现了基于 OAuth 2.1 的认证授权体系                |
+| [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter) | 提供了敏感词过滤功能, 支持 Jackson                 |
 | [koala-system-starter](../../koala-starters/koala-system-starter) | 提供了用户管理/角色管理/部门管理/字典管理功能      |
 | [koala-template-starter](../../koala-starters/koala-template-starter) | 提供了模板组管理/模板管理功能                      |
 | [koala-validation-starter](../../koala-starters/koala-validation-starter) | 提供了参数校验功能, 支持提示消息自定义             |
