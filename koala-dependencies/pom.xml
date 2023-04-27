@@ -30,6 +30,7 @@
     <enjoy.version>5.0.3</enjoy.version>
     <guava.version>31.1-jre</guava.version>
     <junit.version>5.8.2</junit.version>
+    <minio.version>8.5.2</minio.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
     <slf4j.version>2.0.7</slf4j.version>
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
@@ -114,6 +115,11 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.minio</groupId>
+        <artifactId>minio</artifactId>
+        <version>${minio.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.rocketmq</groupId>
@@ -240,6 +246,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-log-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-minio-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

@@ -19,6 +19,7 @@
     <module>koala-code-starter</module>
     <module>koala-database-starter</module>
     <module>koala-log-starter</module>
+    <module>koala-minio-starter</module>
     <module>koala-mybatis-starter</module>
     <module>koala-persist-starter</module>
     <module>koala-rocketmq-starter</module>
