@@ -113,7 +113,7 @@ public class SystemAutoConfiguration {
   }
 
   @Bean
-  public EntityListener userListener(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserListener userListener(UserRepository userRepository, PasswordEncoder passwordEncoder) {
     return new UserListener(userRepository, passwordEncoder);
   }
 
