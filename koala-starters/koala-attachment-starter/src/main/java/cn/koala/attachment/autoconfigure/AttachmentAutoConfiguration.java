@@ -14,6 +14,7 @@ import cn.koala.attachment.support.DefaultAttachmentApi;
 import cn.koala.attachment.support.DefaultAttachmentService;
 import io.minio.MinioClient;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -39,17 +40,21 @@ public class AttachmentAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  @ConditionalOnProperty(prefix = "koala.attachment", name = "type", havingValue = "minio")
-  @ConditionalOnClass(MinioClient.class)
-  public AttachmentStorage minIOAttachmentStorage(AttachmentFactory factory, MinioClient client) {
-    return new MinIOAttachmentStorage(factory, client);
+  @ConditionalOnProperty("koala.attachment.root")
+  public AttachmentStorage localAttachmentStorage(AttachmentFactory factory, AttachmentProperties properties) {
+    return new LocalAttachmentStorage(factory, properties.getRoot());
   }
 
   @Bean
   @ConditionalOnMissingBean
-  @ConditionalOnProperty("koala.attachment.root")
-  public AttachmentStorage localAttachmentStorage(AttachmentFactory factory, AttachmentProperties properties) {
-    return new LocalAttachmentStorage(factory, properties.getRoot());
+  @ConditionalOnClass(name = "io.minio.MinioClient")
+  @ConditionalOnProperty(prefix = "koala.attachment", name = "type", havingValue = "minio")
+  public AttachmentStorage minIOAttachmentStorage(AttachmentFactory factory, ObjectProvider<MinioClient> clientProvider) {
+    MinioClient client = clientProvider.getIfAvailable();
+    if (client == null) {
+      throw new IllegalStateException("未找到MinIO客户端, 请检查相关配置");
+    }
+    return new MinIOAttachmentStorage(factory, client);
   }
 
   @Bean
