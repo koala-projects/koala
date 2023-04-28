@@ -12,7 +12,6 @@ import cn.koala.attachment.storage.LocalAttachmentStorage;
 import cn.koala.attachment.storage.MinIOAttachmentStorage;
 import cn.koala.attachment.support.DefaultAttachmentApi;
 import cn.koala.attachment.support.DefaultAttachmentService;
-import cn.koala.persist.listener.EntityListener;
 import io.minio.MinioClient;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
