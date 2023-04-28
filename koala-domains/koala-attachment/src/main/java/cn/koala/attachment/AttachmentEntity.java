@@ -1,6 +1,5 @@
 package cn.koala.attachment;
 
-import cn.koala.attachment.Attachment;
 import cn.koala.validation.group.Add;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
