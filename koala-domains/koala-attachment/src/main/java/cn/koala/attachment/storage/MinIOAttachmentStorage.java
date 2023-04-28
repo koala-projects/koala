@@ -7,6 +7,7 @@ import io.minio.GetObjectArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -54,5 +55,15 @@ public class MinIOAttachmentStorage extends AbstractAttachmentStorage {
         .bucket(bucket)
         .object(attachment.getStoragePath())
         .build());
+  }
+
+  @Override
+  public void remove(Attachment attachment) throws Exception {
+    client.removeObject(
+      RemoveObjectArgs.builder()
+        .bucket(bucket)
+        .object(attachment.getStoragePath())
+        .build()
+    );
   }
 }

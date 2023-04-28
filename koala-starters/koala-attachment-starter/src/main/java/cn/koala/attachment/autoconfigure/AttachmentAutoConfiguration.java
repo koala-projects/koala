@@ -61,8 +61,8 @@ public class AttachmentAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(name = "attachmentListener")
-  public EntityListener<?> attachmentListener() {
-    return new AttachmentListener();
+  public AttachmentListener attachmentListener(AttachmentStorage storage) {
+    return new AttachmentListener(storage);
   }
 
   @Bean

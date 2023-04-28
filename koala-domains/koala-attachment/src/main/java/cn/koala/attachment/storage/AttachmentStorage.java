@@ -13,4 +13,6 @@ public interface AttachmentStorage {
   Attachment upload(MultipartFile multipartFile) throws Exception;
 
   void download(Attachment attachment, HttpServletResponse response) throws Exception;
+
+  void remove(Attachment attachment) throws Exception;
 }

@@ -36,7 +36,13 @@ public class LocalAttachmentStorage extends AbstractAttachmentStorage {
     return new FileInputStream(computeLocalAttachment(attachment));
   }
 
-  public File computeLocalAttachment(Attachment attachment) {
+  @Override
+  public void remove(Attachment attachment) throws Exception {
+    FileUtils.forceDelete(computeLocalAttachment(attachment));
+  }
+
+  protected File computeLocalAttachment(Attachment attachment) {
     return FileUtils.getFile(root, attachment.getStoragePath());
   }
+
 }

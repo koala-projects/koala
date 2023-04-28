@@ -73,6 +73,11 @@ public class MyAttachmentStorage implements AttachmentStorage {
   public void download(Attachment attachment, HttpServletResponse response) throws Exception {
     // 下载逻辑...
   }
+    
+  @Override
+  public void remove(Attachment attachment) throws Exception {
+    // 删除逻辑...
+  }
 }
 ```
 
