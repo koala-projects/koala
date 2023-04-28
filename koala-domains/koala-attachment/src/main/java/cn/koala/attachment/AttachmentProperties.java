@@ -11,5 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "koala.attachment")
 @Data
 public class AttachmentProperties {
-  private String root;
+  private final String type = "local";
+  private final String root;
 }

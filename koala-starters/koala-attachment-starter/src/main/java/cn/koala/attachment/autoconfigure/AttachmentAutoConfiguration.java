@@ -1,17 +1,23 @@
 package cn.koala.attachment.autoconfigure;
 
 import cn.koala.attachment.AttachmentApi;
-import cn.koala.attachment.DefaultAttachmentApi;
-import cn.koala.attachment.AttachmentFactory;
 import cn.koala.attachment.AttachmentListener;
 import cn.koala.attachment.AttachmentProperties;
 import cn.koala.attachment.AttachmentService;
-import cn.koala.attachment.DefaultAttachmentFactory;
-import cn.koala.attachment.DefaultAttachmentService;
+import cn.koala.attachment.factory.AttachmentFactory;
+import cn.koala.attachment.factory.DefaultAttachmentFactory;
 import cn.koala.attachment.repository.AttachmentRepository;
+import cn.koala.attachment.storage.AttachmentStorage;
+import cn.koala.attachment.storage.LocalAttachmentStorage;
+import cn.koala.attachment.storage.MinIOAttachmentStorage;
+import cn.koala.attachment.support.DefaultAttachmentApi;
+import cn.koala.attachment.support.DefaultAttachmentService;
 import cn.koala.persist.listener.EntityListener;
+import io.minio.MinioClient;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,26 +34,40 @@ public class AttachmentAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public AttachmentFactory attachmentFactory(AttachmentProperties attachmentProperties) {
-    return new DefaultAttachmentFactory(attachmentProperties);
+  public AttachmentFactory attachmentFactory() {
+    return new DefaultAttachmentFactory();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  @ConditionalOnProperty(prefix = "koala.attachment", name = "type", havingValue = "minio")
+  @ConditionalOnClass(MinioClient.class)
+  public AttachmentStorage minIOAttachmentStorage(AttachmentFactory factory, MinioClient client) {
+    return new MinIOAttachmentStorage(factory, client);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  @ConditionalOnProperty("koala.attachment.root")
+  public AttachmentStorage localAttachmentStorage(AttachmentFactory factory, AttachmentProperties properties) {
+    return new LocalAttachmentStorage(factory, properties.getRoot());
   }
 
   @Bean
   @ConditionalOnMissingBean(name = "attachmentService")
-  public AttachmentService attachmentService(AttachmentRepository attachmentRepository,
-                                             AttachmentFactory attachmentFactory) {
-    return new DefaultAttachmentService(attachmentRepository, attachmentFactory);
+  public AttachmentService attachmentService(AttachmentRepository repository, AttachmentStorage storage) {
+    return new DefaultAttachmentService(repository, storage);
   }
 
   @Bean
   @ConditionalOnMissingBean(name = "attachmentListener")
-  public EntityListener attachmentListener() {
+  public EntityListener<?> attachmentListener() {
     return new AttachmentListener();
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public AttachmentApi attachmentApi(AttachmentService attachmentService) {
-    return new DefaultAttachmentApi(attachmentService);
+  public AttachmentApi attachmentApi(AttachmentService service) {
+    return new DefaultAttachmentApi(service);
   }
 }

@@ -22,6 +22,11 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-minio-starter</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
     <dependency>

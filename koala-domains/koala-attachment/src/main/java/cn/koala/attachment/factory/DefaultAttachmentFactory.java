@@ -1,7 +1,10 @@
-package cn.koala.attachment;
+package cn.koala.attachment.factory;
 
+import cn.koala.attachment.Attachment;
+import cn.koala.attachment.AttachmentEntity;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -16,7 +19,6 @@ import java.util.UUID;
 public class DefaultAttachmentFactory implements AttachmentFactory {
 
   private static final int BINARY_UNIT = 1024;
-  private final AttachmentProperties properties;
 
   @Override
   public Attachment create(MultipartFile multipartFile) {
@@ -38,6 +40,9 @@ public class DefaultAttachmentFactory implements AttachmentFactory {
     String month = String.valueOf(now.getMonth().getValue());
     String day = String.valueOf(now.getDayOfMonth());
     String hour = String.valueOf(now.getHour());
-    return FileUtils.getFile(properties.getRoot(), year, month, day, hour, UUID.randomUUID().toString()).getPath();
+    return FilenameUtils.normalize(
+      FileUtils.getFile(year, month, day, hour, UUID.randomUUID().toString()).getPath(),
+      true
+    );
   }
 }

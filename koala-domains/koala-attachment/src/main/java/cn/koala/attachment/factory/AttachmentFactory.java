@@ -1,5 +1,6 @@
-package cn.koala.attachment;
+package cn.koala.attachment.factory;
 
+import cn.koala.attachment.Attachment;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
