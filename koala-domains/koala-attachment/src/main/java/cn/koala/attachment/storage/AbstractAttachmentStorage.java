@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 /**
- * TODO: 修改类描述
+ * 附件存储器抽象类
  *
  * @author Houtaroy
  */

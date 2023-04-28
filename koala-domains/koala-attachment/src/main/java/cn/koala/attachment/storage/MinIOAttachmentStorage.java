@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 
 /**
- * TODO: 修改类描述
+ * MinIO附件存储器
  *
  * @author Houtaroy
  */
