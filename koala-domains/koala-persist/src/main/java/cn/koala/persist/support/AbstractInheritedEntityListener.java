@@ -1,7 +1,9 @@
 package cn.koala.persist.support;
 
 /**
- * TODO: 修改类描述
+ * 支持继承的实体监听器抽象类
+ * <p>
+ * 同时监听类及其子类的实体
  *
  * @author Houtaroy
  */

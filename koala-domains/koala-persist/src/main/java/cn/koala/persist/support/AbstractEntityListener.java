@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /**
  * 实体监听器抽象类
+ * <p>
+ * 仅监听指定类型的实体
  *
  * @author Houtaroy
  */
