@@ -55,7 +55,8 @@
     where t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.database.entities.DatabaseEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.database.entities.DatabaseEntity" useGeneratedKeys="true"
+          keyProperty="id">
     insert into t_database(id, name, url, username, password, `catalog`, `schema`)
     values (#{id}, #{name}, #{url}, #{username}, #{password}, #{catalog}, #{schema})
   </insert>

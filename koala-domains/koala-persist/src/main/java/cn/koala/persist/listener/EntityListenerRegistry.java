@@ -5,6 +5,7 @@ package cn.koala.persist.listener;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface EntityListenerRegistry {
   void register(EntityListenerSupport<?> support);
 }

@@ -1,6 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.Permission;
 import cn.koala.system.repositories.PermissionRepository;
 import cn.koala.toolkit.tree.TreeHelper;
@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public class PermissionServiceImpl extends BaseMyBatisService<Permission, Long> implements PermissionService {
+public class PermissionServiceImpl extends AbstractMyBatisService<Permission, Long> implements PermissionService {
   public PermissionServiceImpl(PermissionRepository repository) {
     super(repository);
   }
@@ -22,7 +22,7 @@ public class PermissionServiceImpl extends BaseMyBatisService<Permission, Long> 
   @Override
   public List<TreeNode> tree() {
     return TreeHelper.build(
-      list(Map.of()),
+      read(Map.of()),
       permission -> new TreeNode(permission.getId(), permission.getName(), permission.getParentId(), permission)
     );
   }

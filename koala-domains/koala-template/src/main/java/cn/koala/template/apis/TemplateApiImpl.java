@@ -24,17 +24,17 @@ public class TemplateApiImpl implements TemplateApi {
 
   @Override
   public DataResponse<Page<Template>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.page(parameters, pageable));
+    return DataResponse.ok(service.read(parameters, pageable));
   }
 
   @Override
   public DataResponse<Template> load(Long id) {
-    return DataResponse.ok(service.load(id));
+    return DataResponse.ok(service.read(id));
   }
 
   @Override
   public DataResponse<Template> add(TemplateEntity entity) {
-    service.add(entity);
+    service.create(entity);
     return DataResponse.ok(entity);
   }
 

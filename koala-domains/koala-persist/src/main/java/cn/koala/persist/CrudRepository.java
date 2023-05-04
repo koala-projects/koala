@@ -32,7 +32,7 @@ public interface CrudRepository<T, ID> {
    * @param entity    数据实体
    * @param <S>数据实体类型
    */
-  <S extends T> void add(S entity);
+  <S extends T> void create(S entity);
 
   /**
    * 根据id更新数据

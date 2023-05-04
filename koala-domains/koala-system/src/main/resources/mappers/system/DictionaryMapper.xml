@@ -38,7 +38,8 @@
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.system.entities.DictionaryEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.system.entities.DictionaryEntity" useGeneratedKeys="true"
+          keyProperty="id">
     insert into sys_dict(id, code, name, remark, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{remark}, #{createdBy}, #{createdTime})
   </insert>

@@ -11,9 +11,10 @@ import lombok.Getter;
 @Getter
 public enum CrudType implements EnumAdvice {
 
-  ADD("新增", 1),
-  UPDATE("修改", 2),
-  DELETE("删除", 3);
+  CREATE("新增", 1),
+  READ("读取", 2),
+  UPDATE("修改", 3),
+  DELETE("删除", 4);
 
   private final String name;
   private final int value;

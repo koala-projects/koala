@@ -11,6 +11,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Slf4j
 @RequiredArgsConstructor
 public class EntityListenerInjector implements BeanPostProcessor {

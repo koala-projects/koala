@@ -1,6 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.Department;
 import cn.koala.system.repositories.DepartmentRepository;
 import cn.koala.toolkit.tree.TreeHelper;
@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public class DepartmentServiceImpl extends BaseMyBatisService<Department, Long> implements DepartmentService {
+public class DepartmentServiceImpl extends AbstractMyBatisService<Department, Long> implements DepartmentService {
   public DepartmentServiceImpl(DepartmentRepository repository) {
     super(repository);
   }
@@ -22,7 +22,7 @@ public class DepartmentServiceImpl extends BaseMyBatisService<Department, Long> 
   @Override
   public List<TreeNode> tree() {
     return TreeHelper.build(
-      list(Map.of()),
+      read(Map.of()),
       department -> new TreeNode(department.getId(), department.getName(), department.getParentId(), department)
     );
   }

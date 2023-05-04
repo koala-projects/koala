@@ -3,7 +3,7 @@ package cn.koala.attachment.support;
 import cn.koala.attachment.Attachment;
 import cn.koala.attachment.AttachmentApi;
 import cn.koala.attachment.AttachmentEntity;
-import cn.koala.attachment.AttachmentService;
+import cn.koala.attachment.AttachmentFacade;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,41 +26,41 @@ import java.util.Map;
 @Slf4j
 public class DefaultAttachmentApi implements AttachmentApi {
 
-  protected final AttachmentService service;
+  protected final AttachmentFacade facade;
 
   @Override
   public DataResponse<Page<Attachment>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.page(parameters, pageable));
+    return DataResponse.ok(facade.read(parameters, pageable));
   }
 
   @Override
   public DataResponse<Attachment> load(Long id) {
-    return DataResponse.ok(service.load(id));
+    return DataResponse.ok(facade.read(id));
   }
 
   @Override
   public DataResponse<Attachment> add(AttachmentEntity entity) {
-    service.add(entity);
+    facade.create(entity);
     return DataResponse.ok(entity);
   }
 
   @Override
   public Response update(Long id, AttachmentEntity entity) {
     entity.setIdIfAbsent(id);
-    service.update(entity);
+    facade.update(entity);
     return Response.SUCCESS;
   }
 
   @Override
   public Response delete(Long id) {
-    service.delete(AttachmentEntity.builder().id(id).build());
+    facade.delete(AttachmentEntity.builder().id(id).build());
     return Response.SUCCESS;
   }
 
   @Override
   public DataResponse<Attachment> upload(MultipartFile attachment) {
     try {
-      return DataResponse.ok(service.upload(attachment));
+      return DataResponse.ok(facade.upload(attachment));
     } catch (Exception e) {
       LOGGER.error("文件上传失败", e);
       throw new IllegalStateException("文件上传失败, 请联系服务器管理员");
@@ -70,7 +70,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
   @Override
   public void download(Long id, HttpServletResponse response) {
     try {
-      service.download(id, response);
+      facade.download(id, response);
     } catch (Exception e) {
       LOGGER.error("文件下载失败", e);
       throw new RuntimeException("文件下载失败, 请联系服务器管理员");

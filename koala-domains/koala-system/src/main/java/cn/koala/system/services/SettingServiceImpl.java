@@ -1,6 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.Setting;
 import cn.koala.system.repositories.SettingRepository;
 
@@ -9,7 +9,7 @@ import cn.koala.system.repositories.SettingRepository;
  *
  * @author Houtaroy
  */
-public class SettingServiceImpl extends BaseMyBatisService<Setting, Long> implements SettingService {
+public class SettingServiceImpl extends AbstractMyBatisService<Setting, Long> implements SettingService {
   public SettingServiceImpl(SettingRepository repository) {
     super(repository);
   }

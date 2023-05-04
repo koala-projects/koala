@@ -41,7 +41,7 @@
     where t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.log.LogEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.log.LogEntity" useGeneratedKeys="true" keyProperty="id">
     insert into sys_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
     values (#{module}, #{content}, #{userId}, #{userIp}, #{isSucceeded}, #{request}, #{response}, #{error}, #{cost},
             #{logTime})

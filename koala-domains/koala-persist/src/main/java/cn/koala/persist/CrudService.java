@@ -19,7 +19,7 @@ public interface CrudService<T, ID> {
    * @param parameters 查询参数
    * @return 数据列表
    */
-  List<T> list(Map<String, Object> parameters);
+  List<T> read(Map<String, Object> parameters);
 
   /**
    * 分页查询数据
@@ -28,7 +28,7 @@ public interface CrudService<T, ID> {
    * @param pageable   分页参数
    * @return 数据分页列表
    */
-  Page<T> page(Map<String, Object> parameters, Pageable pageable);
+  Page<T> read(Map<String, Object> parameters, Pageable pageable);
 
   /**
    * 根据id查询数据
@@ -36,7 +36,7 @@ public interface CrudService<T, ID> {
    * @param id id
    * @return 数据实体
    */
-  T load(ID id);
+  T read(ID id);
 
   /**
    * 新增数据
@@ -44,7 +44,7 @@ public interface CrudService<T, ID> {
    * @param entity    数据实体
    * @param <S>数据实体类型
    */
-  <S extends T> void add(@NonNull S entity);
+  <S extends T> void create(@NonNull S entity);
 
   /**
    * 修改数据

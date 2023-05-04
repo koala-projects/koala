@@ -5,6 +5,7 @@ package cn.koala.persist.listener;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface EntityListener<T> {
   Class<T> getEntityClass();
 

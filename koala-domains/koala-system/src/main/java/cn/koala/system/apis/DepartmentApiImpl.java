@@ -31,13 +31,13 @@ public class DepartmentApiImpl implements DepartmentApi {
   @Override
   @Log(module = "部门管理", content = "查看部门[id=${#id}]")
   public DataResponse<Department> load(Long id) {
-    return DataResponse.ok(service.load(id));
+    return DataResponse.ok(service.read(id));
   }
 
   @Override
   @Log(module = "部门管理", content = "创建部门[name=${#entity.name}]")
   public DataResponse<Department> create(DepartmentEntity entity) {
-    service.add(entity);
+    service.create(entity);
     return DataResponse.ok(entity);
   }
 

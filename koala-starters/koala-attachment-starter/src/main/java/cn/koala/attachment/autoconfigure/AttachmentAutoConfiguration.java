@@ -1,6 +1,7 @@
 package cn.koala.attachment.autoconfigure;
 
 import cn.koala.attachment.AttachmentApi;
+import cn.koala.attachment.AttachmentFacade;
 import cn.koala.attachment.AttachmentListener;
 import cn.koala.attachment.AttachmentProperties;
 import cn.koala.attachment.AttachmentService;
@@ -11,6 +12,7 @@ import cn.koala.attachment.storage.AttachmentStorage;
 import cn.koala.attachment.storage.LocalAttachmentStorage;
 import cn.koala.attachment.storage.MinIOAttachmentStorage;
 import cn.koala.attachment.support.DefaultAttachmentApi;
+import cn.koala.attachment.support.DefaultAttachmentFacade;
 import cn.koala.attachment.support.DefaultAttachmentService;
 import io.minio.MinioClient;
 import org.mybatis.spring.annotation.MapperScan;
@@ -59,19 +61,25 @@ public class AttachmentAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(name = "attachmentService")
-  public AttachmentService attachmentService(AttachmentRepository repository, AttachmentStorage storage) {
-    return new DefaultAttachmentService(repository, storage);
+  public AttachmentService attachmentService(AttachmentRepository repository) {
+    return new DefaultAttachmentService(repository);
   }
 
   @Bean
-  @ConditionalOnMissingBean(name = "attachmentListener")
-  public AttachmentListener attachmentListener(AttachmentStorage storage) {
-    return new AttachmentListener(storage);
+  @ConditionalOnMissingBean(name = "attachmentFacade")
+  public AttachmentFacade attachmentFacade(AttachmentService service, AttachmentStorage storage) {
+    return new DefaultAttachmentFacade(service, storage);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public AttachmentApi attachmentApi(AttachmentService service) {
-    return new DefaultAttachmentApi(service);
+  public AttachmentApi attachmentApi(AttachmentFacade facade) {
+    return new DefaultAttachmentApi(facade);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "attachmentListener")
+  public AttachmentListener attachmentListener(AttachmentRepository repository, AttachmentStorage storage) {
+    return new AttachmentListener(repository, storage);
   }
 }

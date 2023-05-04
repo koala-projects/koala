@@ -1,9 +1,11 @@
 package cn.koala.system.listeners;
 
-import cn.koala.persist.listener.AbstractEntityListener;
+import cn.koala.persist.support.AbstractInheritedEntityListener;
 import cn.koala.system.User;
 import cn.koala.system.apis.request.CreateUserRequest;
 import cn.koala.system.repositories.UserRepository;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PrePersist;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
@@ -16,7 +18,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 @Order(100)
-public class UserListener extends AbstractEntityListener<User> {
+public class UserListener extends AbstractInheritedEntityListener<User> {
   protected final UserRepository userRepository;
   protected final PasswordEncoder passwordEncoder;
 
@@ -25,20 +27,25 @@ public class UserListener extends AbstractEntityListener<User> {
     this.passwordEncoder = passwordEncoder;
   }
 
-  @Override
+  @PrePersist
   public void preAdd(User entity) {
-    Assert.isTrue(usernameIsNotDuplicate(entity), "用户账号已存在");
+    Assert.isTrue(isUsernameUnique(entity), "用户账号已存在");
     if (entity instanceof CreateUserRequest request) {
       request.setPassword(passwordEncoder.encode(request.getPlainPassword()));
     }
   }
 
-  @Override
+  @PostPersist
   public void postAdd(User entity) {
     entity.setPassword(null);
   }
 
-  protected boolean usernameIsNotDuplicate(User user) {
+  protected boolean isUsernameUnique(User user) {
     return userRepository.find(Map.of("username", user.getUsername())).isEmpty();
+  }
+
+  @Override
+  public boolean support(Object entity) {
+    return User.class.isAssignableFrom(entity.getClass());
   }
 }

@@ -7,6 +7,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface EntityListenerSupport<T> {
   Class<T> getEntityClass();
 

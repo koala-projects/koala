@@ -61,7 +61,7 @@ public class LogAspect {
     logEntity.setIsSucceeded(YesNo.YES);
     logEntity.setResponse(object2json(response, "序列化日志响应失败"));
     logEntity.setCost(getCost());
-    logService.add(logEntity);
+    logService.create(logEntity);
   }
 
   @AfterThrowing(value = "@annotation(log)", throwing = "throwing")
@@ -73,7 +73,7 @@ public class LogAspect {
     logEntity.setIsSucceeded(YesNo.NO);
     logEntity.setError(throwing.getMessage());
     logEntity.setCost(getCost());
-    logService.add(logEntity);
+    logService.create(logEntity);
   }
 
   protected boolean isIgnored(Log log) {

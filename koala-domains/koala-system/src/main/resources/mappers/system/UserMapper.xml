@@ -48,7 +48,7 @@
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.system.entities.UserEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.system.entities.UserEntity" useGeneratedKeys="true" keyProperty="id">
     insert into sys_user(id, username, password, nickname, avatar, email, mobile, remark, created_by, created_time)
     values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{remark}, #{createdBy},
             #{createdTime})

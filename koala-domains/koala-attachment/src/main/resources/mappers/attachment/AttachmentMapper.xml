@@ -88,7 +88,7 @@
     where t.id=#{id}
   </select>
 
-  <insert id="add" parameterType="cn.koala.attachment.AttachmentEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.attachment.AttachmentEntity" useGeneratedKeys="true" keyProperty="id">
     insert into t_attachment
       value (
              #{id},

@@ -6,7 +6,7 @@ import cn.koala.database.DatabaseTable;
 import cn.koala.database.SimpleDatabaseTable;
 import cn.koala.database.SimpleDatabaseTableColumn;
 import cn.koala.database.repositories.DatabaseRepository;
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -22,8 +22,9 @@ import java.util.List;
  * @author Houtaroy
  */
 @Slf4j
-public class DatabaseServiceImpl extends BaseMyBatisService<Database, Long> implements DatabaseService {
+public class DatabaseServiceImpl extends AbstractMyBatisService<Database, Long> implements DatabaseService {
   public static final int TIME_OUT = 60;
+
   public DatabaseServiceImpl(DatabaseRepository repository) {
     super(repository);
   }

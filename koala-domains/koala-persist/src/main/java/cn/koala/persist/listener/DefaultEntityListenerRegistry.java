@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultEntityListenerRegistry implements EntityListenerRegistry {

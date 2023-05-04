@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Order(2000)
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class AuditingEntityListener extends AbstractEntityListener<Auditable> {

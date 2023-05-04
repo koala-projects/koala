@@ -1,7 +1,8 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.User;
+import cn.koala.system.entities.UserEntity;
 import cn.koala.system.repositories.UserRepository;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-public class UserServiceImpl extends BaseMyBatisService<User, Long> implements UserService {
+public class UserServiceImpl extends AbstractMyBatisService<User, Long> implements UserService {
 
   /**
    * 用户服务实现类构造函数
@@ -29,8 +30,7 @@ public class UserServiceImpl extends BaseMyBatisService<User, Long> implements U
 
   @Override
   public void setRoleIds(Long id, List<Long> roleIds) {
-    User persist = load(id);
-    listeners.forEach(listener -> listener.preUpdate(persist, persist));
+    preCheckBeforeUpdateAndDelete(UserEntity.builder().id(id).build());
     ((UserRepository) repository).updateRoleIdById(id, roleIds);
   }
 
@@ -41,8 +41,7 @@ public class UserServiceImpl extends BaseMyBatisService<User, Long> implements U
 
   @Override
   public void setDepartmentIds(Long id, List<Long> departmentIds) {
-    User persist = load(id);
-    listeners.forEach(listener -> listener.preUpdate(persist, persist));
+    preCheckBeforeUpdateAndDelete(UserEntity.builder().id(id).build());
     ((UserRepository) repository).updateDepartmentIdById(id, departmentIds);
   }
 }

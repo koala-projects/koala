@@ -27,19 +27,19 @@ public class RoleApiImpl implements RoleApi {
   @Override
   @Log(module = "角色管理", content = "查询角色列表")
   public DataResponse<Page<Role>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(roleService.page(parameters, pageable));
+    return DataResponse.ok(roleService.read(parameters, pageable));
   }
 
   @Override
   @Log(module = "角色管理", content = "查看角色[id=${#id}]")
   public DataResponse<Role> load(Long id) {
-    return DataResponse.ok(roleService.load(id));
+    return DataResponse.ok(roleService.read(id));
   }
 
   @Override
   @Log(module = "角色管理", content = "创建角色[code=${#entity.code}]")
   public DataResponse<Role> create(RoleEntity entity) {
-    roleService.add(entity);
+    roleService.create(entity);
     return DataResponse.ok(entity);
   }
 

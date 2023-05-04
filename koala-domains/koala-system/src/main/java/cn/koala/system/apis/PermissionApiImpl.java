@@ -31,13 +31,13 @@ public class PermissionApiImpl implements PermissionApi {
   @Override
   @Log(module = "权限管理", content = "查看权限[id=${#id}]")
   public DataResponse<Permission> load(Long id) {
-    return DataResponse.ok(service.load(id));
+    return DataResponse.ok(service.read(id));
   }
 
   @Override
   @Log(module = "权限管理", content = "创建权限[code=${#entity.code}]")
   public DataResponse<Permission> create(PermissionEntity entity) {
-    service.add(entity);
+    service.create(entity);
     return DataResponse.ok(entity);
   }
 

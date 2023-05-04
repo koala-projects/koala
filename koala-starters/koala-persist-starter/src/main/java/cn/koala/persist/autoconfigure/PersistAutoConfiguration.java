@@ -1,11 +1,10 @@
 package cn.koala.persist.autoconfigure;
 
-import cn.koala.persist.listener.AuditingEntityListener;
-import cn.koala.persist.listener.DefaultEntityListenerRegistry;
-import cn.koala.persist.listener.EntityListener;
-import cn.koala.persist.listener.EntityListenerInjector;
-import cn.koala.persist.listener.EntityListenerRegistry;
-import cn.koala.persist.listener.StatefulEntityListener;
+import cn.koala.persist.EntityListener;
+import cn.koala.persist.EntityListenerAspect;
+import cn.koala.persist.EntityListenerManager;
+import cn.koala.persist.support.AuditingEntityListener;
+import cn.koala.persist.support.DefaultEntityListenerManager;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +20,6 @@ import java.util.List;
  */
 @Configuration
 public class PersistAutoConfiguration {
-  @Bean
-  @ConditionalOnMissingBean
-  public StatefulEntityListener statefulEntityListener() {
-    return new StatefulEntityListener();
-  }
 
   @Bean
   @ConditionalOnMissingBean
@@ -35,13 +29,13 @@ public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerRegistry entityListenerRegistry(List<EntityListener<?>> listeners) {
-    return new DefaultEntityListenerRegistry(listeners);
+  public EntityListenerManager entityListenerManager(List<EntityListener> listeners) {
+    return new DefaultEntityListenerManager(listeners);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerInjector entityListenerInjector(EntityListenerRegistry entityListenerRegistry) {
-    return new EntityListenerInjector(entityListenerRegistry);
+  public EntityListenerAspect entityListenerAspect(EntityListenerManager manager) {
+    return new EntityListenerAspect(manager);
   }
 }

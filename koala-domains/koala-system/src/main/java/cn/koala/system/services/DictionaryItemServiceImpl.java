@@ -1,6 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.DictionaryItem;
 import cn.koala.system.repositories.DictionaryItemRepository;
 
@@ -9,7 +9,7 @@ import cn.koala.system.repositories.DictionaryItemRepository;
  *
  * @author Houtaroy
  */
-public class DictionaryItemServiceImpl extends BaseMyBatisService<DictionaryItem, Long> implements DictionaryItemService {
+public class DictionaryItemServiceImpl extends AbstractMyBatisService<DictionaryItem, Long> implements DictionaryItemService {
   /**
    * 字典服务实现类构造函数
    *

@@ -166,17 +166,17 @@ public class #(name)ApiImpl implements #(name)Api {
 
   @Override
   public DataResponse<Page<#(name)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.page(parameters, pageable));
+    return DataResponse.ok(service.read(parameters, pageable));
   }
 
   @Override
   public DataResponse<#(name)Entity> load(#(entity.properties.id.type) id) {
-    return DataResponse.ok(service.load(id));
+    return DataResponse.ok(service.read(id));
   }
 
   @Override
   public DataResponse<#(name)Entity> add(#(name)Entity entity) {
-    service.add(entity);
+    service.create(entity);
     return DataResponse.ok(entity);
   }
 
@@ -231,14 +231,14 @@ public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#
 import #(package).#(name)Entity;
 import #(package).#(name)Repository;
 
-import cn.koala.mybatis.BaseMyBatisService;
+import cn.koala.mybatis.AbstractMyBatisService;
 
 /**
  * #(description)服务类
  *
  * @author Koala Code Generator
  */
-public class #(name)Service extends BaseMyBatisService<#(name)Entity, #(entity.properties.id.type)> {
+public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(entity.properties.id.type)> {
   /**
    * 构造函数
    *
@@ -323,7 +323,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
     where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>
 
-  <insert id="add" parameterType="#(package).entities.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="#(package).entities.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
     insert into #(table.name)
 	value (
 #for(column: mybatis.columns)

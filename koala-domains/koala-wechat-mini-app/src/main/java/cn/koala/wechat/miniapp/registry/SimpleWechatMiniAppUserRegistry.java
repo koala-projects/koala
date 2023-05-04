@@ -47,8 +47,8 @@ public class SimpleWechatMiniAppUserRegistry implements WechatMiniAppUserRegistr
       .createdBy(-1L)
       .createdTime(DateHelper.now())
       .build();
-    userRepository.add(user);
+    userRepository.create(user);
     wechatMiniAppUser.setUserId(user.getId());
-    wechatMiniAppUserRepository.add(wechatMiniAppUser);
+    wechatMiniAppUserRepository.create(wechatMiniAppUser);
   }
 }

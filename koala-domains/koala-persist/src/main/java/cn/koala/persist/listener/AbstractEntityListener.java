@@ -10,6 +10,7 @@ import lombok.Data;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Data
 public abstract class AbstractEntityListener<T> implements EntityListener<T> {
   protected final Class<T> entityClass;

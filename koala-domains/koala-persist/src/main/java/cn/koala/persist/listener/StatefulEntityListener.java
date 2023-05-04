@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Order(1000)
 public class StatefulEntityListener extends AbstractEntityListener<Stateful> {
 

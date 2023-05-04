@@ -47,14 +47,14 @@ public class CodeApiImpl implements CodeApi {
 
   protected List<DatabaseTable> getTables(CodeRequest request) {
     Assert.notEmpty(request.getTables(), "数据库表不能为空");
-    Database database = databaseService.load(request.getDatabaseId());
+    Database database = databaseService.read(request.getDatabaseId());
     Assert.notNull(database, "数据库不存在");
     return request.getTables().stream().map(table -> databaseService.getTable(database, table)).toList();
   }
 
   protected List<Template> getTemplates(CodeRequest request) {
-    TemplateGroup templateGroup = templateGroupService.load(request.getTemplateGroupId());
+    TemplateGroup templateGroup = templateGroupService.read(request.getTemplateGroupId());
     Assert.notNull(templateGroup, "代码模板不存在");
-    return templateService.list(Map.of("groupId", templateGroup.getId()));
+    return templateService.read(Map.of("groupId", templateGroup.getId()));
   }
 }
