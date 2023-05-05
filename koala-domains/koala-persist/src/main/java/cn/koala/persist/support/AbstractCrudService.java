@@ -4,17 +4,14 @@ import cn.koala.persist.CrudAction;
 import cn.koala.persist.CrudRepository;
 import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudType;
-import cn.koala.persist.domain.Persistable;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 增删改查基础服务抽象类
