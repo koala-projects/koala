@@ -62,7 +62,6 @@ mybatis:
 logging:
   level:
     cn.koala: debug
-    org.springframework.security: debug
   file:
     name: logs/koala-demo.log
 

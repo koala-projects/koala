@@ -1,8 +1,8 @@
 package cn.koala.system.services;
 
 import cn.koala.mybatis.AbstractMyBatisService;
+import cn.koala.persist.support.DomainHelper;
 import cn.koala.system.User;
-import cn.koala.system.entities.UserEntity;
 import cn.koala.system.repositories.UserRepository;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class UserServiceImpl extends AbstractMyBatisService<User, Long> implemen
 
   @Override
   public void setRoleIds(Long id, List<Long> roleIds) {
-    preCheckBeforeUpdateAndDelete(UserEntity.builder().id(id).build());
+    DomainHelper.checkEditable(repository.load(id));
     ((UserRepository) repository).updateRoleIdById(id, roleIds);
   }
 
@@ -41,7 +41,7 @@ public class UserServiceImpl extends AbstractMyBatisService<User, Long> implemen
 
   @Override
   public void setDepartmentIds(Long id, List<Long> departmentIds) {
-    preCheckBeforeUpdateAndDelete(UserEntity.builder().id(id).build());
+    DomainHelper.checkEditable(repository.load(id));
     ((UserRepository) repository).updateDepartmentIdById(id, departmentIds);
   }
 }

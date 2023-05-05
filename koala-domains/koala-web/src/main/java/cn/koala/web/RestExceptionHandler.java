@@ -34,6 +34,20 @@ public class RestExceptionHandler {
     return Response.error("服务器错误, 请联系管理员");
   }
 
+  @ExceptionHandler(value = IllegalArgumentException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response exception(IllegalArgumentException e) {
+    LOGGER.error("错误", e);
+    return Response.error(e.getMessage());
+  }
+
+  @ExceptionHandler(value = IllegalStateException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response exception(IllegalStateException e) {
+    LOGGER.error("错误", e);
+    return Response.error(e.getMessage());
+  }
+
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Response defaultErrorHandler(MethodArgumentNotValidException e) {

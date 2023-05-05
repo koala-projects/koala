@@ -18,7 +18,7 @@ public abstract class AbstractEntityListener<T> implements EntityListener {
 
   @SuppressWarnings("unchecked")
   public AbstractEntityListener() {
-    this.entityClass = (Class<T>) ClassHelper.getSuperGenericClass(this, AbstractEntityListener.class);
+    this.entityClass = (Class<T>) ClassHelper.getGenericClass(getClass(), AbstractEntityListener.class);
   }
 
   @Override

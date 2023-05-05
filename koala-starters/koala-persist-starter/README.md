@@ -90,9 +90,9 @@ public class UserEntityListener implements EntityListener {
 
 模块会自动解析注解`@PreUpdate`标注的方法, 并在更新前进行调用, 当前支持的生命周期有:
 
-- `@PerPersist` / `@PostPersist` : 新增前后
-- `@PerUpdate` / `@PostUpdate` : 更新前后
-- `@PerDelete` / `@PostDelete` : 删除前后
+- `@PrePersist` / `@PostPersist` : 新增前后
+- `@PreUpdate` / `@PostUpdate` : 更新前后
+- `@PreRemove` / `@PostRemove` : 删除前后
 
 如果您想要监听其他方法, 可以通过使用`@CrudAction`注解:
 

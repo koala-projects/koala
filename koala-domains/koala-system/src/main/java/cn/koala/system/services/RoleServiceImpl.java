@@ -1,8 +1,8 @@
 package cn.koala.system.services;
 
 import cn.koala.mybatis.AbstractMyBatisService;
+import cn.koala.persist.support.DomainHelper;
 import cn.koala.system.Role;
-import cn.koala.system.entities.RoleEntity;
 import cn.koala.system.repositories.RoleRepository;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class RoleServiceImpl extends AbstractMyBatisService<Role, Long> implemen
 
   @Override
   public void authorize(Long id, List<Long> checkedIds, List<Long> halfCheckedIds) {
-    preCheckBeforeUpdateAndDelete(RoleEntity.builder().id(id).build());
+    DomainHelper.checkEditable(repository.load(id));
     ((RoleRepository) repository).authorize(id, checkedIds, halfCheckedIds);
   }
 }

@@ -60,23 +60,12 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
   @Override
   @CrudAction(CrudType.UPDATE)
   public <S extends T> void update(@NonNull S entity) {
-    preCheckBeforeUpdateAndDelete(entity);
     repository.update(entity);
   }
 
   @Override
   @CrudAction(CrudType.DELETE)
   public <S extends T> void delete(@NonNull S entity) {
-    preCheckBeforeUpdateAndDelete(entity);
     repository.delete(entity);
-  }
-
-  @SuppressWarnings("unchecked")
-  protected <S extends T> void preCheckBeforeUpdateAndDelete(S entity) {
-    if (entity instanceof Persistable<?> persistable) {
-      Optional<T> persist = repository.load(((Persistable<ID>) persistable).getId());
-      Assert.isTrue(persist.isPresent(), "数据不存在");
-      Assert.isTrue(!DomainHelper.isSystemic(persist.get()), "系统数据不允许修改");
-    }
   }
 }

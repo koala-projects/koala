@@ -1,10 +1,14 @@
 package cn.koala.persist.autoconfigure;
 
+import cn.koala.persist.CrudService;
+import cn.koala.persist.CrudServiceManager;
 import cn.koala.persist.EntityListener;
 import cn.koala.persist.EntityListenerAspect;
 import cn.koala.persist.EntityListenerManager;
 import cn.koala.persist.support.AuditingEntityListener;
+import cn.koala.persist.support.DefaultCrudServiceManager;
 import cn.koala.persist.support.DefaultEntityListenerManager;
+import cn.koala.persist.support.StatefulEntityListener;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +24,18 @@ import java.util.List;
  */
 @Configuration
 public class PersistAutoConfiguration {
+
+  @Bean
+  @ConditionalOnMissingBean
+  public CrudServiceManager crudServiceManager(List<CrudService<?, ?>> services) {
+    return new DefaultCrudServiceManager(services);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public StatefulEntityListener statefulEntityListener(CrudServiceManager manager) {
+    return new StatefulEntityListener(manager);
+  }
 
   @Bean
   @ConditionalOnMissingBean

@@ -7,11 +7,12 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
 import lombok.experimental.SuperBuilder;
-import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 实体监听器包装器
@@ -22,63 +23,65 @@ import java.lang.reflect.Method;
 public class EntityListenerWrapper {
 
   protected final EntityListener listener;
-  protected final Method prePersist;
-  protected final Method postPersist;
-  protected final Method preUpdate;
-  protected final Method postUpdate;
-  protected final Method preDelete;
-  protected final Method postDelete;
+  protected final List<Method> prePersists;
+  protected final List<Method> postPersists;
+  protected final List<Method> preUpdates;
+  protected final List<Method> postUpdates;
+  protected final List<Method> preDeletes;
+  protected final List<Method> postDeletes;
 
   public static EntityListenerWrapper from(EntityListener listener) {
     return EntityListenerWrapper.builder()
       .listener(listener)
-      .prePersist(getMethod(listener, PrePersist.class))
-      .postPersist(getMethod(listener, PostPersist.class))
-      .preUpdate(getMethod(listener, PreUpdate.class))
-      .postUpdate(getMethod(listener, PostUpdate.class))
-      .preDelete(getMethod(listener, PreRemove.class))
-      .postDelete(getMethod(listener, PostRemove.class))
+      .prePersists(getMethods(listener, PrePersist.class))
+      .postPersists(getMethods(listener, PostPersist.class))
+      .preUpdates(getMethods(listener, PreUpdate.class))
+      .postUpdates(getMethods(listener, PostUpdate.class))
+      .preDeletes(getMethods(listener, PreRemove.class))
+      .postDeletes(getMethods(listener, PostRemove.class))
       .build();
   }
 
-  @Nullable
-  protected static Method getMethod(EntityListener listener, Class<? extends Annotation> annotation) {
+  protected static List<Method> getMethods(EntityListener listener, Class<? extends Annotation> annotation) {
     Method[] methods = listener.getClass().getMethods();
+    List<Method> result = new ArrayList<>(methods.length);
     for (Method method : methods) {
       if (method.isAnnotationPresent(annotation)) {
-        return method;
+        result.add(method);
       }
     }
-    return null;
+    return result;
   }
 
   public void prePersist(Object[] args) {
-    listen(prePersist, args);
+    listen(prePersists, args);
   }
 
   public void postPersist(Object[] args) {
-    listen(postPersist, args);
+    listen(postPersists, args);
   }
 
   public void preUpdate(Object[] args) {
-    listen(preUpdate, args);
+    listen(preUpdates, args);
   }
 
   public void postUpdate(Object[] args) {
-    listen(postUpdate, args);
+    listen(postUpdates, args);
   }
 
   public void preDelete(Object[] args) {
-    listen(preDelete, args);
+    listen(preDeletes, args);
   }
 
   public void postDelete(Object[] args) {
-    listen(postDelete, args);
+    listen(postDeletes, args);
   }
 
-  protected void listen(Method method, Object[] args) {
-    if (method != null) {
-      ReflectionUtils.invokeMethod(method, listener, args);
-    }
+  protected void listen(List<Method> methods, Object[] args) {
+    methods.forEach(method -> {
+      if (method.getParameterCount() == args.length) {
+        ReflectionUtils.invokeMethod(method, listener, args);
+      }
+    });
   }
 }
