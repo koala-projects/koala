@@ -29,13 +29,13 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
   protected final CrudRepository<T, ID> repository;
 
   @Override
-  public List<T> read(Map<String, Object> parameters) {
-    return repository.find(parameters);
+  public List<T> list(Map<String, Object> parameters) {
+    return repository.list(parameters);
   }
 
   @Override
-  public Page<T> read(Map<String, Object> parameters, Pageable pageable) {
-    List<T> entities = read(parameters);
+  public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
+    List<T> entities = list(parameters);
     return new PageImpl<>(doPage(entities, pageable), pageable, entities.size());
   }
 
@@ -47,8 +47,8 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
   }
 
   @Override
-  public T read(ID id) {
-    return repository.findById(id).orElse(null);
+  public T load(ID id) {
+    return repository.load(id).orElse(null);
   }
 
   @Override
@@ -74,7 +74,7 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
   @SuppressWarnings("unchecked")
   protected <S extends T> void preCheckBeforeUpdateAndDelete(S entity) {
     if (entity instanceof Persistable<?> persistable) {
-      Optional<T> persist = repository.findById(((Persistable<ID>) persistable).getId());
+      Optional<T> persist = repository.load(((Persistable<ID>) persistable).getId());
       Assert.isTrue(persist.isPresent(), "数据不存在");
       Assert.isTrue(!DomainHelper.isSystemic(persist.get()), "系统数据不允许修改");
     }

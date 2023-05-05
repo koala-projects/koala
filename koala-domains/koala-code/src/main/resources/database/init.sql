@@ -11,7 +11,7 @@ values ('apis/Api.java', '接口代码模板', 'package #(package).apis;
 import #(package).entities.#(name)Entity;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.validation.group.Add;
+import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -91,13 +91,13 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):add'')")
-  @Operation(operationId = "add#(name)", summary = "创建#(description)")
+  @PreAuthorize("hasAuthority(''#(api.permission):create'')")
+  @Operation(operationId = "create#(name)", summary = "创建#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
   )
   @PostMapping
-  DataResponse<#(name)Entity> add(@Validated(Add.class) @RequestBody #(name)Entity entity);
+  DataResponse<#(name)Entity> create(@Validated(Create.class) @RequestBody #(name)Entity entity);
 
   /**
    * 更新#(description)
@@ -175,7 +175,7 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 
   @Override
-  public DataResponse<#(name)Entity> add(#(name)Entity entity) {
+  public DataResponse<#(name)Entity> create(#(name)Entity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }
@@ -301,7 +301,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 #end
   </sql>
 
-  <select id="find" resultType="#(package).entities.#(name)Entity">
+  <select id="list" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
     <where>
 #if(mybatis.isStateful())
@@ -318,7 +318,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 	<include refid="orderBy"/>
   </select>
 
-  <select id="findById" resultType="#(package).entities.#(name)Entity">
+  <select id="load" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
     where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>

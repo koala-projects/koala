@@ -1,7 +1,7 @@
 package cn.koala.attachment;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.validation.group.Add;
+import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -87,13 +87,13 @@ public interface AttachmentApi {
    * @param entity 附件数据实体
    * @return 附件数据实体
    */
-  @PreAuthorize("hasAuthority('attachment:add')")
+  @PreAuthorize("hasAuthority('attachment:create')")
   @Operation(operationId = "createAttachment", summary = "创建附件")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AttachmentResult.class))}
   )
   @PostMapping
-  DataResponse<Attachment> add(@Validated(Add.class) @RequestBody AttachmentEntity entity);
+  DataResponse<Attachment> create(@Validated(Create.class) @RequestBody AttachmentEntity entity);
 
   /**
    * 更新附件

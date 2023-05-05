@@ -22,11 +22,11 @@ public class LogApiImpl implements LogApi {
 
   @Override
   public DataResponse<Page<Log>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.read(parameters, pageable));
+    return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
   public DataResponse<Log> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 }

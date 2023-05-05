@@ -160,7 +160,7 @@ values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1
        ('system:setting:update', '设置修改', 2, null, null, null, 7, 10602, 1, 1, now()),
        ('system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
        ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now()),
-       ('system:log:page', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now()),
+       ('system:log:load', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now()),
        ('attachment:delete', '附件删除', 2, null, null, null, 9, 201, 1, 1, now()),
        ('attachment:upload', '附件上传', 2, null, null, null, 9, 202, 1, 1, now()),
        ('attachment:download', '附件下载', 2, null, null, null, 9, 203, 1, 1, now());

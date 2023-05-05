@@ -30,16 +30,16 @@ public class DefaultAttachmentApi implements AttachmentApi {
 
   @Override
   public DataResponse<Page<Attachment>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(facade.read(parameters, pageable));
+    return DataResponse.ok(facade.page(parameters, pageable));
   }
 
   @Override
   public DataResponse<Attachment> load(Long id) {
-    return DataResponse.ok(facade.read(id));
+    return DataResponse.ok(facade.load(id));
   }
 
   @Override
-  public DataResponse<Attachment> add(AttachmentEntity entity) {
+  public DataResponse<Attachment> create(AttachmentEntity entity) {
     facade.create(entity);
     return DataResponse.ok(entity);
   }

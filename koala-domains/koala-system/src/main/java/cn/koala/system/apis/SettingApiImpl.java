@@ -25,13 +25,13 @@ public class SettingApiImpl implements SettingApi {
   @Override
   @Log(module = "设置管理", content = "查询设置列表")
   public DataResponse<List<Setting>> list(Map<String, Object> parameters) {
-    return DataResponse.ok(service.read(parameters));
+    return DataResponse.ok(service.list(parameters));
   }
 
   @Override
   @Log(module = "设置管理", content = "查看设置[id=${#id}]")
   public DataResponse<Setting> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override

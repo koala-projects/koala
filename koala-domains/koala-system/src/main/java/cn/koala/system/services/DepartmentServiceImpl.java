@@ -22,7 +22,7 @@ public class DepartmentServiceImpl extends AbstractMyBatisService<Department, Lo
   @Override
   public List<TreeNode> tree() {
     return TreeHelper.build(
-      read(Map.of()),
+      list(Map.of()),
       department -> new TreeNode(department.getId(), department.getName(), department.getParentId(), department)
     );
   }

@@ -16,7 +16,7 @@ public interface CrudRepository<T, ID> {
    * @param parameters 查询参数
    * @return 数据列表
    */
-  List<T> find(Map<String, Object> parameters);
+  List<T> list(Map<String, Object> parameters);
 
   /**
    * 根据id查询数据
@@ -24,7 +24,7 @@ public interface CrudRepository<T, ID> {
    * @param id 主键
    * @return 数据实体
    */
-  Optional<T> findById(ID id);
+  Optional<T> load(ID id);
 
   /**
    * 插入数据

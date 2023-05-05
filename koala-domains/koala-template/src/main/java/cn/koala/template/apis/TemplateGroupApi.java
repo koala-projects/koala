@@ -78,7 +78,7 @@ public interface TemplateGroupApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplateGroupResult.class))}
   )
   @PostMapping
-  DataResponse<TemplateGroup> add(@RequestBody TemplateGroupEntity entity);
+  DataResponse<TemplateGroup> create(@RequestBody TemplateGroupEntity entity);
 
   /**
    * 更新模板组

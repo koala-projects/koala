@@ -31,7 +31,7 @@ public class AttachmentListener extends AbstractInheritedEntityListener<Attachme
   @PreRemove
   public void preDelete(Attachment entity) {
     try {
-      Optional<Attachment> persist = repository.findById(entity.getId());
+      Optional<Attachment> persist = repository.load(entity.getId());
       Assert.isTrue(persist.isPresent(), "数据不存在");
       storage.remove(persist.get());
     } catch (Exception e) {

@@ -34,7 +34,7 @@ public class SimpleWechatMiniAppUserRegistry implements WechatMiniAppUserRegistr
   }
 
   protected Optional<WechatMiniAppUser> loadByOpenId(String openid) {
-    return Optional.of(wechatMiniAppUserRepository.find(Map.of("openid", openid)))
+    return Optional.of(wechatMiniAppUserRepository.list(Map.of("openid", openid)))
       .filter(list -> list.size() == 1)
       .map(list -> list.get(0));
   }

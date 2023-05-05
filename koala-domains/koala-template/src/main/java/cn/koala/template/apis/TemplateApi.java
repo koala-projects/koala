@@ -79,7 +79,7 @@ public interface TemplateApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplateResult.class))}
   )
   @PostMapping
-  DataResponse<Template> add(@RequestBody TemplateEntity entity);
+  DataResponse<Template> create(@RequestBody TemplateEntity entity);
 
   /**
    * 更新模板

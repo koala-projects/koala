@@ -27,13 +27,13 @@ public class RoleApiImpl implements RoleApi {
   @Override
   @Log(module = "角色管理", content = "查询角色列表")
   public DataResponse<Page<Role>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(roleService.read(parameters, pageable));
+    return DataResponse.ok(roleService.page(parameters, pageable));
   }
 
   @Override
   @Log(module = "角色管理", content = "查看角色[id=${#id}]")
   public DataResponse<Role> load(Long id) {
-    return DataResponse.ok(roleService.read(id));
+    return DataResponse.ok(roleService.load(id));
   }
 
   @Override

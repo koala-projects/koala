@@ -20,7 +20,7 @@
     from sys_dict t
   </sql>
 
-  <select id="find" resultType="cn.koala.system.entities.DictionaryEntity">
+  <select id="list" resultType="cn.koala.system.entities.DictionaryEntity">
     <include refid="selectDictionary"/>
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
@@ -33,7 +33,7 @@
     </where>
   </select>
 
-  <select id="findById" resultType="cn.koala.system.entities.DictionaryEntity">
+  <select id="load" resultType="cn.koala.system.entities.DictionaryEntity">
     <include refid="selectDictionary"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>

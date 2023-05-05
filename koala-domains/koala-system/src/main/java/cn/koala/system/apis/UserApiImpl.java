@@ -29,13 +29,13 @@ public class UserApiImpl implements UserApi {
   @Override
   @Log(module = "用户管理", content = "查询用户列表")
   public DataResponse<Page<User>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.read(parameters, pageable));
+    return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
   @Log(module = "用户管理", content = "查看用户[id=${#id}]")
   public DataResponse<User> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override

@@ -12,7 +12,7 @@
     from wechat_mini_app_user t
   </sql>
 
-  <select id="find" parameterType="map" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <select id="list" parameterType="map" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
     <include refid="selectWechatMiniAppUser"/>
     <where>
       <if test="openid != null and openid != ''">
@@ -27,7 +27,7 @@
     </where>
   </select>
 
-  <select id="findById" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <select id="load" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
     <include refid="selectWechatMiniAppUser"/>
     where t.id = #{id}
   </select>

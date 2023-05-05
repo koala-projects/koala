@@ -24,16 +24,16 @@ public class TemplateGroupApiImpl implements TemplateGroupApi {
 
   @Override
   public DataResponse<Page<TemplateGroup>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.read(parameters, pageable));
+    return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
   public DataResponse<TemplateGroup> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override
-  public DataResponse<TemplateGroup> add(TemplateGroupEntity entity) {
+  public DataResponse<TemplateGroup> create(TemplateGroupEntity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }

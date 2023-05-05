@@ -22,7 +22,7 @@ public class PermissionServiceImpl extends AbstractMyBatisService<Permission, Lo
   @Override
   public List<TreeNode> tree() {
     return TreeHelper.build(
-      read(Map.of()),
+      list(Map.of()),
       permission -> new TreeNode(permission.getId(), permission.getName(), permission.getParentId(), permission)
     );
   }

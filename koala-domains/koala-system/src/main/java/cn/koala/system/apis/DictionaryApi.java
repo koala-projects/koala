@@ -85,7 +85,7 @@ public interface DictionaryApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryResult.class))}
   )
   @PostMapping
-  DataResponse<Dictionary> add(@RequestBody DictionaryEntity entity);
+  DataResponse<Dictionary> create(@RequestBody DictionaryEntity entity);
 
   /**
    * 更新字典

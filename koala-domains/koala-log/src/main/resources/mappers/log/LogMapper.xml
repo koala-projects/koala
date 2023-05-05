@@ -18,7 +18,7 @@
     from sys_log t
   </sql>
 
-  <select id="find" resultType="cn.koala.log.LogEntity">
+  <select id="list" resultType="cn.koala.log.LogEntity">
     <include refid="selectLog"/>
     <where>
       <if test="module != null and module != ''">
@@ -36,7 +36,7 @@
     </where>
   </select>
 
-  <select id="findById" resultType="cn.koala.log.LogEntity">
+  <select id="load" resultType="cn.koala.log.LogEntity">
     <include refid="selectLog"/>
     where t.id = #{id}
   </select>

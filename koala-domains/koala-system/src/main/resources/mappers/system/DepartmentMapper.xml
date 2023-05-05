@@ -20,12 +20,12 @@
     from sys_department t
   </sql>
 
-  <select id="find" resultType="cn.koala.system.entities.DepartmentEntity">
+  <select id="list" resultType="cn.koala.system.entities.DepartmentEntity">
     <include refid="selectDepartment"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
   </select>
 
-  <select id="findById" resultType="cn.koala.system.entities.DepartmentEntity">
+  <select id="load" resultType="cn.koala.system.entities.DepartmentEntity">
     <include refid="selectDepartment"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>

@@ -24,7 +24,7 @@
     from sys_user t
   </sql>
 
-  <select id="find" resultType="cn.koala.system.entities.UserEntity">
+  <select id="list" resultType="cn.koala.system.entities.UserEntity">
     <include refid="selectUser"/>
     <if test="departmentId != null and departmentId != ''">
       left join sys_user_department ud on ud.user_id = t.id
@@ -43,7 +43,7 @@
     </where>
   </select>
 
-  <select id="findById" resultType="cn.koala.system.entities.UserEntity">
+  <select id="load" resultType="cn.koala.system.entities.UserEntity">
     <include refid="selectUser"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>

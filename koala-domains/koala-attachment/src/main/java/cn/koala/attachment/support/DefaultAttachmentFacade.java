@@ -31,18 +31,18 @@ public class DefaultAttachmentFacade implements AttachmentFacade {
   protected final AttachmentStorage storage;
 
   @Override
-  public List<Attachment> read(Map<String, Object> parameters) {
-    return service.read(parameters);
+  public List<Attachment> list(Map<String, Object> parameters) {
+    return service.list(parameters);
   }
 
   @Override
-  public Page<Attachment> read(Map<String, Object> parameters, Pageable pageable) {
-    return service.read(parameters, pageable);
+  public Page<Attachment> page(Map<String, Object> parameters, Pageable pageable) {
+    return service.page(parameters, pageable);
   }
 
   @Override
-  public Attachment read(Long id) {
-    return service.read(id);
+  public Attachment load(Long id) {
+    return service.load(id);
   }
 
   @Override
@@ -72,7 +72,7 @@ public class DefaultAttachmentFacade implements AttachmentFacade {
 
   @Override
   public void download(Long id, HttpServletResponse response) throws Exception {
-    Attachment attachment = service.read(id);
+    Attachment attachment = service.load(id);
     Assert.notNull(attachment, "附件不存在");
     storage.download(attachment, response);
   }

@@ -5,7 +5,7 @@ import cn.koala.database.DatabaseTable;
 import cn.koala.database.SimpleDatabaseTable;
 import cn.koala.database.entities.DatabaseEntity;
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.validation.group.Add;
+import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -84,7 +84,7 @@ public interface DatabaseApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseResult.class))}
   )
   @PostMapping
-  DataResponse<Database> add(@Validated(Add.class) @RequestBody DatabaseEntity entity);
+  DataResponse<Database> create(@Validated(Create.class) @RequestBody DatabaseEntity entity);
 
   /**
    * 更新数据库
@@ -127,7 +127,7 @@ public interface DatabaseApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据库id", schema = @Schema(type = "integer"))
   @GetMapping("{id}/tables")
-  DataResponse<List<DatabaseTable>> tables(@PathVariable("id") Long id);
+  DataResponse<List<DatabaseTable>> listTables(@PathVariable("id") Long id);
 
   /**
    * 根据表名查询数据库表
@@ -143,7 +143,7 @@ public interface DatabaseApi {
   @Parameter(in = ParameterIn.PATH, name = "id", description = "数据库id", schema = @Schema(type = "integer"))
   @Parameter(in = ParameterIn.PATH, name = "name", description = "表名", schema = @Schema(type = "string"))
   @GetMapping("{id}/tables/{name}")
-  DataResponse<DatabaseTable> tables(@PathVariable("id") Long id, @PathVariable("name") String name);
+  DataResponse<DatabaseTable> loadTable(@PathVariable("id") Long id, @PathVariable("name") String name);
 
   /**
    * 连接数据库
@@ -156,7 +156,7 @@ public interface DatabaseApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseConnectResult.class))}
   )
   @PostMapping("connect")
-  DataResponse<Boolean> connect(@Validated(Add.class) @RequestBody DatabaseEntity entity);
+  DataResponse<Boolean> connect(@Validated(Create.class) @RequestBody DatabaseEntity entity);
 
   class DatabasePageResult extends DataResponse<Page<DatabaseEntity>> {
 

@@ -39,7 +39,7 @@
     </if>
   </sql>
 
-  <select id="find" resultType="cn.koala.database.entities.DatabaseEntity">
+  <select id="list" resultType="cn.koala.database.entities.DatabaseEntity">
     <include refid="selectDatabase"/>
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
@@ -50,7 +50,7 @@
     <include refid="orderBy"/>
   </select>
 
-  <select id="findById" resultType="cn.koala.database.entities.DatabaseEntity">
+  <select id="load" resultType="cn.koala.database.entities.DatabaseEntity">
     <include refid="selectDatabase"/>
     where t.id = #{id}
   </select>

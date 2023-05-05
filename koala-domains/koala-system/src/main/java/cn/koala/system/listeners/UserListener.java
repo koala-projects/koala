@@ -41,7 +41,7 @@ public class UserListener extends AbstractInheritedEntityListener<User> {
   }
 
   protected boolean isUsernameUnique(User user) {
-    return userRepository.find(Map.of("username", user.getUsername())).isEmpty();
+    return userRepository.list(Map.of("username", user.getUsername())).isEmpty();
   }
 
   @Override

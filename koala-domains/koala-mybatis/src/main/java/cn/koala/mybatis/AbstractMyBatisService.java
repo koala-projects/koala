@@ -21,11 +21,11 @@ public class AbstractMyBatisService<T, ID> extends AbstractCrudService<T, ID> {
   }
 
   @Override
-  public Page<T> read(Map<String, Object> parameters, Pageable pageable) {
+  public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
     parameters.put("orders", pageable.getSort().toList());
     com.github.pagehelper.Page<T> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
-      .doSelectPage(() -> repository.find(parameters));
+      .doSelectPage(() -> repository.list(parameters));
     return new PageImpl<>(page.getResult(), pageable, page.getTotal());
   }
 }

@@ -31,7 +31,7 @@ public class DepartmentApiImpl implements DepartmentApi {
   @Override
   @Log(module = "部门管理", content = "查看部门[id=${#id}]")
   public DataResponse<Department> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override

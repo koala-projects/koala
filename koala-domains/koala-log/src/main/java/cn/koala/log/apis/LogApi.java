@@ -61,6 +61,7 @@ public interface LogApi {
    * @param id 模板id
    * @return 模板
    */
+  @PreAuthorize("hasAuthority('system:log:load')")
   @Operation(operationId = "loadLog", summary = "根据id查询日志")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = LogResult.class))}

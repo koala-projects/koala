@@ -13,13 +13,6 @@ import java.util.Map;
  * @author Houtaroy
  */
 public interface CrudService<T, ID> {
-  /**
-   * 根据条件查询数据
-   *
-   * @param parameters 查询参数
-   * @return 数据列表
-   */
-  List<T> read(Map<String, Object> parameters);
 
   /**
    * 分页查询数据
@@ -28,7 +21,15 @@ public interface CrudService<T, ID> {
    * @param pageable   分页参数
    * @return 数据分页列表
    */
-  Page<T> read(Map<String, Object> parameters, Pageable pageable);
+  Page<T> page(Map<String, Object> parameters, Pageable pageable);
+
+  /**
+   * 根据条件查询数据
+   *
+   * @param parameters 查询参数
+   * @return 数据列表
+   */
+  List<T> list(Map<String, Object> parameters);
 
   /**
    * 根据id查询数据
@@ -36,7 +37,7 @@ public interface CrudService<T, ID> {
    * @param id id
    * @return 数据实体
    */
-  T read(ID id);
+  T load(ID id);
 
   /**
    * 新增数据

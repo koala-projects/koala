@@ -58,7 +58,7 @@
     </if>
   </sql>
 
-  <select id="find" resultType="cn.koala.attachment.AttachmentEntity">
+  <select id="list" resultType="cn.koala.attachment.AttachmentEntity">
     <include refid="selectAttachment"/>
     <where>
       <if test="originalFilename != null and originalFilename != ''">
@@ -83,7 +83,7 @@
     <include refid="orderBy"/>
   </select>
 
-  <select id="findById" resultType="cn.koala.attachment.AttachmentEntity">
+  <select id="load" resultType="cn.koala.attachment.AttachmentEntity">
     <include refid="selectAttachment"/>
     where t.id=#{id}
   </select>

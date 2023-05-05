@@ -26,18 +26,18 @@ public class DictionaryApiImpl implements DictionaryApi {
   @Override
   @Log(module = "字典管理", content = "查询字典列表")
   public DataResponse<Page<Dictionary>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.read(parameters, pageable));
+    return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
   @Log(module = "字典管理", content = "查看字典[id=${#id}]")
   public DataResponse<Dictionary> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override
   @Log(module = "字典管理", content = "创建字典[code=${#entity.code}]")
-  public DataResponse<Dictionary> add(DictionaryEntity entity) {
+  public DataResponse<Dictionary> create(DictionaryEntity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }

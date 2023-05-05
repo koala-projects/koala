@@ -2,7 +2,7 @@ package cn.koala.database.entities;
 
 import cn.koala.database.Database;
 import cn.koala.persist.domain.YesNo;
-import cn.koala.validation.group.Add;
+import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,22 +24,22 @@ public class DatabaseEntity implements Database {
   protected Long id;
 
   @Schema(description = "数据库名称")
-  @NotBlank(message = "{database.name.not-blank}", groups = Add.class)
+  @NotBlank(message = "{database.name.not-blank}", groups = Create.class)
   @Size(min = 2, max = 20, message = "{database.name.size}")
   protected String name;
 
   @Schema(description = "数据库连接")
-  @NotBlank(message = "{database.url.not-blank}", groups = Add.class)
+  @NotBlank(message = "{database.url.not-blank}", groups = Create.class)
   @Size(min = 1, max = 500, message = "{database.url.size}")
   protected String url;
 
   @Schema(description = "数据库用户名")
-  @NotBlank(message = "{database.username.not-blank}", groups = Add.class)
+  @NotBlank(message = "{database.username.not-blank}", groups = Create.class)
   @Size(min = 1, max = 50, message = "{database.username.size}")
   protected String username;
 
   @Schema(description = "数据库密码")
-  @NotBlank(message = "{database.password.not-blank}", groups = Add.class)
+  @NotBlank(message = "{database.password.not-blank}", groups = Create.class)
   @Size(min = 1, max = 100, message = "{database.password.size}")
   protected String password;
 

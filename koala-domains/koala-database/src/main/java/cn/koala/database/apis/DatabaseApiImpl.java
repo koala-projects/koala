@@ -28,16 +28,16 @@ public class DatabaseApiImpl implements DatabaseApi {
 
   @Override
   public DataResponse<Page<Database>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.read(parameters, pageable));
+    return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
   public DataResponse<Database> load(Long id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override
-  public DataResponse<Database> add(DatabaseEntity entity) {
+  public DataResponse<Database> create(DatabaseEntity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }
@@ -56,16 +56,16 @@ public class DatabaseApiImpl implements DatabaseApi {
   }
 
   @Override
-  public DataResponse<List<DatabaseTable>> tables(Long id) {
-    Database database = service.read(id);
+  public DataResponse<List<DatabaseTable>> listTables(Long id) {
+    Database database = service.load(id);
     Assert.notNull(database, "数据库不存在");
     return DataResponse.ok(service.getTables(database));
   }
 
   @Override
-  public DataResponse<DatabaseTable> tables(Long id, String name) {
+  public DataResponse<DatabaseTable> loadTable(Long id, String name) {
     Assert.isTrue(StringUtils.hasLength(name), "表名不能为空");
-    Database database = service.read(id);
+    Database database = service.load(id);
     Assert.notNull(database, "数据库不存在");
     return DataResponse.ok(service.getTable(database, name));
   }
