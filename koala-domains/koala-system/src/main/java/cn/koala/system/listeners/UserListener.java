@@ -8,9 +8,6 @@ import jakarta.persistence.PostPersist;
 import jakarta.persistence.PrePersist;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.Assert;
-
-import java.util.Map;
 
 /**
  * 用户监听器
@@ -27,21 +24,11 @@ public class UserListener extends AbstractInheritedEntityListener<User> {
     this.passwordEncoder = passwordEncoder;
   }
 
-  @Override
-  public boolean support(Object entity) {
-    return User.class.isAssignableFrom(entity.getClass());
-  }
-
   @PrePersist
   public void preAdd(User entity) {
-    Assert.isTrue(isUsernameUnique(entity), "用户账号已存在");
     if (entity instanceof CreateUserRequest request) {
       request.setPassword(passwordEncoder.encode(request.getPlainPassword()));
     }
-  }
-
-  protected boolean isUsernameUnique(User user) {
-    return userRepository.list(Map.of("username", user.getUsername())).isEmpty();
   }
 
   @PostPersist

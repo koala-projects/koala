@@ -35,7 +35,7 @@
         and t.username = #{username}
       </if>
       <if test="nickname != null and nickname != ''">
-        and t.nickname like concat(#{username}, '%')
+        and t.nickname like concat(#{nickname}, '%')
       </if>
       <if test="departmentId != null and departmentId != ''">
         and ud.department_id = #{departmentId}

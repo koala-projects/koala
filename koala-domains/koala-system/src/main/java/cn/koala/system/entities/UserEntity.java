@@ -1,7 +1,10 @@
 package cn.koala.system.entities;
 
 import cn.koala.mybatis.BaseUniversalEntity;
+import cn.koala.persist.validator.Unique;
 import cn.koala.system.User;
+import cn.koala.validation.group.Create;
+import cn.koala.validation.group.Update;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,14 +20,19 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@Unique(fields = {"username", "nickname"}, groups = {Create.class, Update.class})
 @Schema(description = "用户数据实体")
 public class UserEntity extends BaseUniversalEntity implements User {
+
   @Schema(description = "登录名")
   String username;
+
   @Schema(description = "密码")
   String password;
+
   @Schema(description = "昵称")
   String nickname;
+
   @Schema(description = "头像")
   String avatar;
   @Schema(description = "邮箱")

@@ -1,5 +1,7 @@
 package cn.koala.web;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.annotation.Order;
@@ -27,37 +29,50 @@ public class RestExceptionHandler {
    * @param e 异常信息
    * @return 错误结果
    */
-  @ExceptionHandler(value = Exception.class)
+  @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(Exception e) {
     LOGGER.error("错误", e);
     return Response.error("服务器错误, 请联系管理员");
   }
 
-  @ExceptionHandler(value = IllegalArgumentException.class)
+  @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(IllegalArgumentException e) {
     LOGGER.error("错误", e);
     return Response.error(e.getMessage());
   }
 
-  @ExceptionHandler(value = IllegalStateException.class)
+  @ExceptionHandler(IllegalStateException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(IllegalStateException e) {
     LOGGER.error("错误", e);
     return Response.error(e.getMessage());
   }
 
-  @ExceptionHandler(value = MethodArgumentNotValidException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public Response defaultErrorHandler(MethodArgumentNotValidException e) {
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
     LOGGER.error("参数校验失败", e);
-    return Response.error(getFieldErrorDefaultMessages(e));
+    return Response.error(getAllErrorDefaultMessages(e));
   }
 
-  protected String getFieldErrorDefaultMessages(MethodArgumentNotValidException e) {
-    return e.getBindingResult().getFieldErrors().stream()
+  protected String getAllErrorDefaultMessages(MethodArgumentNotValidException e) {
+    return e.getBindingResult().getAllErrors().stream()
       .map(DefaultMessageSourceResolvable::getDefaultMessage)
+      .collect(Collectors.joining(", "));
+  }
+
+  @ExceptionHandler(ConstraintViolationException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response constraintViolationExceptionHandler(ConstraintViolationException e) {
+    LOGGER.error("参数校验失败", e);
+    return Response.error(getConstraintViolationMessages(e));
+  }
+
+  protected String getConstraintViolationMessages(ConstraintViolationException e) {
+    return e.getConstraintViolations().stream()
+      .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
   }
 }
