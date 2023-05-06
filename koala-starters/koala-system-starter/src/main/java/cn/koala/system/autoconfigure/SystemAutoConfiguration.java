@@ -35,8 +35,6 @@ import cn.koala.system.services.SettingService;
 import cn.koala.system.services.SettingServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
-import cn.koala.validation.DefaultableMessageSourceLocator;
-import cn.koala.validation.MessageSourceLocator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
