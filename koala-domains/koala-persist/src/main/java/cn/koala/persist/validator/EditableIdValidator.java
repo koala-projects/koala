@@ -27,11 +27,7 @@ public class EditableIdValidator implements ConstraintValidator<EditableId, Obje
   @Override
   public void initialize(EditableId editableId) {
     this.manager = context.getBean(CrudServiceManager.class);
-    this.entityClass = determineEntityClass(editableId);
-  }
-
-  protected Class<?> determineEntityClass(EditableId editableId) {
-    return editableId.entity() != null && editableId.entity() != Void.class ? editableId.entity() : editableId.value();
+    this.entityClass = editableId.value();
   }
 
   @Override

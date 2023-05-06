@@ -141,10 +141,4 @@ public class SystemAutoConfiguration {
   public SettingApi settingApi(SettingService settingService) {
     return new SettingApiImpl(settingService);
   }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "systemMessageSourceLocator")
-  public MessageSourceLocator systemMessageSourceLocator() {
-    return new DefaultableMessageSourceLocator("validation.system");
-  }
 }

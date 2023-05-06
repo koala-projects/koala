@@ -20,9 +20,7 @@ public @interface EditableId {
 
   Class<?> value();
 
-  Class<?> entity() default Void.class;
-
-  String message() default "{system.editable}";
+  String message() default "{persist.validator.editable}";
 
   Class<?>[] groups() default {};
 

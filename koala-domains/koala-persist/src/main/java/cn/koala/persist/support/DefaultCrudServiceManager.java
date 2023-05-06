@@ -32,10 +32,7 @@ public class DefaultCrudServiceManager implements CrudServiceManager {
   }
 
   protected void register(CrudService<?, ?> service) {
-    List<Class<?>> genericClasses = ClassHelper.getGenericClasses(
-      service.getClass(),
-      CrudService.class
-    );
+    List<Class<?>> genericClasses = ClassHelper.getGenericClasses(service.getClass(), CrudService.class);
     Assert.notNull(genericClasses, "无法解析服务[%s]的类型".formatted(service.getClass().getName()));
     Assert.isTrue(
       genericClasses.size() == GENERIC_CLASSES_SIZE,

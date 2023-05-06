@@ -9,6 +9,8 @@ import cn.koala.persist.support.AuditingEntityListener;
 import cn.koala.persist.support.DefaultCrudServiceManager;
 import cn.koala.persist.support.DefaultEntityListenerManager;
 import cn.koala.persist.support.StatefulEntityListener;
+import cn.koala.validation.DefaultableMessageSourceLocator;
+import cn.koala.validation.MessageSourceLocator;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -53,5 +55,11 @@ public class PersistAutoConfiguration {
   @ConditionalOnMissingBean
   public EntityListenerAspect entityListenerAspect(EntityListenerManager manager) {
     return new EntityListenerAspect(manager);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "persistMessageSourceLocator")
+  public MessageSourceLocator persistMessageSourceLocator() {
+    return new DefaultableMessageSourceLocator("validation.persist");
   }
 }
