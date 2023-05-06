@@ -186,12 +186,13 @@ public interface UserApi {
 }
 ```
 
-2. 字段是否重复校验`@Unique`:
+2. 字段是否重复校验`@UniqueField`:
 
 ```java
 // 字段重复校验需标注在实体类上
 // 使用字段重复校验时, 需要手动指明字段名称
-@Unique(fields = {"username", "nickname"})
+@UniqueField("username")
+@UniqueField(value = "nickname", message = "昵称已存在")
 public class UserEntity {
   
   private String username;
@@ -207,3 +208,4 @@ public interface UserApi {
 }
 ```
 
+> 使用字段重复校验时, 列表查询方法`list`中必须支持指定字段查询参数
