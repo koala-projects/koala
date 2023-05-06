@@ -82,8 +82,8 @@ public class UserEntityListener implements EntityListener {
   }
 
   @Override
-  public boolean support(Object entity) {
-    return Objects.equals(User.class, entity.getClass());
+  public boolean support(Class<?> entityClass) {
+    return Objects.equals(UserEntity.class, entityClass);
   }
 }
 ```
@@ -118,8 +118,8 @@ public class UserEntityListener implements EntityListener {
   }
 
   @Override
-  public boolean support(Object entity) {
-    return Objects.equals(User.class, entity.getClass());
+  public boolean support(Class<?> entityClass) {
+    return Objects.equals(UserEntity.class, entityClass);
   }
 }
 ```
@@ -168,3 +168,42 @@ public class MyAuditorAware implements AuditorAware<MyUser> {
   }
 }
 ```
+
+### 数据校验
+
+基于[Jakarta Bean Validation](https://beanvalidation.org/), 模块内置了几个自定义校验器, 方便处理部分通用校验逻辑
+
+1. 根据id判断数据是否可编辑`@EditableId`:
+
+```java
+// 需要在接口类上标注注解@Validated
+@Validated
+public interface UserApi {
+  
+  // 使用可编辑ID校验时, 需要手动指明对应实体类型
+  @DeleteMapping("{id}")
+  Response delete(@EditableId(UserEntity.class) @PathVariable("id") Long id);
+}
+```
+
+2. 字段是否重复校验`@Unique`:
+
+```java
+// 字段重复校验需标注在实体类上
+// 使用字段重复校验时, 需要手动指明字段名称
+@Unique(fields = {"username", "nickname"})
+public class UserEntity {
+  
+  private String username;
+  
+  private String nickname;
+}
+
+public interface UserApi {
+  
+  // 在需要校验的实体参数前标注注解@Validated
+  @PostMapping
+  DataResponse<User> create(@Validated @RequestBody UserEntity user);
+}
+```
+
