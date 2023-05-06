@@ -33,8 +33,8 @@ public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public StatefulEntityListener statefulEntityListener(CrudServiceManager manager) {
-    return new StatefulEntityListener(manager);
+  public StatefulEntityListener statefulEntityListener() {
+    return new StatefulEntityListener();
   }
 
   @Bean

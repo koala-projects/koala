@@ -4,8 +4,6 @@ import cn.koala.attachment.Attachment;
 import cn.koala.attachment.AttachmentFacade;
 import cn.koala.attachment.AttachmentService;
 import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.persist.CrudAction;
-import cn.koala.persist.CrudType;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -46,19 +44,16 @@ public class DefaultAttachmentFacade implements AttachmentFacade {
   }
 
   @Override
-  @CrudAction(CrudType.CREATE)
   public <S extends Attachment> void create(@NonNull S entity) {
     service.create(entity);
   }
 
   @Override
-  @CrudAction(CrudType.UPDATE)
   public <S extends Attachment> void update(@NonNull S entity) {
     service.update(entity);
   }
 
   @Override
-  @CrudAction(CrudType.DELETE)
   public <S extends Attachment> void delete(@NonNull S entity) {
     service.delete(entity);
   }

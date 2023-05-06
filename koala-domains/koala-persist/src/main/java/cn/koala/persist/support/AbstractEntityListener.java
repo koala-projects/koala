@@ -22,7 +22,7 @@ public abstract class AbstractEntityListener<T> implements EntityListener {
   }
 
   @Override
-  public boolean support(Object entity) {
-    return Objects.equals(entityClass, entity.getClass());
+  public boolean support(Class<?> entityClass) {
+    return Objects.equals(this.entityClass, entityClass);
   }
 }

@@ -10,7 +10,7 @@ package cn.koala.persist.support;
 public abstract class AbstractInheritedEntityListener<T> extends AbstractEntityListener<T> {
 
   @Override
-  public boolean support(Object entity) {
-    return entityClass.isAssignableFrom(entity.getClass());
+  public boolean support(Class<?> entityClass) {
+    return this.entityClass.isAssignableFrom(entityClass);
   }
 }

@@ -46,9 +46,4 @@ public class AuditingEntityListener extends AbstractInheritedEntityListener<Audi
     auditorAware.ifAvailable(aware -> aware.getCurrentAuditor().ifPresent(auditable::setDeletedBy));
     auditable.setDeletedTime(DateHelper.now());
   }
-
-  @Override
-  public boolean support(Object entity) {
-    return Auditable.class.isAssignableFrom(entity.getClass());
-  }
 }

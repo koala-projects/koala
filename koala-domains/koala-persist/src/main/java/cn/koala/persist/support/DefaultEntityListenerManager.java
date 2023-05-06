@@ -5,9 +5,9 @@ import cn.koala.persist.EntityListenerManager;
 import cn.koala.persist.EntityListenerWrapper;
 import lombok.NonNull;
 import org.springframework.core.OrderComparator;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +26,19 @@ public class DefaultEntityListenerManager implements EntityListenerManager {
     this.listeners = new ArrayList<>(listeners.stream().sorted(OrderComparator.INSTANCE).toList());
   }
 
-  public List<EntityListenerWrapper> getListeners(@NonNull Object entity) {
-    Assert.notNull(entity, "实体不能为null");
-    Class<?> entityClass = entity.getClass();
+  public List<EntityListenerWrapper> getListeners(Class<?> entityClass) {
+    if (entityClass == null) {
+      return Collections.emptyList();
+    }
     if (cache.containsKey(entityClass)) {
       return cache.get(entityClass);
     }
-    return cache.computeIfAbsent(entityClass, k -> doGetListeners(entity));
+    return cache.computeIfAbsent(entityClass, k -> doGetListeners(entityClass));
   }
 
-  protected List<EntityListenerWrapper> doGetListeners(@NonNull Object entity) {
-    return listeners.stream().filter(listener -> listener.support(entity)).map(EntityListenerWrapper::from).toList();
+  protected List<EntityListenerWrapper> doGetListeners(@NonNull Class<?> entityClass) {
+    return listeners.stream()
+      .filter(listener -> listener.support(entityClass)).map(EntityListenerWrapper::from)
+      .toList();
   }
 }

@@ -1,7 +1,5 @@
 package cn.koala.persist;
 
-import lombok.NonNull;
-
 import java.util.List;
 
 /**
@@ -10,5 +8,5 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface EntityListenerManager {
-  List<EntityListenerWrapper> getListeners(@NonNull Object entity);
+  List<EntityListenerWrapper> getListeners(Class<?> entityClass);
 }

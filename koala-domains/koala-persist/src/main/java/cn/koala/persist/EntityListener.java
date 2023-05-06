@@ -10,7 +10,7 @@ import jakarta.persistence.PrePersist;
  * @author Houtaroy
  */
 public interface EntityListener {
-  default boolean support(Object entity) {
+  default boolean support(Class<?> entityClass) {
     return false;
   }
 }

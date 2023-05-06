@@ -1,9 +1,9 @@
 package cn.koala.persist.support;
 
-import cn.koala.persist.CrudAction;
 import cn.koala.persist.CrudRepository;
 import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudType;
+import cn.koala.persist.EntityListenAction;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -49,19 +49,19 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
   }
 
   @Override
-  @CrudAction(CrudType.CREATE)
+  @EntityListenAction(CrudType.CREATE)
   public <S extends T> void create(@NonNull S entity) {
     repository.create(entity);
   }
 
   @Override
-  @CrudAction(CrudType.UPDATE)
+  @EntityListenAction(CrudType.UPDATE)
   public <S extends T> void update(@NonNull S entity) {
     repository.update(entity);
   }
 
   @Override
-  @CrudAction(CrudType.DELETE)
+  @EntityListenAction(CrudType.DELETE)
   public <S extends T> void delete(@NonNull S entity) {
     repository.delete(entity);
   }

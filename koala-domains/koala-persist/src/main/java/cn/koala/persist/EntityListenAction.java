@@ -6,15 +6,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 增删改查
+ * 实体监听行为
  *
  * @author Houtaroy
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface CrudAction {
+public @interface EntityListenAction {
 
   CrudType value();
 
-  int entity() default 0;
+  CrudType type() default CrudType.UNDEFINED;
+
+  Class<?> entity() default Void.class;
+
+  boolean pre() default true;
+
+  boolean post() default true;
 }
