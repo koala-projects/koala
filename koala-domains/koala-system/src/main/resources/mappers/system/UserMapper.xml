@@ -35,6 +35,9 @@
         and t.username = #{username}
       </if>
       <if test="nickname != null and nickname != ''">
+        and t.nickname = #{nickname}
+      </if>
+      <if test="nicknameLike != null and nicknameLike != ''">
         and t.nickname like concat(#{nickname}, '%')
       </if>
       <if test="departmentId != null and departmentId != ''">

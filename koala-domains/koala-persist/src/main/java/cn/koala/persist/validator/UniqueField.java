@@ -26,6 +26,8 @@ public @interface UniqueField {
 
   String value();
 
+  String parameter() default "";
+
   String message() default DEFAULT_MESSAGE_SUFFIX;
 
   Class<?>[] groups() default {};

@@ -176,23 +176,25 @@ public class MyAuditorAware implements AuditorAware<MyUser> {
 1. 根据id判断数据是否可编辑`@EditableId`:
 
 ```java
-// 需要在接口类上标注注解@Validated
+// 需在接口类上标注注解@Validated
 @Validated
 public interface UserApi {
   
-  // 使用可编辑ID校验时, 需要手动指明对应实体类型
+  // 使用可编辑ID校验时, 需设置实体类型属性
   @DeleteMapping("{id}")
   Response delete(@EditableId(UserEntity.class) @PathVariable("id") Long id);
 }
 ```
 
-2. 字段是否重复校验`@UniqueField`:
+2. 字段是否唯一校验`@UniqueField`:
 
 ```java
-// 字段重复校验需标注在实体类上
-// 使用字段重复校验时, 需要手动指明字段名称
+// 字段唯一校验需标注在实体类上
+// 使用字段唯一校验时, 需设置校验字段名称属性
+// 使用字段唯一校验时, 列表查询方法需支持校验字段作为查询参数
+// 如查询参数与校验字段名称不一致, 需设置parameter属性
 @UniqueField("username")
-@UniqueField(value = "nickname", message = "昵称已存在")
+@UniqueField(value = "nickname", parameter = "nicknameExact" message = "昵称已存在")
 public class UserEntity {
   
   private String username;
@@ -202,10 +204,8 @@ public class UserEntity {
 
 public interface UserApi {
   
-  // 在需要校验的实体参数前标注注解@Validated
+  // 在需校验的实体参数前标注注解@Validated
   @PostMapping
   DataResponse<User> create(@Validated @RequestBody UserEntity user);
 }
 ```
-
-> 使用字段重复校验时, 列表查询方法`list`中必须支持指定字段查询参数

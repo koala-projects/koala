@@ -27,6 +27,7 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
 
   private final static UniqueFieldCache CACHE = new UniqueFieldCache();
   private String name;
+  private String parameter;
   private String message;
   private CrudServiceManager manager;
 
@@ -35,7 +36,7 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
     try {
       Field field = CACHE.getField(value.getClass(), name);
       Object fieldValue = field.get(value);
-      if (isDuplicate(value, name, fieldValue)) {
+      if (isDuplicate(value, fieldValue)) {
         buildErrorMessage(context, message, field, fieldValue);
         return false;
       }
@@ -46,9 +47,9 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
     }
   }
 
-  protected boolean isDuplicate(Persistable<?> entity, String fieldName, Object fieldValue) {
+  protected boolean isDuplicate(Persistable<?> entity, Object fieldValue) {
     CrudService<?, ?> service = manager.getService(entity.getClass(), entity.getId().getClass());
-    return service.list(Map.of(fieldName, fieldValue))
+    return service.list(Map.of(parameter, fieldValue))
       .stream()
       .filter(data -> data instanceof Persistable<?>)
       .map(Persistable.class::cast)
@@ -70,6 +71,7 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
   @Override
   public void initialize(UniqueField uniqueField) {
     this.name = uniqueField.value();
+    this.parameter = StringUtils.hasText(uniqueField.parameter()) ? uniqueField.parameter() : this.name;
     this.message = uniqueField.message();
   }
 
