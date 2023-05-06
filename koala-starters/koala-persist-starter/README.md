@@ -194,7 +194,7 @@ public interface UserApi {
 // 使用字段唯一校验时, 列表查询方法需支持校验字段作为查询参数
 // 如查询参数与校验字段名称不一致, 需设置parameter属性
 @UniqueField("username")
-@UniqueField(value = "nickname", parameter = "nicknameExact" message = "昵称已存在")
+@UniqueField(value = "nickname", parameter = "nicknameExact", message = "昵称已存在")
 public class UserEntity {
   
   private String username;
