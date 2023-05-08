@@ -7,6 +7,7 @@ import jakarta.persistence.PostPersist;
 import jakarta.persistence.PreRemove;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
@@ -17,11 +18,16 @@ import java.util.Optional;
  * @author Houtaroy
  */
 @Slf4j
-@RequiredArgsConstructor
+@Order(100)
 public class AttachmentListener extends AbstractInheritedEntityListener<Attachment> {
 
   protected final AttachmentRepository repository;
   protected final AttachmentStorage storage;
+
+  public AttachmentListener(AttachmentRepository repository, AttachmentStorage storage) {
+    this.repository = repository;
+    this.storage = storage;
+  }
 
   @PostPersist
   public void postCreate(Attachment entity) {

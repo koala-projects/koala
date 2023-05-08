@@ -23,7 +23,7 @@ public class DefaultEntityListenerManager implements EntityListenerManager {
   protected final Map<Class<?>, List<EntityListenerWrapper>> cache = new HashMap<>();
 
   public DefaultEntityListenerManager(List<EntityListener> listeners) {
-    this.listeners = new ArrayList<>(listeners.stream().sorted(OrderComparator.INSTANCE).toList());
+    this.listeners = new ArrayList<>(listeners);
   }
 
   public List<EntityListenerWrapper> getListeners(Class<?> entityClass) {
