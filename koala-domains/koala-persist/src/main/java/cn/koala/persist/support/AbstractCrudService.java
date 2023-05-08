@@ -3,7 +3,7 @@ package cn.koala.persist.support;
 import cn.koala.persist.CrudRepository;
 import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudType;
-import cn.koala.persist.EntityListenAction;
+import cn.koala.persist.listener.EntityListenAction;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

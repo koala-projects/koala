@@ -1,6 +1,6 @@
 package cn.koala.system.listeners;
 
-import cn.koala.persist.support.AbstractInheritedEntityListener;
+import cn.koala.persist.listener.support.AbstractInheritedEntityListener;
 import cn.koala.system.User;
 import cn.koala.system.apis.request.CreateUserRequest;
 import cn.koala.system.repositories.UserRepository;

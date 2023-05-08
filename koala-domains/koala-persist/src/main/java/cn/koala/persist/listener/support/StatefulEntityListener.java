@@ -1,4 +1,4 @@
-package cn.koala.persist.support;
+package cn.koala.persist.listener.support;
 
 import cn.koala.persist.domain.Stateful;
 import cn.koala.persist.domain.YesNo;

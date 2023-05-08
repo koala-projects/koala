@@ -1,30 +1,16 @@
 package cn.koala.persist.listener;
 
+import jakarta.persistence.PrePersist;
+
 /**
- * 实体监听器
+ * 实体监听器接口
+ * <p>
+ * 仅提供判断是否支持指定实体的方法, 监听行为请使用{@link PrePersist}等相关注解标注
  *
  * @author Houtaroy
  */
-@Deprecated
-public interface EntityListener<T> {
-  Class<T> getEntityClass();
-
-  default <S extends T> void preAdd(S entity) {
-
-  }
-
-  default <S extends T> void postAdd(S entity) {
-  }
-
-  default <S extends T> void preUpdate(S entity, S persist) {
-  }
-
-  default <S extends T> void postUpdate(S entity) {
-  }
-
-  default <S extends T> void preDelete(S entity, S persist) {
-  }
-
-  default <S extends T> void postDelete(S entity) {
+public interface EntityListener {
+  default boolean support(Class<?> entityClass) {
+    return false;
   }
 }

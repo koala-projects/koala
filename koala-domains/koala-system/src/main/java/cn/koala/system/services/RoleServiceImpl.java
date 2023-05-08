@@ -30,7 +30,7 @@ public class RoleServiceImpl extends AbstractMyBatisService<Role, Long> implemen
 
   @Override
   public void authorize(Long id, List<Long> checkedIds, List<Long> halfCheckedIds) {
-    DomainHelper.checkEditable(repository.load(id));
+    DomainHelper.assertEditable(repository.load(id));
     ((RoleRepository) repository).authorize(id, checkedIds, halfCheckedIds);
   }
 }

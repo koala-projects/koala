@@ -1,6 +1,6 @@
-package cn.koala.persist.support;
+package cn.koala.persist.listener.support;
 
-import cn.koala.persist.EntityListener;
+import cn.koala.persist.listener.EntityListener;
 import cn.koala.toolkit.ClassHelper;
 
 import java.util.Objects;

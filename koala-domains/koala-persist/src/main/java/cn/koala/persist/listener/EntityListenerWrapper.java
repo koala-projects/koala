@@ -1,4 +1,4 @@
-package cn.koala.persist;
+package cn.koala.persist.listener;
 
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;

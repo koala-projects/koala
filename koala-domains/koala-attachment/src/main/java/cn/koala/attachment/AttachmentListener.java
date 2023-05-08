@@ -2,7 +2,7 @@ package cn.koala.attachment;
 
 import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.persist.support.AbstractInheritedEntityListener;
+import cn.koala.persist.listener.support.AbstractInheritedEntityListener;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PreRemove;
 import lombok.RequiredArgsConstructor;

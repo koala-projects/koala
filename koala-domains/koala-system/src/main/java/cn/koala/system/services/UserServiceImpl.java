@@ -30,7 +30,6 @@ public class UserServiceImpl extends AbstractMyBatisService<User, Long> implemen
 
   @Override
   public void setRoleIds(Long id, List<Long> roleIds) {
-    DomainHelper.checkEditable(repository.load(id));
     ((UserRepository) repository).updateRoleIdById(id, roleIds);
   }
 
@@ -41,7 +40,6 @@ public class UserServiceImpl extends AbstractMyBatisService<User, Long> implemen
 
   @Override
   public void setDepartmentIds(Long id, List<Long> departmentIds) {
-    DomainHelper.checkEditable(repository.load(id));
     ((UserRepository) repository).updateDepartmentIdById(id, departmentIds);
   }
 }

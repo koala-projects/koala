@@ -1,4 +1,4 @@
-package cn.koala.persist.support;
+package cn.koala.persist.listener.support;
 
 /**
  * 支持继承的实体监听器抽象类

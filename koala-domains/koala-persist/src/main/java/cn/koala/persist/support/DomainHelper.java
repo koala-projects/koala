@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
  */
 public abstract class DomainHelper {
 
-  public static void checkEditable(@Nullable Object domain) {
+  public static void assertEditable(@Nullable Object domain) {
     Assert.notNull(domain, "数据不存在");
     Assert.state(isEditable(domain), "数据不允许修改");
   }

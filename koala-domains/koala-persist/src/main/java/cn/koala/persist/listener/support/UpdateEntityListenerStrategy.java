@@ -1,7 +1,7 @@
-package cn.koala.persist.support;
+package cn.koala.persist.listener.support;
 
-import cn.koala.persist.EntityListenerStrategy;
-import cn.koala.persist.EntityListenerWrapper;
+import cn.koala.persist.listener.EntityListenerStrategy;
+import cn.koala.persist.listener.EntityListenerWrapper;
 
 /**
  * 更新监听器策略

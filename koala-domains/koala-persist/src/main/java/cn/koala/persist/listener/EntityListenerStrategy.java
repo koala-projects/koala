@@ -1,4 +1,4 @@
-package cn.koala.persist;
+package cn.koala.persist.listener;
 
 /**
  * 监听器策略
