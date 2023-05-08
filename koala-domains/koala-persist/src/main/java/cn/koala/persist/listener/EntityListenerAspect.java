@@ -41,7 +41,7 @@ public class EntityListenerAspect {
   @Around("@annotation(action)")
   public Object around(ProceedingJoinPoint joinPoint, EntityListenAction action) throws Throwable {
     Object[] args = joinPoint.getArgs();
-    CrudType type = determineCrudType(action);
+    CrudType type = action.value();
     Class<?> entityClass = determineEntityClass(action, args);
     EntityListenerStrategy strategy = strategies.get(type);
     List<EntityListenerWrapper> listeners = manager.getListeners(entityClass);
@@ -58,12 +58,8 @@ public class EntityListenerAspect {
     return result;
   }
 
-  protected CrudType determineCrudType(EntityListenAction action) {
-    return action.value() == CrudType.UNDEFINED ? action.type() : action.value();
-  }
-
   protected Class<?> determineEntityClass(EntityListenAction action, Object[] args) {
-    if (action.entity() != null && action.entity() != Void.class) {
+    if (action.entity() != Void.class) {
       return action.entity();
     }
     if (ObjectUtils.isEmpty(args)) {

@@ -18,8 +18,6 @@ public @interface EntityListenAction {
 
   CrudType value();
 
-  CrudType type() default CrudType.UNDEFINED;
-
   Class<?> entity() default Void.class;
 
   boolean pre() default true;

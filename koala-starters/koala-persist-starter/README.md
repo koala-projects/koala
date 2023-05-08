@@ -55,6 +55,7 @@ public enum YesNo implements EnumAdvice {
 
 ```java
 public class MyUserService extends UserService {
+  
   @Override
   public void update(User user) {
     // 增加审计信息...
@@ -65,7 +66,7 @@ public class MyUserService extends UserService {
 
 如果这个检查是通用的, 除了`UserService`, 还需要重写更多的服务类
 
-模块参照 [Spring Data JPA](https://spring.io/projects/spring-data-jpa), 结合[Spring AOP](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-api), 增加了实体监听器的功能, 您需要让服务类继承自`AbstractCrudService`:
+模块参照 [Spring Data JPA](https://spring.io/projects/spring-data-jpa), 结合 [Spring AOP](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-api), 增加了实体监听器的功能, 您需要让服务类继承自`AbstractCrudService`:
 
 ```java
 public class UserService extends AbstractCrudService<User, Long> {}
@@ -83,7 +84,7 @@ public class UserEntityListener implements EntityListener {
 
   @Override
   public boolean support(Class<?> entityClass) {
-    return Objects.equals(UserEntity.class, entityClass);
+    return Objects.equals(User.class, entityClass);
   }
 }
 ```
@@ -94,13 +95,19 @@ public class UserEntityListener implements EntityListener {
 - `@PreUpdate` / `@PostUpdate` : 更新前后
 - `@PreRemove` / `@PostRemove` : 删除前后
 
-如果您想要监听其他方法, 可以通过使用`@CrudAction`注解:
+如果您想要监听其他方法, 可以通过使用`@EntityListenAction`注解:
 
 ```java
 public class MyUserService extends UserService {
+    
+  // value为CRUD操作类型, entity为实体类型
+  @EntityListenAction(value = CrudType.UPDATE, entity = User.class)
+  public void setUserDepartments(User entity, List<Department> departments) {
+    // 业务逻辑...
+  }
   
-  // value为CRUD操作类型, entity为实体参数索引
-  @CrudAction(value = CrudType.UPDATE, entity = 0)
+  // 不指定实体类型, 默认第一个参数类型为实体类型
+  @EntityListenAction(CrudType.UPDATE)
   public void setUserRoles(User entity, List<Role> roles) {
     // 业务逻辑...
   }
@@ -119,12 +126,12 @@ public class UserEntityListener implements EntityListener {
 
   @Override
   public boolean support(Class<?> entityClass) {
-    return Objects.equals(UserEntity.class, entityClass);
+    return Objects.equals(User.class, entityClass);
   }
 }
 ```
 
-需要注意的是, 在如下场景中, **监听将会失效**:
+需要注意的是, 在如下场景中**监听将会失效**:
 
 - 继承自`AbstractCrudService`, 但在子类中重写了`create`/`update`/`delete`方法:
 
@@ -132,7 +139,7 @@ public class UserEntityListener implements EntityListener {
 public class UserService extends AbstractCrudService<User, Long> {
     
   // 重写方法导致更新监听失效
-  // 可通过在方法上增加注解`@CrudAction(CrudType.UPDATE)`避免
+  // 可通过在方法上增加注解`@EntityListenAction(CrudType.UPDATE)`避免
   @Override
   public void update(User entity) {
     // 自定义更新逻辑...
@@ -169,6 +176,8 @@ public class MyAuditorAware implements AuditorAware<MyUser> {
 }
 ```
 
+> 默认审计操作是通过实体监听器实现的哦
+
 ### 数据校验
 
 基于[Jakarta Bean Validation](https://beanvalidation.org/), 模块内置了几个自定义校验器, 方便处理部分通用校验逻辑
@@ -192,8 +201,8 @@ public interface UserApi {
 // 字段唯一校验需标注在实体类上
 // 使用字段唯一校验时, 需设置校验字段名称属性
 // 使用字段唯一校验时, 列表查询方法需支持校验字段作为查询参数
-// 如查询参数与校验字段名称不一致, 需设置parameter属性
 @UniqueField("username")
+// 如查询参数与校验字段名称不一致, 需设置parameter属性
 @UniqueField(value = "nickname", parameter = "nicknameExact", message = "昵称已存在")
 public class UserEntity {
   
