@@ -1,6 +1,5 @@
 package cn.koala.persist.validator;
 
-import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudServiceManager;
 import cn.koala.persist.domain.Persistable;
 import jakarta.validation.ConstraintValidator;
@@ -15,6 +14,7 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 唯一字段校验器
@@ -37,7 +37,7 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
       Field field = CACHE.getField(value.getClass(), name);
       Object fieldValue = field.get(value);
       if (isDuplicate(value, fieldValue)) {
-        buildErrorMessage(context, message, field, fieldValue);
+        buildErrorMessage(context, field, fieldValue);
         return false;
       }
       return true;
@@ -48,15 +48,15 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
   }
 
   protected boolean isDuplicate(Persistable<?> entity, Object fieldValue) {
-    CrudService<?, ?> service = manager.getService(entity.getClass(), entity.getId().getClass());
-    return service.list(Map.of(parameter, fieldValue))
+    return Optional.ofNullable(manager.getService(entity.getClass(), entity.getId().getClass()))
+      .map(service -> service.list(Map.of(parameter, fieldValue)))
       .stream()
       .filter(data -> data instanceof Persistable<?>)
       .map(Persistable.class::cast)
       .anyMatch(persistable -> !Objects.equals(entity.getId(), persistable.getId()));
   }
 
-  protected void buildErrorMessage(ConstraintValidatorContext context, String message, Field field, Object fieldValue) {
+  protected void buildErrorMessage(ConstraintValidatorContext context, Field field, Object fieldValue) {
     if (useDefaultMessage(message)) {
       context.disableDefaultConstraintViolation();
       context.buildConstraintViolationWithTemplate(CACHE.getMessageTemplate(field).formatted(fieldValue))
