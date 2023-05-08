@@ -1,5 +1,6 @@
 package cn.koala.persist.listener;
 
+import cn.koala.toolkit.ReflectionHelper;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
 import jakarta.persistence.PostUpdate;
@@ -7,7 +8,6 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
 import lombok.experimental.SuperBuilder;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -78,10 +78,8 @@ public class EntityListenerWrapper {
   }
 
   protected void listen(List<Method> methods, Object[] args) {
-    methods.forEach(method -> {
-      if (method.getParameterCount() == args.length) {
-        ReflectionUtils.invokeMethod(method, listener, args);
-      }
-    });
+    methods.stream()
+      .filter(method -> ReflectionHelper.isMethodInvokable(method, args))
+      .forEach(method -> ReflectionHelper.invokeMethod(method, listener, args));
   }
 }
