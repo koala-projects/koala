@@ -1,7 +1,6 @@
 package cn.koala.system.services;
 
 import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.persist.support.DomainHelper;
 import cn.koala.system.User;
 import cn.koala.system.repositories.UserRepository;
 
