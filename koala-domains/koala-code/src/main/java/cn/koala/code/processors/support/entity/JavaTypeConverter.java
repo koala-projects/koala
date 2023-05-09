@@ -1,4 +1,4 @@
-package cn.koala.code.processors.java.converter;
+package cn.koala.code.processors.support.entity;
 
 import cn.koala.toolkit.converter.DefaultableMapConverter;
 

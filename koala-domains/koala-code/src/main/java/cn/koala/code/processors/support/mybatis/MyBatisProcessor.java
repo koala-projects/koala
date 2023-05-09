@@ -1,6 +1,7 @@
-package cn.koala.code.processors.java;
+package cn.koala.code.processors.support.mybatis;
 
 import cn.koala.code.processors.AbstractContextProcessor;
+import cn.koala.code.processors.support.TableHelper;
 import cn.koala.database.DatabaseTable;
 import cn.koala.database.DatabaseTableColumn;
 import com.google.common.base.CaseFormat;
@@ -27,17 +28,17 @@ public class MyBatisProcessor extends AbstractContextProcessor<DatabaseTable> {
   protected MyBatisContext processMyBatisContext(DatabaseTable context) {
     return MyBatisContext.builder()
       .columns(processMyBatisColumns(context))
-      .stateful(KoalaHelper.isStateful(context))
-      .auditable(KoalaHelper.isAuditable(context))
+      .stateful(TableHelper.isStateful(context))
+      .auditable(TableHelper.isAuditable(context))
       .build();
   }
 
-  protected List<MyBatisContext.MyBatisColumn> processMyBatisColumns(DatabaseTable context) {
+  protected List<MyBatisColumn> processMyBatisColumns(DatabaseTable context) {
     return context.getColumns().stream().map(this::processMyBatisColumn).collect(Collectors.toList());
   }
 
-  protected MyBatisContext.MyBatisColumn processMyBatisColumn(DatabaseTableColumn column) {
-    return MyBatisContext.MyBatisColumn.builder()
+  protected MyBatisColumn processMyBatisColumn(DatabaseTableColumn column) {
+    return MyBatisColumn.builder()
       .columnName(column.getName())
       .propertyName(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, column.getName()))
       .build();

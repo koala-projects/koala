@@ -1,6 +1,7 @@
-package cn.koala.code.processors.java;
+package cn.koala.code.processors.support.domain;
 
 import cn.koala.code.processors.AbstractContextProcessor;
+import cn.koala.code.processors.support.TableHelper;
 import cn.koala.database.DatabaseTable;
 import cn.koala.toolkit.word.WordHelper;
 import com.google.common.base.CaseFormat;
@@ -17,7 +18,7 @@ public class DomainNameProcessor extends AbstractContextProcessor<DatabaseTable>
   private final String tablePrefix;
 
   public DomainNameProcessor() {
-    this(KoalaHelper.TABLE_PREFIX);
+    this(TableHelper.TABLE_PREFIX);
   }
 
   public DomainNameProcessor(String tablePrefix) {
@@ -35,13 +36,29 @@ public class DomainNameProcessor extends AbstractContextProcessor<DatabaseTable>
     );
   }
 
+  /**
+   * 加工领域名称
+   * <p>
+   * 将表名去除前缀, 格式从下划线转换为大驼峰
+   *
+   * @param table 数据库表
+   * @return 领域名称
+   */
   protected String processDomainName(DatabaseTable table) {
     String tableName = table.getName();
     return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName.replace(tablePrefix, ""));
   }
 
+  /**
+   * 加工领域描述
+   * <p>
+   * 将表备注去除后缀
+   *
+   * @param table 数据库表
+   * @return 领域描述
+   */
   protected String processDomainDescription(DatabaseTable table) {
     String remarks = table.getRemarks();
-    return remarks.endsWith("表") ? remarks.substring(0, remarks.length() - 1) : remarks;
+    return remarks.endsWith(TableHelper.TABLE_REMARKS_SUFFIX) ? remarks.substring(0, remarks.length() - 1) : remarks;
   }
 }

@@ -1,4 +1,4 @@
-package cn.koala.code.processors.java;
+package cn.koala.code.processors.support.mybatis;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
@@ -16,11 +16,4 @@ public class MyBatisContext {
   private List<MyBatisColumn> columns;
   private boolean stateful;
   private boolean auditable;
-
-  @Data
-  @SuperBuilder(toBuilder = true)
-  public static class MyBatisColumn {
-    private String columnName;
-    private String propertyName;
-  }
 }

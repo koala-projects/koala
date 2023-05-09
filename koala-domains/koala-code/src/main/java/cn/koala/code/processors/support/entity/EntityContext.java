@@ -1,9 +1,8 @@
-package cn.koala.code.processors.java;
+package cn.koala.code.processors.support.entity;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,12 +15,5 @@ import java.util.Set;
 public class EntityContext {
   private Set<String> imports;
   private Set<String> interfaces;
-  private Properties properties;
-
-  @Data
-  @SuperBuilder(toBuilder = true)
-  public static class Properties {
-    private Property id;
-    private List<Property> others;
-  }
+  private EntityProperties properties;
 }
