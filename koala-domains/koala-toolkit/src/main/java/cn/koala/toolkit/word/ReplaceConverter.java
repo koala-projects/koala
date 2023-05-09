@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
  *
  * @author Houtaroy
  */
-public class ReplaceConverter extends BaseRegularConverter {
+public class ReplaceConverter extends AbstractRegularConverter {
   private final String replacement;
 
   public ReplaceConverter(String pattern, String replacement) {

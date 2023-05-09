@@ -47,10 +47,8 @@ public final class OAuth2EndpointUtils {
     Map<String, String[]> parameterMap = request.getParameterMap();
     MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>(parameterMap.size());
     parameterMap.forEach((key, values) -> {
-      if (values.length > 0) {
-        for (String value : values) {
-          parameters.add(key, value);
-        }
+      for (String value : values) {
+        parameters.add(key, value);
       }
     });
     return parameters;

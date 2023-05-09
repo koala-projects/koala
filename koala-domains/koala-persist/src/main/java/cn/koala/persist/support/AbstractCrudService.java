@@ -36,6 +36,13 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
     return new PageImpl<>(doPage(entities, pageable), pageable, entities.size());
   }
 
+  /**
+   * 物理分页
+   *
+   * @param entities 所有实体列表
+   * @param pageable 分页对象
+   * @return 分页后的实体列表结果
+   */
   protected List<T> doPage(List<T> entities, Pageable pageable) {
     int pageNumber = Math.max(pageable.getPageNumber() + 1, 1);
     int startIndex = (pageNumber - 1) * pageable.getPageSize();

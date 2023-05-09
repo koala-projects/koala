@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * 登录拦截器
+ * <p>
+ * 用于自定义登录页
  *
  * @author Houtaroy
  */

@@ -16,11 +16,26 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface EntityListenAction {
 
+  /**
+   * CRUD操作类型
+   *
+   * @return CRUD操作类型
+   */
   CrudType value();
 
   Class<?> entity() default Void.class;
 
+  /**
+   * 是否开启前置操作
+   *
+   * @return 布尔值
+   */
   boolean pre() default true;
 
+  /**
+   * 是否后置前置操作
+   *
+   * @return 布尔值
+   */
   boolean post() default true;
 }

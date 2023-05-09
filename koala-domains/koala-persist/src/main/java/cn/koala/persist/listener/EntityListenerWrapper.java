@@ -1,5 +1,6 @@
 package cn.koala.persist.listener;
 
+import cn.koala.toolkit.ClassHelper;
 import cn.koala.toolkit.ReflectionHelper;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
@@ -9,13 +10,13 @@ import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
 import lombok.experimental.SuperBuilder;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 实体监听器包装器
+ * <p>
+ * 解析自定义实体监听器中的方法, 实际执行监听逻辑的包装类
  *
  * @author Houtaroy
  */
@@ -29,29 +30,6 @@ public class EntityListenerWrapper {
   protected final List<Method> postUpdates;
   protected final List<Method> preDeletes;
   protected final List<Method> postDeletes;
-
-  public static EntityListenerWrapper from(EntityListener listener) {
-    return EntityListenerWrapper.builder()
-      .listener(listener)
-      .prePersists(getMethods(listener, PrePersist.class))
-      .postPersists(getMethods(listener, PostPersist.class))
-      .preUpdates(getMethods(listener, PreUpdate.class))
-      .postUpdates(getMethods(listener, PostUpdate.class))
-      .preDeletes(getMethods(listener, PreRemove.class))
-      .postDeletes(getMethods(listener, PostRemove.class))
-      .build();
-  }
-
-  protected static List<Method> getMethods(EntityListener listener, Class<? extends Annotation> annotation) {
-    Method[] methods = listener.getClass().getMethods();
-    List<Method> result = new ArrayList<>(methods.length);
-    for (Method method : methods) {
-      if (method.isAnnotationPresent(annotation)) {
-        result.add(method);
-      }
-    }
-    return result;
-  }
 
   public void prePersist(Object[] args) {
     listen(prePersists, args);
@@ -81,5 +59,18 @@ public class EntityListenerWrapper {
     methods.stream()
       .filter(method -> ReflectionHelper.isMethodInvokable(method, args))
       .forEach(method -> ReflectionHelper.invokeMethod(method, listener, args));
+  }
+
+  public static EntityListenerWrapper from(EntityListener listener) {
+    Class<?> listenerClass = listener.getClass();
+    return EntityListenerWrapper.builder()
+      .listener(listener)
+      .prePersists(ClassHelper.getMethods(listenerClass, PrePersist.class))
+      .postPersists(ClassHelper.getMethods(listenerClass, PostPersist.class))
+      .preUpdates(ClassHelper.getMethods(listenerClass, PreUpdate.class))
+      .postUpdates(ClassHelper.getMethods(listenerClass, PostUpdate.class))
+      .preDeletes(ClassHelper.getMethods(listenerClass, PreRemove.class))
+      .postDeletes(ClassHelper.getMethods(listenerClass, PostRemove.class))
+      .build();
   }
 }

@@ -129,10 +129,10 @@ GET http://127.0.0.1:9000/user?page=0&size=10&sort=created_time,desc&sort=name,a
 </mapper>
 ```
 
-### 全能抽象类
+### 抽象实体类
 
-提供了一个实现大部分持久化模型的抽象实体类`BaseUniversalEntity`:
+提供了一个实现大部分持久化模型的抽象实体类`AbstractEntity`:
 
 ```java
-public abstract class BaseUniversalEntity implements Persistable<Long>, Sortable, Stateful, Auditable<Long> {}
+public abstract class AbstractEntity implements Persistable<Long>, Sortable, Stateful, Auditable<Long> {}
 ```

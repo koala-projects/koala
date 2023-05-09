@@ -1,6 +1,6 @@
 package cn.koala.system.entities;
 
-import cn.koala.mybatis.BaseUniversalEntity;
+import cn.koala.mybatis.AbstractEntity;
 import cn.koala.system.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "角色数据实体")
-public class RoleEntity extends BaseUniversalEntity implements Role {
+public class RoleEntity extends AbstractEntity implements Role {
   @Schema(description = "角色代码")
   protected String code;
   @Schema(description = "角色名称")

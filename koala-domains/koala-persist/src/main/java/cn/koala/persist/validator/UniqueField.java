@@ -24,8 +24,18 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface UniqueField {
   String DEFAULT_MESSAGE_SUFFIX = "{persist.validator.unique}";
 
+  /**
+   * 字段名称
+   *
+   * @return 字段名称
+   */
   String value();
 
+  /**
+   * 字段对应的查询参数名称
+   *
+   * @return 字段对应的查询参数名称
+   */
   String parameter() default "";
 
   String message() default DEFAULT_MESSAGE_SUFFIX;

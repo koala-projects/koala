@@ -32,6 +32,7 @@ public class OAuth2WechatMiniAppPostProcessor implements AuthorizationServerPost
     );
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void postProcessAfterInitialization(HttpSecurity http) {
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);

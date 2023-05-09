@@ -1,6 +1,6 @@
 package cn.koala.system.entities;
 
-import cn.koala.mybatis.BaseUniversalEntity;
+import cn.koala.mybatis.AbstractEntity;
 import cn.koala.system.Department;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "部门数据实体")
-public class DepartmentEntity extends BaseUniversalEntity implements Department {
+public class DepartmentEntity extends AbstractEntity implements Department {
   @Schema(description = "部门名称")
   protected String name;
   @Schema(description = "部门备注")

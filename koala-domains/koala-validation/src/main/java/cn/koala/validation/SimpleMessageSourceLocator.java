@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public class SimpleMessageSourceLocator implements MessageSourceLocator {
 
-  protected String basename;
+  protected final String basename;
 
 
   public SimpleMessageSourceLocator(String basename) {

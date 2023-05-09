@@ -13,12 +13,16 @@ import lombok.experimental.SuperBuilder;
 import java.util.Date;
 
 /**
+ * 实体抽象类
+ * <p>
+ * 实现了部分常用数据模型接口, 可用于简化业务实体
+ *
  * @author Houtaroy
  */
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public abstract class BaseUniversalEntity implements Persistable<Long>, Sortable, Stateful, Auditable<Long> {
+public abstract class AbstractEntity implements Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   @Schema(description = "主键")
   protected Long id;
   @Schema(description = "排序索引")

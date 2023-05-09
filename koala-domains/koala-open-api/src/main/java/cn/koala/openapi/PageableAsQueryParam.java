@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 
 /**
  * 分页参数注解
+ * <p>
+ * 照搬{@link org.springdoc.core.converters.models.PageableAsQueryParam}, 仅做了翻译
  *
  * @author Houtaroy
  */

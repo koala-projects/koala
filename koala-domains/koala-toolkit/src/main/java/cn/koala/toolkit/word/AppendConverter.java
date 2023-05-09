@@ -5,7 +5,7 @@ package cn.koala.toolkit.word;
  *
  * @author Houtaroy
  */
-public class AppendConverter extends BaseRegularConverter {
+public class AppendConverter extends AbstractRegularConverter {
   private final String appendage;
 
   public AppendConverter(String pattern, String appendage) {

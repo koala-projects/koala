@@ -5,9 +5,9 @@ import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveOutputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public abstract class CompressHelper {
     String filePath = StringUtils.hasLength(path) ? path + file.getName() : file.getName();
     if (file.isDirectory()) {
       File[] children = file.listFiles();
-      if (ArrayUtils.isEmpty(children)) {
+      if (ObjectUtils.isEmpty(children)) {
         ArchiveEntry entry = output.createArchiveEntry(file, filePath);
         output.putArchiveEntry(entry);
         output.closeArchiveEntry();

@@ -19,7 +19,7 @@ public class MapConverter<S, T> implements Converter<S, T> {
   }
 
   @Override
-  public boolean isSupported(S source) {
+  public boolean support(S source) {
     return map.containsKey(source);
   }
 }

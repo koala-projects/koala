@@ -9,7 +9,7 @@ package cn.koala.toolkit.converter;
 public interface Converter<S, T> {
   T convert(S source);
 
-  default boolean isSupported(S source) {
+  default boolean support(S source) {
     return true;
   }
 }

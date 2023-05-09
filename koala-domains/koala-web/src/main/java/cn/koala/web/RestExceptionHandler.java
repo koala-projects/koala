@@ -23,18 +23,6 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Slf4j
 public class RestExceptionHandler {
-  /**
-   * 默认的异常处理
-   *
-   * @param e 异常信息
-   * @return 错误结果
-   */
-  @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public Response exception(Exception e) {
-    LOGGER.error("错误", e);
-    return Response.error("服务器错误, 请联系管理员");
-  }
 
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -74,5 +62,12 @@ public class RestExceptionHandler {
     return e.getConstraintViolations().stream()
       .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
+  }
+
+  @ExceptionHandler(Exception.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response exception(Exception e) {
+    LOGGER.error("错误", e);
+    return Response.error("服务器错误, 请联系管理员");
   }
 }

@@ -1,6 +1,6 @@
 package cn.koala.system.entities;
 
-import cn.koala.mybatis.BaseUniversalEntity;
+import cn.koala.mybatis.AbstractEntity;
 import cn.koala.system.Permission;
 import cn.koala.system.PermissionType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "权限数据实体")
-public class PermissionEntity extends BaseUniversalEntity implements Permission {
+public class PermissionEntity extends AbstractEntity implements Permission {
   @Schema(description = "权限代码")
   protected String code;
   @Schema(description = "权限名称")

@@ -11,15 +11,15 @@ import java.util.regex.Pattern;
  *
  * @author Houtaroy
  */
-public abstract class BaseRegularConverter implements Converter<String, String> {
+public abstract class AbstractRegularConverter implements Converter<String, String> {
   protected final Pattern pattern;
 
-  public BaseRegularConverter(String pattern) {
+  public AbstractRegularConverter(String pattern) {
     this.pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
   }
 
   @Override
-  public boolean isSupported(String word) {
+  public boolean support(String word) {
     return pattern.matcher(word).find();
   }
 }

@@ -1,6 +1,6 @@
 package cn.koala.system.entities;
 
-import cn.koala.mybatis.BaseUniversalEntity;
+import cn.koala.mybatis.AbstractEntity;
 import cn.koala.system.Setting;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "设置数据实体")
-public class SettingEntity extends BaseUniversalEntity implements Setting {
+public class SettingEntity extends AbstractEntity implements Setting {
   @Schema(description = "设置代码")
   protected String code;
   @Schema(description = "设置名称")

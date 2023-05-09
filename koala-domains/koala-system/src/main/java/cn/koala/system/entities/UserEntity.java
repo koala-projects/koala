@@ -1,6 +1,6 @@
 package cn.koala.system.entities;
 
-import cn.koala.mybatis.BaseUniversalEntity;
+import cn.koala.mybatis.AbstractEntity;
 import cn.koala.persist.validator.UniqueField;
 import cn.koala.system.User;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @UniqueField("username")
 @UniqueField("nickname")
 @Schema(description = "用户数据实体")
-public class UserEntity extends BaseUniversalEntity implements User {
+public class UserEntity extends AbstractEntity implements User {
 
   @Schema(description = "登录名")
   String username;

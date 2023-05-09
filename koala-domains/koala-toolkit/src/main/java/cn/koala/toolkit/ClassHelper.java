@@ -4,12 +4,11 @@ import com.google.common.reflect.TypeToken;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.lang.Nullable;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 类帮助类
@@ -53,24 +52,9 @@ public abstract class ClassHelper {
     return (Class<?>) typeToken.resolveType(genericClass.getTypeParameters()[index]).getType();
   }
 
-  @Deprecated
-  public static Class<?> getSuperGenericClass(Object object, Class<?> superClass) {
-    return getSuperGenericClass(object.getClass(), superClass, 0);
-  }
-
-
-  @Deprecated
-  public static Class<?> getSuperGenericClass(Class<?> clazz, Class<?> superClass, int index) {
-    Type superType = clazz.getGenericSuperclass();
-    if (!(superType instanceof ParameterizedType)) {
-      return getSuperGenericClass((Class<?>) superType, superClass, index);
-    }
-    return (Class<?>) Optional.of(superType)
-      .map(ParameterizedType.class::cast)
-      .filter(type -> superClass.isAssignableFrom((Class<?>) type.getRawType()))
-      .map(ParameterizedType::getActualTypeArguments)
-      .filter(args -> args.length > index)
-      .map(args -> args[index])
-      .orElse(null);
+  public static List<Method> getMethods(Class<?> clazz, Class<? extends Annotation> annotation) {
+    return Arrays.stream(clazz.getMethods())
+      .filter(method -> method.isAnnotationPresent(annotation))
+      .toList();
   }
 }

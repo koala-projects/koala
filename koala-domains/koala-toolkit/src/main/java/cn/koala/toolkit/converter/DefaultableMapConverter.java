@@ -19,4 +19,9 @@ public class DefaultableMapConverter<S, T> extends MapConverter<S, T> {
   public T convert(S source) {
     return map.getOrDefault(source, defaultValue);
   }
+
+  @Override
+  public boolean support(S source) {
+    return true;
+  }
 }

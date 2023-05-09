@@ -12,10 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * EnhancedEnum类型转换器
+ * 枚举增强类型转换器
+ * <p>
+ * 支持在Mapper中直接使用枚举增强
  *
  * @param <E> 枚举的泛型
- * @author shihongjun
+ * @author Houtaroy
  */
 @MappedTypes(EnumAdvice.class)
 public class EnumAdviceTypeHandler<E extends EnumAdvice> extends BaseTypeHandler<EnumAdvice> {

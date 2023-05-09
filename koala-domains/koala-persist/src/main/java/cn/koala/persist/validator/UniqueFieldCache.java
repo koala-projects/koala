@@ -10,6 +10,8 @@ import java.util.Map;
 
 /**
  * 唯一字段缓存器
+ * <p>
+ * 缓存了字段和消息模板
  *
  * @author Houtaroy
  */

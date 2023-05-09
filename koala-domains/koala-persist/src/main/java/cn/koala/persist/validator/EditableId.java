@@ -18,6 +18,11 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = EditableIdValidator.class)
 public @interface EditableId {
 
+  /**
+   * 实体类型
+   *
+   * @return 实体类型
+   */
   Class<?> value();
 
   String message() default "{persist.validator.editable}";

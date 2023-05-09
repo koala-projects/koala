@@ -40,7 +40,7 @@ public abstract class WordHelper {
 
   public static String plural(String word) {
     for (Converter<String, String> pluralConverter : PLURAL_CONVERTERS) {
-      if (pluralConverter.isSupported(word)) {
+      if (pluralConverter.support(word)) {
         return pluralConverter.convert(word);
       }
     }

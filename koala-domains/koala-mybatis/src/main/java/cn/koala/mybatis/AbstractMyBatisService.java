@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * MyBatis基础服务类
+ * <p>
+ * 使用<a href="https://github.com/pagehelper/Mybatis-PageHelper">PageHelper</a>重写分页方法
  *
  * @author Houtaroy
  */
