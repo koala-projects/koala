@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: 修改类描述
+ * 长度校验转换器
  *
  * @author Houtaroy
  */
