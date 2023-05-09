@@ -30,10 +30,25 @@ public class DefaultAttachmentFactory implements AttachmentFactory {
       .build();
   }
 
+  /**
+   * 计算附件大小
+   * <p>
+   * 计算结果为四舍五入后的整数, 单位kb
+   *
+   * @param multipartFile 上传文件
+   * @return 附件大小
+   */
   protected long computeSize(MultipartFile multipartFile) {
     return (int) Math.round((double) multipartFile.getSize() / BINARY_UNIT);
   }
 
+  /**
+   * 计算实际存储路径
+   * <p>
+   * 例如: 2023年1月12日16点30分上传的文件, 存储路径为/2023/01/12/16/{uuid}
+   *
+   * @return 存储路径字符串
+   */
   protected String computeStoragePath() {
     LocalDateTime now = LocalDateTime.now();
     String year = String.valueOf(now.getYear());

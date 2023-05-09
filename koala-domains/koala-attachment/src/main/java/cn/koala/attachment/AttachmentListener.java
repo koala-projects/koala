@@ -28,11 +28,21 @@ public class AttachmentListener extends AbstractInheritedEntityListener<Attachme
     this.storage = storage;
   }
 
+  /**
+   * 将存储路径设置为空, 不需要回显给前端
+   *
+   * @param entity 附件实体
+   */
   @PostPersist
   public void postCreate(Attachment entity) {
     entity.setStoragePath(null);
   }
 
+  /**
+   * 删除附件数据前, 先删除附件存储
+   *
+   * @param entity 附件实体
+   */
   @PreRemove
   public void preDelete(Attachment entity) {
     try {
