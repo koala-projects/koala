@@ -28,9 +28,11 @@
     <commons-compress.version>1.23.0</commons-compress.version>
     <commons-io.version>2.11.0</commons-io.version>
     <enjoy.version>5.0.3</enjoy.version>
+    <groovy.version>4.0.12</groovy.version>
     <guava.version>31.1-jre</guava.version>
     <junit.version>5.8.2</junit.version>
     <minio.version>8.5.2</minio.version>
+    <powerjob.version>4.3.2</powerjob.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
     <slf4j.version>2.0.7</slf4j.version>
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
@@ -44,6 +46,13 @@
   <dependencyManagement>
     <dependencies>
       <!--Bom-->
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <version>${groovy.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -120,6 +129,16 @@
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>${minio.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.powerjob</groupId>
+        <artifactId>powerjob-worker</artifactId>
+        <version>${powerjob.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.powerjob</groupId>
+        <artifactId>powerjob-worker-spring-boot-starter</artifactId>
+        <version>${powerjob.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.rocketmq</groupId>
@@ -209,6 +228,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-powerjob-worker</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-toolkit</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -261,6 +285,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-persist-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-powerjob-worker-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
