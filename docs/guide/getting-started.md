@@ -50,21 +50,22 @@
 
 ### 组件列表
 
-| 组件名称                                                                                | 组件说明                                     |
-|-------------------------------------------------------------------------------------|------------------------------------------|
-| [koala-attachment-starter](../../koala-starters/koala-attachment-starter)           | 提供了附件上传和下载功能                             |
-| [koala-code-starter](../../koala-starters/koala-code-starter)                       | 提供了代码生成功能                                |
-| [koala-database-starter](../../koala-starters/koala-database-starter)               | 提供了数据库管理功能                               |
-| [koala-log-starter](../../koala-starters/koala-log-starter)                         | 提供了操作日志功能                                |
-| [koala-minio-starter](../../koala-starters/koala-minio-starter)                     | 快速集成MinIO对象存储, 自动注入操作客户端                 |
-| [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter)                 | 持久化功能的 MyBatis 版本实现                      |
-| [koala-persist-starter](../../koala-starters/koala-persist-starter)                 | 定义部分持久化功能, 如模型/仓库/服务/实体监听器等              |
-| [koala-rocketmq-starter](../../koala-starters/koala-rocketmq-starter)               | 快速集成Apache RocketMQ, 提供 Spring Boot 3 适配 |
-| [koala-security-starter](../../koala-starters/koala-security-starter)               | 实现了基于 OAuth 2.1 的认证授权体系                  |
-| [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter)   | 提供了敏感词过滤功能, 支持 Jackson                   |
-| [koala-system-starter](../../koala-starters/koala-system-starter)                   | 提供了用户管理/角色管理/部门管理/字典管理功能                 |
-| [koala-template-starter](../../koala-starters/koala-template-starter)               | 提供了模板组管理/模板管理功能                          |
-| [koala-validation-starter](../../koala-starters/koala-validation-starter)           | 提供了参数校验功能, 支持提示消息自定义                     |
-| [koala-web-starter](../../koala-starters/koala-web-starter)                         | 抽象出通用返回模型, 增加全局异常拦截器                     |
-| [koala-wechat-mini-app-starter](../../koala-starters/koala-wechat-mini-app-starter) | 快速集成微信小程序功能, 实现微信用户与系统用户绑定               |
+| 组件名称                                                     | 组件说明                                           |
+| ------------------------------------------------------------ | -------------------------------------------------- |
+| [koala-attachment-starter](../../koala-starters/koala-attachment-starter) | 提供了附件上传和下载功能                           |
+| [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                 |
+| [koala-database-starter](../../koala-starters/koala-database-starter) | 提供了数据库管理功能                               |
+| [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                 |
+| [koala-minio-starter](../../koala-starters/koala-minio-starter) | 快速集成MinIO对象存储, 自动注入操作客户端          |
+| [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter) | 持久化功能的 MyBatis 版本实现                      |
+| [koala-persist-starter](../../koala-starters/koala-persist-starter) | 定义部分持久化功能, 如模型/仓库/服务/实体监听器等  |
+| [koala-powerjob-worker-starter](../../koala-starters/koala-powerjob-worker-starter) | 快速集成PowerJob Worker, 拓展Groovy任务处理器      |
+| [koala-rocketmq-starter](../../koala-starters/koala-rocketmq-starter) | 快速集成Apache RocketMQ, 提供 Spring Boot 3 适配   |
+| [koala-security-starter](../../koala-starters/koala-security-starter) | 实现了基于 OAuth 2.1 的认证授权体系                |
+| [koala-sensitive-word-starter](../../koala-starters/koala-sensitive-word-starter) | 提供了敏感词过滤功能, 支持 Jackson                 |
+| [koala-system-starter](../../koala-starters/koala-system-starter) | 提供了用户管理/角色管理/部门管理/字典管理功能      |
+| [koala-template-starter](../../koala-starters/koala-template-starter) | 提供了模板组管理/模板管理功能                      |
+| [koala-validation-starter](../../koala-starters/koala-validation-starter) | 提供了参数校验功能, 支持提示消息自定义             |
+| [koala-web-starter](../../koala-starters/koala-web-starter)  | 抽象出通用返回模型, 增加全局异常拦截器             |
+| [koala-wechat-mini-app-starter](../../koala-starters/koala-wechat-mini-app-starter) | 快速集成微信小程序功能, 实现微信用户与系统用户绑定 |
 
