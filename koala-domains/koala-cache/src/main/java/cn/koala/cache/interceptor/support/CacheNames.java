@@ -1,7 +1,7 @@
 package cn.koala.cache.interceptor.support;
 
 /**
- * TODO: 修改类描述
+ * 缓存模块名称常量
  *
  * @author Houtaroy
  */
