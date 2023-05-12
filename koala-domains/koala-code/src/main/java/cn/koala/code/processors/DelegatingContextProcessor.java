@@ -31,7 +31,7 @@ public class DelegatingContextProcessor implements ContextProcessor {
     Map<String, Object> temp = processor.process(object);
     temp.forEach((key, value) -> {
       if (context.containsKey(key)) {
-        LOGGER.warn("上下文加工器[name={}]覆盖了属性[{}]", processor.getName(), key);
+        LOGGER.warn("上下文加工器[name={}]覆盖了属性[{}]", processor.name(), key);
       }
       context.put(key, value);
     });

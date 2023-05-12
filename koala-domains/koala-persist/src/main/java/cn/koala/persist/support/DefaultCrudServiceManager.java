@@ -3,8 +3,6 @@ package cn.koala.persist.support;
 import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudServiceManager;
 import cn.koala.toolkit.ClassHelper;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 
 import java.util.AbstractMap;
@@ -40,17 +38,11 @@ public class DefaultCrudServiceManager implements CrudServiceManager {
       new AbstractMap.SimpleEntry<>(entityClass, idClass),
       k -> wrappers.stream()
         .filter(service -> service.support(entityClass, idClass)).findFirst()
-        .map(CrudServiceWrapper::getService)
+        .map(CrudServiceWrapper::service)
         .orElse(null));
   }
 
-  @Data
-  @RequiredArgsConstructor
-  static class CrudServiceWrapper {
-    private final CrudService<?, ?> service;
-    private final Class<?> entityClass;
-    private final Class<?> idClass;
-
+  record CrudServiceWrapper(CrudService<?, ?> service, Class<?> entityClass, Class<?> idClass) {
     public boolean support(Class<?> entityClass, Class<?> idClass) {
       return this.entityClass.isAssignableFrom(entityClass) && this.idClass.isAssignableFrom(idClass);
     }

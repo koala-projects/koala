@@ -1,8 +1,5 @@
 package cn.koala.log;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.lang.reflect.Method;
 
 /**
@@ -10,14 +7,5 @@ import java.lang.reflect.Method;
  *
  * @author Houtaroy
  */
-@Getter
-@AllArgsConstructor
-public class LogExpressionRootObject {
-  private final Method method;
-
-  private final Object[] args;
-
-  private final Object target;
-
-  private final Class<?> targetClass;
+public record LogExpressionRootObject(Method method, Object[] args, Object target, Class<?> targetClass) {
 }

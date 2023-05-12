@@ -1,8 +1,5 @@
 package cn.koala.code.processors;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Map;
 
 /**
@@ -10,12 +7,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@Data
-@RequiredArgsConstructor
-public class StaticProcessor implements ContextProcessor {
-  protected final String name;
-  protected final Object data;
-
+public record StaticProcessor(String name, Object data) implements ContextProcessor {
   @Override
   public Map<String, Object> process(Object context) {
     return Map.of(name, data);

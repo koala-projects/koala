@@ -18,7 +18,7 @@ public interface ContextProcessor {
    *
    * @return 加工器名称
    */
-  default String getName() {
+  default String name() {
     return this.getClass().getName();
   }
 }
