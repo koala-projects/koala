@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>${groupId}</groupId>
+  <artifactId>${artifactId}</artifactId>
+  <version>${version}</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>cn.koala</groupId>
+    <artifactId>koala-parent</artifactId>
+    <version>2023.1.0-SNAPSHOT</version>
+    <relativePath/>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>koala</id>
+      <name>koala</name>
+      <url>https://raw.github.com/koala-projects/maven-repositories/snapshot/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>koala</id>
+      <name>koala</name>
+      <url>https://raw.github.com/koala-projects/maven-repositories/snapshot/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${groupId}</groupId>
+        <artifactId>${rootArtifactId}-application</artifactId>
+        <version>${version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <plugins>
+      <!--包含源码-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

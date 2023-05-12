@@ -22,6 +22,7 @@
 
   <modules>
     <module>koala-applications</module>
+    <module>koala-archetypes</module>
     <module>koala-dependencies</module>
     <module>koala-domains</module>
     <module>koala-parent</module>

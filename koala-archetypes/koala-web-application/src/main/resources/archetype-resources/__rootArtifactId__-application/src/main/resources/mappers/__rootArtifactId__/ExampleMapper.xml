@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package}.repository.ExampleRepository">
+
+  <sql id="selectExample">
+    select t.id,
+           t.name,
+           t.sort_index,
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted,
+           t.created_by,
+           t.created_time,
+           t.last_modified_by,
+           t.last_modified_time,
+           t.deleted_by,
+           t.deleted_time
+    from t_example t
+  </sql>
+
+  <select id="list" resultType="${package}.entity.ExampleEntity">
+    <include refid="selectExample"/>
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="name != null and name != ''">
+        and t.name = #{name}
+      </if>
+    </where>
+  </select>
+
+  <select id="load" resultType="${package}.entity.ExampleEntity">
+    <include refid="selectExample"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  </select>
+
+  <insert id="create" parameterType="${package}.entity.ExampleEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into t_example(id, name, sort_index, created_by, created_time)
+    values (#{id}, #{name}, #{sortIndex}, #{createdBy}, #{createdTime})
+  </insert>
+
+  <update id="update" parameterType="${package}.entity.ExampleEntity">
+    update t_example
+    <trim prefix="set" suffixOverrides=",">
+      <if test="name != null">name=#{name},</if>
+      last_modified_by = #{lastModifiedBy},
+      last_modified_time = #{lastModifiedTime},
+    </trim>
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
+  </update>
+
+  <update id="delete" parameterType="${package}.entity.ExampleEntity">
+    update t_example
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+    where id = #{id}
+  </update>
+</mapper>
