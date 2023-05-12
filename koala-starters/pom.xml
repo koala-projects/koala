@@ -16,6 +16,7 @@
 
   <modules>
     <module>koala-attachment-starter</module>
+    <module>koala-cache-starter</module>
     <module>koala-code-starter</module>
     <module>koala-database-starter</module>
     <module>koala-log-starter</module>
