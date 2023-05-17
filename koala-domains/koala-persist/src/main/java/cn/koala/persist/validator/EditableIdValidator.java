@@ -41,14 +41,9 @@ public class EditableIdValidator implements ConstraintValidator<EditableId, Obje
   }
 
   protected boolean doValid(Object id) {
-    Optional<?> persist = load(id, entityClass, id.getClass());
-    return persist.isPresent() && DomainHelper.isEditable(persist.get());
-  }
-
-
-  @SuppressWarnings("unchecked")
-  protected <T, ID> Optional<T> load(Object id, Class<T> entityClass, Class<ID> idClass) {
-    return Optional.ofNullable(manager.getService(entityClass, idClass))
-      .map(service -> service.load((ID) id));
+    return Optional.ofNullable(manager.getService(entityClass))
+      .map(service -> service.load(id))
+      .filter(DomainHelper::isEditable)
+      .isPresent();
   }
 }

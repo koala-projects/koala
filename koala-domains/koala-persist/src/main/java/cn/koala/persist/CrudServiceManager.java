@@ -10,5 +10,5 @@ import org.springframework.lang.Nullable;
 public interface CrudServiceManager {
 
   @Nullable
-  <T, ID> CrudService<T, ID> getService(Class<T> entityClass, Class<ID> idClass);
+  <T> CrudService<T, Object> getService(Class<T> entityClass);
 }

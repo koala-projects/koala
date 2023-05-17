@@ -1,5 +1,6 @@
 package cn.koala.persist.validator;
 
+import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudServiceManager;
 import cn.koala.persist.domain.Persistable;
 import jakarta.validation.ConstraintValidator;
@@ -9,12 +10,11 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * 唯一字段校验器
@@ -48,12 +48,13 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
   }
 
   protected boolean isDuplicate(Persistable<?> entity, Object fieldValue) {
-    return Optional.ofNullable(manager.getService(entity.getClass(), entity.getId().getClass()))
-      .map(service -> service.list(Map.of(parameter, fieldValue)))
+    CrudService<?, ?> service = manager.getService(entity.getClass());
+    Assert.notNull(service, "未找到实体类型[%s]对应服务类, 唯一校验失败".formatted(entity.getClass().getName()));
+    return service.list(Map.of(parameter, fieldValue))
       .stream()
-      .filter(data -> data instanceof Persistable<?>)
+      .filter(data -> data instanceof Persistable)
       .map(Persistable.class::cast)
-      .anyMatch(persistable -> !Objects.equals(entity.getId(), persistable.getId()));
+      .anyMatch(persistable -> !persistable.getId().equals(entity.getId()));
   }
 
   protected void buildErrorMessage(ConstraintValidatorContext context, Field field, Object fieldValue) {
