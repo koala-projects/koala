@@ -29,7 +29,6 @@
 模块提供了枚举增强接口`EnumAdvice`, 在枚举的基础上, 增加了名称属性:
 
 ```java
-
 @Getter
 public enum YesNo implements EnumAdvice {
   YES("是", 1),
