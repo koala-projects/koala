@@ -1,4 +1,4 @@
-# OAuth2表
+# OAuth2注册客户端表
 DROP TABLE IF EXISTS oauth2_registered_client;
 CREATE TABLE oauth2_registered_client
 (
@@ -17,6 +17,7 @@ CREATE TABLE oauth2_registered_client
   PRIMARY KEY (id)
 );
 
+# OAuth2授权表
 DROP TABLE IF EXISTS oauth2_authorization_consent;
 CREATE TABLE oauth2_authorization_consent
 (
@@ -26,6 +27,7 @@ CREATE TABLE oauth2_authorization_consent
   PRIMARY KEY (registered_client_id, principal_name)
 );
 
+# OAuth2授权信息表
 DROP TABLE IF EXISTS oauth2_authorization;
 CREATE TABLE oauth2_authorization
 (
@@ -57,9 +59,10 @@ CREATE TABLE oauth2_authorization
   PRIMARY KEY (id)
 );
 
+# 表结构
 # 日志表
-DROP TABLE IF EXISTS sys_log;
-CREATE TABLE sys_log
+DROP TABLE IF EXISTS k_log;
+CREATE TABLE k_log
 (
   `id`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `module`       VARCHAR(100) NOT NULL COMMENT '日志模块',
@@ -73,36 +76,11 @@ CREATE TABLE sys_log
   `cost`         INT          NOT NULL COMMENT '消耗时间',
   `log_time`     DATETIME     NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
-) COMMENT = '系统日志表';
-
-# 设置表
-DROP TABLE IF EXISTS sys_setting;
-CREATE TABLE sys_setting
-(
-  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`               VARCHAR(100) NOT NULL COMMENT '设置代码',
-  `name`               VARCHAR(100) NOT NULL COMMENT '设置名称',
-  `content`            VARCHAR(100) NOT NULL COMMENT '设置内容',
-  `remark`             VARCHAR(500) COMMENT '设置备注',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
-  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
-  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_time` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_time`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '系统设置表';
-
-insert into sys_setting(code, name, content, created_by, created_time)
-values ('system.default-password', '初始用户默认密码', '123456', 1, now());
+) COMMENT = '日志表';
 
 # 字典表
-DROP TABLE IF EXISTS sys_dict;
-CREATE TABLE sys_dict
+DROP TABLE IF EXISTS k_dict;
+CREATE TABLE k_dict
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code`               VARCHAR(100) NOT NULL COMMENT '字典代码',
@@ -119,11 +97,11 @@ CREATE TABLE sys_dict
   `deleted_by`         BIGINT COMMENT '删除人ID',
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
-) COMMENT = '系统字典表';
+) COMMENT = '字典表';
 
 # 字典项表
-DROP TABLE IF EXISTS sys_dict_item;
-CREATE TABLE sys_dict_item
+DROP TABLE IF EXISTS k_dict_item;
+CREATE TABLE k_dict_item
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code`               VARCHAR(100) NOT NULL COMMENT '字典项代码',
@@ -141,11 +119,11 @@ CREATE TABLE sys_dict_item
   `deleted_by`         BIGINT COMMENT '删除人ID',
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
-) COMMENT = '系统字典项表';
+) COMMENT = '字典项表';
 
 # 部门表
-DROP TABLE IF EXISTS sys_department;
-CREATE TABLE sys_department
+DROP TABLE IF EXISTS k_department;
+CREATE TABLE k_department
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name`               VARCHAR(100) NOT NULL COMMENT '部门名称',
@@ -162,22 +140,11 @@ CREATE TABLE sys_department
   `deleted_by`         BIGINT COMMENT '删除人ID',
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
-) COMMENT = '系统部门表';
-
-# 用户部门关系表
-DROP TABLE IF EXISTS sys_user_department;
-CREATE TABLE sys_user_department
-(
-  `user_id`       BIGINT NOT NULL COMMENT '用户id',
-  `department_id` BIGINT NOT NULL COMMENT '部门id'
-) COMMENT = '系统用户部门关系表';
-
-
-insert into sys_user_department value (1, 1);
+) COMMENT = '部门表';
 
 # 权限表
-DROP TABLE IF EXISTS sys_permission;
-CREATE TABLE sys_permission
+DROP TABLE IF EXISTS k_permission;
+CREATE TABLE k_permission
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code`               VARCHAR(100) NOT NULL COMMENT '权限代码',
@@ -199,71 +166,11 @@ CREATE TABLE sys_permission
   `deleted_by`         BIGINT COMMENT '删除人ID',
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
-) COMMENT = '系统权限表';
-
-insert into sys_permission(code, name, type, icon, url, component, parent_id, sort_index, is_systemic, created_by,
-                           created_time)
-values ('system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1, 1, 1, now()),
-       ('system:user', '用户管理', 1, null, null, 'system/user/index.vue', 1, 101, 1, 1, now()),
-       ('system:role', '角色管理', 1, null, null, 'system/role/index.vue', 1, 102, 1, 1, now()),
-       ('system:permission', '权限管理', 1, null, null, 'system/permission/index.vue', 1, 103, 1, 1, now()),
-       ('system:department', '部门管理', 1, null, null, 'system/department/index.vue', 1, 104, 1, 1, now()),
-       ('system:dictionary', '字典管理', 1, null, null, 'system/dictionary/index.vue', 1, 105, 1, 1, now()),
-       ('system:setting', '设置管理', 1, null, null, 'system/setting/index.vue', 1, 106, 1, 1, now()),
-       ('system:log', '日志管理', 1, null, null, 'system/log/index.vue', 1, 107, 1, 1, now()),
-       ('attachment', '附件管理', 1, null, null, 'system/attachment/index.vue', null, 2, 1, 1, now()),
-       ('example', '示例管理', 1, null, null, 'system/example/index.vue', null, 3, 0, 1, now()),
-       ('system:user:page', '用户列表', 2, null, null, null, 2, 10101, 1, 1, now()),
-       ('system:user:load', '用户查询', 2, null, null, null, 2, 10102, 1, 1, now()),
-       ('system:user:create', '用户创建', 2, null, null, null, 2, 10103, 1, 1, now()),
-       ('system:user:update', '用户修改', 2, null, null, null, 2, 10104, 1, 1, now()),
-       ('system:user:delete', '用户删除', 2, null, null, null, 2, 10105, 1, 1, now()),
-       ('system:role:page', '角色列表', 2, null, null, null, 3, 10201, 1, 1, now()),
-       ('system:role:load', '角色查询', 2, null, null, null, 3, 10202, 1, 1, now()),
-       ('system:role:create', '角色创建', 2, null, null, null, 3, 10203, 1, 1, now()),
-       ('system:role:update', '角色修改', 2, null, null, null, 3, 10204, 1, 1, now()),
-       ('system:role:delete', '角色删除', 2, null, null, null, 3, 10205, 1, 1, now()),
-       ('system:permission:tree', '权限列表', 2, null, null, null, 4, 10301, 1, 1, now()),
-       ('system:department:tree', '部门列表', 2, null, null, null, 5, 10401, 1, 1, now()),
-       ('system:department:load', '部门查询', 2, null, null, null, 5, 10402, 1, 1, now()),
-       ('system:department:create', '部门创建', 2, null, null, null, 5, 10403, 1, 1, now()),
-       ('system:department:update', '部门修改', 2, null, null, null, 5, 10404, 1, 1, now()),
-       ('system:department:delete', '部门删除', 2, null, null, null, 5, 10405, 1, 1, now()),
-       ('system:dictionary:page', '字典列表', 2, null, null, null, 6, 10501, 1, 1, now()),
-       ('system:dictionary:load', '字典查询', 2, null, null, null, 6, 10502, 1, 1, now()),
-       ('system:dictionary:create', '字典创建', 2, null, null, null, 6, 10503, 1, 1, now()),
-       ('system:dictionary:update', '字典修改', 2, null, null, null, 6, 10504, 1, 1, now()),
-       ('system:dictionary:delete', '字典删除', 2, null, null, null, 6, 10505, 1, 1, now()),
-       ('system:setting:create', '设置创建', 2, null, null, null, 7, 10601, 1, 1, now()),
-       ('system:setting:update', '设置修改', 2, null, null, null, 7, 10602, 1, 1, now()),
-       ('system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
-       ('system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now()),
-       ('system:log:load', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now()),
-       ('attachment:delete', '附件删除', 2, null, null, null, 9, 201, 1, 1, now()),
-       ('attachment:upload', '附件上传', 2, null, null, null, 9, 202, 1, 1, now()),
-       ('attachment:download', '附件下载', 2, null, null, null, 9, 203, 1, 1, now()),
-       ('example:page', '示例列表', 2, null, null, null, 10, 301, 1, 1, now()),
-       ('example:load', '示例查询', 2, null, null, null, 10, 302, 1, 1, now()),
-       ('example:create', '示例创建', 2, null, null, null, 10, 303, 1, 1, now()),
-       ('example:update', '示例修改', 2, null, null, null, 10, 304, 1, 1, now()),
-       ('example:delete', '示例删除', 2, null, null, null, 10, 305, 1, 1, now());
-
-# 角色权限关系表
-DROP TABLE IF EXISTS sys_role_permission;
-CREATE TABLE sys_role_permission
-(
-  `role_id`         BIGINT NOT NULL COMMENT '角色id',
-  `permission_id`   BIGINT NOT NULL DEFAULT 0 COMMENT '权限id',
-  `is_half_checked` INT    NOT NULL COMMENT '是否半选'
-) COMMENT = '系统角色权限关系表';
-
-insert into sys_role_permission
-select 1, id, 0
-from sys_permission;
+) COMMENT = '权限表';
 
 # 角色表
-DROP TABLE IF EXISTS sys_role;
-CREATE TABLE sys_role
+DROP TABLE IF EXISTS k_role;
+CREATE TABLE k_role
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code`               VARCHAR(100) NOT NULL COMMENT '角色代码',
@@ -280,23 +187,11 @@ CREATE TABLE sys_role
   `deleted_by`         BIGINT COMMENT '删除人ID',
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
-) COMMENT = '系统角色表';
-
-# 用户角色关系表
-DROP TABLE IF EXISTS sys_user_role;
-CREATE TABLE sys_user_role
-(
-  `user_id` BIGINT NOT NULL COMMENT '用户id',
-  `role_id` BIGINT NOT NULL COMMENT '角色id'
-) COMMENT = '系统用户角色关系表';
-
-
-insert into sys_user_role
-values (1, 1);
+) COMMENT = '角色表';
 
 # 用户表
-DROP TABLE IF EXISTS sys_user;
-CREATE TABLE sys_user
+DROP TABLE IF EXISTS k_user;
+CREATE TABLE k_user
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username`           VARCHAR(100) NOT NULL COMMENT '用户名',
@@ -317,10 +212,121 @@ CREATE TABLE sys_user
   `deleted_by`         BIGINT COMMENT '删除人ID',
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
-) COMMENT = '系统用户表';
+) COMMENT = '用户表';
 
-insert into sys_user(username, password, nickname, sort_index, is_systemic, created_by, created_time)
-values ('admin', '{bcrypt}$2a$10$COsN1rWGQydTaNKaZ5EfFeYY0fCunvlHO4ABvqQUqQZiiK.bzglK2', '管理员', 1, 1, 1, now());
+# 用户角色关系表
+DROP TABLE IF EXISTS k_user_role;
+CREATE TABLE k_user_role
+(
+  `user_id` BIGINT NOT NULL COMMENT '用户id',
+  `role_id` BIGINT NOT NULL COMMENT '角色id'
+) COMMENT = '用户角色关系表';
+
+# 角色权限关系表
+DROP TABLE IF EXISTS k_role_permission;
+CREATE TABLE k_role_permission
+(
+  `role_id`         BIGINT NOT NULL COMMENT '角色id',
+  `permission_id`   BIGINT NOT NULL DEFAULT 0 COMMENT '权限id',
+  `is_half_checked` INT    NOT NULL COMMENT '是否半选'
+) COMMENT = '角色权限关系表';
+
+# 用户部门关系表
+DROP TABLE IF EXISTS k_user_department;
+CREATE TABLE k_user_department
+(
+  `user_id`       BIGINT NOT NULL COMMENT '用户id',
+  `department_id` BIGINT NOT NULL COMMENT '部门id'
+) COMMENT = '用户部门关系表';
+
+# 管理员用户
+insert into k_user(id, username, password, nickname, sort_index, is_systemic, created_by, created_time)
+values (1, 'admin', '{bcrypt}$2a$10$COsN1rWGQydTaNKaZ5EfFeYY0fCunvlHO4ABvqQUqQZiiK.bzglK2', '管理员', 1, 1, 1, now());
+
+# 管理员角色
+insert into k_role(id, code, name, sort_index, is_systemic, created_by, created_time)
+values (1, 'admin', '系统管理员', 1, 1, 1, now());
+
+# 所有权限
+insert into k_permission(id, code, name, type, icon, url, component, parent_id, sort_index, is_systemic, created_by,
+                         created_time)
+values (1, 'system', '系统管理', 1, 'ion:settings-outline', null, null, null, 1, 1, 1, now()),
+       (2, 'system:user', '用户管理', 1, null, null, 'system/user/index.vue', 1, 101, 1, 1, now()),
+       (3, 'system:role', '角色管理', 1, null, null, 'system/role/index.vue', 1, 102, 1, 1, now()),
+       (4, 'system:permission', '权限管理', 1, null, null, 'system/permission/index.vue', 1, 103, 1, 1, now()),
+       (5, 'system:department', '部门管理', 1, null, null, 'system/department/index.vue', 1, 104, 1, 1, now()),
+       (6, 'system:dictionary', '字典管理', 1, null, null, 'system/dictionary/index.vue', 1, 105, 1, 1, now()),
+       (7, 'system:setting', '设置管理', 1, null, null, 'system/setting/index.vue', 1, 106, 1, 1, now()),
+       (8, 'system:log', '日志管理', 1, null, null, 'system/log/index.vue', 1, 107, 1, 1, now()),
+       (9, 'attachment', '附件管理', 1, null, null, 'system/attachment/index.vue', null, 2, 1, 1, now()),
+       (10, 'example', '示例管理', 1, null, null, 'system/example/index.vue', null, 3, 1, 1, now()),
+       (11, 'system:user:page', '用户列表', 2, null, null, null, 2, 10101, 1, 1, now()),
+       (12, 'system:user:load', '用户查询', 2, null, null, null, 2, 10102, 1, 1, now()),
+       (13, 'system:user:create', '用户创建', 2, null, null, null, 2, 10103, 1, 1, now()),
+       (14, 'system:user:update', '用户修改', 2, null, null, null, 2, 10104, 1, 1, now()),
+       (15, 'system:user:delete', '用户删除', 2, null, null, null, 2, 10105, 1, 1, now()),
+       (16, 'system:role:page', '角色列表', 2, null, null, null, 3, 10201, 1, 1, now()),
+       (17, 'system:role:load', '角色查询', 2, null, null, null, 3, 10202, 1, 1, now()),
+       (18, 'system:role:create', '角色创建', 2, null, null, null, 3, 10203, 1, 1, now()),
+       (19, 'system:role:update', '角色修改', 2, null, null, null, 3, 10204, 1, 1, now()),
+       (20, 'system:role:delete', '角色删除', 2, null, null, null, 3, 10205, 1, 1, now()),
+       (21, 'system:permission:tree', '权限列表', 2, null, null, null, 4, 10301, 1, 1, now()),
+       (22, 'system:department:tree', '部门列表', 2, null, null, null, 5, 10401, 1, 1, now()),
+       (23, 'system:department:load', '部门查询', 2, null, null, null, 5, 10402, 1, 1, now()),
+       (24, 'system:department:create', '部门创建', 2, null, null, null, 5, 10403, 1, 1, now()),
+       (25, 'system:department:update', '部门修改', 2, null, null, null, 5, 10404, 1, 1, now()),
+       (26, 'system:department:delete', '部门删除', 2, null, null, null, 5, 10405, 1, 1, now()),
+       (27, 'system:dictionary:page', '字典列表', 2, null, null, null, 6, 10501, 1, 1, now()),
+       (28, 'system:dictionary:load', '字典查询', 2, null, null, null, 6, 10502, 1, 1, now()),
+       (29, 'system:dictionary:create', '字典创建', 2, null, null, null, 6, 10503, 1, 1, now()),
+       (30, 'system:dictionary:update', '字典修改', 2, null, null, null, 6, 10504, 1, 1, now()),
+       (31, 'system:dictionary:delete', '字典删除', 2, null, null, null, 6, 10505, 1, 1, now()),
+       (32, 'system:setting:create', '设置创建', 2, null, null, null, 7, 10601, 1, 1, now()),
+       (33, 'system:setting:update', '设置修改', 2, null, null, null, 7, 10602, 1, 1, now()),
+       (34, 'system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
+       (35, 'system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now()),
+       (36, 'system:log:load', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now()),
+       (37, 'attachment:delete', '附件删除', 2, null, null, null, 9, 201, 1, 1, now()),
+       (38, 'attachment:upload', '附件上传', 2, null, null, null, 9, 202, 1, 1, now()),
+       (39, 'attachment:download', '附件下载', 2, null, null, null, 9, 203, 1, 1, now()),
+       (40, 'example:page', '示例列表', 2, null, null, null, 10, 301, 1, 1, now()),
+       (41, 'example:load', '示例查询', 2, null, null, null, 10, 302, 1, 1, now()),
+       (42, 'example:create', '示例创建', 2, null, null, null, 10, 303, 1, 1, now()),
+       (43, 'example:update', '示例修改', 2, null, null, null, 10, 304, 1, 1, now()),
+       (44, 'example:delete', '示例删除', 2, null, null, null, 10, 305, 1, 1, now());
+
+# 管理部门
+insert into k_department(name, parent_id, sort_index, is_systemic, created_by, created_time)
+values ('考拉开源', null, 1, 1, 1, now());
+
+# 管理员用户角色关系
+insert into k_user_role
+values (1, 1);
+
+# 管理员角色权限关系
+insert into k_role_permission
+select 1, id, 0
+from k_permission;
+
+# 管理员用户部门关系
+insert into k_user_department value (1, 1);
+
+# 数据库表
+DROP TABLE IF EXISTS t_database;
+CREATE TABLE t_database
+(
+  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`        VARCHAR(100) NOT NULL COMMENT '数据库名称',
+  `url`         VARCHAR(500) NOT NULL COMMENT '数据库连接',
+  `username`    VARCHAR(100) NOT NULL COMMENT '数据库用户名',
+  `password`    VARCHAR(100) NOT NULL COMMENT '数据库密码',
+  `catalog`     VARCHAR(100) COMMENT '数据库目录',
+  `schema`      VARCHAR(100) COMMENT '数据库模式',
+  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  PRIMARY KEY (id)
+) COMMENT = '数据库';
 
 # 模板组表
 DROP TABLE IF EXISTS t_template_group;
@@ -350,8 +356,14 @@ CREATE TABLE t_template
   PRIMARY KEY (id)
 ) COMMENT = '模板表';
 
+# 演示数据库
+insert into t_database(id, name, url, username, password, catalog, `schema`, is_systemic)
+values (1, '${rootArtifactId}', 'jdbc:mysql://127.0.0.1:3306/${rootArtifactId}', '${rootArtifactId}',
+        '${rootArtifactId}', '${rootArtifactId}', '${rootArtifactId}', 1);
+
+# 考拉代码模板
 insert into t_template_group(id, name, remark, is_systemic)
-values (999, '考拉代码', '考拉代码生成模板', 1);
+values (1, '考拉代码', '考拉代码生成模板', 1);
 
 insert into t_template(name, remark, content, group_id, is_systemic)
 values ('apis/Api.java', '接口代码模板', 'package #(package).apis;
@@ -486,7 +498,7 @@ public interface #(name)Api {
 
   }
 }
-', 999, 1),
+', 1, 1),
        ('apis/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
@@ -541,7 +553,7 @@ public class #(name)ApiImpl implements #(name)Api {
     return Response.SUCCESS;
   }
 }
-', 999, 1),
+', 1, 1),
        ('entities/Entity.java', '数据实体类代码模板', 'package #(package).entities;
 
 #for(import: entity.imports)
@@ -573,7 +585,7 @@ public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#
   private #(property.type) #(property.name);
 #end
 }
-', 999, 1),
+', 1, 1),
        ('services/Service.java', '服务类代码模板', 'package #(package).services;
 
 import #(package).#(name)Entity;
@@ -596,7 +608,7 @@ public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(enti
     super(repository);
   }
 }
-', 999, 1),
+', 1, 1),
        ('repositories/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
 
 import #(package).#(name)Entity;
@@ -610,7 +622,7 @@ import cn.koala.persist.CrudRepository;
  */
 public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entity.properties.id.type)> {
 }
-', 999, 1),
+', 1, 1),
        ('mappers/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -708,35 +720,15 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
   </delete>
 #end
 </mapper>
-', 999, 1);
-
-# 数据库表
-DROP TABLE IF EXISTS t_database;
-CREATE TABLE t_database
-(
-  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`        VARCHAR(100) NOT NULL COMMENT '数据库名称',
-  `url`         VARCHAR(500) NOT NULL COMMENT '数据库连接',
-  `username`    VARCHAR(100) NOT NULL COMMENT '数据库用户名',
-  `password`    VARCHAR(100) NOT NULL COMMENT '数据库密码',
-  `catalog`     VARCHAR(100) COMMENT '数据库目录',
-  `schema`      VARCHAR(100) COMMENT '数据库模式',
-  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  PRIMARY KEY (id)
-) COMMENT = '数据库';
-
-insert into t_database(name, url, username, password, catalog, `schema`)
-values ('本地MySQL测试库', 'jdbc:mysql://127.0.0.1:3306/${rootArtifactId}', '${rootArtifactId}', '${rootArtifactId}', '${rootArtifactId}', '${rootArtifactId}');
+', 1, 1);
 
 # 示例表
 DROP TABLE IF EXISTS t_example;
 CREATE TABLE t_example
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`           VARCHAR(100) NOT NULL COMMENT '示例名称',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `name`               VARCHAR(100) NOT NULL COMMENT '示例名称',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
