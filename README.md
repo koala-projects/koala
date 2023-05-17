@@ -24,7 +24,7 @@
 ## 项目演示
 
 - 演示地址: https://koala.dxl.pink
-- 账号密码: koala/koala
+- 账号密码: admin/123456
 - 每天6点定时重置数据
 
 ## 快速开始

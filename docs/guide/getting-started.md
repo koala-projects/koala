@@ -7,7 +7,61 @@
 
 ## 原型构建
 
-准备中, 敬请期待...
+1. 在Maven配置文件`setting.xml`中引入考拉仓库:
+
+```xml
+<settings>
+    <profiles>
+        <profile>
+            <id>koala</id>
+            <repositories>
+                <repository>
+                    <id>koala</id>
+                    <name>Koala Maven Repository</name>
+                    <url>https://raw.github.com/koala-projects/maven-repositories/snapshot/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>koala</activeProfile>
+    </activeProfiles>
+</settings>
+```
+
+2. 选择合适的原型:
+
+| 原型名称                                                     | 原型说明                                     |
+| ------------------------------------------------------------ | -------------------------------------------- |
+| [koala-web-application](../../koala-archetypes/koala-web-application) | Web应用通用原型, 内置系统管理/代码生成等功能 |
+
+3. 使用Maven命令生成项目:
+
+```bash
+mvn archetype:generate ^
+ -DarchetypeGroupId=cn.koala ^
+ -DarchetypeArtifactId=koala-web-application ^
+ -DarchetypeVersion=2023.1.0-SNAPSHOT -X ^
+ -DgroupId=cn.houtaroy ^
+ -DartifactId=test ^
+ -Dversion=2023.0.0-SNAPSHOT ^
+ -Dpackage=ch.houtaroy.test
+```
+
+| 参数名称              | 参数描述       | 参数示例               |
+| --------------------- | -------------- | ---------------------- |
+| -DarchetypeGroupId    | 原型groupId    | cn.koala               |
+| -DarchetypeArtifactId | 原型artifactId | koala-web-application  |
+| -DarchetypeVersion    | 原型版本       | 2023.1.0-SNAPSHOT      |
+| -DgroupId             | 项目groupId    | cn.houtaroy            |
+| -DartifactId          | 项目artifactId | test                   |
+| -Dversion             | 项目版本       | 2023.0.0-SNAPSHOT      |
+| -Dpackage             | 项目包名       | cn.houtaroy.test       |
+| ...                   | 原型额外参数   | 额外参数请参照原型文档 |
 
 ## 组件集成
 
