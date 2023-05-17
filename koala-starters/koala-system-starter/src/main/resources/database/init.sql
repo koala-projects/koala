@@ -1,3 +1,64 @@
+# OAuth2注册客户端表
+DROP TABLE IF EXISTS oauth2_registered_client;
+CREATE TABLE oauth2_registered_client
+(
+  id                            varchar(100)                            NOT NULL,
+  client_id                     varchar(100)                            NOT NULL,
+  client_id_issued_at           timestamp     DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  client_secret                 varchar(200)  DEFAULT NULL,
+  client_secret_expires_at      datetime      DEFAULT NULL,
+  client_name                   varchar(200)                            NOT NULL,
+  client_authentication_methods varchar(1000)                           NOT NULL,
+  authorization_grant_types     varchar(1000)                           NOT NULL,
+  redirect_uris                 varchar(1000) DEFAULT NULL,
+  scopes                        varchar(1000)                           NOT NULL,
+  client_settings               varchar(2000)                           NOT NULL,
+  token_settings                varchar(2000)                           NOT NULL,
+  PRIMARY KEY (id)
+);
+
+# OAuth2授权表
+DROP TABLE IF EXISTS oauth2_authorization_consent;
+CREATE TABLE oauth2_authorization_consent
+(
+  registered_client_id varchar(100)  NOT NULL,
+  principal_name       varchar(200)  NOT NULL,
+  authorities          varchar(1000) NOT NULL,
+  PRIMARY KEY (registered_client_id, principal_name)
+);
+
+# OAuth2授权信息表
+DROP TABLE IF EXISTS oauth2_authorization;
+CREATE TABLE oauth2_authorization
+(
+  id                            varchar(100) NOT NULL,
+  registered_client_id          varchar(100) NOT NULL,
+  principal_name                varchar(200) NOT NULL,
+  authorization_grant_type      varchar(100) NOT NULL,
+  authorized_scopes             varchar(1000) DEFAULT NULL,
+  attributes                    blob          DEFAULT NULL,
+  state                         varchar(500)  DEFAULT NULL,
+  authorization_code_value      blob          DEFAULT NULL,
+  authorization_code_issued_at  datetime      DEFAULT NULL,
+  authorization_code_expires_at datetime      DEFAULT NULL,
+  authorization_code_metadata   blob          DEFAULT NULL,
+  access_token_value            blob          DEFAULT NULL,
+  access_token_issued_at        datetime      DEFAULT NULL,
+  access_token_expires_at       datetime      DEFAULT NULL,
+  access_token_metadata         blob          DEFAULT NULL,
+  access_token_type             varchar(100)  DEFAULT NULL,
+  access_token_scopes           varchar(1000) DEFAULT NULL,
+  oidc_id_token_value           blob          DEFAULT NULL,
+  oidc_id_token_issued_at       datetime      DEFAULT NULL,
+  oidc_id_token_expires_at      datetime      DEFAULT NULL,
+  oidc_id_token_metadata        blob          DEFAULT NULL,
+  refresh_token_value           blob          DEFAULT NULL,
+  refresh_token_issued_at       datetime      DEFAULT NULL,
+  refresh_token_expires_at      datetime      DEFAULT NULL,
+  refresh_token_metadata        blob          DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+
 # 表结构
 # 日志表
 DROP TABLE IF EXISTS k_log;
@@ -197,6 +258,7 @@ values (1, 'system', '系统管理', 1, 'ion:settings-outline', null, null, null
        (6, 'system:dictionary', '字典管理', 1, null, null, 'system/dictionary/index.vue', 1, 105, 1, 1, now()),
        (7, 'system:setting', '设置管理', 1, null, null, 'system/setting/index.vue', 1, 106, 1, 1, now()),
        (8, 'system:log', '日志管理', 1, null, null, 'system/log/index.vue', 1, 107, 1, 1, now()),
+       (9, 'attachment', '附件管理', 1, null, null, 'system/attachment/index.vue', null, 2, 1, 1, now()),
        (11, 'system:user:page', '用户列表', 2, null, null, null, 2, 10101, 1, 1, now()),
        (12, 'system:user:load', '用户查询', 2, null, null, null, 2, 10102, 1, 1, now()),
        (13, 'system:user:create', '用户创建', 2, null, null, null, 2, 10103, 1, 1, now()),
@@ -222,7 +284,10 @@ values (1, 'system', '系统管理', 1, 'ion:settings-outline', null, null, null
        (33, 'system:setting:update', '设置修改', 2, null, null, null, 7, 10602, 1, 1, now()),
        (34, 'system:setting:delete', '设置删除', 2, null, null, null, 7, 10603, 1, 1, now()),
        (35, 'system:log:page', '日志列表', 2, null, null, null, 8, 10701, 1, 1, now()),
-       (36, 'system:log:load', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now());
+       (36, 'system:log:load', '日志查询', 2, null, null, null, 8, 10702, 1, 1, now()),
+       (37, 'attachment:delete', '附件删除', 2, null, null, null, 9, 201, 1, 1, now()),
+       (38, 'attachment:upload', '附件上传', 2, null, null, null, 9, 202, 1, 1, now()),
+       (39, 'attachment:download', '附件下载', 2, null, null, null, 9, 203, 1, 1, now());
 
 # 管理部门
 insert into k_department(name, parent_id, sort_index, is_systemic, created_by, created_time)

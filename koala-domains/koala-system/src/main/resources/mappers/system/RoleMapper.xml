@@ -17,7 +17,7 @@
            t.last_modified_time,
            t.deleted_by,
            t.deleted_time
-    from sys_role t
+    from k_role t
   </sql>
 
   <select id="list" resultType="cn.koala.system.entities.RoleEntity">
@@ -34,12 +34,14 @@
   </select>
 
   <insert id="create" parameterType="cn.koala.system.entities.RoleEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into sys_role(id, code, name, remark, created_by, created_time)
-    values (#{id}, #{code}, #{name}, #{remark}, #{createdBy}, #{createdTime})
+    insert into k_role(id, code, name, remark, sort_index, is_enabled, is_systemic, is_deleted, created_by,
+                       created_time)
+    values (#{id}, #{code}, #{name}, #{remark}, #{sortIndex}, #{isEnabled}, #{isSystemic}, #{isDeleted}, #{createdBy},
+            #{createdTime})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.entities.RoleEntity">
-    update sys_role
+    update k_role
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
@@ -51,7 +53,7 @@
   </update>
 
   <update id="delete" parameterType="cn.koala.system.entities.RoleEntity">
-    update sys_role
+    update k_role
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
@@ -65,15 +67,15 @@
 
   <select id="findAllCheckedPermissionIdById" resultType="java.lang.Long">
     select permission_id
-    from sys_role_permission
+    from k_role_permission
     where role_id = #{id}
       and is_half_checked = ${@cn.koala.persist.domain.YesNo@NO.value}
   </select>
 
   <insert id="authorize">
-    delete from sys_role_permission where role_id = #{id};
+    delete from k_role_permission where role_id = #{id};
     <if test="!checkedIds.isEmpty() || !halfCheckedIds.isEmpty()">
-      insert into sys_role_permission values
+      insert into k_role_permission values
       <foreach item="checkedId" index="index" collection="checkedIds">
         (#{id}, #{checkedId}, ${@cn.koala.persist.domain.YesNo@NO.value}),
       </foreach>

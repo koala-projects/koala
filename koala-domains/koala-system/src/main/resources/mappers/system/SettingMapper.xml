@@ -18,7 +18,7 @@
            t.last_modified_time,
            t.deleted_by,
            t.deleted_time
-    from sys_setting t
+    from k_setting t
   </sql>
 
   <select id="list" resultType="cn.koala.system.entities.SettingEntity">
@@ -40,12 +40,12 @@
   </select>
 
   <insert id="create" parameterType="cn.koala.system.entities.SettingEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into sys_setting(id, code, name, content, remark, created_by, created_time)
+    insert into k_setting(id, code, name, content, remark, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{content}, #{remark}, #{createdBy}, #{createdTime})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.entities.SettingEntity">
-    update sys_setting
+    update k_setting
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
@@ -58,7 +58,7 @@
   </update>
 
   <update id="delete" parameterType="cn.koala.system.entities.SettingEntity">
-    update sys_setting
+    update k_setting
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}

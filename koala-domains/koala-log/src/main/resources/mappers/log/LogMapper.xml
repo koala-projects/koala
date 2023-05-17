@@ -15,7 +15,7 @@
            t.error,
            t.cost,
            t.log_time
-    from sys_log t
+    from k_log t
   </sql>
 
   <select id="list" resultType="cn.koala.log.LogEntity">
@@ -42,7 +42,7 @@
   </select>
 
   <insert id="create" parameterType="cn.koala.log.LogEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into sys_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
+    insert into k_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
     values (#{module}, #{content}, #{userId}, #{userIp}, #{isSucceeded}, #{request}, #{response}, #{error}, #{cost},
             #{logTime})
   </insert>

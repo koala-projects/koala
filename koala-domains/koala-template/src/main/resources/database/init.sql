@@ -11,9 +11,6 @@ CREATE TABLE t_template_group
   PRIMARY KEY (id)
 ) COMMENT = '模板组表';
 
-insert into t_template_group(name, remark)
-values ('任务消息通知模板', '用于通知任务的执行情况');
-
 # 模板表
 DROP TABLE IF EXISTS t_template;
 CREATE TABLE t_template
@@ -28,8 +25,3 @@ CREATE TABLE t_template
   `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
 ) COMMENT = '模板表';
-
-insert into t_template(name, remark, content, group_id)
-values ('开始执行', '任务开始执行通知', '任务[id=#(id)]开始', 1),
-       ('执行成功', '任务执行成功通知', '任务[id=#(id)]执行成功', 1),
-       ('执行失败', '任务执行失败通知', '任务[id=#(id)]执行失败, 原因为: #(message)', 1);

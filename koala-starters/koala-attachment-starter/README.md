@@ -4,6 +4,10 @@
 
 ## 快速开始
 
+### 初始化
+
+使用[脚本](../../koala-domains/koala-attachment/src/main/resources/database/init.sql)初始化数据
+
 ### 配置
 
 配置附件根目录:

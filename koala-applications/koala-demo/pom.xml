@@ -26,10 +26,6 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-sensitive-word-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
       <artifactId>koala-system-starter</artifactId>
     </dependency>
   </dependencies>

@@ -18,7 +18,7 @@
            t.last_modified_time,
            t.deleted_by,
            t.deleted_time
-    from sys_dict_item t
+    from k_dict_item t
   </sql>
 
   <select id="list" parameterType="map" resultType="cn.koala.system.entities.DictionaryItemEntity">
@@ -44,13 +44,13 @@
 
   <insert id="create" parameterType="cn.koala.system.entities.DictionaryItemEntity" useGeneratedKeys="true"
           keyProperty="id">
-    insert into sys_dict_item(id, code, name, remark, dictionary_id, created_by, created_time)
+    insert into k_dict_item(id, code, name, remark, dictionary_id, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{remark}, #{dictionaryId}, #{createdBy}, #{createdTime})
   </insert>
 
 
   <update id="update" parameterType="cn.koala.system.entities.DictionaryItemEntity">
-    update sys_dict_item
+    update k_dict_item
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
@@ -62,7 +62,7 @@
   </update>
 
   <update id="delete" parameterType="cn.koala.system.entities.DictionaryItemEntity">
-    update sys_dict_item
+    update k_dict_item
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}

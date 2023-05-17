@@ -1,3 +1,5 @@
+# OAuth2注册客户端表
+DROP TABLE IF EXISTS oauth2_registered_client;
 CREATE TABLE oauth2_registered_client
 (
   id                            varchar(100)                            NOT NULL,
@@ -15,6 +17,8 @@ CREATE TABLE oauth2_registered_client
   PRIMARY KEY (id)
 );
 
+# OAuth2授权表
+DROP TABLE IF EXISTS oauth2_authorization_consent;
 CREATE TABLE oauth2_authorization_consent
 (
   registered_client_id varchar(100)  NOT NULL,
@@ -23,6 +27,8 @@ CREATE TABLE oauth2_authorization_consent
   PRIMARY KEY (registered_client_id, principal_name)
 );
 
+# OAuth2授权信息表
+DROP TABLE IF EXISTS oauth2_authorization;
 CREATE TABLE oauth2_authorization
 (
   id                            varchar(100) NOT NULL,

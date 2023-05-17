@@ -17,7 +17,7 @@
            t.last_modified_time,
            t.deleted_by,
            t.deleted_time
-    from sys_department t
+    from k_department t
   </sql>
 
   <select id="list" resultType="cn.koala.system.entities.DepartmentEntity">
@@ -32,12 +32,12 @@
 
   <insert id="create" parameterType="cn.koala.system.entities.DepartmentEntity" useGeneratedKeys="true"
           keyProperty="id">
-    insert into sys_department(id, name, remark, parent_id, created_by, created_time)
+    insert into k_department(id, name, remark, parent_id, created_by, created_time)
     values (#{id}, #{name}, #{remark}, #{parentId}, #{createdBy}, #{createdTime})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.entities.DepartmentEntity">
-    update sys_department
+    update k_department
     <trim prefix="set" suffixOverrides=",">
       <if test="name != null">name=#{name},</if>
       <if test="remark != null">remark=#{remark},</if>
@@ -49,7 +49,7 @@
   </update>
 
   <update id="delete" parameterType="cn.koala.system.entities.DepartmentEntity">
-    update sys_department
+    update k_department
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}

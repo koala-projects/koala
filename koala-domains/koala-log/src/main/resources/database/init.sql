@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS sys_log;
-CREATE TABLE sys_log
+# 日志表
+DROP TABLE IF EXISTS k_log;
+CREATE TABLE k_log
 (
   `id`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
   `module`       VARCHAR(100) NOT NULL COMMENT '日志模块',
@@ -13,4 +14,4 @@ CREATE TABLE sys_log
   `cost`         INT          NOT NULL COMMENT '消耗时间',
   `log_time`     DATETIME     NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
-) COMMENT = '系统日志表';
+) COMMENT = '日志表';

@@ -1,3 +1,4 @@
+# 数据库表
 DROP TABLE IF EXISTS t_database;
 CREATE TABLE t_database
 (
@@ -13,7 +14,3 @@ CREATE TABLE t_database
   `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (id)
 ) COMMENT = '数据库';
-
-
-insert into t_database(name, url, username, password, catalog, `schema`)
-values ('本地MySQL测试库', 'jdbc:mysql://localhost:3306/test', 'test', 'test', 'test', 'test')

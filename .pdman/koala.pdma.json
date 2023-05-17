@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.4.0",
   "createdTime": "2023-1-29 08:59:43",
-  "updatedTime": "2023-4-23 15:47:18",
+  "updatedTime": "2023-5-17 15:58:06",
   "dbConns": [],
   "profile": {
     "default": {
@@ -1645,8 +1645,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_log",
-      "defName": "系统日志表",
+      "defKey": "k_log",
+      "defName": "日志表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -1939,8 +1939,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_setting",
-      "defName": "系统设置表",
+      "defKey": "k_setting",
+      "defName": "设置表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -2310,8 +2310,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_dict",
-      "defName": "系统字典表",
+      "defKey": "k_dict",
+      "defName": "字典表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -2660,8 +2660,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_dict_item",
-      "defName": "系统字典项表",
+      "defKey": "k_dict_item",
+      "defName": "字典项表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -3028,8 +3028,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_department",
-      "defName": "系统部门表",
+      "defKey": "k_department",
+      "defName": "部门表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -3378,8 +3378,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_permission",
-      "defName": "系统权限表",
+      "defKey": "k_permission",
+      "defName": "权限表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -3818,8 +3818,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_role",
-      "defName": "系统角色表",
+      "defKey": "k_role",
+      "defName": "角色表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -4168,8 +4168,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_role_permission",
-      "defName": "系统角色权限关系表",
+      "defKey": "k_role_permission",
+      "defName": "角色权限关系表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -4326,8 +4326,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_user",
-      "defName": "系统用户表",
+      "defKey": "k_user",
+      "defName": "用户表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -4748,8 +4748,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_user_role",
-      "defName": "系统用户角色关系表",
+      "defKey": "k_user_role",
+      "defName": "用户角色关系表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",
@@ -4889,8 +4889,8 @@
           "codeRoot": ""
         }
       },
-      "defKey": "sys_user_department",
-      "defName": "系统用户部门关系表",
+      "defKey": "k_user_department",
+      "defName": "用户部门关系表",
       "comment": "",
       "properties": {
         "partitioned by": "(date string)",

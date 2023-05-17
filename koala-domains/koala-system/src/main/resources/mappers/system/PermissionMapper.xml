@@ -22,7 +22,7 @@
            t.last_modified_time,
            t.deleted_by,
            t.deleted_time
-    from sys_permission t
+    from k_permission t
   </sql>
 
   <select id="list" resultType="cn.koala.system.entities.PermissionEntity">
@@ -37,13 +37,13 @@
 
   <insert id="create" parameterType="cn.koala.system.entities.PermissionEntity" useGeneratedKeys="true"
           keyProperty="id">
-    insert into sys_permission(id, code, name, type, icon, url, component, remark, parent_id, created_by, created_time)
+    insert into k_permission(id, code, name, type, icon, url, component, remark, parent_id, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{type}, #{icon}, #{url}, #{component}, #{remark}, #{parentId}, #{createdBy},
             #{createdTime})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.entities.PermissionEntity">
-    update sys_permission
+    update k_permission
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
@@ -60,7 +60,7 @@
   </update>
 
   <update id="delete" parameterType="cn.koala.system.entities.PermissionEntity">
-    update sys_permission
+    update k_permission
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
