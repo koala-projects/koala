@@ -8,7 +8,7 @@
 
 ### 初始化
 
-在启动前请使用[脚本](../../koala-domains/koala-code/src/main/resources/database/init.sql)初始化数据库, 当前仅支持 MySQL 8
+在启动前请使用[脚本](src/main/resources/database/init.sql)初始化数据库, 当前仅支持 MySQL 8
 
 如提示表不存在, 需要先使用上述集成模块的初始化脚本
 
