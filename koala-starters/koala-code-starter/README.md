@@ -91,7 +91,7 @@ apis
  |--ApiImpl.java
 ```
 
-可以将模板文件名称设置为`apis/Api.java`
+可以将模板文件名称设置为`api/Api.java`
 
 如需更换模板引擎, 可通过继承`BaseTemplateCodeService`类, 创建自己的代码服务:
 

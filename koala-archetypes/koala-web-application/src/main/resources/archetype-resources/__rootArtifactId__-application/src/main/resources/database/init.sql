@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 # OAuth2注册客户端表
 DROP TABLE IF EXISTS oauth2_registered_client;
 CREATE TABLE oauth2_registered_client
@@ -366,7 +369,7 @@ insert into t_template_group(id, name, remark, is_systemic)
 values (1, '考拉代码', '考拉代码生成模板', 1);
 
 insert into t_template(name, remark, content, group_id, is_systemic)
-values ('apis/Api.java', '接口代码模板', 'package #(package).apis;
+values ('api/Api.java', '接口代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
 
@@ -422,9 +425,9 @@ public interface #(name)Api {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)PageResult.class))}
   )
-#for(parameter: api.parameters.others)
+${symbol_pound}for(parameter: api.parameters.others)
   @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.type)"))
-#end
+${symbol_pound}end
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<#(name)Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
@@ -499,7 +502,7 @@ public interface #(name)Api {
   }
 }
 ', 1, 1),
-       ('apis/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
+       ('api/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
 import #(package).services.#(name)Service;
@@ -554,11 +557,11 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 }
 ', 1, 1),
-       ('entities/Entity.java', '数据实体类代码模板', 'package #(package).entities;
+       ('entity/Entity.java', '数据实体类代码模板', 'package #(package).entities;
 
-#for(import: entity.imports)
+${symbol_pound}for(import: entity.imports)
 import #(import);
-#end
+${symbol_pound}end
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -572,21 +575,21 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "#(description)数据实体类")
-public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#for(interface: entity.interfaces), #(interface)#end  {
+public class #(name)Entity implements Persistable<#(entity.properties.id.type)>${symbol_pound}for(interface: entity.interfaces), #(interface)${symbol_pound}end  {
 
   @Schema(description = "#(entity.properties.id.description)")
   private #(entity.properties.id.type) id;
-#for(property: entity.properties.others)
+${symbol_pound}for(property: entity.properties.others)
 
-#for(validation: property.validations)
-  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
-#end
+${symbol_pound}for(validation: property.validations)
+  @#(validation.name)(${symbol_pound}for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), ${symbol_pound}end message = "#(validation.message)", groups = {${symbol_pound}for(group : validation.groups)#(group).class${symbol_pound}if(!for.last), ${symbol_pound}end ${symbol_pound}end})
+${symbol_pound}end
   @Schema(description = "#(property.description)")
   private #(property.type) #(property.name);
-#end
+${symbol_pound}end
 }
 ', 1, 1),
-       ('services/Service.java', '服务类代码模板', 'package #(package).services;
+       ('service/Service.java', '服务类代码模板', 'package #(package).services;
 
 import #(package).#(name)Entity;
 import #(package).#(name)Repository;
@@ -609,7 +612,7 @@ public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(enti
   }
 }
 ', 1, 1),
-       ('repositories/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
+       ('repository/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
 
 import #(package).#(name)Entity;
 
@@ -623,16 +626,16 @@ import cn.koala.persist.CrudRepository;
 public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entity.properties.id.type)> {
 }
 ', 1, 1),
-       ('mappers/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+       ('mapper/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repositories.#(name)Repository">
 
   <sql id="select#(name)">
     select
-#for(column : columns)
-    t.#(column.name)#if(!for.last),#end
-#end
+${symbol_pound}for(column : columns)
+    t.#(column.name)${symbol_pound}if(!for.last),${symbol_pound}end
+${symbol_pound}end
     from #(table.name) t
   </sql>
 
@@ -644,81 +647,81 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
         </foreach>
       </when>
       <otherwise>
-#if(mybatis.isAuditable())
+${symbol_pound}if(mybatis.isAuditable())
         order by t.created_time desc
-#else
+${symbol_pound}else
 		order by t.id asc
-#end
+${symbol_pound}end
       </otherwise>
     </choose>
   </sql>
 
   <sql id="orderByField">
-#for(column: mybatis.columns)
+${symbol_pound}for(column: mybatis.columns)
     <if test="order.property == ''#(column.propertyName)''">
         t.#(column.columnName) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
     </if>
-#end
+${symbol_pound}end
   </sql>
 
   <select id="list" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
     <where>
-#if(mybatis.isStateful())
+${symbol_pound}if(mybatis.isStateful())
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
-#end
-#for(column: mybatis.columns)
-#if(column.columnName != ''id'')
+${symbol_pound}end
+${symbol_pound}for(column: mybatis.columns)
+${symbol_pound}if(column.columnName != ''id'')
       <if test="#(column.propertyName) != null and #(column.propertyName) != ''''">
        and t.#(column.columnName) = #{#(column.propertyName)}
       </if>
-#end
-#end
+${symbol_pound}end
+${symbol_pound}end
     </where>
 	<include refid="orderBy"/>
   </select>
 
   <select id="load" resultType="#(package).entities.#(name)Entity">
     <include refid="select#(name)"/>
-    where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+    where${symbol_pound}if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and${symbol_pound}end  t.id=#{id}
   </select>
 
   <insert id="create" parameterType="#(package).entities.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
     insert into #(table.name)
 	value (
-#for(column: mybatis.columns)
-    #{#(column.propertyName)}#if(!for.last),#end
-#end
+${symbol_pound}for(column: mybatis.columns)
+    #{#(column.propertyName)}${symbol_pound}if(!for.last),${symbol_pound}end
+${symbol_pound}end
     )
   </insert>
 
   <update id="update" parameterType="#(package).entities.#(name)Entity">
     update #(table.name)
     <trim prefix="set" suffixOverrides=",">
-#for(column: mybatis.columns)
-#if(column.columnName != ''id'')
+${symbol_pound}for(column: mybatis.columns)
+${symbol_pound}if(column.columnName != ''id'')
       <if test="#(column.propertyName) != null">#(column.columnName)=#{#(column.propertyName)},</if>
-#end
-#end
+${symbol_pound}end
+${symbol_pound}end
     </trim>
-    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id=#{id}
+    where${symbol_pound}if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and${symbol_pound}end  id=#{id}
   </update>
 
-#if(mybatis.isStateful())
+${symbol_pound}if(mybatis.isStateful())
   <update id="delete" parameterType="#(package).entities.#(name)Entity">
     update #(table.name)
-    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
-#if(mybatis.isAuditable())
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}${symbol_pound}if(mybatis.isAuditable()),${symbol_pound}end
+${symbol_pound}if(mybatis.isAuditable())
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
-#end
+${symbol_pound}end
     where id = #{id}
   </update>
-#else
+${symbol_pound}else
   <delete id="delete" parameterType="#(package).entities.#(name)Entity">
     delete from #(table.name) where id = #{id}
   </delete>
-#end
+${symbol_pound}end
 </mapper>
 ', 1, 1);
 
