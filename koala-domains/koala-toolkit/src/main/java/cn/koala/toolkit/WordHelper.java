@@ -1,12 +1,15 @@
-package cn.koala.toolkit.word;
+package cn.koala.toolkit;
 
+import cn.koala.toolkit.converter.AppendConverter;
 import cn.koala.toolkit.converter.Converter;
-import cn.koala.toolkit.converter.MapConverter;
+import cn.koala.toolkit.converter.ReplaceConverter;
+import cn.koala.toolkit.converter.StaticConverter;
 import com.google.common.collect.Maps;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * 单词帮助类
@@ -31,11 +34,11 @@ public abstract class WordHelper {
     words.put("sheep", "sheep");
     words.put("tooth", "teeth");
     words.put("woman", "women");
-    PLURAL_CONVERTERS.add(new MapConverter<>(words));
-    PLURAL_CONVERTERS.add(new ReplaceConverter("(f|fe)$", "ves"));
-    PLURAL_CONVERTERS.add(new ReplaceConverter("([^aeiou])y$", "$1ies"));
-    PLURAL_CONVERTERS.add(new AppendConverter("([s|sh|ch|x])$", "es"));
-    PLURAL_CONVERTERS.add(new AppendConverter("$", "s"));
+    PLURAL_CONVERTERS.add(new StaticConverter<>(words));
+    PLURAL_CONVERTERS.add(new ReplaceConverter(Pattern.compile("(f|fe)$", Pattern.CASE_INSENSITIVE), "ves"));
+    PLURAL_CONVERTERS.add(new ReplaceConverter(Pattern.compile("([^aeiou])y$", Pattern.CASE_INSENSITIVE), "$1ies"));
+    PLURAL_CONVERTERS.add(new AppendConverter(Pattern.compile("(s|sh|ch|x)$", Pattern.CASE_INSENSITIVE), "es"));
+    PLURAL_CONVERTERS.add(new AppendConverter(Pattern.compile("$", Pattern.CASE_INSENSITIVE), "s"));
   }
 
   public static String plural(String word) {

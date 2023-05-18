@@ -1,4 +1,6 @@
-package cn.koala.toolkit.word;
+package cn.koala.toolkit.converter;
+
+import java.util.regex.Pattern;
 
 /**
  * 追加转换器
@@ -8,7 +10,7 @@ package cn.koala.toolkit.word;
 public class AppendConverter extends AbstractRegularConverter {
   private final String appendage;
 
-  public AppendConverter(String pattern, String appendage) {
+  public AppendConverter(Pattern pattern, String appendage) {
     super(pattern);
     this.appendage = appendage;
   }

@@ -1,6 +1,4 @@
-package cn.koala.toolkit.word;
-
-import cn.koala.toolkit.converter.Converter;
+package cn.koala.toolkit.converter;
 
 import java.util.regex.Pattern;
 
@@ -14,8 +12,8 @@ import java.util.regex.Pattern;
 public abstract class AbstractRegularConverter implements Converter<String, String> {
   protected final Pattern pattern;
 
-  public AbstractRegularConverter(String pattern) {
-    this.pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+  public AbstractRegularConverter(Pattern pattern) {
+    this.pattern = pattern;
   }
 
   @Override

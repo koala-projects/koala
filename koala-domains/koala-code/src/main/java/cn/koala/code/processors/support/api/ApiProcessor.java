@@ -4,7 +4,7 @@ import cn.koala.code.processors.AbstractContextProcessor;
 import cn.koala.code.processors.support.TableHelper;
 import cn.koala.database.DatabaseTable;
 import cn.koala.database.DatabaseTableColumn;
-import cn.koala.toolkit.word.WordHelper;
+import cn.koala.toolkit.WordHelper;
 import com.google.common.base.CaseFormat;
 import org.springframework.util.Assert;
 

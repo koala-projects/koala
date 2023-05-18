@@ -1,6 +1,7 @@
-package cn.koala.toolkit.word;
+package cn.koala.toolkit.converter;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 替换转换器
@@ -10,7 +11,7 @@ import java.util.regex.Matcher;
 public class ReplaceConverter extends AbstractRegularConverter {
   private final String replacement;
 
-  public ReplaceConverter(String pattern, String replacement) {
+  public ReplaceConverter(Pattern pattern, String replacement) {
     super(pattern);
     this.replacement = replacement;
   }
