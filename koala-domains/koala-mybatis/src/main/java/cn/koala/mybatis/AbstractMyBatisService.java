@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-public class AbstractMyBatisService<T, ID> extends AbstractCrudService<T, ID> {
+public abstract class AbstractMyBatisService<T, ID> extends AbstractCrudService<T, ID> {
 
   public AbstractMyBatisService(CrudRepository<T, ID> repository) {
     super(repository);

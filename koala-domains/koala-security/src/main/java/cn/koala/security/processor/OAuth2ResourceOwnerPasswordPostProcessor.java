@@ -4,7 +4,6 @@ import cn.koala.security.authentication.OAuth2ResourceOwnerPasswordAuthenticatio
 import cn.koala.security.authentication.OAuth2ResourceOwnerPasswordAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
@@ -28,7 +27,7 @@ public class OAuth2ResourceOwnerPasswordPostProcessor implements AuthorizationSe
   public void postProcessAfterInitialization(HttpSecurity http) {
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService = http.getSharedObject(OAuth2AuthorizationService.class);
-    OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = http.getSharedObject(OAuth2TokenGenerator.class);
+    OAuth2TokenGenerator<?> tokenGenerator = http.getSharedObject(OAuth2TokenGenerator.class);
     http.authenticationProvider(
       new OAuth2ResourceOwnerPasswordAuthenticationProvider(authenticationManager, authorizationService, tokenGenerator)
     );
