@@ -63,11 +63,11 @@ public class MyCacheCondition implements CacheCondition {
 }
 ```
 
-实现缓存条件注册器, 注册缓存条件:
+实现缓存条件注册证, 注册缓存条件:
 
 ```java
 @Component
-public class MyCacheConditionRegistrar implements CacheConditionRegistrar {
+public class MyCacheConditionRegistration implements CacheConditionRegistration {
   
   @Override
   public Set<String> getCacheNames() {
@@ -88,7 +88,6 @@ public class MyCacheConditionRegistrar implements CacheConditionRegistrar {
 public class MyService {
   
   @Cacheable(value = "my-cache", condition = CacheNames.DEFAULT_CONDITION)
-  @ListCacheable(value = "user-page")
   public List<String> page(Map<String, Object> parameters, Pageable pageable) {
     // 分页查询...
   }
