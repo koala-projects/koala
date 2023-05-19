@@ -1,14 +1,14 @@
 package cn.koala.persist.autoconfigure;
 
 import cn.koala.persist.CrudService;
-import cn.koala.persist.CrudServiceManager;
+import cn.koala.persist.CrudServiceRegistry;
 import cn.koala.persist.listener.EntityListener;
 import cn.koala.persist.listener.EntityListenerAspect;
-import cn.koala.persist.listener.EntityListenerManager;
+import cn.koala.persist.listener.EntityListenerRegistry;
 import cn.koala.persist.listener.support.AuditingEntityListener;
-import cn.koala.persist.listener.support.DefaultEntityListenerManager;
+import cn.koala.persist.listener.support.DefaultEntityListenerRegistry;
 import cn.koala.persist.listener.support.StatefulEntityListener;
-import cn.koala.persist.support.DefaultCrudServiceManager;
+import cn.koala.persist.support.DefaultCrudServiceRegistry;
 import cn.koala.validation.DefaultableMessageSourceLocator;
 import cn.koala.validation.MessageSourceLocator;
 import org.springframework.beans.factory.ObjectProvider;
@@ -29,8 +29,8 @@ public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public CrudServiceManager crudServiceManager(List<CrudService<?, ?>> services) {
-    return new DefaultCrudServiceManager(services);
+  public CrudServiceRegistry crudServiceRegistry(List<CrudService<?, ?>> services) {
+    return new DefaultCrudServiceRegistry(services);
   }
 
   @Bean
@@ -47,14 +47,14 @@ public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerManager entityListenerManager(List<EntityListener> listeners) {
-    return new DefaultEntityListenerManager(listeners);
+  public EntityListenerRegistry entityListenerRegistry(List<EntityListener> listeners) {
+    return new DefaultEntityListenerRegistry(listeners);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerAspect entityListenerAspect(EntityListenerManager manager) {
-    return new EntityListenerAspect(manager);
+  public EntityListenerAspect entityListenerAspect(EntityListenerRegistry registry) {
+    return new EntityListenerAspect(registry);
   }
 
   @Bean

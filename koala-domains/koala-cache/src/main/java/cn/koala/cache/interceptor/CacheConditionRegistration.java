@@ -3,11 +3,12 @@ package cn.koala.cache.interceptor;
 import java.util.Set;
 
 /**
- * 缓存条件注册器
+ * 缓存条件注册证
  *
  * @author Houtaroy
  */
-public interface CacheConditionRegistrar {
+public interface CacheConditionRegistration {
+
   Set<String> getCacheNames();
 
   CacheCondition getCacheCondition();

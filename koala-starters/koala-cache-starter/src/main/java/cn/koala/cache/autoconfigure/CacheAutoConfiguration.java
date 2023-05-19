@@ -1,7 +1,7 @@
 package cn.koala.cache.autoconfigure;
 
 import cn.koala.cache.interceptor.CacheCondition;
-import cn.koala.cache.interceptor.CacheConditionRegistrar;
+import cn.koala.cache.interceptor.CacheConditionRegistration;
 import cn.koala.cache.interceptor.CacheConditionRegistry;
 import cn.koala.cache.interceptor.support.CompositeCacheCondition;
 import cn.koala.cache.interceptor.support.DefaultCacheConditionRegistry;
@@ -50,7 +50,7 @@ public class CacheAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public CacheConditionRegistry cacheConditionRegistry(List<CacheConditionRegistrar> registrars) {
+  public CacheConditionRegistry cacheConditionRegistry(List<CacheConditionRegistration> registrars) {
     return new DefaultCacheConditionRegistry(registrars);
   }
 

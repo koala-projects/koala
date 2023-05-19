@@ -1,5 +1,7 @@
 package cn.koala.cache.interceptor;
 
+import cn.koala.toolkit.registry.Registry;
+
 import java.util.Set;
 
 /**
@@ -7,8 +9,5 @@ import java.util.Set;
  *
  * @author Houtaroy
  */
-public interface CacheConditionRegistry {
-  void register(CacheConditionRegistrar registrar);
-
-  CacheCondition getCacheCondition(Set<String> cacheNames);
+public interface CacheConditionRegistry extends Registry<Set<String>, CacheConditionRegistration> {
 }

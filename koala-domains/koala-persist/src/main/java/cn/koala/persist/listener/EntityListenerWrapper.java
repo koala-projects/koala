@@ -8,6 +8,7 @@ import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
+import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 import java.lang.reflect.Method;
@@ -23,6 +24,7 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 public class EntityListenerWrapper {
 
+  @Getter
   protected final EntityListener listener;
   protected final List<Method> prePersists;
   protected final List<Method> postPersists;

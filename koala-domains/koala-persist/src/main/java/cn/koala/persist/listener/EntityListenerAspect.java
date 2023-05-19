@@ -26,15 +26,16 @@ public class EntityListenerAspect {
     CrudType.DELETE, new DeleteEntityListenerStrategy()
   );
 
-  private final EntityListenerManager manager;
+  private final EntityListenerRegistry registry;
+
   private final Map<CrudType, EntityListenerStrategy> strategies;
 
-  public EntityListenerAspect(EntityListenerManager manager) {
-    this(manager, DEFAULT_STRATEGIES);
+  public EntityListenerAspect(EntityListenerRegistry registry) {
+    this(registry, DEFAULT_STRATEGIES);
   }
 
-  public EntityListenerAspect(EntityListenerManager manager, Map<CrudType, EntityListenerStrategy> strategies) {
-    this.manager = manager;
+  public EntityListenerAspect(EntityListenerRegistry registry, Map<CrudType, EntityListenerStrategy> strategies) {
+    this.registry = registry;
     this.strategies = strategies;
   }
 
@@ -44,7 +45,7 @@ public class EntityListenerAspect {
     CrudType type = action.value();
     Class<?> entityClass = determineEntityClass(action, args);
     EntityListenerStrategy strategy = strategies.get(type);
-    List<EntityListenerWrapper> listeners = manager.getListeners(entityClass);
+    List<EntityListenerWrapper> listeners = registry.getAll(entityClass);
     if (isSkippable(entityClass, listeners, strategy)) {
       return joinPoint.proceed();
     }
