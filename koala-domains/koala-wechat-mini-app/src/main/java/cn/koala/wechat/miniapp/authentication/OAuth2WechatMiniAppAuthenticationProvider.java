@@ -3,7 +3,7 @@ package cn.koala.wechat.miniapp.authentication;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.koala.wechat.miniapp.WechatMiniAppUserEntity;
-import cn.koala.wechat.miniapp.registry.WechatMiniAppUserRegistry;
+import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.logging.Log;
@@ -47,7 +47,7 @@ public class OAuth2WechatMiniAppAuthenticationProvider implements Authentication
   private static final String ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
   private final Log logger = LogFactory.getLog(getClass());
   private final WxMaService wxMaService;
-  private final WechatMiniAppUserRegistry wechatMiniAppUserRegistry;
+  private final WechatMiniAppUserRegistrar wechatMiniAppUserRegistry;
   private final AuthenticationManager authenticationManager;
   private final OAuth2AuthorizationService authorizationService;
   private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;

@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  *
  * @author Houtaroy
  */
-public abstract class AbstractRegisteredClientRegistry implements RegisteredClientRegistry {
+public abstract class AbstractRegisteredClientRegistrar implements RegisteredClientRegistrar {
   @Override
   public void register(RegisteredClientRepository repository) {
     RegisteredClient client = obtainRegisteredClient();

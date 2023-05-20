@@ -4,8 +4,9 @@ import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
 import cn.koala.security.JwtHelper;
 import cn.koala.security.JwtProperties;
 import cn.koala.security.SecurityProperties;
-import cn.koala.security.client.DefaultRegisteredClientRegistry;
-import cn.koala.security.client.RegisteredClientRegistry;
+import cn.koala.security.client.CompositeRegisteredClientRegistrar;
+import cn.koala.security.client.DefaultRegisteredClientRegistrar;
+import cn.koala.security.client.RegisteredClientRegistrar;
 import cn.koala.security.entities.UserDetailsImpl;
 import cn.koala.security.entities.UserDetailsImplMixin;
 import cn.koala.security.processor.AuthorizationServerPostProcessor;
@@ -95,18 +96,21 @@ public class AuthorizationServerAutoConfiguration {
   }
 
   @Bean
-  public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate,
-                                                               List<RegisteredClientRegistry> registries) {
-    RegisteredClientRepository result = new JdbcRegisteredClientRepository(jdbcTemplate);
-    registries.forEach(registry -> registry.register(result));
-    return result;
+  public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
+    return new JdbcRegisteredClientRepository(jdbcTemplate);
   }
 
   @Bean
-  @ConditionalOnMissingBean(name = "defaultRegisteredClientRegistry")
-  public RegisteredClientRegistry defaultRegisteredClientRegistry(SecurityProperties properties,
-                                                                  PasswordEncoder passwordEncoder) {
-    return new DefaultRegisteredClientRegistry(properties, passwordEncoder);
+  @ConditionalOnMissingBean(name = "defaultRegisteredClientRegistrar")
+  public RegisteredClientRegistrar defaultRegisteredClientRegistrar(SecurityProperties properties,
+                                                                    PasswordEncoder passwordEncoder) {
+    return new DefaultRegisteredClientRegistrar(properties, passwordEncoder);
+  }
+
+  @Bean
+  public CompositeRegisteredClientRegistrar compositeRegisteredClientRegistrar(List<RegisteredClientRegistrar> registries,
+                                                                               RegisteredClientRepository repository) {
+    return new CompositeRegisteredClientRegistrar(registries, repository);
   }
 
   @Bean

@@ -1,9 +1,10 @@
-package cn.koala.wechat.miniapp.registry;
+package cn.koala.wechat.miniapp.support;
 
 import cn.koala.system.entities.UserEntity;
 import cn.koala.system.repositories.UserRepository;
 import cn.koala.toolkit.DateHelper;
 import cn.koala.wechat.miniapp.WechatMiniAppUser;
+import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.repository.WechatMiniAppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +19,7 @@ import java.util.Optional;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class SimpleWechatMiniAppUserRegistry implements WechatMiniAppUserRegistry {
+public class DefaultWechatMiniAppUserRegistrar implements WechatMiniAppUserRegistrar {
 
   protected final PasswordEncoder passwordEncoder;
   protected final UserRepository userRepository;

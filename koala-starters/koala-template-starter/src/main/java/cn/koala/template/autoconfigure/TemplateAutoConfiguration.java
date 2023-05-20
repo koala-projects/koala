@@ -1,5 +1,6 @@
 package cn.koala.template.autoconfigure;
 
+import cn.koala.template.TemplateInitializer;
 import cn.koala.template.apis.TemplateApi;
 import cn.koala.template.apis.TemplateApiImpl;
 import cn.koala.template.apis.TemplateGroupApi;
@@ -45,5 +46,10 @@ public class TemplateAutoConfiguration {
   @ConditionalOnMissingBean
   public TemplateApi templateApi(TemplateService templateService) {
     return new TemplateApiImpl(templateService);
+  }
+
+  @Bean
+  public TemplateInitializer templateInitializer() {
+    return new TemplateInitializer();
   }
 }

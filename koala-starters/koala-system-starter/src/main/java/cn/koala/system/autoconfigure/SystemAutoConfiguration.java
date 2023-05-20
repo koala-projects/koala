@@ -1,5 +1,6 @@
 package cn.koala.system.autoconfigure;
 
+import cn.koala.system.SystemInitializer;
 import cn.koala.system.apis.DepartmentApi;
 import cn.koala.system.apis.DepartmentApiImpl;
 import cn.koala.system.apis.DictionaryApi;
@@ -138,5 +139,10 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public SettingApi settingApi(SettingService settingService) {
     return new SettingApiImpl(settingService);
+  }
+
+  @Bean
+  public SystemInitializer systemInitializer() {
+    return new SystemInitializer();
   }
 }

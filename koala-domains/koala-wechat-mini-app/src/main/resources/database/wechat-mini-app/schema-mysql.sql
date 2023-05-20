@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS wechat_mini_app_user;
+-- 微信小程序用户表
 CREATE TABLE wechat_mini_app_user
 (
   `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',

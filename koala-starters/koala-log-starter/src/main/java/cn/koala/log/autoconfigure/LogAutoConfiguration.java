@@ -1,6 +1,7 @@
 package cn.koala.log.autoconfigure;
 
 import cn.koala.log.LogAspect;
+import cn.koala.log.LogInitializer;
 import cn.koala.log.LogProperties;
 import cn.koala.log.apis.LogApi;
 import cn.koala.log.apis.LogApiImpl;
@@ -45,5 +46,10 @@ public class LogAutoConfiguration {
   public LogAspect logAspect(LogProperties properties, LogService logService,
                              ObjectProvider<AuditorAware<?>> auditorAware, ObjectMapper objectMapper) {
     return new LogAspect(properties, logService, auditorAware, objectMapper);
+  }
+
+  @Bean
+  public LogInitializer logInitializer() {
+    return new LogInitializer();
   }
 }

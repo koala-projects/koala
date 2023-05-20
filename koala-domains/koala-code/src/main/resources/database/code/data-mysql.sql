@@ -1,14 +1,14 @@
-# 演示数据库
+-- 演示数据库
 insert into t_database(id, name, url, username, password, catalog, `schema`, is_systemic)
 values (1, '演示数据库', 'jdbc:mysql://120.46.222.245:3306/koala_demo', 'koala_demo', 'koala_demo',
         'koala_demo', 'koala_demo', 1);
 
-# 考拉代码模板
+-- 考拉代码模板
 insert into t_template_group(id, name, remark, is_systemic)
 values (1, '考拉代码', '考拉代码生成模板', 1);
 
-insert into t_template(name, remark, content, group_id, is_systemic)
-values ('api/Api.java', '接口代码模板', 'package #(package).apis;
+insert into t_template(id, name, remark, content, group_id, is_systemic)
+values (1, 'api/Api.java', '接口代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
 
@@ -141,7 +141,7 @@ public interface #(name)Api {
   }
 }
 ', 1, 1),
-       ('api/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
+       (2, 'api/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
 
 import #(package).entities.#(name)Entity;
 import #(package).services.#(name)Service;
@@ -196,7 +196,7 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 }
 ', 1, 1),
-       ('entity/Entity.java', '数据实体类代码模板', 'package #(package).entities;
+       (3, 'entity/Entity.java', '数据实体类代码模板', 'package #(package).entities;
 
 #for(import: entity.imports)
 import #(import);
@@ -228,7 +228,7 @@ public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#
 #end
 }
 ', 1, 1),
-       ('service/Service.java', '服务类代码模板', 'package #(package).services;
+       (4, 'service/Service.java', '服务类代码模板', 'package #(package).services;
 
 import #(package).#(name)Entity;
 import #(package).#(name)Repository;
@@ -251,7 +251,7 @@ public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(enti
   }
 }
 ', 1, 1),
-       ('repository/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
+       (5, 'repository/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
 
 import #(package).#(name)Entity;
 
@@ -265,7 +265,7 @@ import cn.koala.persist.CrudRepository;
 public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entity.properties.id.type)> {
 }
 ', 1, 1),
-       ('mapper/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+       (6, 'mapper/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repositories.#(name)Repository">

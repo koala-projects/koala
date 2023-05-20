@@ -1,5 +1,6 @@
 package cn.koala.code.autoconfigure;
 
+import cn.koala.code.CodeInitializer;
 import cn.koala.code.apis.CodeApi;
 import cn.koala.code.apis.CodeApiImpl;
 import cn.koala.code.processors.ContextProcessor;
@@ -59,5 +60,10 @@ public class CodeAutoConfiguration {
   public CodeApi codeApi(DatabaseService databaseService, TemplateGroupService templateGroupService,
                          TemplateService templateService, CodeService codeService) {
     return new CodeApiImpl(databaseService, templateGroupService, templateService, codeService);
+  }
+
+  @Bean
+  public CodeInitializer codeModuleInitializer() {
+    return new CodeInitializer();
   }
 }

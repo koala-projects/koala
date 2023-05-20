@@ -1,6 +1,7 @@
-package cn.koala.security.client;
+package cn.koala.wechat.miniapp.support;
 
-import cn.koala.security.SecurityProperties;
+import cn.koala.security.client.AbstractRegisteredClientRegistrar;
+import cn.koala.wechat.miniapp.authentication.WechatGrantType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -14,38 +15,32 @@ import java.time.Duration;
 import java.util.UUID;
 
 /**
- * 默认注册客户端注册器
- * <p>
- * 自定注册koala-admin客户端
+ * 微信小程序客户端注册
  *
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class DefaultRegisteredClientRegistry extends AbstractRegisteredClientRegistry {
-
-  private final SecurityProperties properties;
+public class WechatMiniAppClientRegistrar extends AbstractRegisteredClientRegistrar {
   private final PasswordEncoder passwordEncoder;
 
   @Override
   protected RegisteredClient obtainRegisteredClient() {
-    RegisteredClient.Builder builder = RegisteredClient.withId(UUID.randomUUID().toString())
-      .clientId("koala-admin")
+    return RegisteredClient.withId(UUID.randomUUID().toString())
+      .clientId("koala-wechat-mini-app")
       .clientSecret(passwordEncoder.encode("123456"))
       .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
       .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
       .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
       .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+      .authorizationGrantType(WechatGrantType.MINI_APP)
       .redirectUri("https://127.0.0.1:3100/login")
-      .redirectUri("http://127.0.0.1:4200/swagger-ui/oauth2-redirect.html")
+      .redirectUri("http://127.0.0.1:9000/swagger-ui/oauth2-redirect.html")
       .scope(OidcScopes.OPENID)
       .scope(OidcScopes.PROFILE)
       .scope("all")
       .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
-      .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(30)).build());
-    if (properties.getGrantType().isPassword()) {
-      builder.authorizationGrantType(AuthorizationGrantType.PASSWORD);
-    }
-    return builder.build();
+      .tokenSettings(TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(30)).build())
+      .build();
   }
 }

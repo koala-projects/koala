@@ -28,10 +28,12 @@
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-security</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-system</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

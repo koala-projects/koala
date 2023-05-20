@@ -2,9 +2,9 @@ package cn.koala.wechat.miniapp.processor;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.koala.security.processor.AuthorizationServerPostProcessor;
+import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.authentication.OAuth2WechatMiniAppAuthenticationConverter;
 import cn.koala.wechat.miniapp.authentication.OAuth2WechatMiniAppAuthenticationProvider;
-import cn.koala.wechat.miniapp.registry.WechatMiniAppUserRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 public class OAuth2WechatMiniAppPostProcessor implements AuthorizationServerPostProcessor {
 
   private final WxMaService wxMaService;
-  private final WechatMiniAppUserRegistry wechatMiniAppUserRegistry;
+  private final WechatMiniAppUserRegistrar wechatMiniAppUserRegistry;
 
   @Override
   public void postProcessBeforeInitialization(HttpSecurity http) {

@@ -1,14 +1,15 @@
 package cn.koala.wechat.miniapp.autoconfigure;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.koala.security.client.RegisteredClientRegistry;
+import cn.koala.security.client.RegisteredClientRegistrar;
 import cn.koala.security.processor.AuthorizationServerPostProcessor;
 import cn.koala.system.repositories.UserRepository;
+import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.processor.OAuth2WechatMiniAppPostProcessor;
-import cn.koala.wechat.miniapp.registry.SimpleWechatMiniAppUserRegistry;
-import cn.koala.wechat.miniapp.registry.WechatMiniAppClientRegistry;
-import cn.koala.wechat.miniapp.registry.WechatMiniAppUserRegistry;
 import cn.koala.wechat.miniapp.repository.WechatMiniAppUserRepository;
+import cn.koala.wechat.miniapp.support.DefaultWechatMiniAppUserRegistrar;
+import cn.koala.wechat.miniapp.support.WechatMiniAppClientRegistrar;
+import cn.koala.wechat.miniapp.support.WechatMiniAppInitializer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -25,21 +26,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WechatMiniAppAutoConfiguration {
   @Bean
   public AuthorizationServerPostProcessor wechatMiniAppPostProcessor(WxMaService wxMaService,
-                                                                     WechatMiniAppUserRegistry wechatMiniAppUserRegistry) {
+                                                                     WechatMiniAppUserRegistrar wechatMiniAppUserRegistry) {
     return new OAuth2WechatMiniAppPostProcessor(wxMaService, wechatMiniAppUserRegistry);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public WechatMiniAppUserRegistry wechatMiniAppUserRegistry(PasswordEncoder passwordEncoder,
-                                                             UserRepository userRepository,
-                                                             WechatMiniAppUserRepository wechatMiniAppUserRepository) {
-    return new SimpleWechatMiniAppUserRegistry(passwordEncoder, userRepository, wechatMiniAppUserRepository);
+  public WechatMiniAppUserRegistrar wechatMiniAppUserRegistrar(PasswordEncoder passwordEncoder,
+                                                               UserRepository userRepository,
+                                                               WechatMiniAppUserRepository wechatMiniAppUserRepository) {
+    return new DefaultWechatMiniAppUserRegistrar(passwordEncoder, userRepository, wechatMiniAppUserRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean(name = "wechatMiniAppClientRegistry")
-  public RegisteredClientRegistry wechatMiniAppClientRegistry(PasswordEncoder passwordEncoder) {
-    return new WechatMiniAppClientRegistry(passwordEncoder);
+  public RegisteredClientRegistrar wechatMiniAppClientRegistry(PasswordEncoder passwordEncoder) {
+    return new WechatMiniAppClientRegistrar(passwordEncoder);
+  }
+
+  @Bean
+  public WechatMiniAppInitializer wechatMiniAppInitializer() {
+    return new WechatMiniAppInitializer();
   }
 }

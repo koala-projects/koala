@@ -7,6 +7,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  *
  * @author Houtaroy
  */
-public interface RegisteredClientRegistry {
+public interface RegisteredClientRegistrar {
   void register(RegisteredClientRepository repository);
 }

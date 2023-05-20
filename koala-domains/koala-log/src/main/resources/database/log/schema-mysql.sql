@@ -1,5 +1,4 @@
-# 日志表
-DROP TABLE IF EXISTS k_log;
+-- 日志表
 CREATE TABLE k_log
 (
   `id`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',

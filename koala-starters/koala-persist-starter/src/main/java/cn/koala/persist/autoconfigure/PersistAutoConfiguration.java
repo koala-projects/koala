@@ -2,20 +2,14 @@ package cn.koala.persist.autoconfigure;
 
 import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudServiceRegistry;
-import cn.koala.persist.listener.EntityListener;
-import cn.koala.persist.listener.EntityListenerAspect;
-import cn.koala.persist.listener.EntityListenerRegistry;
-import cn.koala.persist.listener.support.AuditingEntityListener;
-import cn.koala.persist.listener.support.DefaultEntityListenerRegistry;
-import cn.koala.persist.listener.support.StatefulEntityListener;
 import cn.koala.persist.support.DefaultCrudServiceRegistry;
 import cn.koala.validation.DefaultableMessageSourceLocator;
 import cn.koala.validation.MessageSourceLocator;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.AuditorAware;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
@@ -25,36 +19,14 @@ import java.util.List;
  * @author Houtaroy
  */
 @Configuration
+@EnableConfigurationProperties(InitializerProperties.class)
+@Import({InitializerAutoConfiguration.class, EntityListenerAutoConfiguration.class})
 public class PersistAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
   public CrudServiceRegistry crudServiceRegistry(List<CrudService<?, ?>> services) {
     return new DefaultCrudServiceRegistry(services);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public StatefulEntityListener statefulEntityListener() {
-    return new StatefulEntityListener();
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public AuditingEntityListener auditingEntityListener(ObjectProvider<AuditorAware<?>> auditorAware) {
-    return new AuditingEntityListener(auditorAware);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public EntityListenerRegistry entityListenerRegistry(List<EntityListener> listeners) {
-    return new DefaultEntityListenerRegistry(listeners);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public EntityListenerAspect entityListenerAspect(EntityListenerRegistry registry) {
-    return new EntityListenerAspect(registry);
   }
 
   @Bean

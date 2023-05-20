@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS t_attachment;
 CREATE TABLE t_attachment
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',

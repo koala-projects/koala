@@ -1,6 +1,7 @@
 package cn.koala.security.autoconfigure;
 
 import cn.koala.security.JwtProperties;
+import cn.koala.security.SecurityInitializer;
 import cn.koala.security.SecurityProperties;
 import cn.koala.security.SpringSecurityExceptionHandler;
 import cn.koala.security.apis.LoginController;
@@ -66,5 +67,10 @@ public class SecurityAutoConfiguration {
   @Bean
   public SpringSecurityExceptionHandler securityExceptionHandler() {
     return new SpringSecurityExceptionHandler();
+  }
+
+  @Bean
+  public SecurityInitializer securityInitializer() {
+    return new SecurityInitializer();
   }
 }

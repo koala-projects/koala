@@ -28,6 +28,7 @@
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-system-starter</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>

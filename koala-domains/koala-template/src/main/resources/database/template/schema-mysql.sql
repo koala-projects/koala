@@ -1,5 +1,4 @@
 # 模板组表
-DROP TABLE IF EXISTS t_template_group;
 CREATE TABLE t_template_group
 (
   `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -12,7 +11,6 @@ CREATE TABLE t_template_group
 ) COMMENT = '模板组表';
 
 # 模板表
-DROP TABLE IF EXISTS t_template;
 CREATE TABLE t_template
 (
   `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
