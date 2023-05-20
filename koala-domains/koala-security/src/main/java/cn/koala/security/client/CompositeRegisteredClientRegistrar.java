@@ -26,7 +26,7 @@ public class CompositeRegisteredClientRegistrar implements RegisteredClientRegis
   }
 
   @Override
-  public void run(ApplicationArguments args) throws Exception {
+  public void run(ApplicationArguments args) {
     this.register(repository);
   }
 }
