@@ -53,8 +53,7 @@ public abstract class BaseTemplateCodeService implements CodeService {
       CompressHelper.compress(root, new File(downloadPath + result), ArchiveStreamFactory.ZIP);
       return result;
     } catch (Exception e) {
-      LOGGER.error("生成代码文件失败", e);
-      throw new IllegalStateException("生成代码文件失败");
+      throw new IllegalStateException("生成代码文件失败", e);
     }
   }
 

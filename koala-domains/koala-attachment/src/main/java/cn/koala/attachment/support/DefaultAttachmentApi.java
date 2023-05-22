@@ -62,8 +62,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
     try {
       return DataResponse.ok(facade.upload(attachment));
     } catch (Exception e) {
-      LOGGER.error("文件上传失败", e);
-      throw new IllegalStateException("文件上传失败, 请联系服务器管理员");
+      throw new IllegalStateException("文件上传失败, 请联系服务管理员", e);
     }
   }
 
@@ -72,8 +71,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
     try {
       facade.download(id, response);
     } catch (Exception e) {
-      LOGGER.error("文件下载失败", e);
-      throw new RuntimeException("文件下载失败, 请联系服务器管理员");
+      throw new IllegalStateException("文件下载失败, 请联系服务管理员", e);
     }
   }
 }

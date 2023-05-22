@@ -27,21 +27,21 @@ public class RestExceptionHandler {
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(IllegalArgumentException e) {
-    LOGGER.error("错误", e);
+    LOGGER.error("非法参数异常", e);
     return Response.error(e.getMessage());
   }
 
   @ExceptionHandler(IllegalStateException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(IllegalStateException e) {
-    LOGGER.error("错误", e);
+    LOGGER.error("非法状态异常", e);
     return Response.error(e.getMessage());
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
-    LOGGER.error("参数校验失败", e);
+    LOGGER.error("参数校验异常", e);
     return Response.error(getAllErrorDefaultMessages(e));
   }
 
@@ -67,7 +67,7 @@ public class RestExceptionHandler {
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response exception(Exception e) {
-    LOGGER.error("错误", e);
+    LOGGER.error("服务器异常", e);
     return Response.error("服务器错误, 请联系管理员");
   }
 }

@@ -52,10 +52,11 @@ public class AttachmentAutoConfiguration {
   @ConditionalOnMissingBean
   @ConditionalOnClass(name = "io.minio.MinioClient")
   @ConditionalOnProperty(prefix = "koala.attachment", name = "type", havingValue = "minio")
-  public AttachmentStorage minIOAttachmentStorage(AttachmentFactory factory, ObjectProvider<MinioClient> clientProvider) {
+  public AttachmentStorage minIOAttachmentStorage(AttachmentFactory factory,
+                                                  ObjectProvider<MinioClient> clientProvider) throws Exception {
     MinioClient client = clientProvider.getIfAvailable();
     if (client == null) {
-      throw new IllegalStateException("未找到MinIO客户端, 请检查相关配置");
+      throw new Exception("未找到MinIO客户端, 请检查相关配置");
     }
     return new MinIOAttachmentStorage(factory, client);
   }

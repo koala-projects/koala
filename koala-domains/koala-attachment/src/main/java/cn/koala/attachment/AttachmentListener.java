@@ -50,8 +50,7 @@ public class AttachmentListener extends AbstractInheritedEntityListener<Attachme
       Assert.isTrue(persist.isPresent(), "数据不存在");
       storage.remove(persist.get());
     } catch (Exception e) {
-      LOGGER.error("附件[id=%d]删除失败".formatted(entity.getId()), e);
-      throw new RuntimeException("附件删除失败, 请联系管理员");
+      throw new IllegalStateException("附件删除失败, 请联系服务管理员", e);
     }
   }
 }

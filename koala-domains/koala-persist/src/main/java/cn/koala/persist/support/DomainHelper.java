@@ -15,7 +15,7 @@ public abstract class DomainHelper {
 
   public static void assertEditable(@Nullable Object domain) {
     Assert.notNull(domain, "数据不存在");
-    Assert.state(isEditable(domain), "数据不允许修改");
+    Assert.isTrue(isEditable(domain), "数据不允许修改");
   }
 
   public static boolean isEditable(@NonNull Object domain) {

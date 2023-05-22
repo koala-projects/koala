@@ -5,6 +5,7 @@ import cn.koala.persist.domain.EnumAdvice;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
+import org.springframework.util.Assert;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -29,9 +30,7 @@ public class EnumAdviceTypeHandler<E extends EnumAdvice> extends BaseTypeHandler
    * @param type 枚举类型
    */
   public EnumAdviceTypeHandler(Class<E> type) {
-    if (type == null) {
-      throw new IllegalArgumentException("Type argument cannot be null");
-    }
+    Assert.notNull(type, "枚举类型不能为null");
     this.type = type;
   }
 

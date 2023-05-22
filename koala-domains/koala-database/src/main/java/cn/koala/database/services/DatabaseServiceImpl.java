@@ -49,7 +49,7 @@ public class DatabaseServiceImpl extends AbstractMyBatisService<Database, Long> 
     return query(database, (connection -> {
       ResultSet rs = connection.getMetaData().getTables(database.getCatalog(), database.getSchema(), table, new String[]{"TABLE"});
       if (!rs.next()) {
-        throw new IllegalStateException("表不存在");
+        throw new IllegalArgumentException("表不存在");
       }
       return SimpleDatabaseTable.builder()
         .name(rs.getString("TABLE_NAME"))
@@ -61,7 +61,7 @@ public class DatabaseServiceImpl extends AbstractMyBatisService<Database, Long> 
 
   @Override
   public boolean isConnectable(Database database) {
-    try(Connection connection = getConnection(database)) {
+    try (Connection connection = getConnection(database)) {
       return connection.isValid(TIME_OUT);
     } catch (SQLException e) {
       return false;
@@ -105,8 +105,7 @@ public class DatabaseServiceImpl extends AbstractMyBatisService<Database, Long> 
     try (Connection connection = getConnection(database)) {
       return query.query(connection);
     } catch (SQLException e) {
-      LOGGER.error("数据库[id=%s]操作异常".formatted(database.getId()), e);
-      throw new IllegalStateException("数据库操作异常");
+      throw new IllegalStateException("数据库操作异常", e);
     }
   }
 
