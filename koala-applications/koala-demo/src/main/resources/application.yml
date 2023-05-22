@@ -83,5 +83,3 @@ koala:
       - /api/template*/**
       - /api/code/**
       - /api/sensitive-word/**
-  sensitive-word:
-    word-file: D:\Temp\koala\sensitive-word\words.txt
