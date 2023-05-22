@@ -3,7 +3,7 @@ package cn.koala.persist.initializer;
 import org.springframework.core.Ordered;
 
 /**
- * 模块初始化器
+ * 模块初始化器接口
  * <p>
  * 模块初始化需要提供结构脚本和数据脚本
  *
