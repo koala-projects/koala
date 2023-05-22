@@ -2,15 +2,30 @@
 
 考拉系统管理启动模块
 
-## 系统管理接口
+## 快速开始
+
+### 初始化
+
+可通过如下两种方式初始化数据库:
+
+1. 配置开启模块初始化器:
+
+```yaml
+koala:
+  persist:
+    initializer:
+      system: true
+```
+
+2. 执行[脚本目录](../../koala-domains/koala-system/src/main/resources/database/system)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
+
+### 接口文档
 
 实现了字典管理/部门管理/角色管理/用户管理接口, 可通过访问接口文档查看具体信息
 
 接口文档地址: `http://${host}:${port}/swagger-ui.html`
 
-### 初始化
-
-在启动前请使用[脚本](src/main/resources/database/init.sql)初始化数据库, 当前仅支持 MySQL 8
+## 进阶
 
 ### 自定义
 

@@ -2,7 +2,24 @@
 
 考拉操作日志启动模块
 
-## 日志注解
+## 快速开始
+
+### 初始化
+
+可通过如下两种方式初始化数据库:
+
+1. 配置开启模块初始化器:
+
+```yaml
+koala:
+  persist:
+    initializer:
+      log: true
+```
+
+2. 执行[脚本目录](../../koala-domains/koala-log/src/main/resources/database/log)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
+
+### 日志注解
 
 模块提供了`@Log`注解用于记录操作日志, 注解需要标注在**接口实现类**上:
 
@@ -18,9 +35,7 @@ public class DepartmentApiImpl implements DepartmentApi {
 }
 ```
 
-### SpEL
-
-注解属性`content`支持SpEL, 示例如下:
+注解属性`content`支持 SpEL, 示例如下:
 
 ```java
 @RestController
@@ -34,30 +49,19 @@ public class DepartmentApiImpl implements DepartmentApi {
 }
 ```
 
-需要将SpEL包裹在`${}`中, 模块会自动解析其中的内容, SpEL书写方式请参照[官方文档](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions)
+需要将 SpEL 包裹在`${}`中, 模块会自动解析其中的内容, SpEL 书写方式请参照[官方文档](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions)
 
-## 日志配置
+## 进阶
 
-### 是否启用
-
-在某些场景下(如开发环境), 可能不需要开启操作日志, 可以通过配置文件进行关闭:
+### 高级配置
 
 ```yaml
 koala:
   log:
+    # 关闭日志
     enabled: false
-```
-
-### 忽略
-
-如您需要忽略部分操作日志记录, 可通过配置忽略表达式实现:
-
-```yaml
-koala:
-  log:
+    # 忽略模块正则表达式, 与@Log注解中的module进行匹配
     ignored-patterns:
       - 字典.*
 ```
-
-忽略表达式支持正则匹配, 它会与注解`@Log`中的`module`属性进行匹配, 匹配成功则忽略
 

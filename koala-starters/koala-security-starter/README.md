@@ -6,6 +6,21 @@
 
 ## 快速开始
 
+### 初始化
+
+可通过如下两种方式初始化数据库:
+
+1. 配置开启模块初始化器:
+
+```yaml
+koala:
+  persist:
+    initializer:
+      security: true
+```
+
+2. 执行[脚本目录](../../koala-domains/koala-security/src/main/resources/database/security)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
+
 ### 配置
 
 书写资源服务内省令牌配置:

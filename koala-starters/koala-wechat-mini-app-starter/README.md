@@ -8,6 +8,21 @@
 
 本模块基于[安全模块](../koala-security-starter)/[系统模块](../koala-system-starter), 请先了解上述模块的使用方法
 
+### 初始化
+
+可通过如下两种方式初始化数据库:
+
+1. 配置开启模块初始化器:
+
+```yaml
+koala:
+  persist:
+    initializer:
+      "wechat-mini-app": true
+```
+
+2. 执行[脚本目录](../../koala-domains/koala-wechat-mini-app/src/main/resources/database/wechat-mini-app)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
+
 ### 配置
 
 配置微信小程序参数:
@@ -86,6 +101,5 @@ public class MyWechatMiniAppUserRegistry implements WechatMiniAppUserRegistry {
   }
 }
 ```
-
 
 

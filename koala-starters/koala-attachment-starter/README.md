@@ -6,7 +6,18 @@
 
 ### 初始化
 
-使用[脚本](../../koala-domains/koala-attachment/src/main/resources/database/init.sql)初始化数据
+可通过如下两种方式初始化数据库:
+
+1. 配置开启模块初始化器:
+
+```yaml
+koala:
+  persist:
+    initializer:
+      attachment: true
+```
+
+2. 执行[脚本目录](../../koala-domains/koala-attachment/src/main/resources/database/attachment)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
 
 ### 配置
 
