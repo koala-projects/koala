@@ -4,10 +4,6 @@
 
 ## 快速开始
 
-### 初始化
-
-原型项目生成后, 使用`${项目名}-application/src/main/resources/database/init.sql`脚本初始化数据库
-
 ### 配置
 
 修改配置文件中部分内容适配自己的开发环境:
@@ -20,13 +16,26 @@ spring:
     username: koala
     password: koala
 koala:
-  # 附件相关信息
-  attachment:
-    root: D:\Temp\koala\attachment
   # 代码生成相关信息
   code:
     download-path: D:\Temp\koala\code\
 ```
+
+### 初始化
+
+原型项目生成后, 可通过配置自动初始化数据库:
+
+```yaml
+koala:
+  persist:
+    initializer:
+      # 初始化代码生成相关
+      code: true
+      # 初始化系统管理相关
+      system: true
+```
+
+> 如果需要示例表, 请使用`${项目名}-application/src/main/resources/database/init.sql`脚本初始化
 
 ### 接口文档
 

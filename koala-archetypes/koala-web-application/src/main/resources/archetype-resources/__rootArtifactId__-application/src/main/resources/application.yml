@@ -77,6 +77,10 @@ koala:
   log:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"
+  persist:
+    initializer:
+      code: true
+      system: true
   security:
     permit-all-patterns:
       - /api/databases/**
