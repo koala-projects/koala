@@ -1,22 +1,21 @@
 package cn.koala.sensitive.autoconfigure;
 
-import cn.koala.sensitive.InMemorySensitiveWordService;
 import cn.koala.sensitive.SensitiveWordFilter;
 import cn.koala.sensitive.SensitiveWordService;
-import cn.koala.sensitive.SimpleSensitiveWordFilter;
 import cn.koala.sensitive.apis.SensitiveWordApi;
 import cn.koala.sensitive.apis.SensitiveWordApiImpl;
+import cn.koala.sensitive.support.CompositeSensitiveWordFilter;
+import cn.koala.sensitive.support.FileSensitiveWordService;
+import cn.koala.sensitive.support.InMemorySensitiveWordService;
+import cn.koala.sensitive.support.ToolGoodSensitiveWordFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -29,35 +28,35 @@ import java.util.List;
 @EnableConfigurationProperties(SensitiveWordProperties.class)
 public class SensitiveWordAutoConfiguration {
 
-  private static final List<String> TEST_WORDS = List.of("考拉");
-
   @Bean
   @ConditionalOnMissingBean
-  public SensitiveWordService sensitiveWordService(SensitiveWordProperties properties) {
-    return new InMemorySensitiveWordService(getWords(properties));
+  @ConditionalOnProperty(prefix = "koala.sensitive-word", name = "file")
+  public SensitiveWordService fileSensitiveWordService(SensitiveWordProperties properties) throws IOException {
+    return new FileSensitiveWordService(properties.getFile());
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public SensitiveWordFilter sensitiveWordFilter(SensitiveWordService sensitiveWordService) {
-    return new SimpleSensitiveWordFilter(sensitiveWordService.list());
+  public SensitiveWordService inMemorySensitiveWordService() {
+    return new InMemorySensitiveWordService();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "defaultSensitiveWordFilter")
+  @ConditionalOnProperty(prefix = "koala.sensitive-word", name = "toolGood", havingValue = "true")
+  public SensitiveWordFilter defaultSensitiveWordFilter(SensitiveWordService sensitiveWordService) {
+    return new ToolGoodSensitiveWordFilter(sensitiveWordService);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "sensitiveWordFilter")
+  public SensitiveWordFilter sensitiveWordFilter(List<SensitiveWordFilter> filters) {
+    return new CompositeSensitiveWordFilter(filters);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public SensitiveWordApi sensitiveWordApi(SensitiveWordFilter sensitiveWordFilter) {
     return new SensitiveWordApiImpl(sensitiveWordFilter);
-  }
-
-  private List<String> getWords(SensitiveWordProperties properties) {
-    if (StringUtils.hasLength(properties.getWordFile())) {
-      try {
-        return FileUtils.readLines(new File(properties.getWordFile()), Charset.defaultCharset());
-      } catch (IOException e) {
-        LOGGER.error("读取词库文件[path=%s]失败".formatted(properties.getWordFile()), e);
-      }
-    }
-    LOGGER.warn("未检测到词库文件, 启用测试词库");
-    return TEST_WORDS;
   }
 }

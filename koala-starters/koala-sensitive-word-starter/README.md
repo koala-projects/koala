@@ -4,18 +4,21 @@
 
 ## 快速开始
 
-1. 引入模块依赖
-2. 配置词库文件地址:
+### 配置
+
+模块内置了基于[ToolGood.Words](https://github.com/toolgood/ToolGood.Words)的敏感词过滤器, 可通过配置开启:
 
 ```yaml
 koala:
   sensitive-word:
-    word-file: /tmp/koala/sensitive-word/words.txt
+    # 词库文件仅支持文本格式, 一行代表一个敏感词
+    file: /tmp/koala/sensitive-word/words.txt
+    tool-good: true
 ```
 
-词库文件当下仅支持文本格式, 一行代表一个敏感词, 如不满足需求可参考[自定义](#自定义)
+### 敏感词过滤器
 
-3. 自动注入过滤器:
+自动注入过滤器并使用:
 
 ```java
 @RequiredArgsConstructor
@@ -29,11 +32,11 @@ public class UserService {
 }
 ```
 
-## 功能特点
+## 进阶
 
 ### 敏感词服务
 
-模块内置了敏感词服务, 可对敏感词进行增删查操作:
+模块将敏感词过滤器与敏感词服务进行了抽象分离, 可使用敏感词服务对词库进行管理:
 
 ```java
 public class WordAddTask {
@@ -46,24 +49,58 @@ public class WordAddTask {
 }
 ```
 
-### 敏感词过滤器
+词库文件配置生效时, 会默认使用文件敏感词服务`FileSensitiveWordService`, 否则使用内存敏感词服务`InMemorySensitiveWordService`
 
-模块内置了敏感词过滤器, 可通过自动注入方式引用
-
-内置的过滤器支持动态刷新词库:
+如果敏感词服务不满足需求, 可通过实现敏感词服务接口`SensitiveWordService`进行自定义:
 
 ```java
-public class WordRefreshTask {
-    
-  private final SensitiveWordService service;
-  private final SensitiveWordFilter filter;
-    
-  public void refresh() {
-    if(filter instanceof RefreshableSensitiveWordFilter refreshable) {
-      refreshable.refresh(service.list());
-    }
+@Component("sensitiveWordService")
+public class MySensitiveWordService implements SensitiveWordService {
+
+  @Override
+  public List<String> list() {
+    // 查询逻辑...
+  }
+
+  @Override
+  public void add(String word) {
+    // 新增逻辑...
+  }
+
+  @Override
+  public void delete(String word) {
+    // 删除逻辑...
   }
 }
+```
+
+### 敏感词过滤器
+
+如模块内置敏感词过滤器不满足需求, 您可以通过实现接口`SensitiveWordFilter`或`RefreshableSensitiveWordFilter`进行自定义:
+
+```java
+public class MySensitiveWordFilter implements RefreshableSensitiveWordFilter {
+
+  @Override
+  public String filter(String content, Character replacement) {
+    // 过滤逻辑...
+  }
+
+  @Override
+  public void refresh() {
+    // 刷新逻辑...
+  }
+}
+```
+
+敏感词过滤支持多个过滤器同时生效:
+
+```java
+@Order(1)
+public class FirstFilter implements SensitiveWordFilter {}
+
+@Order(2)
+public class SecondFilter implements SensitiveWordFilter {}
 ```
 
 ### Jackson支持
@@ -88,57 +125,3 @@ public class UserEntity {
   private String username;
 }
 ```
-
-## 自定义
-
-### 自定义敏感词服务
-
-模块默认敏感词服务`InMemorySensitiveWordService`基于内存实现
-
-如不满足需求, 可手动实现`SensitiveWordService`, 定制自己的敏感词服务:
-
-```java
-@Component("sensitiveWordService")
-public class MySensitiveWordService implements SensitiveWordService {
-
-  @Override
-  public List<String> list() {
-    // 查询逻辑...
-  }
-
-  @Override
-  public void add(String word) {
-    // 新增逻辑...
-  }
-
-  @Override
-  public void delete(String word) {
-    // 删除逻辑...
-  }
-}
-```
-
-### 自定义过滤器
-
-模块默认敏感词过滤器`SimpleSensitiveWordFilter`基于[ToolGood.Words](https://github.com/toolgood/ToolGood.Words)实现
-
-如不满足需求, 可手动实现`SensitiveWordFilter`或`RefreshableSensitiveWordFilter`, 定制自己的过滤器:
-
-```java
-@Component("sensitiveWordFilter")
-public class MySensitiveWordFilter implements RefreshableSensitiveWordFilter {
-
-  @Override
-  public String filter(String content, Character replacement) {
-    // 过滤逻辑...
-  }
-
-  @Override
-  public void refresh(List<String> words) {
-    // 刷新逻辑...
-  }
-}
-```
-
-
-

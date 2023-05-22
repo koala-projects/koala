@@ -1,9 +1,10 @@
-package cn.koala.sensitive;
+package cn.koala.sensitive.support;
+
+import cn.koala.sensitive.SensitiveWordService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 内存敏感词服务接口
@@ -11,19 +12,19 @@ import java.util.Set;
  * @author Houtaroy
  */
 public class InMemorySensitiveWordService implements SensitiveWordService {
-  protected final Set<String> words;
+  protected final List<String> words;
 
   public InMemorySensitiveWordService() {
-    words = new HashSet<>();
+    this(new ArrayList<>());
   }
 
   public InMemorySensitiveWordService(List<String> words) {
-    this.words = new HashSet<>(words);
+    this.words = words;
   }
 
   @Override
   public List<String> list() {
-    return new ArrayList<>(words);
+    return Collections.unmodifiableList(words);
   }
 
   @Override
