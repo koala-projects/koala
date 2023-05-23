@@ -1,7 +1,9 @@
-package cn.koala.security.processor;
+package cn.koala.security.builder.processor.support;
 
 import cn.koala.security.authentication.OAuth2ResourceOwnerPasswordAuthenticationConverter;
 import cn.koala.security.authentication.OAuth2ResourceOwnerPasswordAuthenticationProvider;
+import cn.koala.security.builder.processor.AuthorizationServerProcessor;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
@@ -9,14 +11,15 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 
 /**
- * OAuth2密码模式处理器
+ * OAuth2密码授权模式处理器
  *
  * @author Houtaroy
  */
-public class OAuth2ResourceOwnerPasswordPostProcessor implements AuthorizationServerPostProcessor {
+@Order(2000)
+public class OAuth2ResourceOwnerPasswordProcessor implements AuthorizationServerProcessor {
 
   @Override
-  public void postProcessBeforeInitialization(HttpSecurity http) {
+  public void preBuild(HttpSecurity http) {
     OAuth2AuthorizationServerConfigurer configurer = http.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
     configurer.tokenEndpoint(
       endpoint -> endpoint.accessTokenRequestConverter(new OAuth2ResourceOwnerPasswordAuthenticationConverter())
@@ -24,7 +27,7 @@ public class OAuth2ResourceOwnerPasswordPostProcessor implements AuthorizationSe
   }
 
   @Override
-  public void postProcessAfterInitialization(HttpSecurity http) {
+  public void postBuild(HttpSecurity http) {
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService = http.getSharedObject(OAuth2AuthorizationService.class);
     OAuth2TokenGenerator<?> tokenGenerator = http.getSharedObject(OAuth2TokenGenerator.class);

@@ -4,13 +4,16 @@ import cn.koala.security.AuthoritiesOpaqueTokenIntrospector;
 import cn.koala.security.JwtHelper;
 import cn.koala.security.JwtProperties;
 import cn.koala.security.SecurityProperties;
+import cn.koala.security.builder.AuthorizationServerBuilder;
+import cn.koala.security.builder.processor.AuthorizationServerProcessor;
+import cn.koala.security.builder.processor.support.OAuth2AuthorizationServerProcessor;
+import cn.koala.security.builder.processor.support.OAuth2ResourceOwnerPasswordProcessor;
+import cn.koala.security.builder.support.DefaultAuthorizationServerBuilder;
 import cn.koala.security.client.CompositeRegisteredClientRegistrar;
 import cn.koala.security.client.DefaultRegisteredClientRegistrar;
 import cn.koala.security.client.RegisteredClientRegistrar;
 import cn.koala.security.entities.UserDetailsImpl;
 import cn.koala.security.entities.UserDetailsImplMixin;
-import cn.koala.security.processor.AuthorizationServerPostProcessor;
-import cn.koala.security.processor.OAuth2ResourceOwnerPasswordPostProcessor;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -25,9 +28,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
@@ -41,14 +42,12 @@ import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -62,27 +61,31 @@ import java.util.List;
  */
 @Configuration
 public class AuthorizationServerAutoConfiguration {
+
   @Bean
-  @Order(Ordered.HIGHEST_PRECEDENCE)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http, List<AuthorizationServerPostProcessor> processors) throws Exception {
-    OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
-    http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
-    http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-    for (AuthorizationServerPostProcessor processor : processors) {
-      processor.postProcessBeforeInitialization(http);
-    }
-    SecurityFilterChain result = http.build();
-    for (AuthorizationServerPostProcessor processor : processors) {
-      processor.postProcessAfterInitialization(http);
-    }
-    return result;
+  @ConditionalOnMissingBean(name = "authorizationServerProcessor")
+  public AuthorizationServerProcessor authorizationServerProcessor() {
+    return new OAuth2AuthorizationServerProcessor();
+  }
+
+  @Bean(name = "resourceOwnerPasswordProcessor")
+  @ConditionalOnProperty(prefix = "koala.security.grant-type", name = "password", havingValue = "true")
+  public AuthorizationServerProcessor resourceOwnerPasswordPostProcessor() {
+    return new OAuth2ResourceOwnerPasswordProcessor();
   }
 
   @Bean
-  @ConditionalOnProperty(prefix = "koala.security.grant-type", name = "password", havingValue = "true")
-  public AuthorizationServerPostProcessor OAuth2ResourceOwnerPasswordPostProcessor() {
-    return new OAuth2ResourceOwnerPasswordPostProcessor();
+  @ConditionalOnMissingBean
+  public AuthorizationServerBuilder authorizationServerBuilder(List<AuthorizationServerProcessor> processors) {
+    return new DefaultAuthorizationServerBuilder(processors);
+  }
+
+  @Bean
+  @Order(Ordered.HIGHEST_PRECEDENCE)
+  @ConditionalOnMissingBean(name = "authorizationServerSecurityFilterChain")
+  public SecurityFilterChain authorizationServerSecurityFilterChain(
+    HttpSecurity http, AuthorizationServerBuilder builder) throws Exception {
+    return builder.build(http);
   }
 
   @Bean

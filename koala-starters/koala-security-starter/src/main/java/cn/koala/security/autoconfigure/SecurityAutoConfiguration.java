@@ -28,7 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Houtaroy
  */
 @EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
-@Import({AuthorizationServerAutoConfiguration.class, DefaultSecurityAutoConfiguration.class})
+@Import({AuthorizationServerAutoConfiguration.class, ResourceServerAutoConfiguration.class})
 @MapperScan("cn.koala.security.repositories")
 @Configuration
 @RequiredArgsConstructor

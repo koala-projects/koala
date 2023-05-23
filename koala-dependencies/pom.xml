@@ -17,6 +17,7 @@
   <properties>
     <!--Spring相关-->
     <spring-boot.version>3.0.6</spring-boot.version>
+    <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
     <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
     <spring-security-oauth2-authorization-server.version>1.0.2</spring-security-oauth2-authorization-server.version>
     <!--MyBatis相关-->
@@ -68,6 +69,11 @@
         <scope>import</scope>
       </dependency>
       <!--Spring相关-->
+      <dependency>
+        <groupId>de.codecentric</groupId>
+        <artifactId>spring-boot-admin-starter-client</artifactId>
+        <version>${spring-boot-admin.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -257,6 +263,11 @@
         <version>${revision}</version>
       </dependency>
       <!--考拉启动模块-->
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-admin-client-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-attachment-starter</artifactId>

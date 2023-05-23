@@ -1,7 +1,7 @@
 package cn.koala.wechat.miniapp.processor;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.koala.security.processor.AuthorizationServerPostProcessor;
+import cn.koala.security.builder.processor.AuthorizationServerProcessor;
 import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.authentication.OAuth2WechatMiniAppAuthenticationConverter;
 import cn.koala.wechat.miniapp.authentication.OAuth2WechatMiniAppAuthenticationProvider;
@@ -19,13 +19,13 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class OAuth2WechatMiniAppPostProcessor implements AuthorizationServerPostProcessor {
+public class OAuth2WechatMiniAppPostProcessor implements AuthorizationServerProcessor {
 
   private final WxMaService wxMaService;
   private final WechatMiniAppUserRegistrar wechatMiniAppUserRegistry;
 
   @Override
-  public void postProcessBeforeInitialization(HttpSecurity http) {
+  public void preBuild(HttpSecurity http) {
     OAuth2AuthorizationServerConfigurer configurer = http.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
     configurer.tokenEndpoint(
       endpoint -> endpoint.accessTokenRequestConverter(new OAuth2WechatMiniAppAuthenticationConverter())
@@ -34,7 +34,7 @@ public class OAuth2WechatMiniAppPostProcessor implements AuthorizationServerPost
 
   @SuppressWarnings("unchecked")
   @Override
-  public void postProcessAfterInitialization(HttpSecurity http) {
+  public void postBuild(HttpSecurity http) {
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService = http.getSharedObject(OAuth2AuthorizationService.class);
     OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = http.getSharedObject(OAuth2TokenGenerator.class);
