@@ -20,7 +20,7 @@ public class OAuth2ResourceServerProcessor implements ResourceServerProcessor {
   }
 
   @Override
-  public void postBuild(HttpSecurity http) throws Exception {
+  public void postBuild(HttpSecurity http) {
 
   }
 }
