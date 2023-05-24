@@ -8,7 +8,7 @@ import org.springframework.core.annotation.Order;
  *
  * @author Houtaroy
  */
-@Order(4230)
+@Order(2100)
 public class ActuatorProcessor extends AbstractPermitAllProcessor {
 
   public ActuatorProcessor() {

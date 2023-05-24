@@ -23,6 +23,11 @@
       <groupId>de.codecentric</groupId>
       <artifactId>spring-boot-admin-starter-client</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-security</artifactId>
+    </dependency>
   </dependencies>
 
 </project>
