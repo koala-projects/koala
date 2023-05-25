@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>koala-admin-server-demo</artifactId>
+  <description>考拉Spring Boot Admin Server Demo</description>
+
+  <parent>
+    <groupId>cn.koala</groupId>
+    <artifactId>koala-parent</artifactId>
+    <version>${revision}</version>
+    <relativePath>../../koala-parent</relativePath>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.binarywang</groupId>
+      <artifactId>wx-java-cp-spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-admin-server-starter</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+</project>

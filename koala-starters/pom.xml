@@ -16,6 +16,7 @@
 
   <modules>
     <module>koala-admin-client-starter</module>
+    <module>koala-admin-server-starter</module>
     <module>koala-attachment-starter</module>
     <module>koala-cache-starter</module>
     <module>koala-code-starter</module>

@@ -71,7 +71,17 @@
       <!--Spring相关-->
       <dependency>
         <groupId>de.codecentric</groupId>
+        <artifactId>spring-boot-admin-server</artifactId>
+        <version>${spring-boot-admin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.codecentric</groupId>
         <artifactId>spring-boot-admin-starter-client</artifactId>
+        <version>${spring-boot-admin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.codecentric</groupId>
+        <artifactId>spring-boot-admin-starter-server</artifactId>
         <version>${spring-boot-admin.version}</version>
       </dependency>
       <dependency>
@@ -168,7 +178,17 @@
       </dependency>
       <dependency>
         <groupId>com.github.binarywang</groupId>
+        <artifactId>weixin-java-cp</artifactId>
+        <version>${wxjava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.binarywang</groupId>
         <artifactId>weixin-java-miniapp</artifactId>
+        <version>${wxjava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.binarywang</groupId>
+        <artifactId>wx-java-cp-spring-boot-starter</artifactId>
         <version>${wxjava.version}</version>
       </dependency>
       <dependency>
@@ -177,6 +197,11 @@
         <version>${wxjava.version}</version>
       </dependency>
       <!--考拉-->
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-admin-server</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-attachment</artifactId>
@@ -266,6 +291,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-admin-client-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-admin-server-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

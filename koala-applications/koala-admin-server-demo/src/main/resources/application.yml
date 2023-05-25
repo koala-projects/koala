@@ -1,0 +1,29 @@
+server:
+  servlet:
+    context-path: /
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      host: 127.0.0.1
+      database: test
+      auto-index-creation: true
+
+logging:
+  level:
+    cn.koala: debug
+  file:
+    name: logs/koala-admin-server.log
+
+wx:
+  cp:
+    corp-id: corp-id
+    corp-secret: corp-secret
+    agent-id: 10001
+
+koala:
+  admin:
+    server:
+      fallback-maintainer:
+        username: "koala"
