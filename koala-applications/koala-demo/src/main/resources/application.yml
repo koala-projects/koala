@@ -7,7 +7,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://120.46.222.245:3306/koala_demo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/koala_demo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: koala_demo
     password: koala_demo
     druid:
