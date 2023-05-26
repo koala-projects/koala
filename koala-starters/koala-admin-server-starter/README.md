@@ -60,6 +60,7 @@ wx:
     corp-id: corp-id
     corp-secret: corp-secret
     agent-id: 10001
+
 # 备用通知配置
 koala:
   admin:
@@ -95,8 +96,3 @@ public class MyNotifyStrategy implements NotifyStrategy {
 ```
 
 模块会自动识别自定义通知策略, 通过配置运维关系中的`strategy`属性即可生效使用
-
-
-
-
-
