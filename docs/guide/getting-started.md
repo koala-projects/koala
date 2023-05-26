@@ -106,6 +106,8 @@ mvn archetype:generate ^
 
 | 组件名称                                                     | 组件说明                                           |
 | ------------------------------------------------------------ | -------------------------------------------------- |
+| [koala-admin-client-starter](../../koala-starters/koala-admin-client-starter) | 快速集成Spring Boot Admin Client                   |
+| [koala-admin-server-starter](../../koala-starters/koala-admin-server-starter) | 快速集成Spring Boot Admin Server, 提供高级通知方式 |
 | [koala-attachment-starter](../../koala-starters/koala-attachment-starter) | 提供了附件上传和下载功能                           |
 | [koala-cache-starter](../../koala-starters/koala-cache-starter) | 快速集成Redis缓存, 抽象了缓存条件配置              |
 | [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                 |
