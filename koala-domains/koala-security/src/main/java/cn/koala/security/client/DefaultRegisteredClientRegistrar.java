@@ -36,7 +36,7 @@ public class DefaultRegisteredClientRegistrar extends AbstractRegisteredClientRe
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
       .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
       .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-      .redirectUri("https://127.0.0.1:3100/login")
+      .redirectUri("https://127.0.0.1:3100/authorize")
       .redirectUri("http://127.0.0.1:4200/swagger-ui/oauth2-redirect.html")
       .scope(OidcScopes.OPENID)
       .scope(OidcScopes.PROFILE)
