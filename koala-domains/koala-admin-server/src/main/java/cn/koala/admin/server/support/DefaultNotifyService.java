@@ -7,16 +7,12 @@ import cn.koala.admin.server.repository.ApplicationRepository;
 import cn.koala.admin.server.repository.MaintainerRepository;
 import cn.koala.admin.server.repository.MaintenanceRepository;
 import cn.koala.admin.server.strategy.NotifyStrategy;
+import cn.koala.admin.server.strategy.NotifyStrategyService;
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ConcurrentReferenceHashMap;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 默认通知服务
@@ -35,31 +31,19 @@ public class DefaultNotifyService implements NotifyService {
   private final ApplicationRepository applicationRepository;
   private final MaintainerRepository maintainerRepository;
   private final MaintenanceRepository maintenanceRepository;
-  private final Map<String, NotifyStrategy> strategies;
+  private final NotifyStrategyService notifyStrategyService;
   private final String fallbackStrategy;
   private final Maintainer fallbackMaintainer;
 
   public DefaultNotifyService(ApplicationRepository applicationRepository, MaintainerRepository maintainerRepository,
-                              MaintenanceRepository maintenanceRepository, List<NotifyStrategy> strategies,
+                              MaintenanceRepository maintenanceRepository, NotifyStrategyService notifyStrategyService,
                               String fallbackStrategy, Maintainer fallbackMaintainer) {
     this.applicationRepository = applicationRepository;
     this.maintainerRepository = maintainerRepository;
     this.maintenanceRepository = maintenanceRepository;
-    if (CollectionUtils.isEmpty(strategies)) {
-      this.strategies = new ConcurrentReferenceHashMap<>();
-    } else {
-      this.strategies = new ConcurrentReferenceHashMap<>(strategies.size());
-      strategies.forEach(this::addStrategy);
-    }
+    this.notifyStrategyService = notifyStrategyService;
     this.fallbackStrategy = fallbackStrategy;
     this.fallbackMaintainer = fallbackMaintainer;
-  }
-
-  protected void addStrategy(NotifyStrategy strategy) {
-    if (this.strategies.containsKey(strategy.getName())) {
-      LOGGER.warn("[koala-admin-server]: 通知策略[{}]重复, 已自动覆盖", strategy.getName());
-    }
-    this.strategies.put(strategy.getName(), strategy);
   }
 
   @Override
@@ -81,7 +65,7 @@ public class DefaultNotifyService implements NotifyService {
 
   protected Mono<Boolean> notify(Maintenance maintenance, Instance instance, InstanceEvent event) {
     String strategyName = maintenance.getStrategy();
-    NotifyStrategy strategy = this.strategies.get(strategyName);
+    NotifyStrategy strategy = this.notifyStrategyService.load(strategyName);
     Assert.notNull(strategy, "[koala-admin-server]: 未找到指定策略[名称=%s]".formatted(strategyName));
     return this.maintainerRepository.findById(maintenance.getMaintainerId())
       .map(maintainer -> strategy.notify(maintainer, instance, event));
@@ -92,7 +76,7 @@ public class DefaultNotifyService implements NotifyService {
       LOGGER.warn("[koala-admin-server]: 没有备用运维工程师");
       return false;
     }
-    NotifyStrategy strategy = this.strategies.get(this.fallbackStrategy);
+    NotifyStrategy strategy = this.notifyStrategyService.load(this.fallbackStrategy);
     if (strategy == null) {
       LOGGER.warn("[koala-admin-server]: 没有备用运维策略");
       return false;

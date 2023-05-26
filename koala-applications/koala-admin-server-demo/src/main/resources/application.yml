@@ -2,6 +2,10 @@ server:
   servlet:
     context-path: /
 spring:
+  mail:
+    host: smtp.yeah.net
+    username: koala_projects@yeah.net
+    password: 123456
   main:
     allow-bean-definition-overriding: true
   data:

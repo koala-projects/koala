@@ -1,3 +1,2 @@
 cn.koala.admin.server.autoconfigure.AdminServerAutoConfiguration
-cn.koala.admin.server.autoconfigure.AdminServerNotifyAutoConfiguration
 cn.koala.admin.server.autoconfigure.AdminServerWeworkAutoConfiguration

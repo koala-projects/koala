@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
  * @author Houtaroy
  */
 @ConditionalOnClass(WxCpAutoConfiguration.class)
-@AutoConfigureBefore(AdminServerNotifyAutoConfiguration.class)
+@AutoConfigureBefore(AdminServerAutoConfiguration.class)
 @AutoConfigureAfter(WxCpAutoConfiguration.class)
 public class AdminServerWeworkAutoConfiguration {
 
