@@ -25,5 +25,7 @@ wx:
 koala:
   admin:
     server:
-      fallback-maintainer:
-        username: "koala"
+      fallback:
+        strategy: mail
+        maintainer:
+          email: 'koala_projects@yeah.net'

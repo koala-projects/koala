@@ -18,7 +18,7 @@
     <!--Spring相关-->
     <spring-boot.version>3.0.6</spring-boot.version>
     <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
-    <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
+    <springdoc-openapi-starter.version>2.1.0</springdoc-openapi-starter.version>
     <spring-security-oauth2-authorization-server.version>1.0.2</spring-security-oauth2-authorization-server.version>
     <!--MyBatis相关-->
     <mybatis.version>3.5.13</mybatis.version>
@@ -86,8 +86,13 @@
       </dependency>
       <dependency>
         <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+        <version>${springdoc-openapi-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
+        <version>${springdoc-openapi-starter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>

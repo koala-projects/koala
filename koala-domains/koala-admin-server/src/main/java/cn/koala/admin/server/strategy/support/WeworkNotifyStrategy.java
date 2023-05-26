@@ -14,15 +14,15 @@ import me.chanjar.weixin.cp.bean.message.WxCpMessage;
  * @author Houtaroy
  */
 @Slf4j
-public class WeworkStrategy extends AbstractNotifyStrategy {
+public class WeworkNotifyStrategy extends AbstractNotifyStrategy {
 
   private final WxCpService wxCpService;
 
-  public WeworkStrategy(WxCpService wxCpService) {
+  public WeworkNotifyStrategy(WxCpService wxCpService) {
     this(wxCpService, new SimpleStatusChangeMessageFactory());
   }
 
-  public WeworkStrategy(WxCpService wxCpService, MessageFactory messageFactory) {
+  public WeworkNotifyStrategy(WxCpService wxCpService, MessageFactory messageFactory) {
     super(messageFactory);
     this.wxCpService = wxCpService;
   }
@@ -42,7 +42,7 @@ public class WeworkStrategy extends AbstractNotifyStrategy {
       wxCpService.getMessageService().send(wxCpMessage);
       return true;
     } catch (WxErrorException e) {
-      LOGGER.error("[koala-admin-server]: 企业微信通知发送失败", e);
+      LOGGER.error("[koala-admin-server]: 发送企业微信消息[{}]给[{}]失败", message, maintainer.getUsername(), e);
       return false;
     }
   }

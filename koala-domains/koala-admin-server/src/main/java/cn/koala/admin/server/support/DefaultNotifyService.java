@@ -1,11 +1,11 @@
 package cn.koala.admin.server.support;
 
+import cn.koala.admin.server.Maintainer;
 import cn.koala.admin.server.Maintenance;
 import cn.koala.admin.server.NotifyService;
 import cn.koala.admin.server.repository.ApplicationRepository;
 import cn.koala.admin.server.repository.MaintainerRepository;
 import cn.koala.admin.server.repository.MaintenanceRepository;
-import cn.koala.admin.server.strategy.FallbackStrategy;
 import cn.koala.admin.server.strategy.NotifyStrategy;
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
@@ -36,11 +36,12 @@ public class DefaultNotifyService implements NotifyService {
   private final MaintainerRepository maintainerRepository;
   private final MaintenanceRepository maintenanceRepository;
   private final Map<String, NotifyStrategy> strategies;
-  private final FallbackStrategy fallbackStrategy;
+  private final String fallbackStrategy;
+  private final Maintainer fallbackMaintainer;
 
   public DefaultNotifyService(ApplicationRepository applicationRepository, MaintainerRepository maintainerRepository,
                               MaintenanceRepository maintenanceRepository, List<NotifyStrategy> strategies,
-                              FallbackStrategy fallbackStrategy) {
+                              String fallbackStrategy, Maintainer fallbackMaintainer) {
     this.applicationRepository = applicationRepository;
     this.maintainerRepository = maintainerRepository;
     this.maintenanceRepository = maintenanceRepository;
@@ -51,6 +52,7 @@ public class DefaultNotifyService implements NotifyService {
       strategies.forEach(this::addStrategy);
     }
     this.fallbackStrategy = fallbackStrategy;
+    this.fallbackMaintainer = fallbackMaintainer;
   }
 
   protected void addStrategy(NotifyStrategy strategy) {
@@ -86,10 +88,15 @@ public class DefaultNotifyService implements NotifyService {
   }
 
   protected boolean fallback(Instance instance, InstanceEvent event) {
-    if (this.fallbackStrategy == null) {
+    if (this.fallbackMaintainer == null) {
+      LOGGER.warn("[koala-admin-server]: 没有备用运维工程师");
+      return false;
+    }
+    NotifyStrategy strategy = this.strategies.get(this.fallbackStrategy);
+    if (strategy == null) {
       LOGGER.warn("[koala-admin-server]: 没有备用运维策略");
       return false;
     }
-    return this.fallbackStrategy.notify(instance, event);
+    return strategy.notify(this.fallbackMaintainer, instance, event);
   }
 }
