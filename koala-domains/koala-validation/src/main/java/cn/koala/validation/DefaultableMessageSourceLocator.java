@@ -1,5 +1,7 @@
 package cn.koala.validation;
 
+import java.util.Arrays;
+
 /**
  * 有默认值的消息源定位器
  * <p>
@@ -7,19 +9,25 @@ package cn.koala.validation;
  *
  * @author Houtaroy
  */
-public class DefaultableMessageSourceLocator extends SimpleMessageSourceLocator {
+public record DefaultableMessageSourceLocator(String... basenames) implements MessageSourceLocator {
 
+  private static final String DEFAULT_PREFIX = "validation.";
   private static final String DEFAULT_SUFFIX = "-default";
 
-  protected final String defaultBasename;
-
-  public DefaultableMessageSourceLocator(String basename) {
-    super(basename);
-    this.defaultBasename = basename + DEFAULT_SUFFIX;
+  public DefaultableMessageSourceLocator(String... basenames) {
+    this.basenames = new String[basenames.length * 2];
+    int current = 0;
+    for (String basename : basenames) {
+      String filename = DEFAULT_PREFIX + basename;
+      this.basenames[current] = filename;
+      current += 1;
+      this.basenames[current] = filename + DEFAULT_SUFFIX;
+      current += 1;
+    }
   }
 
   @Override
-  public String[] getBasenames() {
-    return new String[]{basename, defaultBasename};
+  public String[] basenames() {
+    return Arrays.copyOf(this.basenames, this.basenames.length);
   }
 }

@@ -1,8 +1,11 @@
 package cn.koala.system.apis;
 
+import cn.koala.persist.validator.EditableId;
 import cn.koala.system.Department;
 import cn.koala.system.entities.DepartmentEntity;
 import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.validation.group.Create;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +34,7 @@ import java.util.List;
  */
 @RequestMapping("/api/departments")
 @RestController
+@Validated
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "部门管理")
 public interface DepartmentApi {
@@ -74,7 +79,7 @@ public interface DepartmentApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentResult.class))}
   )
   @PostMapping
-  DataResponse<Department> create(@RequestBody DepartmentEntity entity);
+  DataResponse<Department> create(@Validated(Create.class) @RequestBody DepartmentEntity entity);
 
   /**
    * 更新部门
@@ -90,7 +95,8 @@ public interface DepartmentApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") Long id, @RequestBody DepartmentEntity entity);
+  Response update(@EditableId(Department.class) @PathVariable("id") Long id,
+                  @Validated(Update.class) @RequestBody DepartmentEntity entity);
 
   /**
    * 删除部门
@@ -105,7 +111,7 @@ public interface DepartmentApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@PathVariable("id") Long id);
+  Response delete(@EditableId(Department.class) @PathVariable("id") Long id);
 
   class DepartmentResult extends DataResponse<DepartmentEntity> {
 

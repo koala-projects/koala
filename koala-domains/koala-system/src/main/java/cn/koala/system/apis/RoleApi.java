@@ -1,8 +1,11 @@
 package cn.koala.system.apis;
 
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.persist.validator.EditableId;
 import cn.koala.system.Role;
 import cn.koala.system.entities.RoleEntity;
+import cn.koala.validation.group.Create;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +40,7 @@ import java.util.Map;
  */
 @RequestMapping("/api/roles")
 @RestController
+@Validated
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "角色管理")
 public interface RoleApi {
@@ -52,8 +57,8 @@ public interface RoleApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RolePageResult.class))}
   )
-  @Parameter(in = ParameterIn.QUERY, name = "code", description = "角色代码", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "name", description = "角色名称", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "codeLike", description = "角色代码", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "nameLike", description = "角色名称", schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<Role>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
@@ -86,7 +91,7 @@ public interface RoleApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RoleResult.class))}
   )
   @PostMapping
-  DataResponse<Role> create(@RequestBody RoleEntity entity);
+  DataResponse<Role> create(@Validated(Create.class) @RequestBody RoleEntity entity);
 
   /**
    * 更新角色
@@ -102,7 +107,8 @@ public interface RoleApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") Long id, @RequestBody RoleEntity entity);
+  Response update(@EditableId(Role.class) @PathVariable("id") Long id,
+                  @Validated(Update.class) @RequestBody RoleEntity entity);
 
   /**
    * 删除角色
@@ -117,7 +123,7 @@ public interface RoleApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@PathVariable("id") Long id);
+  Response delete(@EditableId(Role.class) @PathVariable("id") Long id);
 
   /**
    * 根据id查询全选权限id列表

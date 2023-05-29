@@ -1,8 +1,11 @@
 package cn.koala.system.apis;
 
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.persist.validator.EditableId;
 import cn.koala.system.Dictionary;
 import cn.koala.system.entities.DictionaryEntity;
+import cn.koala.validation.group.Create;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +39,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/dictionaries")
+@Validated
 @Tag(name = "字典管理")
 @SecurityRequirement(name = "spring-security")
 public interface DictionaryApi {
@@ -51,8 +56,8 @@ public interface DictionaryApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryPageResult.class))}
   )
-  @Parameter(in = ParameterIn.QUERY, name = "code", description = "字典代码", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "name", description = "字典名称", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "codeLike", description = "字典代码", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "nameLike", description = "字典名称", schema = @Schema(type = "string"))
   @PageableAsQueryParam
   @GetMapping
   DataResponse<Page<Dictionary>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
@@ -85,7 +90,7 @@ public interface DictionaryApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryResult.class))}
   )
   @PostMapping
-  DataResponse<Dictionary> create(@RequestBody DictionaryEntity entity);
+  DataResponse<Dictionary> create(@Validated(Create.class) @RequestBody DictionaryEntity entity);
 
   /**
    * 更新字典
@@ -101,7 +106,8 @@ public interface DictionaryApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典id", schema = @Schema(type = "string"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") Long id, @RequestBody DictionaryEntity entity);
+  Response update(@EditableId(Dictionary.class) @PathVariable("id") Long id,
+                  @Validated(Update.class) @RequestBody DictionaryEntity entity);
 
   /**
    * 删除字典
@@ -116,7 +122,7 @@ public interface DictionaryApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典id", schema = @Schema(type = "string"))
   @DeleteMapping("{id}")
-  Response delete(@PathVariable("id") Long id);
+  Response delete(@EditableId(Dictionary.class) @PathVariable("id") Long id);
 
   class DictionaryPageResult extends DataResponse<Page<DictionaryEntity>> {
 

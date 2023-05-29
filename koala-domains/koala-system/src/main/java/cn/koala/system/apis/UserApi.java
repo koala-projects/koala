@@ -6,6 +6,7 @@ import cn.koala.system.User;
 import cn.koala.system.apis.request.CreateUserRequest;
 import cn.koala.system.entities.UserEntity;
 import cn.koala.validation.group.Create;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -58,8 +59,8 @@ public interface UserApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserPageResult.class))}
   )
-  @Parameter(in = ParameterIn.QUERY, name = "username", description = "用户名", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "nickname", description = "用户昵称", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "usernameLike", description = "用户名", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "nicknameLike", description = "用户昵称", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.QUERY, name = "departmentId", description = "部门ID", schema = @Schema(type = "integer"))
   @PageableAsQueryParam
   @GetMapping
@@ -109,7 +110,8 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(User.class) @PathVariable("id") Long id, @RequestBody UserEntity user);
+  Response update(@EditableId(User.class) @PathVariable("id") Long id,
+                  @Validated(Update.class) @RequestBody UserEntity user);
 
   /**
    * 删除用户

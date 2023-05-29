@@ -1,8 +1,11 @@
 package cn.koala.system.apis;
 
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.persist.validator.EditableId;
 import cn.koala.system.DictionaryItem;
 import cn.koala.system.entities.DictionaryItemEntity;
+import cn.koala.validation.group.Create;
+import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +39,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/dictionary-items")
+@Validated
 @Tag(name = "字典项管理")
 @SecurityRequirement(name = "spring-security")
 public interface DictionaryItemApi {
@@ -86,7 +91,7 @@ public interface DictionaryItemApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemResult.class))}
   )
   @PostMapping
-  DataResponse<DictionaryItem> create(@RequestBody DictionaryItemEntity entity);
+  DataResponse<DictionaryItem> create(@Validated(Create.class) @RequestBody DictionaryItemEntity entity);
 
   /**
    * 更新字典
@@ -102,7 +107,8 @@ public interface DictionaryItemApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典项id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") Long id, @RequestBody DictionaryItemEntity entity);
+  Response update(@EditableId(DictionaryItem.class) @PathVariable("id") Long id,
+                  @Validated(Update.class) @RequestBody DictionaryItemEntity entity);
 
   /**
    * 删除字典
@@ -117,7 +123,7 @@ public interface DictionaryItemApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典项id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@PathVariable("id") Long id);
+  Response delete(@EditableId(DictionaryItem.class) @PathVariable("id") Long id);
 
   class DictionaryItemPageResult extends DataResponse<Page<DictionaryItemEntity>> {
 

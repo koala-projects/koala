@@ -37,10 +37,9 @@ import cn.koala.system.services.SettingServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -48,8 +47,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  * @author Houtaroy
  */
-@Import({OpenApiAutoConfiguration.class})
-@Configuration
+@AutoConfiguration
 @MapperScan(basePackages = "cn.koala.system.repositories")
 public class SystemAutoConfiguration {
   @Bean

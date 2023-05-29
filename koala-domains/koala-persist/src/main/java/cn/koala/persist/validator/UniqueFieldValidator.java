@@ -37,7 +37,7 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
     try {
       Field field = CACHE.getField(value.getClass(), name);
       Object fieldValue = field.get(value);
-      if (isDuplicate(value, fieldValue)) {
+      if (fieldValue != null && isDuplicate(value, fieldValue)) {
         buildErrorMessage(context, field, fieldValue);
         return false;
       }

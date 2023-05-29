@@ -27,7 +27,15 @@
 
   <select id="list" resultType="cn.koala.system.entities.PermissionEntity">
     <include refid="selectPermission"/>
-    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="code != null and code != ''">
+        and t.code = #{code}
+      </if>
+      <if test="name != null and name != ''">
+        and t.name = #{name}
+      </if>
+    </where>
   </select>
 
   <select id="load" resultType="cn.koala.system.entities.PermissionEntity">

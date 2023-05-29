@@ -2,6 +2,8 @@ package cn.koala.system.apis.request;
 
 import cn.koala.system.entities.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Schema(description = "创建用户请求")
 public class CreateUserRequest extends UserEntity {
+
   @Schema(description = "明文密码")
+  @NotBlank(message = "{user.password.not-blank}")
+  @Size(min = 6, max = 20, message = "{user.password.size}")
   private String plainPassword;
 }

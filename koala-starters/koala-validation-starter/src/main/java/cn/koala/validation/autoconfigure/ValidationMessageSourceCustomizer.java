@@ -19,13 +19,13 @@ public class ValidationMessageSourceCustomizer implements ValidationConfiguratio
 
   protected final String[] basenames;
 
-  public ValidationMessageSourceCustomizer(String...basenames) {
+  public ValidationMessageSourceCustomizer(String... basenames) {
     this.basenames = basenames;
   }
 
   public ValidationMessageSourceCustomizer(List<MessageSourceLocator> locators) {
     this(locators.stream()
-      .flatMap(locator -> Arrays.stream(locator.getBasenames()))
+      .flatMap(locator -> Arrays.stream(locator.basenames()))
       .toArray(String[]::new));
   }
 

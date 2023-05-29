@@ -25,10 +25,16 @@
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
       <if test="code != null and code != ''">
-        and t.code like concat(#{code}, '%')
+        and t.code = #{code}
+      </if>
+      <if test="codeLike != null and codeLike != ''">
+        and t.code like concat(#{codeLike}, '%')
       </if>
       <if test="name != null and name != ''">
-        and t.name like concat(#{name}, '%')
+        and t.name = #{name}
+      </if>
+      <if test="nameLike != null and nameLike != ''">
+        and t.name like concat(#{nameLike}, '%')
       </if>
     </where>
   </select>

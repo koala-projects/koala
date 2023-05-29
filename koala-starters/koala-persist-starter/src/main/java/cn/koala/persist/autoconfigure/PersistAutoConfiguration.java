@@ -32,6 +32,6 @@ public class PersistAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean(name = "persistMessageSourceLocator")
   public MessageSourceLocator persistMessageSourceLocator() {
-    return new DefaultableMessageSourceLocator("validation.persist");
+    return new DefaultableMessageSourceLocator("persist");
   }
 }

@@ -18,7 +18,7 @@ public class SimpleMessageSourceLocator implements MessageSourceLocator {
   }
 
   @Override
-  public String[] getBasenames() {
+  public String[] basenames() {
     return new String[]{basename};
   }
 }

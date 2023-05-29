@@ -6,5 +6,5 @@ package cn.koala.validation;
  * @author Houtaroy
  */
 public interface MessageSourceLocator {
-  String[] getBasenames();
+  String[] basenames();
 }

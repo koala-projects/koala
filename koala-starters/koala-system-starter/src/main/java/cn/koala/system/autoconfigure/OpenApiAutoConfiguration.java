@@ -6,11 +6,13 @@ import io.swagger.v3.oas.models.security.OAuthFlow;
 import io.swagger.v3.oas.models.security.OAuthFlows;
 import io.swagger.v3.oas.models.security.Scopes;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author Houtaroy
  */
+@AutoConfiguration
 public class OpenApiAutoConfiguration {
   /**
    * OpenApi安全配置的bean

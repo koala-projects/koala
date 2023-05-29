@@ -36,7 +36,7 @@ public class DatabaseAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean(name = "databaseMessageSourceLocator")
   public MessageSourceLocator databaseMessageSourceLocator() {
-    return new DefaultableMessageSourceLocator("validation.database");
+    return new DefaultableMessageSourceLocator("database");
   }
 
   @Bean

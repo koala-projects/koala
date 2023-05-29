@@ -22,7 +22,12 @@
 
   <select id="list" resultType="cn.koala.system.entities.DepartmentEntity">
     <include refid="selectDepartment"/>
-    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="name != null and name != ''">
+        and t.name = #{name}
+      </if>
+    </where>
   </select>
 
   <select id="load" resultType="cn.koala.system.entities.DepartmentEntity">
