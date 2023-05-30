@@ -10,29 +10,33 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/koala_demo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: koala_demo
     password: koala_demo
-    druid:
-      initial-size: 5
-      min-idle: 5
-      max-wait: 60000
-      max-active: 20
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 1
-      test-while-idle: true
-      test-on-borrow: true
-      test-on-return: false
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
-      stat-view-servlet:
-        enabled: true
-        allow: 127.0.0.1
-        login-username: koala
-        login-password: koala
-        reset-enable: true
-      web-stat-filter:
-        enabled: true
-        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
-      aop-patterns: cn.koala*
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-test-query: SELECT 1
+  #    druid:
+  #      initial-size: 5
+  #      min-idle: 5
+  #      max-wait: 60000
+  #      max-active: 20
+  #      time-between-eviction-runs-millis: 60000
+  #      min-evictable-idle-time-millis: 300000
+  #      validation-query: SELECT 1
+  #      test-while-idle: true
+  #      test-on-borrow: true
+  #      test-on-return: false
+  #      pool-prepared-statements: true
+  #      max-pool-prepared-statement-per-connection-size: 20
+  #      stat-view-servlet:
+  #        enabled: true
+  #        allow: 127.0.0.1
+  #        login-username: koala
+  #        login-password: koala
+  #        reset-enable: true
+  #      web-stat-filter:
+  #        enabled: true
+  #        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+  #      aop-patterns: cn.koala*
   jackson:
     serialization:
       write-dates-as-timestamps: true

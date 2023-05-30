@@ -16,7 +16,7 @@
 
   <properties>
     <!--Spring相关-->
-    <spring-boot.version>3.0.6</spring-boot.version>
+    <spring-boot.version>3.0.7</spring-boot.version>
     <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
     <springdoc-openapi-starter.version>2.1.0</springdoc-openapi-starter.version>
     <spring-security-oauth2-authorization-server.version>1.0.2</spring-security-oauth2-authorization-server.version>
@@ -27,18 +27,18 @@
     <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
     <!--其他依赖-->
     <commons-compress.version>1.23.0</commons-compress.version>
-    <commons-io.version>2.11.0</commons-io.version>
+    <commons-io.version>2.12.0</commons-io.version>
     <enjoy.version>5.0.3</enjoy.version>
     <groovy.version>4.0.12</groovy.version>
-    <guava.version>31.1-jre</guava.version>
+    <guava.version>32.0.0-jre</guava.version>
     <junit.version>5.8.2</junit.version>
-    <minio.version>8.5.2</minio.version>
+    <minio.version>8.5.3</minio.version>
     <powerjob.version>4.3.2</powerjob.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
     <slf4j.version>2.0.7</slf4j.version>
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
     <druid-spring-boot-starter.version>1.2.17</druid-spring-boot-starter.version>
-    <oauth2-oidc-sdk.version>10.8</oauth2-oidc-sdk.version>
+    <oauth2-oidc-sdk.version>10.9.1</oauth2-oidc-sdk.version>
     <wxjava.version>4.5.0</wxjava.version>
     <!--maven-->
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
@@ -106,14 +106,14 @@
         <version>${mybatis.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper</artifactId>
-        <version>${pagehelper.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
         <version>${mybatis-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>${pagehelper.version}</version>
       </dependency>
       <dependency>
         <groupId>com.github.pagehelper</groupId>
