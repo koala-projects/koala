@@ -24,6 +24,30 @@
     from k_user t
   </sql>
 
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.id asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+    <if test="order.property == 'nickname'">
+      t.nickname
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdTime'">
+      t.created_time
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
   <select id="list" resultType="cn.koala.system.entities.UserEntity">
     <include refid="selectUser"/>
     <if test="departmentId != null and departmentId != ''">
@@ -47,6 +71,7 @@
         and ud.department_id = #{departmentId}
       </if>
     </where>
+    <include refid="orderBy"/>
   </select>
 
   <select id="load" resultType="cn.koala.system.entities.UserEntity">
