@@ -74,8 +74,6 @@ springdoc:
     doc-expansion: none
 
 koala:
-  attachment:
-    root: D:\Temp\koala\attachment
   code:
     download-path: D:\Temp\koala\code\
   log:
