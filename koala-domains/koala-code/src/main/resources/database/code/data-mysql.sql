@@ -8,11 +8,12 @@ insert into t_template_group(id, name, remark, is_systemic)
 values (1, '考拉代码', '考拉代码生成模板', 1);
 
 insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (1, 'api/Api.java', '接口代码模板', 'package #(package).apis;
+values (1, 'api/Api.java', '接口代码模板', 'package #(package).api;
 
 import #(package).entities.#(name)Entity;
 
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.persist.validator.EditableId;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -27,8 +28,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +49,8 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/#(api.path)")
-@Tag(name = "#(description)")
 @SecurityRequirement(name = "spring-security")
+@Tag(name = "#(description)")
 public interface #(name)Api {
 
   /**
@@ -115,7 +116,8 @@ public interface #(name)Api {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
   @PutMapping("{id}")
-  Response update(@PathVariable("id") #(entity.properties.id.type) id, @Validated(Update.class) @RequestBody #(name)Entity entity);
+  Response update(@EditableId(#(name)Entity.class) @PathVariable("id") #(entity.properties.id.type) id,
+                  @Validated(Update.class) @RequestBody #(name)Entity entity);
 
   /**
    * 删除#(description)
@@ -130,7 +132,7 @@ public interface #(name)Api {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
   @DeleteMapping("{id}")
-  Response delete(@PathVariable("id") #(entity.properties.id.type) id);
+  Response delete(@EditableId(#(name)Entity.class) @PathVariable("id") #(entity.properties.id.type) id);
 
   class #(name)PageResult extends DataResponse<Page<#(name)Entity>> {
 
@@ -141,7 +143,7 @@ public interface #(name)Api {
   }
 }
 ', 1, 1),
-       (2, 'api/ApiImpl.java', '接口实现类代码模板', 'package #(package).apis;
+       (2, 'api/ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
 
 import #(package).entities.#(name)Entity;
 import #(package).services.#(name)Service;
@@ -196,7 +198,7 @@ public class #(name)ApiImpl implements #(name)Api {
   }
 }
 ', 1, 1),
-       (3, 'entity/Entity.java', '数据实体类代码模板', 'package #(package).entities;
+       (3, 'entity/Entity.java', '数据实体类代码模板', 'package #(package).entity;
 
 #for(import: entity.imports)
 import #(import);
@@ -228,7 +230,7 @@ public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#
 #end
 }
 ', 1, 1),
-       (4, 'service/Service.java', '服务类代码模板', 'package #(package).services;
+       (4, 'service/Service.java', '服务类代码模板', 'package #(package).service;
 
 import #(package).#(name)Entity;
 import #(package).#(name)Repository;
@@ -251,7 +253,7 @@ public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(enti
   }
 }
 ', 1, 1),
-       (5, 'repository/Repository.java', '仓库接口代码模板', 'package #(package).repositories;
+       (5, 'repository/Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
 import #(package).#(name)Entity;
 
@@ -343,7 +345,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 #end
 #end
     </trim>
-    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id=#{id}
+    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
   </update>
 
 #if(mybatis.isStateful())
