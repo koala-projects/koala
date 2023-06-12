@@ -37,18 +37,18 @@ public interface UserApi {
 
 在实际业务中, 可能会出现同一数据实体, 在新增和更新时的校验内容不同的情况
 
-模块内置了两个分组接口`Add`和`Update`, 以新增为例:
+模块内置了两个分组接口`Create`和`Update`, 以新增为例:
 
 ```java
 public class UserEntity {
     
-  @NotBlank(message = "用户名不能为空", groups = Add.class)
+  @NotBlank(message = "用户名不能为空", groups = Create.class)
   protected String name;
 }
 
 public interface UserApi {
   @PostMapping
-  DataResponse<User> add(@Validated(Add.class) @RequestBody UserEntity entity);
+  DataResponse<User> add(@Validated(Create.class) @RequestBody UserEntity entity);
 }
 ```
 
@@ -61,7 +61,7 @@ public interface UserApi {
 ```java
 public class UserEntity {
     
-  @NotBlank(message = "{user.name.not-blank}", groups = Add.class)
+  @NotBlank(message = "{user.name.not-blank}", groups = Create.class)
   protected String name;
 }
 ```
