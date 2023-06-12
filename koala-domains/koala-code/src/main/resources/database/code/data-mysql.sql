@@ -10,7 +10,7 @@ values (1, '考拉代码', '考拉代码生成模板', 1);
 insert into t_template(id, name, remark, content, group_id, is_systemic)
 values (1, 'api/Api.java', '接口代码模板', 'package #(package).api;
 
-import #(package).entities.#(name)Entity;
+import #(package).entity.#(name)Entity;
 
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.persist.validator.EditableId;
@@ -145,8 +145,8 @@ public interface #(name)Api {
 ', 1, 1),
        (2, 'api/ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
 
-import #(package).entities.#(name)Entity;
-import #(package).services.#(name)Service;
+import #(package).entity.#(name)Entity;
+import #(package).service.#(name)Service;
 
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -170,12 +170,12 @@ public class #(name)ApiImpl implements #(name)Api {
 
   @Override
   public DataResponse<Page<#(name)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
-    return DataResponse.ok(service.read(parameters, pageable));
+    return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
   public DataResponse<#(name)Entity> load(#(entity.properties.id.type) id) {
-    return DataResponse.ok(service.read(id));
+    return DataResponse.ok(service.load(id));
   }
 
   @Override
@@ -232,8 +232,8 @@ public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#
 ', 1, 1),
        (4, 'service/Service.java', '服务类代码模板', 'package #(package).service;
 
-import #(package).#(name)Entity;
-import #(package).#(name)Repository;
+import #(package).entity.#(name)Entity;
+import #(package).repository.#(name)Repository;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 
@@ -251,11 +251,10 @@ public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(enti
   public #(name)Service(#(name)Repository repository) {
     super(repository);
   }
-}
-', 1, 1),
+}', 1, 1),
        (5, 'repository/Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
-import #(package).#(name)Entity;
+import #(package).entity.#(name)Entity;
 
 import cn.koala.persist.CrudRepository;
 
@@ -270,7 +269,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
        (6, 'mapper/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="#(package).repositories.#(name)Repository">
+<mapper namespace="#(package).repository.#(name)Repository">
 
   <sql id="select#(name)">
     select
@@ -305,7 +304,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 #end
   </sql>
 
-  <select id="list" resultType="#(package).entities.#(name)Entity">
+  <select id="list" resultType="#(package).entity.#(name)Entity">
     <include refid="select#(name)"/>
     <where>
 #if(mybatis.isStateful())
@@ -322,12 +321,12 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 	<include refid="orderBy"/>
   </select>
 
-  <select id="load" resultType="#(package).entities.#(name)Entity">
+  <select id="load" resultType="#(package).entity.#(name)Entity">
     <include refid="select#(name)"/>
     where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>
 
-  <insert id="create" parameterType="#(package).entities.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="#(package).entity.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
     insert into #(table.name)
 	value (
 #for(column: mybatis.columns)
@@ -336,7 +335,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
     )
   </insert>
 
-  <update id="update" parameterType="#(package).entities.#(name)Entity">
+  <update id="update" parameterType="#(package).entity.#(name)Entity">
     update #(table.name)
     <trim prefix="set" suffixOverrides=",">
 #for(column: mybatis.columns)
@@ -349,7 +348,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
   </update>
 
 #if(mybatis.isStateful())
-  <update id="delete" parameterType="#(package).entities.#(name)Entity">
+  <update id="delete" parameterType="#(package).entity.#(name)Entity">
     update #(table.name)
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
 #if(mybatis.isAuditable())
@@ -359,7 +358,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
     where id = #{id}
   </update>
 #else
-  <delete id="delete" parameterType="#(package).entities.#(name)Entity">
+  <delete id="delete" parameterType="#(package).entity.#(name)Entity">
     delete from #(table.name) where id = #{id}
   </delete>
 #end

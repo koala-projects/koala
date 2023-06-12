@@ -22,7 +22,7 @@ public class SizeValidationConverter extends AbstractSizeValidationConverter {
       .name("Size")
       .parameters(Map.of("max", column.getSize()))
       .message("%s长度不能大于%d".formatted(column.getRemarks(), column.getSize()))
-      .groups(List.of("Add"))
+      .groups(List.of("Create"))
       .build();
   }
 }

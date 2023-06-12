@@ -24,7 +24,7 @@ public class DigitsValidationConverter extends AbstractSizeValidationConverter {
       .message(
         "%s必须为小数，整数为%d位，小数为%d位".formatted(column.getRemarks(), column.getSize(), column.getDecimalDigits())
       )
-      .groups(List.of("Add"))
+      .groups(List.of("Create"))
       .build();
   }
 }

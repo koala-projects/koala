@@ -23,7 +23,7 @@ public class MaxValidationConverter extends AbstractSizeValidationConverter {
       .name("Max")
       .parameters(Map.of("value", value))
       .message("%s最大值不能大于%d".formatted(column.getRemarks(), value))
-      .groups(List.of("Add"))
+      .groups(List.of("Create"))
       .build();
   }
 

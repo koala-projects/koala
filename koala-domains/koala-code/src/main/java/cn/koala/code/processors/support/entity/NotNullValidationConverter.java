@@ -19,7 +19,7 @@ public class NotNullValidationConverter implements EntityValidationConverter {
       .name(determineName(column.getType()))
       .parameters(Map.of())
       .message("%s不允许为空".formatted(column.getRemarks()))
-      .groups(List.of("Add"))
+      .groups(List.of("Create"))
       .build();
   }
 
