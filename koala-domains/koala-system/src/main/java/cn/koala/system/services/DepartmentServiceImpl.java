@@ -5,6 +5,8 @@ import cn.koala.system.Department;
 import cn.koala.system.repositories.DepartmentRepository;
 import cn.koala.toolkit.tree.TreeHelper;
 import cn.koala.toolkit.tree.TreeNode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
@@ -14,10 +16,11 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Getter
+@RequiredArgsConstructor
 public class DepartmentServiceImpl extends AbstractMyBatisService<Department, Long> implements DepartmentService {
-  public DepartmentServiceImpl(DepartmentRepository repository) {
-    super(repository);
-  }
+
+  protected final DepartmentRepository repository;
 
   @Override
   public List<TreeNode> tree() {

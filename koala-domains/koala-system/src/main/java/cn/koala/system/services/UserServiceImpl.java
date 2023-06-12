@@ -3,6 +3,8 @@ package cn.koala.system.services;
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.User;
 import cn.koala.system.repositories.UserRepository;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -11,34 +13,29 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@RequiredArgsConstructor
+@Getter
 public class UserServiceImpl extends AbstractMyBatisService<User, Long> implements UserService {
 
-  /**
-   * 用户服务实现类构造函数
-   *
-   * @param repository 用户仓库接口
-   */
-  public UserServiceImpl(UserRepository repository) {
-    super(repository);
-  }
+  protected final UserRepository repository;
 
   @Override
   public List<Long> getRoleIds(Long id) {
-    return ((UserRepository) repository).findAllRoleIdById(id);
+    return repository.findAllRoleIdById(id);
   }
 
   @Override
   public void setRoleIds(Long id, List<Long> roleIds) {
-    ((UserRepository) repository).updateRoleIdById(id, roleIds);
+    repository.updateRoleIdById(id, roleIds);
   }
 
   @Override
   public List<Long> getDepartmentIds(Long id) {
-    return ((UserRepository) repository).findAllDepartmentIdById(id);
+    return repository.findAllDepartmentIdById(id);
   }
 
   @Override
   public void setDepartmentIds(Long id, List<Long> departmentIds) {
-    ((UserRepository) repository).updateDepartmentIdById(id, departmentIds);
+    repository.updateDepartmentIdById(id, departmentIds);
   }
 }

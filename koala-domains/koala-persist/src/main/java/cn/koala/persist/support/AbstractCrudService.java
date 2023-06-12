@@ -5,7 +5,6 @@ import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudType;
 import cn.koala.persist.listener.EntityListenAction;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -20,14 +19,11 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
-
-  protected final CrudRepository<T, ID> repository;
 
   @Override
   public List<T> list(Map<String, Object> parameters) {
-    return repository.list(parameters);
+    return getRepository().list(parameters);
   }
 
   @Override
@@ -52,24 +48,26 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
 
   @Override
   public T load(ID id) {
-    return repository.load(id).orElse(null);
+    return getRepository().load(id).orElse(null);
   }
 
   @Override
   @EntityListenAction(CrudType.CREATE)
   public <S extends T> void create(@NonNull S entity) {
-    repository.create(entity);
+    getRepository().create(entity);
   }
 
   @Override
   @EntityListenAction(CrudType.UPDATE)
   public <S extends T> void update(@NonNull S entity) {
-    repository.update(entity);
+    getRepository().update(entity);
   }
 
   @Override
   @EntityListenAction(CrudType.DELETE)
   public <S extends T> void delete(@NonNull S entity) {
-    repository.delete(entity);
+    getRepository().delete(entity);
   }
+
+  protected abstract CrudRepository<T, ID> getRepository();
 }

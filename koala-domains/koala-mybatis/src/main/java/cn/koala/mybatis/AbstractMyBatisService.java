@@ -1,6 +1,5 @@
 package cn.koala.mybatis;
 
-import cn.koala.persist.CrudRepository;
 import cn.koala.persist.support.AbstractCrudService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.data.domain.Page;
@@ -18,16 +17,12 @@ import java.util.Map;
  */
 public abstract class AbstractMyBatisService<T, ID> extends AbstractCrudService<T, ID> {
 
-  public AbstractMyBatisService(CrudRepository<T, ID> repository) {
-    super(repository);
-  }
-
   @Override
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
     parameters.put("orders", pageable.getSort().toList());
     com.github.pagehelper.Page<T> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
-      .doSelectPage(() -> repository.list(parameters));
+      .doSelectPage(() -> getRepository().list(parameters));
     return new PageImpl<>(page.getResult(), pageable, page.getTotal());
   }
 }

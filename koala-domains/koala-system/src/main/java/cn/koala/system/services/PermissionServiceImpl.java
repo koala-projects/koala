@@ -5,6 +5,8 @@ import cn.koala.system.Permission;
 import cn.koala.system.repositories.PermissionRepository;
 import cn.koala.toolkit.tree.TreeHelper;
 import cn.koala.toolkit.tree.TreeNode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
@@ -14,10 +16,11 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@RequiredArgsConstructor
+@Getter
 public class PermissionServiceImpl extends AbstractMyBatisService<Permission, Long> implements PermissionService {
-  public PermissionServiceImpl(PermissionRepository repository) {
-    super(repository);
-  }
+
+  protected final PermissionRepository repository;
 
   @Override
   public List<TreeNode> tree() {

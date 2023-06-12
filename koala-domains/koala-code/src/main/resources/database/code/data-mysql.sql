@@ -236,22 +236,21 @@ import #(package).entity.#(name)Entity;
 import #(package).repository.#(name)Repository;
 
 import cn.koala.mybatis.AbstractMyBatisService;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * #(description)服务类
  *
  * @author Koala Code Generator
  */
+@RequiredArgsConstructor
+@Getter
 public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(entity.properties.id.type)> {
-  /**
-   * 构造函数
-   *
-   * @param repository 仓库接口
-   */
-  public #(name)Service(#(name)Repository repository) {
-    super(repository);
-  }
-}', 1, 1),
+
+  protected final #(name)Repository repository;
+}
+', 1, 1),
        (5, 'repository/Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
 import #(package).entity.#(name)Entity;
