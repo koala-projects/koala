@@ -1,6 +1,6 @@
 package cn.koala.security;
 
-import cn.koala.security.entities.UserDetailsImpl;
+import cn.koala.security.userdetails.support.KoalaUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -28,7 +28,7 @@ public abstract class SpringSecurityHelper {
   }
 
   private static UserDetails principal2UserDetails(OAuth2AuthenticatedPrincipal principal) {
-    return UserDetailsImpl.builder()
+    return KoalaUser.builder()
       .id(Long.valueOf(Objects.requireNonNull(principal.getAttribute("id"))))
       .username(principal.getAttribute("username"))
       .nickname(principal.getAttribute("nickname"))

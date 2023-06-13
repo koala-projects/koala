@@ -1,8 +1,8 @@
 package cn.koala.security.services;
 
 import cn.koala.security.SpringSecurityHelper;
-import cn.koala.security.entities.UserDetailsImpl;
-import cn.koala.security.repositories.UserDetailsRepository;
+import cn.koala.security.userdetails.repository.UserDetailsRepository;
+import cn.koala.security.userdetails.support.KoalaUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +30,7 @@ public class UserinfoServiceImpl implements UserinfoService {
   }
 
   protected UserDetails cleanPassword(UserDetails userDetails) {
-    if (userDetails instanceof UserDetailsImpl impl) {
+    if (userDetails instanceof KoalaUser impl) {
       impl.setPassword(null);
     }
     return userDetails;

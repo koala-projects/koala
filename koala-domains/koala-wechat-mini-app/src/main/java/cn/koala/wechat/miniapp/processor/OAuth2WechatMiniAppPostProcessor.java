@@ -1,7 +1,7 @@
 package cn.koala.wechat.miniapp.processor;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.koala.security.builder.processor.AuthorizationServerProcessor;
+import cn.koala.security.authentication.builder.processor.AuthorizationServerProcessor;
 import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.authentication.OAuth2WechatMiniAppAuthenticationConverter;
 import cn.koala.wechat.miniapp.authentication.OAuth2WechatMiniAppAuthenticationProvider;

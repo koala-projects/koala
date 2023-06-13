@@ -1,16 +1,13 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.security.JwtProperties;
-import cn.koala.security.SecurityInitializer;
-import cn.koala.security.SecurityProperties;
 import cn.koala.security.SpringSecurityExceptionHandler;
 import cn.koala.security.apis.LoginController;
 import cn.koala.security.apis.UserinfoApi;
 import cn.koala.security.apis.UserinfoApiImpl;
 import cn.koala.security.persist.SpringSecurityAuditorAware;
-import cn.koala.security.repositories.UserDetailsRepository;
 import cn.koala.security.services.UserinfoService;
 import cn.koala.security.services.UserinfoServiceImpl;
+import cn.koala.security.userdetails.repository.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,8 +25,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Houtaroy
  */
 @EnableConfigurationProperties({JwtProperties.class, SecurityProperties.class})
-@Import({AuthorizationServerAutoConfiguration.class, ResourceServerAutoConfiguration.class})
-@MapperScan("cn.koala.security.repositories")
+@Import({AuthorizationServerAutoConfiguration.class, DefaultSecurityAutoConfiguration.class})
+@MapperScan("cn.koala.security.userdetails.repository")
 @Configuration
 @RequiredArgsConstructor
 public class SecurityAutoConfiguration {

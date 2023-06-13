@@ -1,6 +1,6 @@
 package cn.koala.security.apis;
 
-import cn.koala.security.entities.UserDetailsImpl;
+import cn.koala.security.userdetails.support.KoalaUser;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,7 +52,7 @@ public interface UserinfoApi {
   Response update(@RequestBody ChangePasswordRequest request);
 
   @Schema(description = "用户信息结果")
-  class UserinfoResult extends DataResponse<UserDetailsImpl> {
+  class UserinfoResult extends DataResponse<KoalaUser> {
 
   }
 }
