@@ -1,19 +1,19 @@
-package cn.koala.security.authentication.token;
+package cn.koala.security.authentication.token.support;
 
+import cn.koala.security.authentication.token.JwtOAuth2TokenCustomizer;
 import cn.koala.security.userdetails.support.KoalaUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
 /**
- * Jwt AccessToken 自定义器
+ * 用户认证的Jwt AccessToken 自定义器
  *
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class JwtAccessTokenCustomizer implements OAuth2TokenCustomizer<JwtEncodingContext> {
+public class UserAuthenticationAccessTokenCustomizer implements JwtOAuth2TokenCustomizer {
 
   @Override
   public void customize(JwtEncodingContext context) {

@@ -8,7 +8,10 @@ import cn.koala.security.authentication.builder.support.DefaultAuthorizationServ
 import cn.koala.security.authentication.client.RegisteredClientRegistrar;
 import cn.koala.security.authentication.client.support.CompositeRegisteredClientRegistrar;
 import cn.koala.security.authentication.client.support.DefaultRegisteredClientRegistrar;
-import cn.koala.security.authentication.token.JwtAccessTokenCustomizer;
+import cn.koala.security.authentication.token.CompositeJwtOAuth2TokenCustomizer;
+import cn.koala.security.authentication.token.JwtOAuth2TokenCustomizer;
+import cn.koala.security.authentication.token.support.ClaimGrantTypeAccessTokenCustomizer;
+import cn.koala.security.authentication.token.support.UserAuthenticationAccessTokenCustomizer;
 import cn.koala.security.userdetails.support.KoalaUser;
 import cn.koala.security.userdetails.support.KoalaUserMixin;
 import com.fasterxml.jackson.databind.Module;
@@ -110,8 +113,20 @@ public class AuthorizationServerAutoConfiguration {
   }
 
   @Bean
-  public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
-    return new JwtAccessTokenCustomizer();
+  @ConditionalOnMissingBean(name = "claimGrantTypeAccessTokenCustomizer")
+  public ClaimGrantTypeAccessTokenCustomizer claimGrantTypeAccessTokenCustomizer() {
+    return new ClaimGrantTypeAccessTokenCustomizer();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "userAuthenticationAccessTokenCustomizer")
+  public UserAuthenticationAccessTokenCustomizer userAuthenticationAccessTokenCustomizer() {
+    return new UserAuthenticationAccessTokenCustomizer();
+  }
+
+  @Bean
+  public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer(List<JwtOAuth2TokenCustomizer> customizers) {
+    return new CompositeJwtOAuth2TokenCustomizer(customizers);
   }
 
   @Bean

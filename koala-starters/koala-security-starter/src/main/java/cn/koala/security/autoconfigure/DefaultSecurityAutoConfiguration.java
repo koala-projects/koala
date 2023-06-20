@@ -6,7 +6,10 @@ import cn.koala.security.authentication.builder.processor.support.LogoutSuccessH
 import cn.koala.security.authentication.builder.processor.support.OAuth2ResourceServerProcessor;
 import cn.koala.security.authentication.builder.processor.support.PermitAllProcessor;
 import cn.koala.security.authentication.builder.support.DefaultResourceServerBuilder;
+import cn.koala.security.introspection.AuthorityExtractor;
 import cn.koala.security.introspection.AuthorityOpaqueTokenIntrospector;
+import cn.koala.security.introspection.support.CompositeAuthorityExtractor;
+import cn.koala.security.introspection.support.UserAuthenticationAuthorityExtractor;
 import cn.koala.security.userdetails.CacheableUserDetailsService;
 import cn.koala.security.userdetails.repository.UserDetailsRepository;
 import cn.koala.security.userdetails.support.DefaultUserDetailsService;
@@ -48,13 +51,24 @@ public class DefaultSecurityAutoConfiguration {
   }
 
   @Bean
-  public OpaqueTokenIntrospector introspector(OAuth2ResourceServerProperties properties, CacheableUserDetailsService userDetailsService) {
+  @ConditionalOnMissingBean(name = "userAuthenticationAuthorityExtractor")
+  public UserAuthenticationAuthorityExtractor userAuthenticationAuthorityExtractor(CacheableUserDetailsService userDetailsService) {
+    return new UserAuthenticationAuthorityExtractor(userDetailsService);
+  }
+
+  @Bean
+  public CompositeAuthorityExtractor authorityExtractor(List<AuthorityExtractor> extractors) {
+    return new CompositeAuthorityExtractor(extractors);
+  }
+
+  @Bean
+  public OpaqueTokenIntrospector introspector(OAuth2ResourceServerProperties properties, CompositeAuthorityExtractor extractor) {
     OAuth2ResourceServerProperties.Opaquetoken opaquetoken = properties.getOpaquetoken();
     return new AuthorityOpaqueTokenIntrospector(
       opaquetoken.getIntrospectionUri(),
       opaquetoken.getClientId(),
       opaquetoken.getClientSecret(),
-      userDetailsService
+      extractor
     );
   }
 
