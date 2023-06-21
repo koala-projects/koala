@@ -40,7 +40,7 @@ SQL语句写法参照[NamedParameterJdbcTemplate](https://docs.spring.io/spring-
 调用执行查询接口, 传递参数:
 
 ```http
-GET http://localhost:4200/api/queries/1?name=性别
+GET http://localhost:4200/api/queries/1/execute?name=性别
 ```
 
 ## 进阶
