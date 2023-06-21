@@ -274,6 +274,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-query</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-toolkit</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -346,6 +351,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-powerjob-worker-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-query-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
