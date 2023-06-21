@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
- * TODO: 修改类描述
+ * 查询自动配置类
  *
  * @author Houtaroy
  */
