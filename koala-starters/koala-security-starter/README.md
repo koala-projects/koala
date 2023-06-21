@@ -94,6 +94,48 @@ public class MyAuthorizationServerPostProcessor implements AuthorizationServerPo
 }
 ```
 
+### Token定制器
+
+模块使用 Json Web Token 作为令牌, 可通过实现`JwtOAuth2TokenCustomizer`接口对 token 进行定制:
+
+```java
+public class MyTokenCustomizer implements JwtOAuth2TokenCustomizer {
+
+  @Override
+  public void customize(JwtEncodingContext context) {
+    // 定制逻辑...
+  }
+}
+```
+
+模块内置了如下定制器:
+
+- `ClaimGrantTypeAccessTokenCustomizer`: 授权类型定制器, 在 token 中增加授权类型属性`grant_type`
+- `UserAuthenticationAccessTokenCustomizer`: 用户认证定制器, 在token中增加部分用户属性信息
+
+### 权限提取器
+
+模块默认使用内省令牌, 可通过实现`AuthorityExtractor`接口自定义权限提取逻辑:
+
+```java
+public class MyAuthorityExtractor implements AuthorityExtractor {
+
+  @Override
+  public boolean support(OAuth2AuthenticatedPrincipal principal) {
+    // 判断提取器是否支持当前认证信息逻辑...
+  }
+    
+  @Override
+  public Collection<GrantedAuthority> extract(OAuth2AuthenticatedPrincipal principal) {
+    // 提取权限逻辑...
+  }
+}
+```
+
+模块内置了如下提取器:
+
+- `UserAuthenticationAuthorityExtractor`: 用户认证权限提取器, 根据认证信息中的用户信息, 提取用户权限
+
 ### 注册客户端
 
 模块会自动创建一个id为`koala-admin`的注册客户端
