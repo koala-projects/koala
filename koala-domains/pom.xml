@@ -19,6 +19,7 @@
     <module>koala-attachment</module>
     <module>koala-cache</module>
     <module>koala-code</module>
+    <module>koala-data-source</module>
     <module>koala-database</module>
     <module>koala-log</module>
     <module>koala-mybatis</module>

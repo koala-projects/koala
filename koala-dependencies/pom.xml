@@ -32,6 +32,7 @@
     <groovy.version>4.0.12</groovy.version>
     <guava.version>32.0.0-jre</guava.version>
     <junit.version>5.8.2</junit.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
     <minio.version>8.5.3</minio.version>
     <powerjob.version>4.3.2</powerjob.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
@@ -147,6 +148,16 @@
         <version>${guava.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct-processor</artifactId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+      <dependency>
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>${minio.version}</version>
@@ -220,6 +231,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-code</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-data-source</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -321,6 +337,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-code-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-data-source-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
