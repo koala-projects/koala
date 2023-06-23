@@ -9,10 +9,10 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
-  public static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<>();
+  public static final ThreadLocal<String> KEY_HOLDER = new ThreadLocal<>();
 
   @Override
   protected String determineCurrentLookupKey() {
-    return CONTEXT_HOLDER.get();
+    return KEY_HOLDER.get();
   }
 }

@@ -111,6 +111,7 @@ mvn archetype:generate ^
 | [koala-attachment-starter](../../koala-starters/koala-attachment-starter) | 提供了附件上传和下载功能                           |
 | [koala-cache-starter](../../koala-starters/koala-cache-starter) | 快速集成Redis缓存, 抽象了缓存条件配置              |
 | [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                 |
+| [koala-data-source-starter](../../koala-starters/koala-data-source-starter) | 提供了动态切换多数据源的功能                       |
 | [koala-database-starter](../../koala-starters/koala-database-starter) | 提供了数据库管理功能                               |
 | [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                 |
 | [koala-minio-starter](../../koala-starters/koala-minio-starter) | 快速集成MinIO对象存储, 自动注入操作客户端          |
