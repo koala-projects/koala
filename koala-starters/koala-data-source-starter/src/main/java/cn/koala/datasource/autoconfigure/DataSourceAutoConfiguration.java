@@ -1,6 +1,7 @@
 package cn.koala.datasource.autoconfigure;
 
 import cn.koala.datasource.DynamicDataSource;
+import cn.koala.datasource.DynamicDataSourceAspect;
 import cn.koala.datasource.DynamicDataSourceFactory;
 import cn.koala.datasource.support.HikariDynamicDataSourceFactory;
 import cn.koala.datasource.support.TomcatDynamicDataSourceFactory;
@@ -61,5 +62,10 @@ public class DataSourceAutoConfiguration {
     routingDataSource.setTargetDataSources(targetDataSources);
     routingDataSource.setDefaultTargetDataSource(defaultDataSource);
     return routingDataSource;
+  }
+  
+  @Bean
+  public DynamicDataSourceAspect dynamicDataSourceAspect() {
+    return new DynamicDataSourceAspect();
   }
 }
