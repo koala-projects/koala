@@ -1,6 +1,5 @@
 package cn.koala.datasource;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -13,7 +12,7 @@ import org.springframework.util.StringUtils;
  */
 @Aspect
 public class DynamicDataSourceAspect {
-
+  
   private static final ThreadLocal<String> DEFAULT_KEY = new ThreadLocal<>();
 
   @Before(value = "@annotation(key)")
