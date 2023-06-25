@@ -50,7 +50,7 @@ public class LogAspect {
   private final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
   @Before(value = "@annotation(log)")
-  public void before(JoinPoint joinPoint, Log log) {
+  public void before(Log log) {
     startTime.set(System.currentTimeMillis());
   }
 
