@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.task.repository.TaskLogRepository">
+
+  <sql id="selectKTaskLog">
+    select t.id,
+           t.task_id,
+           t.task_status,
+           t.task_error,
+           t.start_time,
+           t.end_time
+    from k_task_log t
+  </sql>
+
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.id asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+    <if test="order.property == 'taskId'">
+      t.task_id
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'taskStatus'">
+      t.task_status
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'startTime'">
+      t.start_time
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'endTime'">
+      t.end_time
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
+  <select id="list" resultType="cn.koala.task.support.TaskLogEntity">
+    <include refid="selectKTaskLog"/>
+    <where>
+      <if test="taskId != null and taskId != ''">
+        and t.task_id = #{taskId}
+      </if>
+      <if test="taskStatus != null and taskStatus != ''">
+        and t.task_status = #{taskStatus}
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and t.start_time = #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and t.end_time = #{endTime}
+      </if>
+    </where>
+    <include refid="orderBy"/>
+  </select>
+
+  <select id="load" resultType="cn.koala.task.support.TaskLogEntity">
+    <include refid="selectKTaskLog"/>
+    where t.id=#{id}
+  </select>
+
+  <insert id="create" parameterType="cn.koala.task.support.TaskLogEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into k_task_log
+      value (
+             #{id},
+             #{taskId},
+             #{taskStatus},
+             #{taskError},
+             #{startTime},
+             #{endTime}
+      )
+  </insert>
+
+  <update id="update" parameterType="cn.koala.task.support.TaskLogEntity">
+    update k_task_log
+    <trim prefix="set" suffixOverrides=",">
+      <if test="taskId != null">task_id=#{taskId},</if>
+      <if test="taskStatus != null">task_status=#{taskStatus},</if>
+      <if test="taskError != null">task_error=#{taskError},</if>
+      <if test="startTime != null">start_time=#{startTime},</if>
+      <if test="endTime != null">end_time=#{endTime},</if>
+    </trim>
+    where id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="cn.koala.task.support.TaskLogEntity">
+    delete
+    from k_task_log
+    where id = #{id}
+  </delete>
+</mapper>

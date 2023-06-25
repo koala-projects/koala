@@ -2,7 +2,7 @@ package cn.koala.task.support;
 
 import cn.koala.task.Task;
 import cn.koala.task.TaskFactory;
-import lombok.RequiredArgsConstructor;
+import cn.koala.task.TaskLogService;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -12,13 +12,19 @@ import org.springframework.context.ApplicationContext;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 public class DefaultTaskFactory implements TaskFactory {
 
   private final ApplicationContext context;
 
+  private final TaskLogService logService;
+
+  public DefaultTaskFactory(ApplicationContext context) {
+    this.context = context;
+    this.logService = context.getBean(TaskLogService.class);
+  }
+
   @Override
   public Runnable create(Task task) {
-    return context.getBean(task.getTaskConfig(), Runnable.class);
+    return new TaskLogWrapper(task, context.getBean(task.getTaskConfig(), Runnable.class), this.logService);
   }
 }

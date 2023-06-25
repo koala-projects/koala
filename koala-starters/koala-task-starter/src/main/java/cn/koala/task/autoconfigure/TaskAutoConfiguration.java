@@ -2,12 +2,17 @@ package cn.koala.task.autoconfigure;
 
 import cn.koala.task.TaskApi;
 import cn.koala.task.TaskFactory;
+import cn.koala.task.TaskLogApi;
+import cn.koala.task.TaskLogService;
 import cn.koala.task.TaskManager;
 import cn.koala.task.TaskService;
 import cn.koala.task.TriggerFactory;
+import cn.koala.task.repository.TaskLogRepository;
 import cn.koala.task.repository.TaskRepository;
 import cn.koala.task.support.DefaultTaskApi;
 import cn.koala.task.support.DefaultTaskFactory;
+import cn.koala.task.support.DefaultTaskLogApi;
+import cn.koala.task.support.DefaultTaskLogService;
 import cn.koala.task.support.DefaultTaskManager;
 import cn.koala.task.support.DefaultTaskService;
 import cn.koala.task.support.DefaultTriggerFactory;
@@ -70,5 +75,17 @@ public class TaskAutoConfiguration {
   @Bean
   public TaskApplicationRunner taskApplicationRunner(TaskService taskService, TaskManager taskManager) {
     return new TaskApplicationRunner(taskService, taskManager);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public TaskLogService taskLogService(TaskLogRepository logRepository) {
+    return new DefaultTaskLogService(logRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public TaskLogApi taskLogApi(TaskLogService logService) {
+    return new DefaultTaskLogApi(logService);
   }
 }

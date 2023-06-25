@@ -56,8 +56,8 @@ public interface TaskApi {
   @Parameter(in = ParameterIn.QUERY, name = "createdTime", description = "创建时间", schema = @Schema(type = "date-time"))
   @PageableAsQueryParam
   @GetMapping
-  DataResponse<Page<TaskEntity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
-                                      @Parameter(hidden = true) Pageable pageable);
+  DataResponse<Page<Task>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
+                                @Parameter(hidden = true) Pageable pageable);
 
   /**
    * 根据id查询任务
@@ -71,7 +71,7 @@ public interface TaskApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "任务id", schema = @Schema(type = "integer"))
   @GetMapping("{id}")
-  DataResponse<TaskEntity> load(@PathVariable("id") Long id);
+  DataResponse<Task> load(@PathVariable("id") Long id);
 
   /**
    * 创建任务

@@ -1,5 +1,6 @@
 package cn.koala.task.support;
 
+import cn.koala.task.Task;
 import cn.koala.task.TaskApi;
 import cn.koala.task.TaskManager;
 import cn.koala.task.TaskService;
@@ -25,12 +26,12 @@ public class DefaultTaskApi implements TaskApi {
   private final TaskManager manager;
 
   @Override
-  public DataResponse<Page<TaskEntity>> page(Map<String, Object> parameters, Pageable pageable) {
+  public DataResponse<Page<Task>> page(Map<String, Object> parameters, Pageable pageable) {
     return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
-  public DataResponse<TaskEntity> load(Long id) {
+  public DataResponse<Task> load(Long id) {
     return DataResponse.ok(service.load(id));
   }
 
