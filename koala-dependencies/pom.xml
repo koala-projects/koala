@@ -265,6 +265,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-task</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-template</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -397,6 +402,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-system-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-task-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

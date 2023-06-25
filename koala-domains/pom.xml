@@ -30,6 +30,7 @@
     <module>koala-security</module>
     <module>koala-sensitive-word</module>
     <module>koala-system</module>
+    <module>koala-task</module>
     <module>koala-template</module>
     <module>koala-toolkit</module>
     <module>koala-validation</module>
