@@ -3,6 +3,7 @@ package cn.koala.datasource;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.StringUtils;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.util.StringUtils;
  * @author Houtaroy
  */
 @Aspect
+@Order(1000)
 public class DynamicDataSourceAspect {
 
   private static final ThreadLocal<String> DEFAULT_KEY = new ThreadLocal<>();

@@ -7,6 +7,7 @@ import cn.koala.persist.listener.support.UpdateEntityListenerStrategy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 @Aspect
+@Order(2000)
 public class EntityListenerAspect {
 
   private static final Map<CrudType, EntityListenerStrategy> DEFAULT_STRATEGIES = Map.of(

@@ -19,6 +19,7 @@ import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -36,6 +37,7 @@ import java.util.regex.Pattern;
 @Slf4j
 @Aspect
 @RequiredArgsConstructor
+@Order(3000)
 public class LogAspect {
   private static final Long UNKNOWN_USER_ID = -1L;
   private final LogProperties properties;
