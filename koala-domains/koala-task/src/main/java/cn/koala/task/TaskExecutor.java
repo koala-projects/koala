@@ -1,15 +1,15 @@
 package cn.koala.task;
 
 /**
- * 任务管理器接口
+ * 任务执行器
  *
  * @author Houtaroy
  */
-public interface TaskManager {
+public interface TaskExecutor {
 
   void schedule(Task task);
 
   void cancel(Task task);
 
-  void run(Task task);
+  void execute(Task task);
 }

@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.5.1",
   "createdTime": "2023-1-29 08:59:43",
-  "updatedTime": "2023-6-25 20:33:00",
+  "updatedTime": "2023-6-26 15:47:23",
   "dbConns": [],
   "profile": {
     "default": {
@@ -602,7 +602,7 @@
       }
     ],
     "menuWidth": "285px",
-    "modelType": "modalAll"
+    "modelType": "modalGroup"
   },
   "entities": [
     {
@@ -6063,6 +6063,23 @@
           "id": "AE597F9F-2E6F-4FDA-9BC7-B85A16DC8D6B"
         },
         {
+          "defKey": "execution",
+          "defName": "执行类型",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "extProps": {},
+          "domain": "6BC8F04B-6CFA-4995-98D3-318F5CDD774E",
+          "id": "1862DA8F-5C02-414B-8D87-4431991105DD"
+        },
+        {
           "defKey": "task_status",
           "defName": "任务状态",
           "comment": "",
@@ -6141,12 +6158,94 @@
     {
       "defKey": "system",
       "defName": "系统管理",
-      "refEntities": [],
+      "refEntities": [
+        "E10E9161-89BC-406B-8C03-E12170984F38",
+        "42BF6D5B-F656-4CE4-9496-D77CF9427387",
+        "20E1EA95-7A58-47BF-B48E-D1DA1386FE5B",
+        "1A72A5DE-498E-4478-A8E5-F36442AF171C",
+        "64A6F752-E464-4FA2-BCF5-F8EEDAA0CA55",
+        "61665585-46F6-46DB-AA36-05B011CB0C38",
+        "0A3A7EAF-54DE-43B1-B4A3-1B004E7A2CE6",
+        "95938584-5040-4208-AF5A-E054C49ED009",
+        "183DECF4-9985-404B-89D4-47F750066928",
+        "953BE0EC-1ED8-43CB-B2C2-DE8811ADC56B",
+        "FE44FFAA-2579-4B79-A68F-35B87FE6A7C6"
+      ],
       "refViews": [],
       "refDiagrams": [],
       "refDicts": [],
       "id": "957BD667-24AA-4EA6-ACA6-79B6A89010FB",
       "undefined": []
+    },
+    {
+      "defKey": "code",
+      "defName": "代码生成",
+      "refEntities": [
+        "DC4EBB6D-9EB2-4BAA-A718-821252D158CA",
+        "E32CD1A1-01A4-45B9-BD9C-7B5BA03EB4C9",
+        "9E3372B0-29AA-4F9F-B65C-E206B88FBBCD"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "0256E80B-043F-4AA6-84AA-66B897A28EBA"
+    },
+    {
+      "defKey": "database",
+      "defName": "数据库管理",
+      "refEntities": [
+        "DC4EBB6D-9EB2-4BAA-A718-821252D158CA"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "DFA84636-CFBA-4FE8-8F84-801AC8081C4F"
+    },
+    {
+      "defKey": "template",
+      "defName": "模板管理",
+      "refEntities": [
+        "E32CD1A1-01A4-45B9-BD9C-7B5BA03EB4C9",
+        "9E3372B0-29AA-4F9F-B65C-E206B88FBBCD"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "5A1ABD09-54C6-47BE-9D74-462E7921F53D"
+    },
+    {
+      "defKey": "attachment",
+      "defName": "附件管理",
+      "refEntities": [
+        "ABD290E7-EA80-4C90-974E-14E8D82D15C0"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "A698D8D8-A69E-4C44-AA53-E0C60412210E"
+    },
+    {
+      "defKey": "query",
+      "defName": "查询管理",
+      "refEntities": [
+        "2A4E26AC-7221-4E28-B6ED-071C643A14A6"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "9A7E0DFB-A2CE-419F-A81F-2B61D4B3ED27"
+    },
+    {
+      "defKey": "task",
+      "defName": "任务管理",
+      "refEntities": [
+        "9F60CE08-9203-4C1E-A0E4-556686DD2B4B",
+        "D030B8DD-EFCA-45C7-AAAE-9C47294E6F9C"
+      ],
+      "refViews": [],
+      "refDiagrams": [],
+      "refDicts": [],
+      "id": "FE9DC4E8-2A95-4AAE-B3A5-1FD57A618CFC"
     }
   ],
   "dataTypeMapping": {

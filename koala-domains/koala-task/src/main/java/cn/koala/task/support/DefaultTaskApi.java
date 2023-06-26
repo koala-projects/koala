@@ -1,8 +1,9 @@
 package cn.koala.task.support;
 
+import cn.koala.persist.domain.YesNo;
 import cn.koala.task.Task;
 import cn.koala.task.TaskApi;
-import cn.koala.task.TaskManager;
+import cn.koala.task.TaskExecutor;
 import cn.koala.task.TaskService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -23,7 +24,7 @@ import java.util.Map;
 public class DefaultTaskApi implements TaskApi {
 
   private final TaskService service;
-  private final TaskManager manager;
+  private final TaskExecutor executor;
 
   @Override
   public DataResponse<Page<Task>> page(Map<String, Object> parameters, Pageable pageable) {
@@ -55,14 +56,20 @@ public class DefaultTaskApi implements TaskApi {
   }
 
   @Override
-  public Response start(Long id) {
-    manager.start(service.load(id));
+  public Response enable(Long id) {
+    service.update(TaskEntity.builder().id(id).isEnabled(YesNo.YES).build());
     return Response.SUCCESS;
   }
 
   @Override
-  public Response stop(Long id) {
-    manager.stop(service.load(id));
+  public Response disable(Long id) {
+    service.update(TaskEntity.builder().id(id).isEnabled(YesNo.NO).build());
+    return Response.SUCCESS;
+  }
+
+  @Override
+  public Response execute(Long id) {
+    executor.execute(service.load(id));
     return Response.SUCCESS;
   }
 }

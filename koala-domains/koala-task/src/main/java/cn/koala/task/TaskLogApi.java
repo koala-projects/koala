@@ -42,6 +42,7 @@ public interface TaskLogApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskLogPageResult.class))}
   )
   @Parameter(in = ParameterIn.QUERY, name = "taskId", description = "任务id", schema = @Schema(type = "integer"))
+  @Parameter(in = ParameterIn.QUERY, name = "execution", description = "执行类型", schema = @Schema(type = "integer"))
   @Parameter(in = ParameterIn.QUERY, name = "taskStatus", description = "任务状态", schema = @Schema(type = "integer"))
   @Parameter(in = ParameterIn.QUERY, name = "startTime", description = "开始时间", schema = @Schema(type = "date-time"))
   @Parameter(in = ParameterIn.QUERY, name = "endTime", description = "结束时间", schema = @Schema(type = "date-time"))

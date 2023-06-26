@@ -15,18 +15,25 @@ public interface TaskLog extends Persistable<Long> {
 
   Long getTaskId();
 
+  Execution getExecution();
+
   Status getTaskStatus();
 
+  void setTaskStatus(Status taskStatus);
+
   String getTaskError();
+
+  void setTaskError(String taskError);
 
   Date getStartTime();
 
   Date getEndTime();
 
+  void setEndTime(Date endTime);
+
   @Getter
   enum Status implements EnumAdvice {
 
-    RUNNING("运行中", 0),
     SUCCESS("成功", 1),
     FAIL("失败", -1);
 
@@ -34,6 +41,21 @@ public interface TaskLog extends Persistable<Long> {
     private final int value;
 
     Status(String name, int value) {
+      this.name = name;
+      this.value = value;
+    }
+  }
+
+  @Getter
+  enum Execution implements EnumAdvice {
+
+    AUTO("自动", 1),
+    MANUAL("手动", 2);
+
+    private final String name;
+    private final int value;
+
+    Execution(String name, int value) {
       this.name = name;
       this.value = value;
     }

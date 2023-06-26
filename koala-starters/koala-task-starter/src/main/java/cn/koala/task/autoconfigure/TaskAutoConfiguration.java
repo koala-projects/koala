@@ -1,19 +1,19 @@
 package cn.koala.task.autoconfigure;
 
 import cn.koala.task.TaskApi;
+import cn.koala.task.TaskExecutor;
 import cn.koala.task.TaskFactory;
 import cn.koala.task.TaskLogApi;
 import cn.koala.task.TaskLogService;
-import cn.koala.task.TaskManager;
 import cn.koala.task.TaskService;
 import cn.koala.task.TriggerFactory;
 import cn.koala.task.repository.TaskLogRepository;
 import cn.koala.task.repository.TaskRepository;
 import cn.koala.task.support.DefaultTaskApi;
+import cn.koala.task.support.DefaultTaskExecutor;
 import cn.koala.task.support.DefaultTaskFactory;
 import cn.koala.task.support.DefaultTaskLogApi;
 import cn.koala.task.support.DefaultTaskLogService;
-import cn.koala.task.support.DefaultTaskManager;
 import cn.koala.task.support.DefaultTaskService;
 import cn.koala.task.support.DefaultTriggerFactory;
 import cn.koala.task.support.TaskApplicationRunner;
@@ -50,14 +50,15 @@ public class TaskAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskManager taskManager(TaskFactory taskFactory, TriggerFactory triggerFactory, TaskScheduler taskScheduler) {
-    return new DefaultTaskManager(taskFactory, triggerFactory, taskScheduler);
+  public TaskExecutor taskExecutor(TaskFactory taskFactory, TriggerFactory triggerFactory, TaskScheduler taskScheduler,
+                                   TaskLogService taskLogService) {
+    return new DefaultTaskExecutor(taskFactory, triggerFactory, taskScheduler, taskLogService);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskListener taskListener(TaskRepository taskRepository, TaskManager taskManager) {
-    return new TaskListener(taskRepository, taskManager);
+  public TaskListener taskListener(TaskRepository taskRepository, TaskExecutor taskExecutor) {
+    return new TaskListener(taskRepository, taskExecutor);
   }
 
   @Bean
@@ -68,13 +69,13 @@ public class TaskAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskApi TaskApi(TaskService taskService, TaskManager taskManager) {
-    return new DefaultTaskApi(taskService, taskManager);
+  public TaskApi TaskApi(TaskService taskService, TaskExecutor taskExecutor) {
+    return new DefaultTaskApi(taskService, taskExecutor);
   }
 
   @Bean
-  public TaskApplicationRunner taskApplicationRunner(TaskService taskService, TaskManager taskManager) {
-    return new TaskApplicationRunner(taskService, taskManager);
+  public TaskApplicationRunner taskApplicationRunner(TaskService taskService, TaskExecutor taskExecutor) {
+    return new TaskApplicationRunner(taskService, taskExecutor);
   }
 
   @Bean

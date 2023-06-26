@@ -6,6 +6,7 @@
   <sql id="selectKTaskLog">
     select t.id,
            t.task_id,
+           t.execution,
            t.task_status,
            t.task_error,
            t.start_time,
@@ -31,6 +32,10 @@
       t.task_id
       <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
     </if>
+    <if test="order.property == 'execution'">
+      t.execution
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
     <if test="order.property == 'taskStatus'">
       t.task_status
       <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
@@ -50,6 +55,9 @@
     <where>
       <if test="taskId != null and taskId != ''">
         and t.task_id = #{taskId}
+      </if>
+      <if test="execution != null and execution != ''">
+        and t.execution = #{execution}
       </if>
       <if test="taskStatus != null and taskStatus != ''">
         and t.task_status = #{taskStatus}
@@ -74,6 +82,7 @@
       value (
              #{id},
              #{taskId},
+             #{execution},
              #{taskStatus},
              #{taskError},
              #{startTime},
@@ -85,6 +94,7 @@
     update k_task_log
     <trim prefix="set" suffixOverrides=",">
       <if test="taskId != null">task_id=#{taskId},</if>
+      <if test="execution != null">execution=#{execution},</if>
       <if test="taskStatus != null">task_status=#{taskStatus},</if>
       <if test="taskError != null">task_error=#{taskError},</if>
       <if test="startTime != null">start_time=#{startTime},</if>

@@ -116,21 +116,29 @@ public interface TaskApi {
   @DeleteMapping("{id}")
   Response delete(@EditableId(TaskEntity.class) @PathVariable("id") Long id);
 
-  @Operation(operationId = "startTask", summary = "开始任务")
+  @Operation(operationId = "enableTask", summary = "启用任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "任务id", schema = @Schema(type = "integer"))
-  @PostMapping("{id}/start")
-  Response start(@PathVariable("id") Long id);
+  @PutMapping("{id}/enable")
+  Response enable(@PathVariable("id") Long id);
 
-  @Operation(operationId = "stopTask", summary = "停止任务")
+  @Operation(operationId = "disableTask", summary = "禁用任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "任务id", schema = @Schema(type = "integer"))
-  @PostMapping("{id}/stop")
-  Response stop(@PathVariable("id") Long id);
+  @PutMapping("{id}/disable")
+  Response disable(@PathVariable("id") Long id);
+
+  @Operation(operationId = "executeTask", summary = "执行任务")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "任务id", schema = @Schema(type = "integer"))
+  @PostMapping("{id}/execute")
+  Response execute(@PathVariable("id") Long id);
 
   class TaskPageResult extends DataResponse<Page<TaskEntity>> {
 

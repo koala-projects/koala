@@ -1,8 +1,9 @@
 package cn.koala.task.support;
 
+import cn.koala.persist.domain.YesNo;
 import cn.koala.persist.listener.support.AbstractInheritedEntityListener;
 import cn.koala.task.Task;
-import cn.koala.task.TaskManager;
+import cn.koala.task.TaskExecutor;
 import cn.koala.task.repository.TaskRepository;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostUpdate;
@@ -23,26 +24,29 @@ public class TaskListener extends AbstractInheritedEntityListener<Task> {
 
   private final TaskRepository repository;
 
-  private final TaskManager manager;
+  private final TaskExecutor executor;
 
   @PostPersist
   public void postPersist(Task entity) {
-    manager.start(entity);
+    if (entity.getIsEnabled() == YesNo.YES) {
+      executor.schedule(entity);
+    }
   }
 
   @PostUpdate
   public void postUpdate(Task entity) {
     repository.load(entity.getId())
-      .filter(persist -> !persist.getTriggerConfig().equals(entity.getTriggerConfig()))
       .ifPresent(persist -> {
-        manager.stop(persist);
-        manager.start(entity);
+        executor.cancel(persist);
+        if (persist.getIsEnabled() == YesNo.YES) {
+          executor.schedule(persist);
+        }
       });
   }
 
   @PreRemove
   public void preRemove(Task entity) {
     repository.load(entity.getId())
-      .ifPresent(manager::stop);
+      .ifPresent(executor::cancel);
   }
 }

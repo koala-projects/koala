@@ -25,6 +25,8 @@ public class TaskLogEntity implements TaskLog {
   @Schema(description = "任务id")
   private Long taskId;
 
+  private Execution execution;
+
   @Schema(description = "任务状态")
   private Status taskStatus;
 
