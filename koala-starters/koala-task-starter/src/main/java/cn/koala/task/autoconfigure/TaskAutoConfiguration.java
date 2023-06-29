@@ -1,5 +1,6 @@
 package cn.koala.task.autoconfigure;
 
+import cn.koala.persist.initializer.DataSourceInitializer;
 import cn.koala.task.TaskApi;
 import cn.koala.task.TaskExecutor;
 import cn.koala.task.TaskFactory;
@@ -88,5 +89,10 @@ public class TaskAutoConfiguration {
   @ConditionalOnMissingBean
   public TaskLogApi taskLogApi(TaskLogService logService) {
     return new DefaultTaskLogApi(logService);
+  }
+
+  @Bean
+  public DataSourceInitializer taskInitializer() {
+    return new TaskInitializer();
   }
 }
