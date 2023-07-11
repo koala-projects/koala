@@ -1,14 +1,17 @@
 package cn.koala.code.services;
 
 import cn.koala.code.Code;
+import cn.koala.code.SimpleCode;
 import cn.koala.code.processors.ContextProcessor;
 import cn.koala.database.DatabaseTable;
 import cn.koala.template.Template;
+import cn.koala.template.TemplateRenderer;
 import cn.koala.toolkit.CompressHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
@@ -27,9 +30,11 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RequiredArgsConstructor
-public abstract class BaseTemplateCodeService implements CodeService {
-  protected final ContextProcessor processor;
-  protected final String downloadPath;
+public class TemplateCodeService implements CodeService {
+
+  private final TemplateRenderer renderer;
+  private final ContextProcessor processor;
+  private final String downloadPath;
 
   @Override
   public Map<String, List<Code>> preview(List<DatabaseTable> tables, List<Template> templates) {
@@ -38,12 +43,17 @@ public abstract class BaseTemplateCodeService implements CodeService {
     return tables.stream().collect(Collectors.toMap(DatabaseTable::getName, table -> generate(table, templates)));
   }
 
-  protected List<Code> generate(@NonNull DatabaseTable table, List<Template> templates) {
+  private List<Code> generate(@NonNull DatabaseTable table, List<Template> templates) {
     Map<String, Object> context = processor.process(table);
     return templates.stream().map(template -> generate(template, context)).toList();
   }
 
-  protected abstract Code generate(@NonNull Template template, Map<String, Object> context);
+  private Code generate(@NonNull Template template, Map<String, Object> context) {
+    return new SimpleCode(
+      FilenameUtils.getPath(template.getName()) + context.get("name") + FilenameUtils.getName(template.getName()),
+      renderer.render(template, context)
+    );
+  }
 
   @Override
   public String download(List<DatabaseTable> tables, List<Template> templates) {
@@ -57,7 +67,7 @@ public abstract class BaseTemplateCodeService implements CodeService {
     }
   }
 
-  protected File preview2File(Map<String, List<Code>> preview) throws IOException {
+  private File preview2File(Map<String, List<Code>> preview) throws IOException {
     File root = new File(downloadPath + UUID.randomUUID());
     for (List<Code> codes : preview.values()) {
       for (Code code : codes) {

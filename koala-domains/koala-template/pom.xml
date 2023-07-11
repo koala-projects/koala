@@ -27,5 +27,10 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.jfinal</groupId>
+      <artifactId>enjoy</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 </project>

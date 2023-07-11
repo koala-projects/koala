@@ -1,17 +1,20 @@
 package cn.koala.template.autoconfigure;
 
-import cn.koala.template.TemplateInitializer;
-import cn.koala.template.apis.TemplateApi;
-import cn.koala.template.apis.TemplateApiImpl;
-import cn.koala.template.apis.TemplateGroupApi;
-import cn.koala.template.apis.TemplateGroupApiImpl;
-import cn.koala.template.repositories.TemplateGroupRepository;
-import cn.koala.template.repositories.TemplateRepository;
-import cn.koala.template.services.TemplateGroupService;
-import cn.koala.template.services.TemplateGroupServiceImpl;
-import cn.koala.template.services.TemplateService;
-import cn.koala.template.services.TemplateServiceImpl;
+import cn.koala.template.TemplateApi;
+import cn.koala.template.TemplateGroupApi;
+import cn.koala.template.TemplateGroupService;
+import cn.koala.template.TemplateRenderer;
+import cn.koala.template.TemplateService;
+import cn.koala.template.repository.TemplateGroupRepository;
+import cn.koala.template.repository.TemplateRepository;
+import cn.koala.template.support.DefaultTemplateApi;
+import cn.koala.template.support.DefaultTemplateGroupApi;
+import cn.koala.template.support.DefaultTemplateGroupService;
+import cn.koala.template.support.DefaultTemplateService;
+import cn.koala.template.support.EnjoyTemplateRenderer;
+import com.jfinal.template.Engine;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,31 +24,38 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Houtaroy
  */
-@MapperScan("cn.koala.template.repositories")
+@MapperScan("cn.koala.template.repository")
 @Configuration
 public class TemplateAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository) {
-    return new TemplateGroupServiceImpl(templateGroupRepository);
+    return new DefaultTemplateGroupService(templateGroupRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public TemplateGroupApi templateGroupApi(TemplateGroupService templateGroupService) {
-    return new TemplateGroupApiImpl(templateGroupService);
+    return new DefaultTemplateGroupApi(templateGroupService);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public TemplateService templateService(TemplateRepository templateRepository) {
-    return new TemplateServiceImpl(templateRepository);
+    return new DefaultTemplateService(templateRepository);
+  }
+
+  @Bean
+  @ConditionalOnClass(Engine.class)
+  @ConditionalOnMissingBean
+  public TemplateRenderer templateRenderer() {
+    return new EnjoyTemplateRenderer();
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public TemplateApi templateApi(TemplateService templateService) {
-    return new TemplateApiImpl(templateService);
+  public TemplateApi templateApi(TemplateService templateService, TemplateRenderer templateRenderer) {
+    return new DefaultTemplateApi(templateService, templateRenderer);
   }
 
   @Bean

@@ -1,4 +1,4 @@
-package cn.koala.template.repositories;
+package cn.koala.template.repository;
 
 import cn.koala.persist.CrudRepository;
 import cn.koala.template.Template;

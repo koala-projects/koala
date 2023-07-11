@@ -1,8 +1,7 @@
-package cn.koala.template.apis;
+package cn.koala.template;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.template.Template;
-import cn.koala.template.entities.TemplateEntity;
+import cn.koala.template.support.TemplateEntity;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -64,7 +63,7 @@ public interface TemplateApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplateResult.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "模板id", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "模板id", schema = @Schema(type = "integer"))
   @GetMapping("{id}")
   DataResponse<Template> load(@PathVariable("id") Long id);
 
@@ -106,9 +105,23 @@ public interface TemplateApi {
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "模板id", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "模板id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
   Response delete(@PathVariable("id") Long id);
+
+  /**
+   * 渲染模板
+   *
+   * @param parameters 模板参数
+   * @return 渲染结果
+   */
+  @Operation(operationId = "renderTemplate", summary = "渲染模板")
+  @ApiResponse(responseCode = "200", description = "成功",
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplatePageResult.class))}
+  )
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "模板id", schema = @Schema(type = "integer"))
+  @PostMapping("{id}/render")
+  DataResponse<String> render(@PathVariable("id") Long id, @RequestBody Map<String, Object> parameters);
 
   class TemplatePageResult extends DataResponse<Page<TemplateEntity>> {
 

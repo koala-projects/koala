@@ -12,10 +12,11 @@ import cn.koala.code.processors.support.domain.DomainNameProcessor;
 import cn.koala.code.processors.support.entity.EntityProcessor;
 import cn.koala.code.processors.support.mybatis.MyBatisProcessor;
 import cn.koala.code.services.CodeService;
-import cn.koala.code.services.KoalaCodeService;
+import cn.koala.code.services.TemplateCodeService;
 import cn.koala.database.services.DatabaseService;
-import cn.koala.template.services.TemplateGroupService;
-import cn.koala.template.services.TemplateService;
+import cn.koala.template.TemplateGroupService;
+import cn.koala.template.TemplateRenderer;
+import cn.koala.template.TemplateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -51,8 +52,8 @@ public class CodeAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public CodeService codeService(ContextProcessor processor) {
-    return new KoalaCodeService(processor, properties.getDownloadPath());
+  public CodeService codeService(TemplateRenderer templateRenderer, ContextProcessor processor) {
+    return new TemplateCodeService(templateRenderer, processor, properties.getDownloadPath());
   }
 
   @Bean

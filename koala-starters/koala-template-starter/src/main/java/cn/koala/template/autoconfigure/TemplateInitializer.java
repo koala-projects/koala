@@ -1,4 +1,4 @@
-package cn.koala.template;
+package cn.koala.template.autoconfigure;
 
 import cn.koala.persist.initializer.support.AbstractModuleInitializer;
 

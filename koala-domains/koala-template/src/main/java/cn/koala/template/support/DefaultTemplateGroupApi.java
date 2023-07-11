@@ -1,8 +1,8 @@
-package cn.koala.template.apis;
+package cn.koala.template.support;
 
 import cn.koala.template.TemplateGroup;
-import cn.koala.template.entities.TemplateGroupEntity;
-import cn.koala.template.services.TemplateGroupService;
+import cn.koala.template.TemplateGroupApi;
+import cn.koala.template.TemplateGroupService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @RestController
-public class TemplateGroupApiImpl implements TemplateGroupApi {
+public class DefaultTemplateGroupApi implements TemplateGroupApi {
   protected final TemplateGroupService service;
 
   @Override

@@ -1,8 +1,9 @@
-package cn.koala.template.services;
+package cn.koala.template.support;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.template.Template;
-import cn.koala.template.repositories.TemplateRepository;
+import cn.koala.template.TemplateService;
+import cn.koala.template.repository.TemplateRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public class TemplateServiceImpl extends AbstractMyBatisService<Template, Long> implements TemplateService {
+public class DefaultTemplateService extends AbstractMyBatisService<Template, Long> implements TemplateService {
 
   protected final TemplateRepository repository;
 }

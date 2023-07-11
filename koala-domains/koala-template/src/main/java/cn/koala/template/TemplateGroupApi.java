@@ -1,8 +1,7 @@
-package cn.koala.template.apis;
+package cn.koala.template;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.template.TemplateGroup;
-import cn.koala.template.entities.TemplateGroupEntity;
+import cn.koala.template.support.TemplateGroupEntity;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;

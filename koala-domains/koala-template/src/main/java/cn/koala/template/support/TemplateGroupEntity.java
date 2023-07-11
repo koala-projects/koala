@@ -1,4 +1,4 @@
-package cn.koala.template.entities;
+package cn.koala.template.support;
 
 import cn.koala.persist.domain.YesNo;
 import cn.koala.template.TemplateGroup;
