@@ -45,6 +45,11 @@
       <artifactId>wx-java-cp-spring-boot-starter</artifactId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>com.github.binarywang</groupId>
+      <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 
 </project>

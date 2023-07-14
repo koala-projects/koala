@@ -22,7 +22,8 @@ import java.util.List;
  */
 @Configuration
 @AutoConfigureAfter({WxCpAutoConfiguration.class, MailSenderAutoConfiguration.class})
-@Import({SimpleMailPostOfficeConfiguration.class, AliyunSmsPostOfficeConfiguration.class, WeworkPostOfficeConfiguration.class})
+@Import({SimpleMailPostOfficeConfiguration.class, AliyunSmsPostOfficeConfiguration.class,
+  WeworkPostOfficeConfiguration.class, WechatMiniappPostOfficeConfiguration.class})
 public class PostOfficeAutoConfiguration {
 
   @Bean

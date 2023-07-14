@@ -38,5 +38,10 @@
       <artifactId>weixin-java-cp</artifactId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>com.github.binarywang</groupId>
+      <artifactId>weixin-java-miniapp</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 </project>

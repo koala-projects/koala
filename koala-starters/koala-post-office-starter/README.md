@@ -19,14 +19,12 @@
 <dependency>
   <groupId>com.aliyun</groupId>
   <artifactId>dysmsapi20170525</artifactId>
-  <optional>true</optional>
 </dependency>
 
 <!-- 企业微信 -->
 <dependency>
   <groupId>com.github.binarywang</groupId>
   <artifactId>wx-java-cp-spring-boot-starter</artifactId>
-  <optional>true</optional>
 </dependency>
 ```
 
@@ -149,4 +147,5 @@ public class MyPostOffice implements PostOffice {
 - `SimpleMailPostOffice`: 简易邮件驿站, 用于发送文本邮件
 - `WeworkPostOffice`: 企业微信驿站, 使用指定应用向企业微信用户发送消息
 - `AliyunSmsPostOffice`: 阿里云短信驿站, 用于发送短信
+- `WechatMiniappPostOffice`: 微信小程序驿站, 用于发送订阅消息通知
 
