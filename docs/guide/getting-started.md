@@ -117,6 +117,7 @@ mvn archetype:generate ^
 | [koala-minio-starter](../../koala-starters/koala-minio-starter) | 快速集成MinIO对象存储, 自动注入操作客户端                 |
 | [koala-mybatis-starter](../../koala-starters/koala-mybatis-starter) | 持久化功能的 MyBatis 版本实现                             |
 | [koala-persist-starter](../../koala-starters/koala-persist-starter) | 定义部分持久化功能, 如模型/仓库/服务/实体监听器等         |
+| [koala-post-office-starter](../../koala-starters/koala-post-office-starter) | 提供了 邮件 / 短信 / 企业微信 等消息发送功能              |
 | [koala-powerjob-worker-starter](../../koala-starters/koala-powerjob-worker-starter) | 快速集成PowerJob Worker, 拓展Groovy任务处理器             |
 | [koala-query-starter](../../koala-starters/koala-query-starter) | 提供了自定义SQL语句查询统计数据的功能                     |
 | [koala-rocketmq-starter](../../koala-starters/koala-rocketmq-starter) | 快速集成Apache RocketMQ, 提供 Spring Boot 3 适配          |

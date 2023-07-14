@@ -28,6 +28,7 @@
     <!--其他依赖-->
     <commons-compress.version>1.23.0</commons-compress.version>
     <commons-io.version>2.12.0</commons-io.version>
+    <dysmsapi.version>2.0.24</dysmsapi.version>
     <enjoy.version>5.0.3</enjoy.version>
     <groovy.version>4.0.12</groovy.version>
     <guava.version>32.0.0-jre</guava.version>
@@ -136,6 +137,11 @@
         <groupId>com.alibaba</groupId>
         <artifactId>druid-spring-boot-starter</artifactId>
         <version>${druid-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.aliyun</groupId>
+        <artifactId>dysmsapi20170525</artifactId>
+        <version>${dysmsapi.version}</version>
       </dependency>
       <dependency>
         <groupId>com.jfinal</groupId>
@@ -290,6 +296,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-post-office</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-powerjob-worker</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -372,6 +383,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-persist-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-post-office-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
