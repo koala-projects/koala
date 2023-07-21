@@ -23,6 +23,7 @@
     <module>koala-database</module>
     <module>koala-log</module>
     <module>koala-mybatis</module>
+    <module>koala-ocr</module>
     <module>koala-open-api</module>
     <module>koala-persist</module>
     <module>koala-post-office</module>

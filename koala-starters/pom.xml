@@ -25,6 +25,7 @@
     <module>koala-log-starter</module>
     <module>koala-minio-starter</module>
     <module>koala-mybatis-starter</module>
+    <module>koala-ocr-starter</module>
     <module>koala-persist-starter</module>
     <module>koala-post-office-starter</module>
     <module>koala-powerjob-worker-starter</module>
