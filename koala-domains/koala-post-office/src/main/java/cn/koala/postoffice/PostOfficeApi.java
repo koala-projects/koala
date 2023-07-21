@@ -41,7 +41,7 @@ public interface PostOfficeApi {
   @GetMapping
   DataResponse<List<PostOffice>> list();
 
-  // @PreAuthorize("hasAuthority('post-office:post')")
+  @PreAuthorize("hasAuthority('post-office:post')")
   @Operation(operationId = "postOfficePost", summary = "驿站投递")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PostApiResult.class))}
