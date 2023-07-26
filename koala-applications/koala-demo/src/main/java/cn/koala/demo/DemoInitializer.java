@@ -17,6 +17,6 @@ public class DemoInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 5800;
+    return 5010;
   }
 }

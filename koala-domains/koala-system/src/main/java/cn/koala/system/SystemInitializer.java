@@ -15,6 +15,6 @@ public class SystemInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4260;
+    return 3060;
   }
 }

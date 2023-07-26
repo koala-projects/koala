@@ -15,6 +15,6 @@ public class SecurityInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4250;
+    return 3050;
   }
 }

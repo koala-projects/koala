@@ -4,7 +4,6 @@ import cn.koala.datasource.support.mapper.TomcatMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.mapstruct.factory.Mappers;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.boot.jdbc.DatabaseDriver;
@@ -14,6 +13,8 @@ import java.sql.SQLException;
 
 /**
  * Tomcat连接池动态数据源工厂
+ * <p>
+ * 部分创建动作参照{@link org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration DataSourceConfiguration}
  *
  * @author Houtaroy
  */
@@ -22,7 +23,6 @@ import java.sql.SQLException;
 public class TomcatDynamicDataSourceFactory extends AbstractDynamicDataSourceFactory<DataSource> {
 
   private final Environment environment;
-  private final TomcatMapper mapper = Mappers.getMapper(TomcatMapper.class);
 
   @Override
   public DataSource create(DataSourceProperties properties) {
@@ -36,7 +36,7 @@ public class TomcatDynamicDataSourceFactory extends AbstractDynamicDataSourceFac
     binder.bind("spring.datasource.tomcat", DataSource.class)
       .ifBound(config -> {
         try {
-          mapper.copy(config.getPoolProperties(), dataSource.getPoolProperties());
+          TomcatMapper.INSTANCE.copy(config.getPoolProperties(), dataSource.getPoolProperties());
         } catch (SQLException e) {
           LOGGER.error("[koala-data-source]: 数据源[name = {}]配置拷贝失败", properties.getName(), e);
         }

@@ -15,6 +15,6 @@ public class WechatMiniAppInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4280;
+    return 3080;
   }
 }

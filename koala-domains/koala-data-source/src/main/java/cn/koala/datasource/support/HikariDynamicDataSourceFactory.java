@@ -4,7 +4,6 @@ import cn.koala.datasource.support.mapper.HikariMapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
@@ -12,6 +11,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * Hikari连接池动态数据源工厂
+ * <p>
+ * 部分创建动作参照{@link org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration DataSourceConfiguration}
  *
  * @author Houtaroy
  */
@@ -19,7 +20,6 @@ import org.springframework.util.StringUtils;
 public class HikariDynamicDataSourceFactory extends AbstractDynamicDataSourceFactory<HikariDataSource> {
 
   private final Environment environment;
-  private final HikariMapper mapper = Mappers.getMapper(HikariMapper.class);
 
   @Override
   public HikariDataSource create(DataSourceProperties properties) {
@@ -27,7 +27,8 @@ public class HikariDynamicDataSourceFactory extends AbstractDynamicDataSourceFac
     HikariDataSource dataSource = createDataSource(properties, HikariDataSource.class);
 
     Binder binder = Binder.get(environment);
-    binder.bind("spring.datasource.hikari", HikariConfig.class).ifBound(config -> mapper.copy(config, dataSource));
+    binder.bind("spring.datasource.hikari", HikariConfig.class)
+      .ifBound(config -> HikariMapper.INSTANCE.copy(config, dataSource));
 
     if (StringUtils.hasText(properties.getName())) {
       dataSource.setPoolName(properties.getName());

@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
 @Slf4j
 @Aspect
 @RequiredArgsConstructor
-@Order(3000)
+@Order(3300)
 public class LogAspect {
   private static final Long UNKNOWN_USER_ID = -1L;
   private final LogProperties properties;

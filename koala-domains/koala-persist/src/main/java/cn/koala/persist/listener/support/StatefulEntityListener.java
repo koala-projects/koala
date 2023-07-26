@@ -13,7 +13,7 @@ import org.springframework.core.annotation.Order;
  *
  * @author Houtaroy
  */
-@Order(1000)
+@Order(6100)
 @RequiredArgsConstructor
 public class StatefulEntityListener extends AbstractInheritedEntityListener<Stateful> {
 

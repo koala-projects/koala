@@ -20,12 +20,6 @@
     </dependency>
 
     <dependency>
-      <groupId>io.minio</groupId>
-      <artifactId>minio</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
     </dependency>
@@ -41,6 +35,12 @@
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.minio</groupId>
+      <artifactId>minio</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>

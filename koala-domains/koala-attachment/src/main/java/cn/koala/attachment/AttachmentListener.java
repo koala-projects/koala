@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author Houtaroy
  */
 @Slf4j
-@Order(100)
+@Order(3100)
 public class AttachmentListener extends AbstractInheritedEntityListener<Attachment> {
 
   protected final AttachmentRepository repository;

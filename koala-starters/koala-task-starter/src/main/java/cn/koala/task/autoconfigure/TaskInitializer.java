@@ -15,6 +15,6 @@ public class TaskInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4300;
+    return 3100;
   }
 }

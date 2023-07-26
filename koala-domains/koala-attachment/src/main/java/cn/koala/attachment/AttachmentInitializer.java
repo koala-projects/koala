@@ -15,6 +15,6 @@ public class AttachmentInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4210;
+    return 3100;
   }
 }

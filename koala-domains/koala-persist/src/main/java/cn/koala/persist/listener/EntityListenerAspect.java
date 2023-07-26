@@ -19,7 +19,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 @Aspect
-@Order(2000)
+@Order(3200)
 public class EntityListenerAspect {
 
   private static final Map<CrudType, EntityListenerStrategy> DEFAULT_STRATEGIES = Map.of(

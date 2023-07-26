@@ -12,14 +12,14 @@ import org.springframework.util.StringUtils;
  * @author Houtaroy
  */
 @Aspect
-@Order(1000)
+@Order(3100)
 public class DynamicDataSourceAspect {
 
-  private static final ThreadLocal<String> DEFAULT_KEY = new ThreadLocal<>();
+  private static final ThreadLocal<String> ORIGINAL_KEY_HOLDER = new ThreadLocal<>();
 
   @Before(value = "@annotation(key)")
   public void before(DynamicDataSourceKey key) {
-    DEFAULT_KEY.set(DynamicDataSource.KEY_HOLDER.get());
+    ORIGINAL_KEY_HOLDER.set(DynamicDataSource.KEY_HOLDER.get());
     if (StringUtils.hasText(key.value())) {
       DynamicDataSource.KEY_HOLDER.set(key.value());
     }
@@ -27,7 +27,7 @@ public class DynamicDataSourceAspect {
 
   @After(value = "@annotation(key)")
   public void after(DynamicDataSourceKey key) {
-    DynamicDataSource.KEY_HOLDER.set(DEFAULT_KEY.get());
-    DEFAULT_KEY.remove();
+    DynamicDataSource.KEY_HOLDER.set(ORIGINAL_KEY_HOLDER.get());
+    ORIGINAL_KEY_HOLDER.remove();
   }
 }

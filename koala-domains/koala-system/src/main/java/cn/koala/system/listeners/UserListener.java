@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  * @author Houtaroy
  */
-@Order(100)
+@Order(3100)
 public class UserListener extends AbstractInheritedEntityListener<User> {
   protected final UserRepository userRepository;
   protected final PasswordEncoder passwordEncoder;

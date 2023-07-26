@@ -15,6 +15,6 @@ public class DatabaseInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4230;
+    return 3030;
   }
 }

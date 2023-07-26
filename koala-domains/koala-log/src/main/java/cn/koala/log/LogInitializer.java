@@ -15,6 +15,6 @@ public class LogInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4240;
+    return 3040;
   }
 }

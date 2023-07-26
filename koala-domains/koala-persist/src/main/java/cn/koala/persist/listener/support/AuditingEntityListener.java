@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
  *
  * @author Houtaroy
  */
-@Order(2000)
+@Order(6200)
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class AuditingEntityListener extends AbstractInheritedEntityListener<Auditable> {
   protected final ObjectProvider<AuditorAware<?>> auditorAware;

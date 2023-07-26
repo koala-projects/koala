@@ -15,6 +15,6 @@ public class CodeInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4220;
+    return 3020;
   }
 }

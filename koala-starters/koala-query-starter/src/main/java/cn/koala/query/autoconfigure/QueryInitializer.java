@@ -15,6 +15,6 @@ public class QueryInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4290;
+    return 3090;
   }
 }

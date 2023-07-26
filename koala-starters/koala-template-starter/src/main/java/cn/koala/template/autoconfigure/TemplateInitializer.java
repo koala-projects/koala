@@ -15,6 +15,6 @@ public class TemplateInitializer extends AbstractModuleInitializer {
 
   @Override
   public int getOrder() {
-    return 4270;
+    return 3070;
   }
 }
