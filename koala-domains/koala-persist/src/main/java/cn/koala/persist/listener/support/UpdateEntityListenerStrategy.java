@@ -10,12 +10,12 @@ import cn.koala.persist.listener.EntityListenerWrapper;
  */
 public class UpdateEntityListenerStrategy implements EntityListenerStrategy {
   @Override
-  public void pre(EntityListenerWrapper listener, Object[] args) {
-    listener.preUpdate(args);
+  public void pre(EntityListenerWrapper wrapper, Object[] args) {
+    wrapper.preUpdate(args);
   }
 
   @Override
-  public void post(EntityListenerWrapper listener, Object[] args) {
-    listener.postUpdate(args);
+  public void post(EntityListenerWrapper wrapper, Object[] args) {
+    wrapper.postUpdate(args);
   }
 }

@@ -255,7 +255,7 @@ public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(enti
 
 import #(package).entity.#(name)Entity;
 
-import cn.koala.persist.CrudRepository;
+import cn.koala.persist.repository.CrudRepository;
 
 /**
  * #(description)仓库接口

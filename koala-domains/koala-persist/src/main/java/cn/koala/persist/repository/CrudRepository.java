@@ -1,4 +1,4 @@
-package cn.koala.persist;
+package cn.koala.persist.repository;
 
 import java.util.List;
 import java.util.Map;

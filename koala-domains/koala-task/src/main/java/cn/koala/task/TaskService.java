@@ -1,6 +1,6 @@
 package cn.koala.task;
 
-import cn.koala.persist.CrudService;
+import cn.koala.persist.service.CrudService;
 
 /**
  * 任务服务接口

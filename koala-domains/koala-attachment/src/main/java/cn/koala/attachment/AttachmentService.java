@@ -1,6 +1,6 @@
 package cn.koala.attachment;
 
-import cn.koala.persist.CrudService;
+import cn.koala.persist.service.CrudService;
 
 /**
  * 附件服务接口

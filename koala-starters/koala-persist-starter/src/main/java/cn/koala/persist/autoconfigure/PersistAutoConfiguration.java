@@ -1,8 +1,8 @@
 package cn.koala.persist.autoconfigure;
 
-import cn.koala.persist.CrudService;
-import cn.koala.persist.CrudServiceRegistry;
-import cn.koala.persist.support.DefaultCrudServiceRegistry;
+import cn.koala.persist.service.CrudService;
+import cn.koala.persist.service.CrudServiceRegistry;
+import cn.koala.persist.service.support.InMemoryCrudServiceRegistry;
 import cn.koala.validation.DefaultableMessageSourceLocator;
 import cn.koala.validation.MessageSourceLocator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,7 +26,7 @@ public class PersistAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public CrudServiceRegistry crudServiceRegistry(List<CrudService<?, ?>> services) {
-    return new DefaultCrudServiceRegistry(services);
+    return new InMemoryCrudServiceRegistry(services);
   }
 
   @Bean

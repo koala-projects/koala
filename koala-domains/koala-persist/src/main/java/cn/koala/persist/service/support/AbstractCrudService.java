@@ -1,9 +1,9 @@
-package cn.koala.persist.support;
+package cn.koala.persist.service.support;
 
-import cn.koala.persist.CrudRepository;
-import cn.koala.persist.CrudService;
 import cn.koala.persist.CrudType;
 import cn.koala.persist.listener.EntityListenAction;
+import cn.koala.persist.repository.CrudRepository;
+import cn.koala.persist.service.CrudService;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

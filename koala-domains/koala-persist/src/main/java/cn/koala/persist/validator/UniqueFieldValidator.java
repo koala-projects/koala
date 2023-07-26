@@ -1,8 +1,8 @@
 package cn.koala.persist.validator;
 
-import cn.koala.persist.CrudService;
-import cn.koala.persist.CrudServiceRegistry;
 import cn.koala.persist.domain.Persistable;
+import cn.koala.persist.service.CrudService;
+import cn.koala.persist.service.CrudServiceRegistry;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +33,18 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
   private CrudServiceRegistry registry;
 
   @Override
+  public void initialize(UniqueField uniqueField) {
+    this.name = uniqueField.value();
+    this.parameter = StringUtils.hasText(uniqueField.parameter()) ? uniqueField.parameter() : this.name;
+    this.message = uniqueField.message();
+  }
+
+  @Override
+  public void setApplicationContext(ApplicationContext context) throws BeansException {
+    this.registry = context.getBean(CrudServiceRegistry.class);
+  }
+
+  @Override
   public boolean isValid(Persistable<?> value, ConstraintValidatorContext context) {
     try {
       Field field = CACHE.getField(value.getClass(), name);
@@ -49,7 +61,7 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
   }
 
   protected boolean isDuplicate(Persistable<?> entity, Object fieldValue) {
-    Optional<CrudService<?, ?>> service = registry.get(entity.getClass());
+    Optional<CrudService<?, ?>> service = registry.getService(entity.getClass());
     Assert.state(service.isPresent(), "未找到实体类型[%s]对应服务类, 唯一校验失败".formatted(entity.getClass().getName()));
     return service.get().list(Map.of(parameter, fieldValue))
       .stream()
@@ -68,17 +80,5 @@ public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Pe
 
   protected boolean useDefaultMessage(String message) {
     return !StringUtils.hasText(message) || UniqueField.DEFAULT_MESSAGE_SUFFIX.equals(message);
-  }
-
-  @Override
-  public void initialize(UniqueField uniqueField) {
-    this.name = uniqueField.value();
-    this.parameter = StringUtils.hasText(uniqueField.parameter()) ? uniqueField.parameter() : this.name;
-    this.message = uniqueField.message();
-  }
-
-  @Override
-  public void setApplicationContext(ApplicationContext context) throws BeansException {
-    this.registry = context.getBean(CrudServiceRegistry.class);
   }
 }

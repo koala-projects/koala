@@ -7,11 +7,11 @@ package cn.koala.persist.listener;
  */
 public interface EntityListenerStrategy {
 
-  default void pre(EntityListenerWrapper listener, Object[] args) {
+  default void pre(EntityListenerWrapper wrapper, Object[] args) {
 
   }
 
-  default void post(EntityListenerWrapper listener, Object[] args) {
+  default void post(EntityListenerWrapper wrapper, Object[] args) {
 
   }
 }

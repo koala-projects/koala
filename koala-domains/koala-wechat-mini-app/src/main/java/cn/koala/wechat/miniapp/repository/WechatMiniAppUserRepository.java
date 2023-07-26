@@ -1,6 +1,6 @@
 package cn.koala.wechat.miniapp.repository;
 
-import cn.koala.persist.CrudRepository;
+import cn.koala.persist.repository.CrudRepository;
 import cn.koala.wechat.miniapp.WechatMiniAppUser;
 
 /**

@@ -28,17 +28,12 @@ public class EntityListenerAspect {
     CrudType.DELETE, new DeleteEntityListenerStrategy()
   );
 
-  private final EntityListenerRegistry registry;
+  private final List<EntityListenerWrapper> wrappers;
 
-  private final Map<CrudType, EntityListenerStrategy> strategies;
+  private final Map<CrudType, EntityListenerStrategy> strategies = DEFAULT_STRATEGIES;
 
-  public EntityListenerAspect(EntityListenerRegistry registry) {
-    this(registry, DEFAULT_STRATEGIES);
-  }
-
-  public EntityListenerAspect(EntityListenerRegistry registry, Map<CrudType, EntityListenerStrategy> strategies) {
-    this.registry = registry;
-    this.strategies = strategies;
+  public EntityListenerAspect(List<EntityListener> listeners) {
+    this.wrappers = listeners.stream().map(EntityListenerWrapper::from).toList();
   }
 
   @Around("@annotation(action)")
@@ -47,16 +42,16 @@ public class EntityListenerAspect {
     CrudType type = action.value();
     Class<?> entityClass = determineEntityClass(action, args);
     EntityListenerStrategy strategy = strategies.get(type);
-    List<EntityListenerWrapper> listeners = registry.getAll(entityClass);
-    if (isSkippable(entityClass, listeners, strategy)) {
+    List<EntityListenerWrapper> wrappers = this.getWrappers(entityClass);
+    if (isSkippable(entityClass, wrappers, strategy)) {
       return joinPoint.proceed();
     }
     if (action.pre()) {
-      listeners.forEach(listener -> strategy.pre(listener, args));
+      wrappers.forEach(wrapper -> strategy.pre(wrapper, args));
     }
     Object result = joinPoint.proceed();
     if (action.post()) {
-      listeners.forEach(listener -> strategy.post(listener, args));
+      wrappers.forEach(wrapper -> strategy.post(wrapper, args));
     }
     return result;
   }
@@ -71,8 +66,12 @@ public class EntityListenerAspect {
     return args[0].getClass();
   }
 
-  protected boolean isSkippable(Class<?> entityClass, List<EntityListenerWrapper> listeners,
+  protected List<EntityListenerWrapper> getWrappers(Class<?> entityClass) {
+    return this.wrappers.stream().filter(wrapper -> wrapper.getListener().support(entityClass)).toList();
+  }
+
+  protected boolean isSkippable(Class<?> entityClass, List<EntityListenerWrapper> wrappers,
                                 EntityListenerStrategy strategy) {
-    return entityClass == null || listeners.isEmpty() || strategy == null;
+    return entityClass == null || wrappers.isEmpty() || strategy == null;
   }
 }

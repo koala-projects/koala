@@ -1,6 +1,6 @@
 package cn.koala.query.repository;
 
-import cn.koala.persist.CrudRepository;
+import cn.koala.persist.repository.CrudRepository;
 import cn.koala.query.Query;
 
 /**

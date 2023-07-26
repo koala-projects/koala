@@ -10,12 +10,12 @@ import cn.koala.persist.listener.EntityListenerWrapper;
  */
 public class DeleteEntityListenerStrategy implements EntityListenerStrategy {
   @Override
-  public void pre(EntityListenerWrapper listener, Object[] args) {
-    listener.preDelete(args);
+  public void pre(EntityListenerWrapper wrapper, Object[] args) {
+    wrapper.preDelete(args);
   }
 
   @Override
-  public void post(EntityListenerWrapper listener, Object[] args) {
-    listener.postDelete(args);
+  public void post(EntityListenerWrapper wrapper, Object[] args) {
+    wrapper.postDelete(args);
   }
 }

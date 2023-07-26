@@ -2,9 +2,7 @@ package cn.koala.persist.autoconfigure;
 
 import cn.koala.persist.listener.EntityListener;
 import cn.koala.persist.listener.EntityListenerAspect;
-import cn.koala.persist.listener.EntityListenerRegistry;
 import cn.koala.persist.listener.support.AuditingEntityListener;
-import cn.koala.persist.listener.support.DefaultEntityListenerRegistry;
 import cn.koala.persist.listener.support.StatefulEntityListener;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -36,13 +34,7 @@ public class EntityListenerAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerRegistry entityListenerRegistry(List<EntityListener> listeners) {
-    return new DefaultEntityListenerRegistry(listeners);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public EntityListenerAspect entityListenerAspect(EntityListenerRegistry registry) {
-    return new EntityListenerAspect(registry);
+  public EntityListenerAspect entityListenerAspect(List<EntityListener> listeners) {
+    return new EntityListenerAspect(listeners);
   }
 }

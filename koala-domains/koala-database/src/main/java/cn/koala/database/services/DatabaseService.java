@@ -2,7 +2,7 @@ package cn.koala.database.services;
 
 import cn.koala.database.Database;
 import cn.koala.database.DatabaseTable;
-import cn.koala.persist.CrudService;
+import cn.koala.persist.service.CrudService;
 
 import java.util.List;
 

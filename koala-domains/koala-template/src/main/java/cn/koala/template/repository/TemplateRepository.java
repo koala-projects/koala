@@ -1,6 +1,6 @@
 package cn.koala.template.repository;
 
-import cn.koala.persist.CrudRepository;
+import cn.koala.persist.repository.CrudRepository;
 import cn.koala.template.Template;
 
 /**

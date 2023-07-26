@@ -1,7 +1,7 @@
 package cn.koala.persist.validator;
 
-import cn.koala.persist.CrudService;
-import cn.koala.persist.CrudServiceRegistry;
+import cn.koala.persist.service.CrudService;
+import cn.koala.persist.service.CrudServiceRegistry;
 import cn.koala.persist.support.DomainHelper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -41,7 +41,7 @@ public class EditableIdValidator implements ConstraintValidator<EditableId, Obje
 
   @SuppressWarnings("unchecked")
   protected boolean doValid(Object id) {
-    return registry.get(entityClass)
+    return registry.getService(entityClass)
       .map(service -> (CrudService<?, Object>) service)
       .map(service -> service.load(id))
       .filter(DomainHelper::isEditable)
