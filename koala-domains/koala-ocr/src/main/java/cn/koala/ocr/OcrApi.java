@@ -59,7 +59,7 @@ public interface OcrApi {
     ),
     required = true
   )
-  @PostMapping("recognize")
+  @PostMapping("pdf")
   DataResponse<List<String>> pdf(@RequestParam("file") MultipartFile pdf);
 
   class ImageResult extends DataResponse<List<DetectedObjects.DetectedObject>> {
