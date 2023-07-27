@@ -57,7 +57,7 @@ public class UserService {
 public class MyCacheCondition implements CacheCondition {
   
   @Override
-  public boolean isCacheable(Object target, Method method, Collection<Cache> caches, Object... params) {
+  public boolean matches(Object target, Method method, Collection<Cache> caches, Object... params) {
     // 判断逻辑...
   }
 }
