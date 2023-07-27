@@ -22,12 +22,13 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-minio-starter</artifactId>
-      <optional>true</optional>
+      <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
+
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis-starter</artifactId>
+      <artifactId>koala-minio-starter</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 

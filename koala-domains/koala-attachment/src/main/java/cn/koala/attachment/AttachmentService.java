@@ -8,4 +8,5 @@ import cn.koala.persist.service.CrudService;
  * @author Houtaroy
  */
 public interface AttachmentService extends CrudService<Attachment, Long> {
+
 }

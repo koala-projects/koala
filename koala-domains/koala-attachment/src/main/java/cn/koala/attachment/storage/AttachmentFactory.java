@@ -1,4 +1,4 @@
-package cn.koala.attachment.factory;
+package cn.koala.attachment.storage;
 
 import cn.koala.attachment.Attachment;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,10 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * 附件工厂
  * <p>
- * 用于将上传文件转换为附件对象
+ * 根据上传文件创建附件实体
  *
  * @author Houtaroy
  */
 public interface AttachmentFactory {
+
   Attachment create(MultipartFile multipartFile);
 }

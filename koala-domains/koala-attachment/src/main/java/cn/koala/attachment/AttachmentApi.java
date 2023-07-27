@@ -1,8 +1,6 @@
 package cn.koala.attachment;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.validation.group.Create;
-import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,13 +17,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,36 +75,6 @@ public interface AttachmentApi {
   @Parameter(in = ParameterIn.PATH, name = "id", description = "附件id", schema = @Schema(type = "integer"))
   @GetMapping("{id}")
   DataResponse<Attachment> load(@PathVariable("id") Long id);
-
-  /**
-   * 创建附件
-   *
-   * @param entity 附件数据实体
-   * @return 附件数据实体
-   */
-  @PreAuthorize("hasAuthority('attachment:create')")
-  @Operation(operationId = "createAttachment", summary = "创建附件")
-  @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AttachmentResult.class))}
-  )
-  @PostMapping
-  DataResponse<Attachment> create(@Validated(Create.class) @RequestBody AttachmentEntity entity);
-
-  /**
-   * 更新附件
-   *
-   * @param id     附件id
-   * @param entity 附件数据实体
-   * @return 操作结果
-   */
-  @PreAuthorize("hasAuthority('attachment:update')")
-  @Operation(operationId = "updateAttachment", summary = "更新附件")
-  @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
-  )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "附件id", schema = @Schema(type = "integer"))
-  @PutMapping("{id}")
-  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody AttachmentEntity entity);
 
   /**
    * 删除附件

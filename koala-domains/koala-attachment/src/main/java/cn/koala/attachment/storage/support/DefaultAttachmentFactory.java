@@ -1,7 +1,8 @@
-package cn.koala.attachment.factory;
+package cn.koala.attachment.storage.support;
 
 import cn.koala.attachment.Attachment;
 import cn.koala.attachment.AttachmentEntity;
+import cn.koala.attachment.storage.AttachmentFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
