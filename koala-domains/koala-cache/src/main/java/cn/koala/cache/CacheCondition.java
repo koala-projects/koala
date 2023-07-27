@@ -1,4 +1,4 @@
-package cn.koala.cache.interceptor;
+package cn.koala.cache;
 
 import org.springframework.cache.Cache;
 
@@ -11,5 +11,6 @@ import java.util.Collection;
  * @author Houtaroy
  */
 public interface CacheCondition {
-  boolean isCacheable(Object target, Method method, Collection<Cache> caches, Object... params);
+
+  boolean matches(Object target, Method method, Collection<Cache> caches, Object... params);
 }

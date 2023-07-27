@@ -1,6 +1,6 @@
-package cn.koala.cache.interceptor.support;
+package cn.koala.cache.support;
 
-import cn.koala.cache.interceptor.CacheCondition;
+import cn.koala.cache.CacheCondition;
 import cn.koala.toolkit.ArrayHelper;
 import org.springframework.cache.Cache;
 import org.springframework.util.CollectionUtils;
@@ -29,7 +29,7 @@ public class SelectiveListCacheCondition implements CacheCondition {
 
   @Override
   @SuppressWarnings("unchecked")
-  public boolean isCacheable(Object target, Method method, Collection<Cache> caches, Object... params) {
+  public boolean matches(Object target, Method method, Collection<Cache> caches, Object... params) {
     Map<String, Object> parameters = ArrayHelper.get(params, Map.class);
     return !CollectionUtils.isEmpty(parameters) && parameters.keySet().containsAll(parameterNames);
   }

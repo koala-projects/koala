@@ -1,4 +1,4 @@
-package cn.koala.cache.interceptor.support;
+package cn.koala.cache.interceptor;
 
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.lang.NonNull;

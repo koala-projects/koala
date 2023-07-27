@@ -1,4 +1,4 @@
-package cn.koala.cache.interceptor.support;
+package cn.koala.cache.interceptor;
 
 import cn.koala.toolkit.ArrayHelper;
 import org.springframework.cache.interceptor.KeyGenerator;

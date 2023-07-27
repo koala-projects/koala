@@ -1,6 +1,6 @@
-package cn.koala.cache;
+package cn.koala.cache.annotation;
 
-import cn.koala.cache.interceptor.support.CacheNames;
+import cn.koala.cache.support.CacheNames;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.AliasFor;
 

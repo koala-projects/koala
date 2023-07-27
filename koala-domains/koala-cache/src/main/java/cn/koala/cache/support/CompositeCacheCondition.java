@@ -1,8 +1,8 @@
-package cn.koala.cache.interceptor.support;
+package cn.koala.cache.support;
 
-import cn.koala.cache.interceptor.CacheCondition;
-import cn.koala.cache.interceptor.CacheConditionRegistration;
-import cn.koala.cache.interceptor.CacheConditionRegistry;
+import cn.koala.cache.CacheCondition;
+import cn.koala.cache.CacheConditionRegistration;
+import cn.koala.cache.CacheConditionRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 
@@ -26,11 +26,11 @@ public class CompositeCacheCondition implements CacheCondition {
   private final CacheConditionRegistry registry;
 
   @Override
-  public boolean isCacheable(Object target, Method method, Collection<Cache> caches, Object... params) {
+  public boolean matches(Object target, Method method, Collection<Cache> caches, Object... params) {
     Set<String> cacheNames = caches.stream().map(Cache::getName).collect(Collectors.toSet());
     return registry.get(cacheNames)
       .map(CacheConditionRegistration::getCacheCondition)
-      .map(condition -> condition.isCacheable(target, method, caches, params))
+      .map(condition -> condition.matches(target, method, caches, params))
       .orElse(true);
   }
 }

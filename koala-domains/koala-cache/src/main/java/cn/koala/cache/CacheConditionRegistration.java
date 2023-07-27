@@ -1,4 +1,4 @@
-package cn.koala.cache.interceptor;
+package cn.koala.cache;
 
 import java.util.Set;
 

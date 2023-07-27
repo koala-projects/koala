@@ -1,12 +1,12 @@
 package cn.koala.cache.autoconfigure;
 
-import cn.koala.cache.interceptor.CacheCondition;
-import cn.koala.cache.interceptor.CacheConditionRegistration;
-import cn.koala.cache.interceptor.CacheConditionRegistry;
-import cn.koala.cache.interceptor.support.CompositeCacheCondition;
-import cn.koala.cache.interceptor.support.DefaultCacheConditionRegistry;
-import cn.koala.cache.interceptor.support.ListKeyGenerator;
-import cn.koala.cache.interceptor.support.LoadKeyGenerator;
+import cn.koala.cache.CacheCondition;
+import cn.koala.cache.CacheConditionRegistration;
+import cn.koala.cache.CacheConditionRegistry;
+import cn.koala.cache.interceptor.ListKeyGenerator;
+import cn.koala.cache.interceptor.LoadKeyGenerator;
+import cn.koala.cache.support.CompositeCacheCondition;
+import cn.koala.cache.support.DefaultCacheConditionRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;

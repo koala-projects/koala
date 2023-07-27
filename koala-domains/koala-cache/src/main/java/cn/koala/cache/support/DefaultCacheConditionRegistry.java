@@ -1,7 +1,7 @@
-package cn.koala.cache.interceptor.support;
+package cn.koala.cache.support;
 
-import cn.koala.cache.interceptor.CacheConditionRegistration;
-import cn.koala.cache.interceptor.CacheConditionRegistry;
+import cn.koala.cache.CacheConditionRegistration;
+import cn.koala.cache.CacheConditionRegistry;
 import cn.koala.toolkit.registry.AbstractCacheableRegistry;
 
 import java.util.List;
