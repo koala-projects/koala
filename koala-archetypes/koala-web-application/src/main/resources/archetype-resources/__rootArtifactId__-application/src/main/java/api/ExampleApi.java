@@ -95,7 +95,7 @@ public interface ExampleApi {
   /**
    * 更新示例
    *
-   * @param id   示例id
+   * @param id     示例id
    * @param entity 示例实体
    * @return 操作结果
    */

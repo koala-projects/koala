@@ -63,7 +63,7 @@ public class DataSourceAutoConfiguration {
     routingDataSource.setDefaultTargetDataSource(defaultDataSource);
     return routingDataSource;
   }
-  
+
   @Bean
   public DynamicDataSourceAspect dynamicDataSourceAspect() {
     return new DynamicDataSourceAspect();

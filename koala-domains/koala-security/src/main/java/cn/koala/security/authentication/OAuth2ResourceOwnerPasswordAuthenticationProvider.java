@@ -65,7 +65,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider implements Authen
       throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNSUPPORTED_GRANT_TYPE);
     }
 
-    Authentication usernamePasswordAuthentication  = authenticationManager.authenticate(
+    Authentication usernamePasswordAuthentication = authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(
         resourceOwnerPasswordAuthentication.getUsername(),
         resourceOwnerPasswordAuthentication.getPassword()

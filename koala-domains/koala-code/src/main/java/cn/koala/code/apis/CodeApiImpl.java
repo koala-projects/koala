@@ -28,8 +28,8 @@ import java.util.Map;
 public class CodeApiImpl implements CodeApi {
   protected final DatabaseService databaseService;
   protected final TemplateGroupService templateGroupService;
-  private final TemplateService templateService;
   protected final CodeService codeService;
+  private final TemplateService templateService;
 
   @Override
   public DataResponse<Map<String, List<Code>>> preview(CodeRequest request) {

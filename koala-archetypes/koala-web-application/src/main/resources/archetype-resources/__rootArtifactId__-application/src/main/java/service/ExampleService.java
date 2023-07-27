@@ -8,8 +8,6 @@ import ${package}.repository.ExampleRepository;
 import cn.koala.mybatis.AbstractMyBatisService;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
  * 示例服务
  *

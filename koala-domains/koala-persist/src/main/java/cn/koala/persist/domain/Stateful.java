@@ -45,6 +45,6 @@ public interface Stateful {
    * 设置否已删除的
    *
    * @param isDeleted 否已删除的
-     */
-    void setIsDeleted(YesNo isDeleted);
+   */
+  void setIsDeleted(YesNo isDeleted);
 }

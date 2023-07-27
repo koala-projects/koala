@@ -27,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 public class DatabaseServiceImpl extends AbstractMyBatisService<Database, Long> implements DatabaseService {
-  
+
   public static final int TIME_OUT = 60;
 
   protected final DatabaseRepository repository;
