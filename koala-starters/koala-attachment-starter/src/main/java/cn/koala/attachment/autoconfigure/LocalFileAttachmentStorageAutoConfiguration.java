@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * TODO: 修改类描述
+ * 本地文件附件存储器自动配置类
  *
  * @author Houtaroy
  */
