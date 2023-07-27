@@ -84,4 +84,3 @@ koala:
       - /api/databases/**
       - /api/template*/**
       - /api/code/**
-      - /api/sensitive-word/**
