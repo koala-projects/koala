@@ -60,7 +60,7 @@ public class CodeAutoConfiguration {
   @ConditionalOnMissingBean
   public CodeApi codeApi(DatabaseService databaseService, TemplateGroupService templateGroupService,
                          TemplateService templateService, CodeService codeService) {
-    return new CodeApiImpl(databaseService, templateGroupService, templateService, codeService);
+    return new CodeApiImpl(databaseService, templateGroupService, codeService, templateService);
   }
 
   @Bean
