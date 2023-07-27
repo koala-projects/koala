@@ -45,7 +45,7 @@ public class LogAutoConfiguration {
   @ConditionalOnProperty(prefix = "koala.log", name = "enabled", matchIfMissing = true)
   public LogAspect logAspect(LogProperties properties, LogService logService,
                              ObjectProvider<AuditorAware<?>> auditorAware, ObjectMapper objectMapper) {
-    return new LogAspect(properties, logService, auditorAware, objectMapper);
+    return new LogAspect(properties.getIgnoredPatterns(), auditorAware, logService, objectMapper);
   }
 
   @Bean

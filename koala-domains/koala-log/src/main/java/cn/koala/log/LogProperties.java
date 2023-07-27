@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 安全配置
+ * 日志参数
  *
  * @author Houtaroy
  */

@@ -10,10 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.ObjectProvider;
@@ -26,7 +25,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
-import java.util.Optional;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -40,62 +39,55 @@ import java.util.regex.Pattern;
 @Order(3300)
 public class LogAspect {
   private static final Long UNKNOWN_USER_ID = -1L;
-  private final LogProperties properties;
-  private final LogService logService;
-  private final ObjectProvider<AuditorAware<?>> auditorAware;
-  private final ObjectMapper objectMapper;
-  private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+
   private final SpelExpressionParser parser = new SpelExpressionParser();
+
   private final TemplateParserContext parserContext = new TemplateParserContext("${", "}");
+
   private final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
+  
 
-  @Before(value = "@annotation(log)")
-  public void before(Log log) {
-    startTime.set(System.currentTimeMillis());
-  }
+  private final List<String> ignoredPatterns;
 
-  @AfterReturning(value = "@annotation(log)", returning = "response")
-  public void afterReturning(JoinPoint joinPoint, Log log, Object response) {
-    if (isIgnored(log)) {
-      return;
+  private final ObjectProvider<AuditorAware<?>> auditorAware;
+
+  private final LogService logService;
+
+  private final ObjectMapper objectMapper;
+
+  @Around("@annotation(log)")
+  public Object around(ProceedingJoinPoint joinPoint, Log log) throws Throwable {
+    if (isIgnored(log.module())) {
+      return joinPoint.proceed();
     }
-    LogEntity logEntity = getLogEntity(joinPoint, log);
-    logEntity.setIsSucceeded(YesNo.YES);
-    logEntity.setResponse(object2json(response, "序列化日志响应失败"));
-    logEntity.setCost(getCost());
-    logService.create(logEntity);
-  }
-
-  @AfterThrowing(value = "@annotation(log)", throwing = "throwing")
-  public void afterThrowing(JoinPoint joinPoint, Log log, Exception throwing) {
-    if (isIgnored(log)) {
-      return;
+    long start = System.currentTimeMillis();
+    LogEntity entity = obtainLogEntity(joinPoint, log);
+    try {
+      Object result = joinPoint.proceed();
+      entity.setIsSucceeded(YesNo.YES);
+      entity.setResponse(toJson(result));
+      return result;
+    } catch (Throwable e) {
+      entity.setIsSucceeded(YesNo.NO);
+      entity.setError(e.getLocalizedMessage());
+      throw e;
+    } finally {
+      entity.setCost(System.currentTimeMillis() - start);
+      this.logService.create(entity);
     }
-    LogEntity logEntity = getLogEntity(joinPoint, log);
-    logEntity.setIsSucceeded(YesNo.NO);
-    logEntity.setError(throwing.getMessage());
-    logEntity.setCost(getCost());
-    logService.create(logEntity);
   }
 
-  protected boolean isIgnored(Log log) {
-    boolean result = false;
-    for (String pattern : properties.getIgnoredPatterns()) {
-      result = Pattern.matches(pattern, log.module());
-      if (result) {
-        break;
-      }
-    }
-    return result;
+  protected boolean isIgnored(String module) {
+    return this.ignoredPatterns.stream().anyMatch(pattern -> Pattern.matches(pattern, module));
   }
 
-  protected LogEntity getLogEntity(@NonNull JoinPoint joinPoint, @NonNull Log log) {
+  protected LogEntity obtainLogEntity(@NonNull JoinPoint joinPoint, @NonNull Log log) {
     return LogEntity.builder()
       .module(log.module())
       .content(getLogContent(log.content(), joinPoint))
       .userId(getAuditor())
       .userIp(HttpHelper.getRequestIp())
-      .request(object2json(joinPoint.getArgs(), "序列化日志请求失败"))
+      .request(toJson(joinPoint.getArgs()))
       .logTime(DateHelper.now())
       .build();
   }
@@ -124,18 +116,11 @@ public class LogAspect {
       .orElse(UNKNOWN_USER_ID);
   }
 
-  protected String object2json(Object data, String errorMessage) {
+  protected String toJson(Object data) {
     try {
-      return objectMapper.writeValueAsString(data);
+      return this.objectMapper.writeValueAsString(data);
     } catch (JsonProcessingException e) {
-      LOGGER.error(errorMessage, e);
+      return "数据转换为JSON失败: %s".formatted(e.getLocalizedMessage());
     }
-    return null;
-  }
-
-  protected Long getCost() {
-    return Optional.ofNullable(startTime.get())
-      .map(start -> System.currentTimeMillis() - start)
-      .orElse(null);
   }
 }
