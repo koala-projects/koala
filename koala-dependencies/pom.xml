@@ -15,16 +15,17 @@
   </parent>
 
   <properties>
-    <!--Spring相关-->
-    <spring-boot.version>3.0.7</spring-boot.version>
-    <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
+    <!--Spring-->
+    <spring-boot.version>3.0.9</spring-boot.version>
+    <spring-security-oauth2-authorization-server.version>1.0.3</spring-security-oauth2-authorization-server.version>
+    <oauth2-oidc-sdk.version>10.9.1</oauth2-oidc-sdk.version>
     <springdoc-openapi-starter.version>2.1.0</springdoc-openapi-starter.version>
-    <spring-security-oauth2-authorization-server.version>1.0.2</spring-security-oauth2-authorization-server.version>
-    <!--MyBatis相关-->
+    <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
+    <!--MyBatis-->
     <mybatis.version>3.5.13</mybatis.version>
-    <mybatis-spring-boot-starter.version>3.0.1</mybatis-spring-boot-starter.version>
-    <pagehelper.version>5.3.2</pagehelper.version>
-    <pagehelper-spring-boot-starter.version>1.4.6</pagehelper-spring-boot-starter.version>
+    <mybatis-spring-boot-starter.version>3.0.2</mybatis-spring-boot-starter.version>
+    <pagehelper.version>5.3.3</pagehelper.version>
+    <pagehelper-spring-boot-starter.version>1.4.7</pagehelper-spring-boot-starter.version>
     <!--其他依赖-->
     <djl.version>0.22.1</djl.version>
     <dysmsapi.version>2.0.24</dysmsapi.version>
@@ -33,20 +34,19 @@
     <junit.version>5.8.2</junit.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <minio.version>8.5.3</minio.version>
+    <pdfbox.version>2.0.27</pdfbox.version>
     <powerjob.version>4.3.2</powerjob.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
     <slf4j.version>2.0.7</slf4j.version>
+    <tika.version>2.8.0</tika.version>
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
     <druid-spring-boot-starter.version>1.2.17</druid-spring-boot-starter.version>
-    <oauth2-oidc-sdk.version>10.9.1</oauth2-oidc-sdk.version>
     <wxjava.version>4.5.0</wxjava.version>
-    <!--工具类相关-->
+    <!--工具相关-->
     <commons-compress.version>1.23.0</commons-compress.version>
-    <commons-io.version>2.12.0</commons-io.version>
+    <commons-io.version>2.13.0</commons-io.version>
     <commons-pool2.version>2.11.1</commons-pool2.version>
-    <guava.version>32.0.0-jre</guava.version>
-    <pdfbox.version>2.0.27</pdfbox.version>
-    <tika.version>2.8.0</tika.version>
+    <guava.version>32.1.2-jre</guava.version>
     <!--maven-->
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
   </properties>
