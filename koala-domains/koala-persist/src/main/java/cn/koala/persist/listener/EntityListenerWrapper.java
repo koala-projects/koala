@@ -21,10 +21,10 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Getter
 @SuperBuilder(toBuilder = true)
 public class EntityListenerWrapper {
 
-  @Getter
   protected final EntityListener listener;
   protected final List<Method> prePersists;
   protected final List<Method> postPersists;

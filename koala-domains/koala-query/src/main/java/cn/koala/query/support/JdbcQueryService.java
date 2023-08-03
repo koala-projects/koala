@@ -20,10 +20,10 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Getter
 @RequiredArgsConstructor
 public class JdbcQueryService extends AbstractMyBatisService<Query, Long> implements QueryService {
 
-  @Getter
   private final QueryRepository repository;
   private final NamedParameterJdbcTemplate jdbcTemplate;
 
