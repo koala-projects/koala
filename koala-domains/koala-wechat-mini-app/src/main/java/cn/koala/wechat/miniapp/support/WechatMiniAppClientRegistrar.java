@@ -1,6 +1,6 @@
 package cn.koala.wechat.miniapp.support;
 
-import cn.koala.security.authentication.client.AbstractRegisteredClientRegistrar;
+import cn.koala.authorization.client.RegisteredClientRegistrar;
 import cn.koala.wechat.miniapp.authentication.WechatGrantType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,11 +20,12 @@ import java.util.UUID;
  * @author Houtaroy
  */
 @RequiredArgsConstructor
-public class WechatMiniAppClientRegistrar extends AbstractRegisteredClientRegistrar {
+public class WechatMiniAppClientRegistrar implements RegisteredClientRegistrar {
+
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  protected RegisteredClient obtainRegisteredClient() {
+  public RegisteredClient getRegisteredClient() {
     return RegisteredClient.withId(UUID.randomUUID().toString())
       .clientId("koala-wechat-mini-app")
       .clientSecret(passwordEncoder.encode("123456"))

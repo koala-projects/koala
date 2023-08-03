@@ -1,6 +1,6 @@
 package cn.koala.wechat.miniapp.authentication;
 
-import cn.koala.security.authentication.OAuth2EndpointUtils;
+import cn.koala.authorization.authentication.OAuth2EndpointUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;

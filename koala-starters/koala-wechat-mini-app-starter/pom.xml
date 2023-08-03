@@ -15,9 +15,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-wechat-mini-app</artifactId>
     </dependency>
 
     <dependency>
@@ -30,10 +29,16 @@
       <artifactId>koala-system-starter</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-wechat-mini-app</artifactId>
+      <artifactId>koala-authorization-server-starter</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>

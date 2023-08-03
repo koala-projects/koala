@@ -1,8 +1,8 @@
 package cn.koala.wechat.miniapp.autoconfigure;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.koala.security.authentication.builder.processor.AuthorizationServerProcessor;
-import cn.koala.security.authentication.client.RegisteredClientRegistrar;
+import cn.koala.authorization.builder.AuthorizationServerSecurityFilterChainPostProcessor;
+import cn.koala.authorization.client.RegisteredClientRegistrar;
 import cn.koala.system.repositories.UserRepository;
 import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.processor.OAuth2WechatMiniAppPostProcessor;
@@ -25,9 +25,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @MapperScan(basePackages = "cn.koala.wechat.miniapp.repository")
 public class WechatMiniAppAutoConfiguration {
   @Bean
-  @ConditionalOnMissingBean(name = "wechatMiniAppPostProcessor")
-  public AuthorizationServerProcessor wechatMiniAppPostProcessor(WxMaService wxMaService,
-                                                                 WechatMiniAppUserRegistrar wechatMiniAppUserRegistry) {
+  @ConditionalOnMissingBean(name = "oauth2WechatMiniAppPostProcessor")
+  public AuthorizationServerSecurityFilterChainPostProcessor oauth2WechatMiniAppPostProcessor(
+    WxMaService wxMaService, WechatMiniAppUserRegistrar wechatMiniAppUserRegistry) {
     return new OAuth2WechatMiniAppPostProcessor(wxMaService, wechatMiniAppUserRegistry);
   }
 

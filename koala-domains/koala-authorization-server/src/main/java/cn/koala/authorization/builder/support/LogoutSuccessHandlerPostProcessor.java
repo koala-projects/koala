@@ -21,7 +21,7 @@ public class LogoutSuccessHandlerPostProcessor implements DefaultSecurityFilterC
   }
 
   @Override
-  public void postProcessAfterBuild(HttpSecurity http) throws Exception {
+  public void postProcessAfterBuild(HttpSecurity http) {
 
   }
 }

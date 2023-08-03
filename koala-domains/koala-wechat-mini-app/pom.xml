@@ -16,18 +16,18 @@
 
   <dependencies>
     <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>com.github.binarywang</groupId>
       <artifactId>weixin-java-miniapp</artifactId>
     </dependency>
 
     <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-security</artifactId>
+      <artifactId>koala-authorization-server</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

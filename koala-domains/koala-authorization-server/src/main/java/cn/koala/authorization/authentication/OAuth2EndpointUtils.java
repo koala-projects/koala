@@ -16,9 +16,12 @@
 package cn.koala.authorization.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.endpoint.PkceParameterNames;
 import org.springframework.util.LinkedMultiValueMap;
@@ -76,5 +79,16 @@ public final class OAuth2EndpointUtils {
   public static void throwError(String errorCode, String parameterName, String errorUri) {
     OAuth2Error error = new OAuth2Error(errorCode, "OAuth 2.0 Parameter: " + parameterName, errorUri);
     throw new OAuth2AuthenticationException(error);
+  }
+
+  public static Authentication getClientPrincipalElseThrowInvalidClient() {
+    Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
+    if (clientPrincipal == null) {
+      OAuth2EndpointUtils.throwError(
+        OAuth2ErrorCodes.INVALID_REQUEST,
+        OAuth2ErrorCodes.INVALID_CLIENT,
+        OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
+    }
+    return clientPrincipal;
   }
 }
