@@ -45,7 +45,6 @@ public class LogAspect {
   private final TemplateParserContext parserContext = new TemplateParserContext("${", "}");
 
   private final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
-  
 
   private final List<String> ignoredPatterns;
 
@@ -84,15 +83,15 @@ public class LogAspect {
   protected LogEntity obtainLogEntity(@NonNull JoinPoint joinPoint, @NonNull Log log) {
     return LogEntity.builder()
       .module(log.module())
-      .content(getLogContent(log.content(), joinPoint))
-      .userId(getAuditor())
+      .content(obtainLogContent(log.content(), joinPoint))
+      .userId(determineUserId())
       .userIp(HttpHelper.getRequestIp())
       .request(toJson(joinPoint.getArgs()))
       .logTime(DateHelper.now())
       .build();
   }
 
-  protected String getLogContent(@NonNull String content, @NonNull JoinPoint joinPoint) {
+  protected String obtainLogContent(@NonNull String content, @NonNull JoinPoint joinPoint) {
     String result = content;
     if (joinPoint.getSignature() instanceof MethodSignature methodSignature) {
       Method method = methodSignature.getMethod();
@@ -105,7 +104,7 @@ public class LogAspect {
     return result;
   }
 
-  protected Long getAuditor() {
+  protected Long determineUserId() {
     AuditorAware<?> aware = auditorAware.getIfAvailable();
     if (aware == null) {
       return UNKNOWN_USER_ID;

@@ -13,6 +13,10 @@
     <relativePath>../../koala-parent</relativePath>
   </parent>
 
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
@@ -21,6 +25,19 @@
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-system-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-authorization-server-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-resource-server-starter</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 
     <dependency>
@@ -38,8 +55,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
-  </properties>
 </project>

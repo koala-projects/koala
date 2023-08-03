@@ -52,6 +52,10 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-open-api</artifactId>
     </dependency>
     <dependency>

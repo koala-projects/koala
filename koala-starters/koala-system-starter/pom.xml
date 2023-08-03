@@ -20,10 +20,6 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-security-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
       <artifactId>koala-web-starter</artifactId>
     </dependency>
     <dependency>

@@ -283,6 +283,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-authorization-server</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-cache</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -368,6 +373,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-resource-server</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-toolkit</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -400,6 +410,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-attachment-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-authorization-server-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -460,6 +475,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-query-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-resource-server-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

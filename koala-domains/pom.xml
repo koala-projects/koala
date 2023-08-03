@@ -17,6 +17,7 @@
   <modules>
     <module>koala-admin-server</module>
     <module>koala-attachment</module>
+    <module>koala-authorization-server</module>
     <module>koala-cache</module>
     <module>koala-code</module>
     <module>koala-data-source</module>
@@ -29,6 +30,7 @@
     <module>koala-post-office</module>
     <module>koala-powerjob-worker</module>
     <module>koala-query</module>
+    <module>koala-resource-server</module>
     <module>koala-security</module>
     <module>koala-sensitive-word</module>
     <module>koala-system</module>

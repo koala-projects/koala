@@ -15,18 +15,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>oauth2-oidc-sdk</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-security</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis-starter</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
   </dependencies>
 </project>

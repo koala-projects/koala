@@ -14,6 +14,8 @@ import cn.koala.system.apis.SettingApi;
 import cn.koala.system.apis.SettingApiImpl;
 import cn.koala.system.apis.UserApi;
 import cn.koala.system.apis.UserApiImpl;
+import cn.koala.system.apis.UserinfoApi;
+import cn.koala.system.apis.UserinfoApiImpl;
 import cn.koala.system.listeners.UserListener;
 import cn.koala.system.repositories.DepartmentRepository;
 import cn.koala.system.repositories.DictionaryItemRepository;
@@ -22,6 +24,7 @@ import cn.koala.system.repositories.PermissionRepository;
 import cn.koala.system.repositories.RoleRepository;
 import cn.koala.system.repositories.SettingRepository;
 import cn.koala.system.repositories.UserRepository;
+import cn.koala.system.repositories.UserinfoRepository;
 import cn.koala.system.services.DepartmentService;
 import cn.koala.system.services.DepartmentServiceImpl;
 import cn.koala.system.services.DictionaryItemService;
@@ -36,10 +39,14 @@ import cn.koala.system.services.SettingService;
 import cn.koala.system.services.SettingServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
+import cn.koala.system.services.UserinfoService;
+import cn.koala.system.services.UserinfoServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -111,6 +118,12 @@ public class SystemAutoConfiguration {
   }
 
   @Bean
+  @ConditionalOnMissingBean
+  public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
+
+  @Bean
   public UserListener userListener(UserRepository userRepository, PasswordEncoder passwordEncoder) {
     return new UserListener(userRepository, passwordEncoder);
   }
@@ -125,6 +138,19 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public UserApi userApi(UserService userService) {
     return new UserApiImpl(userService);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public UserinfoService userinfoService(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder,
+                                         UserinfoRepository userinfoRepository) {
+    return new UserinfoServiceImpl(userDetailsService, passwordEncoder, userinfoRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public UserinfoApi userinfoApi(UserinfoService userinfoService) {
+    return new UserinfoApiImpl(userinfoService);
   }
 
   @Bean

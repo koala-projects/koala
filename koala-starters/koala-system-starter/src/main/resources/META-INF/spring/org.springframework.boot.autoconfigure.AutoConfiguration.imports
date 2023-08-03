@@ -1,3 +1,2 @@
 cn.koala.system.autoconfigure.SystemAutoConfiguration
-cn.koala.system.autoconfigure.OpenApiAutoConfiguration
 cn.koala.system.autoconfigure.ValidationAutoConfiguration

@@ -80,7 +80,10 @@ koala:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"
   security:
-    permit-all-patterns:
-      - /api/databases/**
-      - /api/template*/**
-      - /api/code/**
+    authorization-server:
+      custom-login-page: true
+    resource-server:
+      permit-all-patterns:
+        - /api/databases/**
+        - /api/template*/**
+        - /api/code/**
