@@ -6,7 +6,7 @@
 
 ## 快速开始
 
-本模块基于[安全模块](../koala-security-starter)/[系统模块](../koala-system-starter), 请先了解上述模块的使用方法
+本模块基于[认证授权服务模块](../koala-authorization-server-starter), 请先了解上述模块的使用方法
 
 ### 初始化
 
@@ -73,18 +73,7 @@ grant_type=wechat-mini-app&client_id=koala-wechat-mini-app&client_secret=123456&
 
 模块会自动创建一个id为`koala-wechat-mini-app`的注册客户端
 
-如果您需要对其进行定制, 可继承`AbstractRegisteredClientRegistry`抽象类:
-
-```java
-@Component("wechatMiniAppClientRegistry")
-public class MyWechatMiniAppClientRegistry extends AbstractRegisteredClientRegistry {
-  
-  @Override
-  protected RegisteredClient obtainRegisteredClient() {
-    // 定制注册客户端...
-  }
-}
-```
+如您需要自定义, 请参照[认证授权服务模块](../koala-authorization-server-starter)
 
 ### 自定义用户注册器
 
@@ -95,11 +84,11 @@ public class MyWechatMiniAppClientRegistry extends AbstractRegisteredClientRegis
 ```java
 @Component
 public class MyWechatMiniAppUserRegistry implements WechatMiniAppUserRegistry {
+  
   @Override
   public void register(WechatMiniAppUser wechatMiniAppUser) {
     // 自定义注册逻辑...
   }
 }
 ```
-
 
