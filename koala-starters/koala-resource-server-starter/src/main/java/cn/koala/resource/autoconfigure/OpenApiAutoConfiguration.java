@@ -31,12 +31,19 @@ public class OpenApiAutoConfiguration {
     return new OpenAPI().components(
       new Components().addSecuritySchemes(
         "spring-security",
-        new SecurityScheme().type(SecurityScheme.Type.OAUTH2).scheme("bearer").bearerFormat("JWT").name("Bearer")
-          .flows(new OAuthFlows().authorizationCode(
-            new OAuthFlow()
-              .authorizationUrl("/oauth2/authorize")
-              .tokenUrl("/oauth2/token")
-              .scopes(new Scopes().addString("all", "全部"))
+        new SecurityScheme()
+          .type(SecurityScheme.Type.OAUTH2)
+          .scheme("bearer")
+          .bearerFormat("JWT")
+          .name("Bearer")
+          .flows(new OAuthFlows().authorizationCode(new OAuthFlow()
+            .authorizationUrl("/oauth2/authorize")
+            .tokenUrl("/oauth2/token")
+            .scopes(
+              new Scopes()
+                .addString("client.create", "创建注册客户端")
+                .addString("client.read", "读取注册客户端")
+            )
           ))
       )
     );

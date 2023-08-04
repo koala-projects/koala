@@ -20,7 +20,9 @@ public class OAuth2AuthorizationServerPostProcessor implements AuthorizationServ
   @Override
   public void postProcessBeforeBuild(HttpSecurity http) throws Exception {
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
+    OAuth2AuthorizationServerConfigurer configurer = http.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
+    configurer.oidc(Customizer.withDefaults());
+    configurer.oidc(oidc -> oidc.clientRegistrationEndpoint(Customizer.withDefaults()));
     http.exceptionHandling(
       (exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
     );
