@@ -1,6 +1,6 @@
 package cn.koala.authorization.builder.support;
 
-import cn.koala.authorization.builder.DefaultSecurityFilterChainPostProcessor;
+import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
  * @author Houtaroy
  */
 @Order(3200)
-public class LogoutSuccessHandlerPostProcessor implements DefaultSecurityFilterChainPostProcessor {
+public class LogoutSuccessHandlerPostProcessor implements ResourceServerSecurityFilterChainPostProcessor {
 
   @Override
   public void postProcessBeforeBuild(HttpSecurity http) throws Exception {

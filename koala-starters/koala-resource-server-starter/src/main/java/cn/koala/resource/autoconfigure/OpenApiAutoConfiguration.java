@@ -43,7 +43,7 @@ public class OpenApiAutoConfiguration {
   }
 
   @Bean
-  @Order(3100)
+  @Order(3300)
   @ConditionalOnMissingBean(name = "openApiPostProcessor")
   public ResourceServerSecurityFilterChainPostProcessor openApiPostProcessor() {
     return new PermitAllPostProcessor("/swagger*/**", "/v3/api-docs/**");

@@ -16,9 +16,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
 
@@ -44,6 +46,22 @@ public class ResourceServerAutoConfiguration {
   @Order(3800)
   public ResourceServerSecurityFilterChainPostProcessor permitAllPostProcessor(ResourceServerProperties properties) {
     return new PermitAllPostProcessor(properties.getPermitAllPatterns());
+  }
+
+  @Bean
+  @Order(3100)
+  @ConditionalOnMissingBean(name = {"defaultSecurityFilterChain", "resourceServerFilterChain"})
+  public SecurityFilterChain resourceServerFilterChain(
+    HttpSecurity http, List<ResourceServerSecurityFilterChainPostProcessor> processors) throws Exception {
+
+    for (ResourceServerSecurityFilterChainPostProcessor processor : processors) {
+      processor.postProcessBeforeBuild(http);
+    }
+    SecurityFilterChain result = http.build();
+    for (ResourceServerSecurityFilterChainPostProcessor processor : processors) {
+      processor.postProcessAfterBuild(http);
+    }
+    return result;
   }
 
   @Bean

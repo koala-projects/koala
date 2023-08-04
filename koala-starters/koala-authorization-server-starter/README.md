@@ -108,9 +108,11 @@ public class MyTokenCustomizer implements JwtOAuth2TokenCustomizer {
 
 ### 安全过滤连附加处理器
 
-对于认证授权安全过滤链和默认安全过滤链, 提供了对应的附加处理器接口`AuthorizationServerSecurityFilterChainPostProcessor`与`DefaultSecurityFilterChainPostProcessor`
+在认证授权服务中, 实现了认证授权安全过滤链和默认安全过滤链
 
-例如, 需要对认证授权安全过滤链进行定制, 可手动实现`AuthorizationServerSecurityFilterChainPostProcessor`接口:
+同时提供了对应的附加处理器接口`AuthorizationServerSecurityFilterChainPostProcessor`和`ResourceServerSecurityFilterChainPostProcessor`
+
+若需要对认证授权安全过滤链进行定制, 可手动实现`AuthorizationServerSecurityFilterChainPostProcessor`接口:
 
 ```java
 @Component
