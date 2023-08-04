@@ -19,7 +19,7 @@ koala:
       authorization-server: true
 ```
 
-2. 执行[脚本目录](../../koala-domains/koala-authorization-server/src/main/resources/database/authorization)下的结构脚本 `schema.sql`
+2. 执行[脚本目录](../../koala-domains/koala-authorization-server/src/main/resources/database/authorization-server)下的结构脚本 `schema.sql`
 
 ### 配置
 
