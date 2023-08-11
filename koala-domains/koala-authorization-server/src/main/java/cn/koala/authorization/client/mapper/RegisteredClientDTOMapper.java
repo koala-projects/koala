@@ -1,7 +1,7 @@
 package cn.koala.authorization.client.mapper;
 
 import cn.koala.authorization.client.RegisteredClientDTO;
-import cn.koala.authorization.client.RegisteredClientModel;
+import cn.koala.authorization.client.RegisteredClientEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +19,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * 注册客户端数据传输实体转换Mapper
+ *
  * @author Houtaroy
  */
 @Mapper
@@ -34,7 +36,7 @@ public abstract class RegisteredClientDTOMapper {
   @Mapping(target = "scopes", source = "scopes", qualifiedByName = "string2Set")
   @Mapping(target = "clientSettings", source = "clientSettings", qualifiedByName = "string2Map")
   @Mapping(target = "tokenSettings", source = "tokenSettings", qualifiedByName = "string2Map")
-  public abstract RegisteredClientDTO map(RegisteredClientModel source);
+  public abstract RegisteredClientDTO map(RegisteredClientEntity source);
 
   @Named("string2Set")
   public Set<String> string2Set(String source) {

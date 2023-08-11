@@ -3,7 +3,7 @@ package cn.koala.authorization.client;
 import cn.koala.persist.service.CrudService;
 
 /**
- * TODO: 修改类描述
+ * 注册客户端服务接口
  *
  * @author Houtaroy
  */

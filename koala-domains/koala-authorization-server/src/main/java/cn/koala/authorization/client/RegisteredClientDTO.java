@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * TODO: 修改类描述
+ * 注册客户端数据传输实体
  *
  * @author Houtaroy
  */

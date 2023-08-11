@@ -1,7 +1,7 @@
 package cn.koala.authorization.client.support;
 
 import cn.koala.authorization.client.RegisteredClientDTO;
-import cn.koala.authorization.client.RegisteredClientModel;
+import cn.koala.authorization.client.RegisteredClientEntity;
 import cn.koala.authorization.client.RegisteredClientService;
 import cn.koala.authorization.client.mapper.RegisteredClientDTOMapper;
 import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: 修改类描述
+ * 默认注册客户端服务实现类
  *
  * @author Houtaroy
  */
@@ -35,7 +35,7 @@ public class DefaultRegisteredClientService implements RegisteredClientService {
   @Override
   public Page<RegisteredClientDTO> page(Map<String, Object> parameters, Pageable pageable) {
     parameters.put("orders", pageable.getSort().toList());
-    com.github.pagehelper.Page<RegisteredClientModel> page = PageHelper
+    com.github.pagehelper.Page<RegisteredClientEntity> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
       .doSelectPage(() -> this.myBatisRepository.list(parameters));
     return new PageImpl<>(
@@ -69,6 +69,6 @@ public class DefaultRegisteredClientService implements RegisteredClientService {
 
   @Override
   public void delete(@NonNull RegisteredClientDTO dto) {
-    this.myBatisRepository.delete(RegisteredClientModel.builder().id(dto.getId()).build());
+    this.myBatisRepository.delete(RegisteredClientEntity.builder().id(dto.getId()).build());
   }
 }

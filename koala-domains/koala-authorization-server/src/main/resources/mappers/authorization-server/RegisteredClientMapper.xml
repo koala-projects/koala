@@ -47,26 +47,26 @@
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.authorization.client.RegisteredClientModel">
+  <select id="list" resultType="cn.koala.authorization.client.RegisteredClientEntity">
     <include refid="selectRegisteredClient"/>
     <include refid="orderBy"/>
   </select>
 
-  <select id="load" resultType="org.springframework.security.oauth2.server.authorization.client.RegisteredClient">
+  <select id="load" resultType="cn.koala.authorization.client.RegisteredClientEntity">
 
   </select>
 
-  <insert id="create" parameterType="org.springframework.security.oauth2.server.authorization.client.RegisteredClient"
+  <insert id="create" parameterType="cn.koala.authorization.client.RegisteredClientEntity"
           useGeneratedKeys="true"
           keyProperty="id">
 
   </insert>
 
-  <update id="update" parameterType="org.springframework.security.oauth2.server.authorization.client.RegisteredClient">
+  <update id="update" parameterType="cn.koala.authorization.client.RegisteredClientEntity">
 
   </update>
 
-  <update id="delete" parameterType="org.springframework.security.oauth2.server.authorization.client.RegisteredClient">
+  <update id="delete" parameterType="cn.koala.authorization.client.RegisteredClientEntity">
     delete
     from oauth2_registered_client
     where id = #{id}

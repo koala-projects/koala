@@ -7,14 +7,14 @@ import lombok.experimental.SuperBuilder;
 import java.time.Instant;
 
 /**
- * TODO: 修改类描述
+ * 注册客户端数据实体
  *
  * @author Houtaroy
  */
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class RegisteredClientModel {
+public class RegisteredClientEntity {
 
   private String id;
 

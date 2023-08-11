@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 字典接口
+ * 注册客户端管理接口
  *
  * @author Houtaroy
  */

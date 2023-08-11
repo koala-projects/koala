@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 字典接口实现
+ * 注册客户端管理接口实现
  *
  * @author Houtaroy
  */
