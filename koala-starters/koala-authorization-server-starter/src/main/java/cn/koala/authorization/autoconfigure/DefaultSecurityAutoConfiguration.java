@@ -3,6 +3,11 @@ package cn.koala.authorization.autoconfigure;
 import cn.koala.authorization.LoginController;
 import cn.koala.authorization.builder.support.FormLoginPostProcessor;
 import cn.koala.authorization.builder.support.LogoutSuccessHandlerPostProcessor;
+import cn.koala.authorization.client.RegisteredClientApi;
+import cn.koala.authorization.client.RegisteredClientService;
+import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
+import cn.koala.authorization.client.support.DefaultRegisteredClientApi;
+import cn.koala.authorization.client.support.DefaultRegisteredClientService;
 import cn.koala.authorization.repository.KoalaUserRepository;
 import cn.koala.authorization.support.DefaultUserDetailsService;
 import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
@@ -16,6 +21,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
@@ -27,7 +33,7 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
-@MapperScan("cn.koala.authorization.repository")
+@MapperScan({"cn.koala.authorization.repository", "cn.koala.authorization.client.repository"})
 public class DefaultSecurityAutoConfiguration {
 
   @Bean
@@ -73,5 +79,18 @@ public class DefaultSecurityAutoConfiguration {
   @Bean
   public UserDetailsService userDetailsService(KoalaUserRepository repository) {
     return new DefaultUserDetailsService(repository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public RegisteredClientService registeredClientService(RegisteredClientRepository repository,
+                                                         RegisteredClientMyBatisRepository myBatisRepository) {
+    return new DefaultRegisteredClientService(repository, myBatisRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public RegisteredClientApi registeredClientApi(RegisteredClientService service) {
+    return new DefaultRegisteredClientApi(service);
   }
 }

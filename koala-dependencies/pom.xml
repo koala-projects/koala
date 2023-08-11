@@ -32,6 +32,8 @@
     <enjoy.version>5.0.3</enjoy.version>
     <groovy.version>4.0.12</groovy.version>
     <junit.version>5.8.2</junit.version>
+    <lombok.version>1.18.28</lombok.version>
+    <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <minio.version>8.5.3</minio.version>
     <pdfbox.version>2.0.27</pdfbox.version>
@@ -48,6 +50,9 @@
     <commons-pool2.version>2.11.1</commons-pool2.version>
     <guava.version>32.1.2-jre</guava.version>
     <!--maven-->
+    <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
   </properties>
 
@@ -534,6 +539,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
     </dependency>
   </dependencies>
 
@@ -561,6 +567,32 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${mapstruct.version}</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok-mapstruct-binding</artifactId>
+              <version>${lombok-mapstruct-binding.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>

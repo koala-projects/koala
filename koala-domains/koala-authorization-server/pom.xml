@@ -24,6 +24,15 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-resource-server</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-mybatis</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>jakarta.servlet</groupId>
