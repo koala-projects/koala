@@ -2,6 +2,7 @@ package cn.koala.authorization.repository;
 
 
 import cn.koala.security.userdetails.KoalaUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Optional;
 
@@ -13,4 +14,6 @@ import java.util.Optional;
 public interface KoalaUserRepository {
 
   Optional<KoalaUser> findByUsername(String username);
+
+  void changePassword(@Param("username") String username, @Param("password") String password);
 }

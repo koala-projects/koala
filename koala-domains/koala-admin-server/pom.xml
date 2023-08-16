@@ -31,15 +31,14 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.binarywang</groupId>
-      <artifactId>weixin-java-cp</artifactId>
-      <version>${wxjava.version}</version>
-      <optional>true</optional>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-web</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
+      <groupId>com.github.binarywang</groupId>
+      <artifactId>weixin-java-cp</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>

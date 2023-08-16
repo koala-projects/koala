@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  *
  * @author Houtaroy
  */
-@Order(3900)
+@Order
 public class OAuth2ResourceServerPostProcessor implements ResourceServerSecurityFilterChainPostProcessor {
 
 

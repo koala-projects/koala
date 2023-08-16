@@ -16,17 +16,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-mail</artifactId>
-      <optional>true</optional>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-admin-server</artifactId>
     </dependency>
 
     <dependency>
@@ -34,14 +25,24 @@
       <artifactId>spring-boot-admin-starter-server</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>com.github.binarywang</groupId>
       <artifactId>wx-java-cp-spring-boot-starter</artifactId>
       <optional>true</optional>
     </dependency>
-
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-admin-server</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 

@@ -18,19 +18,19 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-authorization-server</artifactId>
     </dependency>
-
+    
     <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>oauth2-oidc-sdk</artifactId>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-security-starter</artifactId>
     </dependency>
-
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-security-starter</artifactId>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>oauth2-oidc-sdk</artifactId>
     </dependency>
 
     <dependency>

@@ -15,15 +15,11 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-persist</artifactId>
+      <artifactId>koala-web</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>
 </project>

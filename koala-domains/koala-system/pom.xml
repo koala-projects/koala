@@ -16,25 +16,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-log</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-open-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>
 </project>

@@ -26,7 +26,7 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-security</artifactId>
+      <artifactId>koala-resource-server</artifactId>
     </dependency>
   </dependencies>
 

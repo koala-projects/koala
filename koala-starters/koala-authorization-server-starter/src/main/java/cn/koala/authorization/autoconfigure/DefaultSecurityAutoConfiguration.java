@@ -1,6 +1,8 @@
 package cn.koala.authorization.autoconfigure;
 
 import cn.koala.authorization.LoginController;
+import cn.koala.authorization.UserinfoApi;
+import cn.koala.authorization.UserinfoService;
 import cn.koala.authorization.builder.support.FormLoginPostProcessor;
 import cn.koala.authorization.builder.support.LogoutSuccessHandlerPostProcessor;
 import cn.koala.authorization.client.RegisteredClientApi;
@@ -10,6 +12,8 @@ import cn.koala.authorization.client.support.DefaultRegisteredClientApi;
 import cn.koala.authorization.client.support.DefaultRegisteredClientService;
 import cn.koala.authorization.repository.KoalaUserRepository;
 import cn.koala.authorization.support.DefaultUserDetailsService;
+import cn.koala.authorization.support.DefaultUserinfoApi;
+import cn.koala.authorization.support.DefaultUserinfoService;
 import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
 import cn.koala.resource.builder.support.PermitAllPostProcessor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -21,6 +25,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -92,5 +97,17 @@ public class DefaultSecurityAutoConfiguration {
   @ConditionalOnMissingBean
   public RegisteredClientApi registeredClientApi(RegisteredClientService service) {
     return new DefaultRegisteredClientApi(service);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public UserinfoService userinfoService(PasswordEncoder passwordEncoder, KoalaUserRepository koalaUserRepository) {
+    return new DefaultUserinfoService(passwordEncoder, koalaUserRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public UserinfoApi userinfoApi(UserinfoService userinfoService) {
+    return new DefaultUserinfoApi(userinfoService);
   }
 }

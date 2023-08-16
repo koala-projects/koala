@@ -21,13 +21,9 @@
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-toolkit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>com.jfinal</groupId>
       <artifactId>enjoy</artifactId>

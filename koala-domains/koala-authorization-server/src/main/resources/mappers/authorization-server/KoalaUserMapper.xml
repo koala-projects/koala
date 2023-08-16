@@ -28,4 +28,10 @@
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
       and t.username = #{username}
   </select>
+
+  <update id="changePassword">
+    update k_user
+    set password = #{password}
+    where username = #{username}
+  </update>
 </mapper>

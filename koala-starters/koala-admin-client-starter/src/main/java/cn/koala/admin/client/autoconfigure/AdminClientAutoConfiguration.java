@@ -1,8 +1,7 @@
 package cn.koala.admin.client.autoconfigure;
 
-import cn.koala.security.authentication.builder.processor.ResourceServerProcessor;
-import cn.koala.security.authentication.builder.processor.support.PermitAllProcessor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
+import cn.koala.resource.builder.support.PermitAllPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,10 +16,9 @@ import org.springframework.core.annotation.Order;
 public class AdminClientAutoConfiguration {
 
   @Bean
-  @Order(2100)
-  @ConditionalOnClass(name = "cn.koala.security.autoconfigure.ResourceServerAutoConfiguration")
+  @Order(3400)
   @ConditionalOnMissingBean(name = "actuatorProcessor")
-  public ResourceServerProcessor actuatorProcessor() {
-    return new PermitAllProcessor("/actuator/**");
+  public ResourceServerSecurityFilterChainPostProcessor actuatorProcessor() {
+    return new PermitAllPostProcessor("/actuator/**");
   }
 }

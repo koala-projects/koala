@@ -1,4 +1,4 @@
-package cn.koala.system.services;
+package cn.koala.authorization;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Houtaroy
  */
 public interface UserinfoService {
-  
+
   UserDetails getUserinfo();
 
   void changePassword(String password, String newPassword);

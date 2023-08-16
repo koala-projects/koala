@@ -16,8 +16,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-code</artifactId>
     </dependency>
 
     <dependency>
@@ -28,9 +28,11 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-template-starter</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-code</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 

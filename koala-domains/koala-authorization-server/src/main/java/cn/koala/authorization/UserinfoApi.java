@@ -1,7 +1,7 @@
-package cn.koala.system.apis;
+package cn.koala.authorization;
 
+import cn.koala.authorization.request.ChangePasswordRequest;
 import cn.koala.security.userdetails.KoalaUser;
-import cn.koala.system.apis.request.ChangePasswordRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;

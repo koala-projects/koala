@@ -1,7 +1,8 @@
-package cn.koala.system.apis;
+package cn.koala.authorization.support;
 
-import cn.koala.system.apis.request.ChangePasswordRequest;
-import cn.koala.system.services.UserinfoService;
+import cn.koala.authorization.UserinfoApi;
+import cn.koala.authorization.UserinfoService;
+import cn.koala.authorization.request.ChangePasswordRequest;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-public class UserinfoApiImpl implements UserinfoApi {
+public class DefaultUserinfoApi implements UserinfoApi {
 
   private final UserinfoService service;
 
