@@ -51,7 +51,7 @@ public interface DictionaryItemApi {
    * @param pageable   分页条件
    * @return 字典项列表
    */
-  @PreAuthorize("hasAuthority('system:dictionary:update')")
+  @PreAuthorize("hasAuthority('dictionary.update')")
   @Operation(operationId = "listDictionaryItems", summary = "根据条件分页查询字典项")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemPageResult.class))}
@@ -70,7 +70,7 @@ public interface DictionaryItemApi {
    * @param id 字典项id
    * @return 字典项
    */
-  @PreAuthorize("hasAuthority('system:dictionary:update')")
+  @PreAuthorize("hasAuthority('dictionary.update')")
   @Operation(operationId = "loadDictionaryItem", summary = "根据id查询字典项")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemResult.class))}
@@ -85,7 +85,7 @@ public interface DictionaryItemApi {
    * @param entity 字典项数据实体
    * @return 字典
    */
-  @PreAuthorize("hasAuthority('system:dictionary:update')")
+  @PreAuthorize("hasAuthority('dictionary.update')")
   @Operation(operationId = "createDictionaryItem", summary = "创建字典项")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemResult.class))}
@@ -100,7 +100,7 @@ public interface DictionaryItemApi {
    * @param entity 字典数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:dictionary:update')")
+  @PreAuthorize("hasAuthority('dictionary.update')")
   @Operation(operationId = "updateDictionaryItem", summary = "更新字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -116,7 +116,7 @@ public interface DictionaryItemApi {
    * @param id 字典id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:dictionary:update')")
+  @PreAuthorize("hasAuthority('dictionary.update')")
   @Operation(operationId = "deleteDictionaryItem", summary = "删除字典")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

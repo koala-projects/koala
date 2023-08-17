@@ -30,7 +30,7 @@ import java.util.List;
 @SecurityRequirement(name = "spring-security")
 public interface OcrApi {
 
-  @PreAuthorize("hasAuthority('ocr:image')")
+  @PreAuthorize("hasAuthority('ocr.image')")
   @Operation(operationId = "ocrImage", summary = "识别图片")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ImageResult.class))}
@@ -46,7 +46,7 @@ public interface OcrApi {
   @PostMapping("image")
   DataResponse<List<DetectedObjects.DetectedObject>> image(@RequestParam("file") MultipartFile image);
 
-  @PreAuthorize("hasAuthority('ocr:pdf')")
+  @PreAuthorize("hasAuthority('ocr.pdf')")
   @Operation(operationId = "ocrPDF", summary = "识别PDF")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PDFResult.class))}

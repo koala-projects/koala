@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,7 @@ public interface TaskApi {
    * @param pageable   分页条件
    * @return 任务分页结果
    */
+  @PreAuthorize("hasAuthority('task.read')")
   @Operation(operationId = "listTasks", summary = "根据条件分页查询任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskPageResult.class))}
@@ -65,6 +67,7 @@ public interface TaskApi {
    * @param id 任务id
    * @return 任务数据实体
    */
+  @PreAuthorize("hasAuthority('task.read')")
   @Operation(operationId = "loadTask", summary = "根据id查询任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskResult.class))}
@@ -79,6 +82,7 @@ public interface TaskApi {
    * @param entity 任务数据实体
    * @return 任务数据实体
    */
+  @PreAuthorize("hasAuthority('task.create')")
   @Operation(operationId = "createTask", summary = "创建任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskResult.class))}
@@ -93,6 +97,7 @@ public interface TaskApi {
    * @param entity 任务数据实体
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('task.update')")
   @Operation(operationId = "updateTask", summary = "更新任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -108,6 +113,7 @@ public interface TaskApi {
    * @param id 任务id
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('task.delete')")
   @Operation(operationId = "deleteTask", summary = "删除任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -116,6 +122,7 @@ public interface TaskApi {
   @DeleteMapping("{id}")
   Response delete(@EditableId(TaskEntity.class) @PathVariable("id") Long id);
 
+  @PreAuthorize("hasAuthority('task.update')")
   @Operation(operationId = "enableTask", summary = "启用任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -124,6 +131,7 @@ public interface TaskApi {
   @PutMapping("{id}/enable")
   Response enable(@PathVariable("id") Long id);
 
+  @PreAuthorize("hasAuthority('task.update')")
   @Operation(operationId = "disableTask", summary = "禁用任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -132,6 +140,7 @@ public interface TaskApi {
   @PutMapping("{id}/disable")
   Response disable(@PathVariable("id") Long id);
 
+  @PreAuthorize("hasAuthority('task.execute')")
   @Operation(operationId = "executeTask", summary = "执行任务")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

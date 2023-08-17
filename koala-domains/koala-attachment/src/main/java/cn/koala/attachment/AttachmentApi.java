@@ -46,7 +46,7 @@ public interface AttachmentApi {
    * @param pageable   分页条件
    * @return 附件分页结果
    */
-  @PreAuthorize("hasAuthority('attachment:page')")
+  @PreAuthorize("hasAuthority('attachment.read')")
   @Operation(operationId = "listAttachments", summary = "根据条件分页查询附件")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AttachmentPageResult.class))}
@@ -67,7 +67,7 @@ public interface AttachmentApi {
    * @param id 附件id
    * @return 附件数据实体
    */
-  @PreAuthorize("hasAuthority('attachment:load')")
+  @PreAuthorize("hasAuthority('attachment.read')")
   @Operation(operationId = "loadAttachment", summary = "根据id查询附件")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AttachmentResult.class))}
@@ -82,7 +82,7 @@ public interface AttachmentApi {
    * @param id 附件id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('attachment:delete')")
+  @PreAuthorize("hasAuthority('attachment.delete')")
   @Operation(operationId = "deleteAttachment", summary = "删除附件")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -97,7 +97,7 @@ public interface AttachmentApi {
    * @param attachment 附件
    * @return 附件数据实体
    */
-  @PreAuthorize("hasAuthority('attachment:upload')")
+  @PreAuthorize("hasAuthority('attachment.create')")
   @Operation(operationId = "uploadAttachment", summary = "上传附件")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AttachmentResult.class))}
@@ -119,7 +119,7 @@ public interface AttachmentApi {
    * @param id       附件id
    * @param response 响应
    */
-  @PreAuthorize("hasAuthority('attachment:download')")
+  @PreAuthorize("hasAuthority('attachment.read')")
   @Operation(operationId = "loadAttachment", summary = "根据id下载附件")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AttachmentResult.class))}

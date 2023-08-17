@@ -1,4 +1,4 @@
-package cn.koala.system.apis;
+package cn.koala.system.apis.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

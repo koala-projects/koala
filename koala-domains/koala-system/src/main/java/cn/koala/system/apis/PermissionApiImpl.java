@@ -2,8 +2,8 @@ package cn.koala.system.apis;
 
 import cn.koala.log.annotations.Log;
 import cn.koala.system.Permission;
-import cn.koala.system.entities.PermissionEntity;
 import cn.koala.system.services.PermissionService;
+import cn.koala.system.support.PermissionEntity;
 import cn.koala.toolkit.tree.TreeNode;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;

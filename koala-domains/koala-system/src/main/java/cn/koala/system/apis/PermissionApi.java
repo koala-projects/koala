@@ -2,7 +2,7 @@ package cn.koala.system.apis;
 
 import cn.koala.persist.validator.EditableId;
 import cn.koala.system.Permission;
-import cn.koala.system.entities.PermissionEntity;
+import cn.koala.system.support.PermissionEntity;
 import cn.koala.toolkit.tree.TreeNode;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -46,7 +46,7 @@ public interface PermissionApi {
    *
    * @return 权限树
    */
-  @PreAuthorize("hasAuthority('system:permission:tree')")
+  @PreAuthorize("hasAuthority('permission.read')")
   @Operation(operationId = "permissionTree", summary = "查询权限树")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionTreeResult.class))}
@@ -60,7 +60,7 @@ public interface PermissionApi {
    * @param id 权限id
    * @return 权限
    */
-  @PreAuthorize("hasAuthority('system:permission:load')")
+  @PreAuthorize("hasAuthority('permission.read')")
   @Operation(operationId = "loadPermission", summary = "根据id查询权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionResult.class))}
@@ -75,7 +75,7 @@ public interface PermissionApi {
    * @param permission 权限数据实体
    * @return 权限
    */
-  @PreAuthorize("hasAuthority('system:permission:create')")
+  @PreAuthorize("hasAuthority('permission.create')")
   @Operation(operationId = "createPermission", summary = "创建权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PermissionResult.class))}
@@ -90,7 +90,7 @@ public interface PermissionApi {
    * @param permission 权限数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:permission:update')")
+  @PreAuthorize("hasAuthority('permission.update')")
   @Operation(operationId = "updatePermission", summary = "更新权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -106,7 +106,7 @@ public interface PermissionApi {
    * @param id 权限id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:permission:delete')")
+  @PreAuthorize("hasAuthority('permission.delete')")
   @Operation(operationId = "deletePermission", summary = "删除权限")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

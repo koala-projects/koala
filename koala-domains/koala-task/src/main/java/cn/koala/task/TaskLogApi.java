@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public interface TaskLogApi {
    * @param pageable   分页条件
    * @return 任务日志分页结果
    */
+  @PreAuthorize("hasAuthority('task-log.read')")
   @Operation(operationId = "listTaskLogs", summary = "根据条件分页查询任务日志")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskLogPageResult.class))}
@@ -57,6 +59,7 @@ public interface TaskLogApi {
    * @param id 任务日志id
    * @return 任务日志数据实体
    */
+  @PreAuthorize("hasAuthority('task-log.read')")
   @Operation(operationId = "loadTaskLog", summary = "根据id查询任务日志")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskLogResult.class))}

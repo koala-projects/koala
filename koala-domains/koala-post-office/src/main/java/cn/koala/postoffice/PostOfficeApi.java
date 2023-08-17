@@ -33,7 +33,7 @@ public interface PostOfficeApi {
    *
    * @return 驿站列表
    */
-  @PreAuthorize("hasAuthority('post-office:list')")
+  @PreAuthorize("hasAuthority('post-office.read')")
   @Operation(operationId = "listPostOffices", summary = "查询驿站列表")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PostOfficeListResult.class))}
@@ -41,7 +41,7 @@ public interface PostOfficeApi {
   @GetMapping
   DataResponse<List<PostOffice>> list();
 
-  @PreAuthorize("hasAuthority('post-office:post')")
+  @PreAuthorize("hasAuthority('post-office.post')")
   @Operation(operationId = "postOfficePost", summary = "驿站投递")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PostApiResult.class))}

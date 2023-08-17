@@ -54,7 +54,7 @@ public interface UserApi {
    * @param pageable   分页条件
    * @return 用户列表
    */
-  @PreAuthorize("hasAuthority('system:user:page')")
+  @PreAuthorize("hasAuthority('user.read')")
   @Operation(operationId = "listUsers", summary = "根据条件分页查询用户")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserPageResult.class))}
@@ -73,7 +73,7 @@ public interface UserApi {
    * @param id 用户id
    * @return 用户
    */
-  @PreAuthorize("hasAuthority('system:user:load')")
+  @PreAuthorize("hasAuthority('user.read')")
   @Operation(operationId = "loadUser", summary = "根据id查询用户")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResult.class))}
@@ -88,7 +88,7 @@ public interface UserApi {
    * @param user 用户
    * @return 用户
    */
-  @PreAuthorize("hasAuthority('system:user:create')")
+  @PreAuthorize("hasAuthority('user.create')")
   @Operation(operationId = "createUser", summary = "创建用户")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResult.class))}
@@ -103,7 +103,7 @@ public interface UserApi {
    * @param user 用户
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:user:update')")
+  @PreAuthorize("hasAuthority('user.update')")
   @Operation(operationId = "updateUser", summary = "更新用户")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -119,7 +119,7 @@ public interface UserApi {
    * @param id 用户id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:user:delete')")
+  @PreAuthorize("hasAuthority('user.delete')")
   @Operation(operationId = "deleteUser", summary = "删除用户")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -134,7 +134,7 @@ public interface UserApi {
    * @param id 用户id
    * @return 角色id列表
    */
-  @PreAuthorize("hasAuthority('system:user:update')")
+  @PreAuthorize("hasAuthority('user.update')")
   @Operation(operationId = "listUserRoleIds", summary = "根据id查询用户角色id列表")
   @ApiResponse(responseCode = "200", description = "成功", content = {
     @Content(mediaType = "application/json", schema = @Schema(implementation = RoleIdsResult.class))
@@ -150,7 +150,7 @@ public interface UserApi {
    * @param request 角色id列表
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:user:update')")
+  @PreAuthorize("hasAuthority('user.update')")
   @Operation(operationId = "setUserRoles", summary = "用户授权")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -166,7 +166,7 @@ public interface UserApi {
    * @param id 用户id
    * @return 部门id列表
    */
-  @PreAuthorize("hasAuthority('system:user:update')")
+  @PreAuthorize("hasAuthority('user.update')")
   @Operation(operationId = "listUserDepartmentIds", summary = "根据id查询用户部门id列表")
   @ApiResponse(responseCode = "200", description = "成功", content = {
     @Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentIdsResult.class))
@@ -182,7 +182,7 @@ public interface UserApi {
    * @param request 部门ID列表
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:user:update')")
+  @PreAuthorize("hasAuthority('user.update')")
   @Operation(operationId = "setUserDepartments", summary = "设置用户部门ID列表")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

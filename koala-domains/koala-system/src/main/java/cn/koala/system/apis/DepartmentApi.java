@@ -44,7 +44,7 @@ public interface DepartmentApi {
    *
    * @return 树形结构部门列表
    */
-  @PreAuthorize("hasAuthority('system:department:tree')")
+  @PreAuthorize("hasAuthority('department.read')")
   @Operation(operationId = "departmentTree", summary = "查询部门树")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentTreeResult.class))}
@@ -58,7 +58,7 @@ public interface DepartmentApi {
    * @param id 部门id
    * @return 部门
    */
-  @PreAuthorize("hasAuthority('system:department:load')")
+  @PreAuthorize("hasAuthority('department.read')")
   @Operation(operationId = "loadDepartment", summary = "根据id查询部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentResult.class))}
@@ -73,7 +73,7 @@ public interface DepartmentApi {
    * @param entity 部门数据实体
    * @return 部门
    */
-  @PreAuthorize("hasAuthority('system:department:create')")
+  @PreAuthorize("hasAuthority('department.create')")
   @Operation(operationId = "createDepartment", summary = "创建部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DepartmentResult.class))}
@@ -88,7 +88,7 @@ public interface DepartmentApi {
    * @param entity 部门数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:department:update')")
+  @PreAuthorize("hasAuthority('department.update')")
   @Operation(operationId = "updateDepartment", summary = "更新部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -104,7 +104,7 @@ public interface DepartmentApi {
    * @param id 部门id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:department:delete')")
+  @PreAuthorize("hasAuthority('department.delete')")
   @Operation(operationId = "deleteDepartment", summary = "删除部门")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

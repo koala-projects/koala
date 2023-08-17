@@ -41,7 +41,7 @@ public interface LogApi {
    * @param pageable   分页条件
    * @return 日志列表
    */
-  @PreAuthorize("hasAuthority('system:log:page')")
+  @PreAuthorize("hasAuthority('log.read')")
   @Operation(operationId = "listLogs", summary = "根据条件分页查询日志")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = LogPageResult.class))}
@@ -61,7 +61,7 @@ public interface LogApi {
    * @param id 模板id
    * @return 模板
    */
-  @PreAuthorize("hasAuthority('system:log:load')")
+  @PreAuthorize("hasAuthority('log.read')")
   @Operation(operationId = "loadLog", summary = "根据id查询日志")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = LogResult.class))}

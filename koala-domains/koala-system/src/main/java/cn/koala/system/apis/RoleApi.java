@@ -3,6 +3,7 @@ package cn.koala.system.apis;
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.persist.validator.EditableId;
 import cn.koala.system.Role;
+import cn.koala.system.apis.request.RoleAuthorizeRequest;
 import cn.koala.system.entities.RoleEntity;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -52,7 +53,7 @@ public interface RoleApi {
    * @param pageable   分页条件
    * @return 角色列表
    */
-  @PreAuthorize("hasAuthority('system:role:page')")
+  @PreAuthorize("hasAuthority('role.read')")
   @Operation(operationId = "listRoles", summary = "根据条件分页查询角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RolePageResult.class))}
@@ -70,7 +71,7 @@ public interface RoleApi {
    * @param id 角色id
    * @return 角色
    */
-  @PreAuthorize("hasAuthority('system:role:load')")
+  @PreAuthorize("hasAuthority('role.read')")
   @Operation(operationId = "loadRole", summary = "根据id查询角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RoleResult.class))}
@@ -85,7 +86,7 @@ public interface RoleApi {
    * @param entity 角色数据实体
    * @return 角色
    */
-  @PreAuthorize("hasAuthority('system:role:create')")
+  @PreAuthorize("hasAuthority('role.create')")
   @Operation(operationId = "createRole", summary = "创建角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RoleResult.class))}
@@ -100,7 +101,7 @@ public interface RoleApi {
    * @param entity 角色数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:role:update')")
+  @PreAuthorize("hasAuthority('role.update')")
   @Operation(operationId = "updateRole", summary = "更新角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -116,7 +117,7 @@ public interface RoleApi {
    * @param id 角色id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:role:delete')")
+  @PreAuthorize("hasAuthority('role.delete')")
   @Operation(operationId = "deleteRole", summary = "删除角色")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -131,7 +132,7 @@ public interface RoleApi {
    * @param id 角色id
    * @return 全选权限id列表
    */
-  @PreAuthorize("hasAuthority('system:role:update')")
+  @PreAuthorize("hasAuthority('role.update')")
   @Operation(operationId = "listRoleCheckedPermissionIds", summary = "根据id查询角色权限关系列表")
   @ApiResponse(responseCode = "200", description = "成功", content = {
     @Content(mediaType = "application/json", schema = @Schema(implementation = CheckedPermissionIdsResult.class))
@@ -147,7 +148,7 @@ public interface RoleApi {
    * @param request 角色授权请求
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('system:role:update')")
+  @PreAuthorize("hasAuthority('role.update')")
   @Operation(operationId = "setRolePermissions", summary = "角色授权")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

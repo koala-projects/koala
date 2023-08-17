@@ -2,6 +2,7 @@ package cn.koala.system.apis;
 
 import cn.koala.log.annotations.Log;
 import cn.koala.system.Role;
+import cn.koala.system.apis.request.RoleAuthorizeRequest;
 import cn.koala.system.entities.RoleEntity;
 import cn.koala.system.services.RoleService;
 import cn.koala.web.DataResponse;

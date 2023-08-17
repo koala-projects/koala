@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,7 @@ public interface QueryApi {
    * @param pageable   分页条件
    * @return 查询分页结果
    */
+  @PreAuthorize("hasAuthority('query.read')")
   @Operation(operationId = "listQueries", summary = "根据条件分页查询查询定义")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QueryPageResult.class))}
@@ -65,6 +67,7 @@ public interface QueryApi {
    * @param id 查询id
    * @return 查询数据实体
    */
+  @PreAuthorize("hasAuthority('query.read')")
   @Operation(operationId = "loadQuery", summary = "根据id查询查询")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QueryResult.class))}
@@ -79,6 +82,7 @@ public interface QueryApi {
    * @param entity 查询数据实体
    * @return 查询数据实体
    */
+  @PreAuthorize("hasAuthority('query.create')")
   @Operation(operationId = "createQuery", summary = "创建查询")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QueryResult.class))}
@@ -93,6 +97,7 @@ public interface QueryApi {
    * @param entity 查询数据实体
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('query.update')")
   @Operation(operationId = "updateQuery", summary = "更新查询")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -108,6 +113,7 @@ public interface QueryApi {
    * @param id 查询id
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('query.delete')")
   @Operation(operationId = "deleteQuery", summary = "删除查询")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -122,6 +128,7 @@ public interface QueryApi {
    * @param id 查询id
    * @return 查询数据实体
    */
+  @PreAuthorize("hasAuthority('query.execute')")
   @Operation(operationId = "executeQuery", summary = "执行查询")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ExecuteResult.class))}

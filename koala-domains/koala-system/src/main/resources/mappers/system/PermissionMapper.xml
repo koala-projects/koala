@@ -13,7 +13,7 @@
     from k_permission t
   </sql>
 
-  <select id="list" resultType="cn.koala.system.entities.PermissionEntity">
+  <select id="list" resultType="cn.koala.system.support.PermissionEntity">
     <include refid="selectPermission"/>
     <where>
       <if test="code != null and code != ''">
@@ -25,18 +25,18 @@
     </where>
   </select>
 
-  <select id="load" resultType="cn.koala.system.entities.PermissionEntity">
+  <select id="load" resultType="cn.koala.system.support.PermissionEntity">
     <include refid="selectPermission"/>
     where t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.entities.PermissionEntity" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.system.support.PermissionEntity" useGeneratedKeys="true"
           keyProperty="id">
     insert into k_permission(id, code, name, remark, parent_id, sort_index)
     values (#{id}, #{code}, #{name}, #{remark}, #{parentId}, #{sortIndex})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.entities.PermissionEntity">
+  <update id="update" parameterType="cn.koala.system.support.PermissionEntity">
     update k_permission
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
@@ -48,7 +48,7 @@
     where id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.entities.PermissionEntity">
+  <update id="delete" parameterType="cn.koala.system.support.PermissionEntity">
     delete
     from k_permission
     where id = #{id}
