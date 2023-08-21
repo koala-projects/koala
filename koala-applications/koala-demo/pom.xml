@@ -45,6 +45,15 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>8.0.32</version>
     </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-mysql</artifactId>
+      <version>9.21.1</version>
+    </dependency>
   </dependencies>
 
   <build>

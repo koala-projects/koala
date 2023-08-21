@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /
 spring:
+  flyway:
+    locations: classpath:db/migration/{vendor}
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -87,3 +89,10 @@ koala:
         - /api/databases/**
         - /api/template*/**
         - /api/code/**
+  system:
+    permission:
+      register:
+        registrars:
+          system:
+            enabled: true
+            overwritten: true

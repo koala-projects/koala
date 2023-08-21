@@ -6,11 +6,6 @@ values (1, '考拉开源', null, 1, 1, 1, now());
 insert into k_role(id, code, name, sort_index, is_systemic, created_by, created_time)
 values (1, 'admin', '系统管理员', 1, 1, 1, now());
 
--- 管理员角色权限关系
-insert into k_role_permission
-select 1, id, 0
-from k_permission;
-
 -- 管理员用户
 insert into k_user(id, username, password, nickname, sort_index, is_systemic, created_by, created_time)
 values (1, 'admin', '{bcrypt}$2a$10$COsN1rWGQydTaNKaZ5EfFeYY0fCunvlHO4ABvqQUqQZiiK.bzglK2', '管理员', 1, 1, 1, now());

@@ -307,7 +307,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
     <include refid="select#(name)"/>
     <where>
 #if(mybatis.isStateful())
-      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      t.is_deleted = $\{@cn.koala.persist.domain.YesNo@NO.value}
 #end
 #for(column: mybatis.columns)
 #if(column.columnName != ''id'')
@@ -322,7 +322,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 
   <select id="load" resultType="#(package).entity.#(name)Entity">
     <include refid="select#(name)"/>
-    where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+    where#if(mybatis.isStateful()) t.is_deleted = $\{@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>
 
   <insert id="create" parameterType="#(package).entity.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
@@ -343,13 +343,13 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
 #end
 #end
     </trim>
-    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
+    where#if(mybatis.isStateful()) is_deleted = $\{@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
   </update>
 
 #if(mybatis.isStateful())
   <update id="delete" parameterType="#(package).entity.#(name)Entity">
     update #(table.name)
-    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
+    set is_deleted   = $\{@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
 #if(mybatis.isAuditable())
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
