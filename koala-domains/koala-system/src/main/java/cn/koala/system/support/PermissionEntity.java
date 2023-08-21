@@ -1,4 +1,4 @@
-package cn.koala.system.entities;
+package cn.koala.system.support;
 
 import cn.koala.persist.validator.UniqueField;
 import cn.koala.system.Permission;

@@ -18,6 +18,7 @@
     <module>koala-admin-server</module>
     <module>koala-attachment</module>
     <module>koala-authorization-server</module>
+    <module>koala-boot</module>
     <module>koala-cache</module>
     <module>koala-code</module>
     <module>koala-data-source</module>

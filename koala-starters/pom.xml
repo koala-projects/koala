@@ -19,6 +19,7 @@
     <module>koala-admin-server-starter</module>
     <module>koala-attachment-starter</module>
     <module>koala-authorization-server-starter</module>
+    <module>koala-boot-starter</module>
     <module>koala-cache-starter</module>
     <module>koala-code-starter</module>
     <module>koala-data-source-starter</module>

@@ -299,6 +299,11 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
+        <artifactId>koala-boot</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
         <artifactId>koala-cache</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -426,6 +431,11 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-authorization-server-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-boot-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

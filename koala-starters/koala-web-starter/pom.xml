@@ -16,13 +16,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-web</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid-spring-boot-starter</artifactId>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-open-api</artifactId>
     </dependency>
 
     <dependency>
@@ -31,12 +30,13 @@
     </dependency>
 
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-open-api</artifactId>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
     </dependency>
   </dependencies>
 

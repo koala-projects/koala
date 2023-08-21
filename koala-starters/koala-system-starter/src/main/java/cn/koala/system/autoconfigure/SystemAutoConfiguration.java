@@ -10,8 +10,6 @@ import cn.koala.system.apis.DictionaryItemApiImpl;
 import cn.koala.system.apis.PermissionApi;
 import cn.koala.system.apis.PermissionApiImpl;
 import cn.koala.system.apis.RoleApiImpl;
-import cn.koala.system.apis.SettingApi;
-import cn.koala.system.apis.SettingApiImpl;
 import cn.koala.system.apis.UserApi;
 import cn.koala.system.apis.UserApiImpl;
 import cn.koala.system.listeners.UserListener;
@@ -40,6 +38,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -49,6 +48,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Houtaroy
  */
 @Configuration
+@Import(PermissionRegisterAutoConfiguration.class)
 @MapperScan(basePackages = "cn.koala.system.repositories")
 public class SystemAutoConfiguration {
   @Bean
@@ -138,12 +138,6 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public SettingService settingService(SettingRepository settingRepository) {
     return new SettingServiceImpl(settingRepository);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public SettingApi settingApi(SettingService settingService) {
-    return new SettingApiImpl(settingService);
   }
 
   @Bean

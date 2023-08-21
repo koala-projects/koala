@@ -8,9 +8,7 @@ import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.storage.AttachmentStorage;
 import cn.koala.attachment.support.DefaultAttachmentApi;
 import cn.koala.attachment.support.DefaultAttachmentService;
-import cn.koala.minio.autoconfigure.MinioAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +21,8 @@ import org.springframework.context.annotation.Import;
  * @author Houtaroy
  */
 @Configuration
-@Import({LocalFileAttachmentStorageAutoConfiguration.class, MinioAttachmentStorageAutoConfiguration.class})
-@AutoConfigureAfter(MinioAutoConfiguration.class)
+@Import({LocalFileAttachmentStorageAutoConfiguration.class, MinioAttachmentStorageAutoConfiguration.class,
+  AttachmentPermissionAutoConfiguration.class})
 @EnableConfigurationProperties(AttachmentProperties.class)
 @MapperScan("cn.koala.attachment.repository")
 public class AttachmentAutoConfiguration {
