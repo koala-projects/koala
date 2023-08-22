@@ -4,20 +4,9 @@
 
 ## 快速开始
 
-### 初始化
+### 数据库
 
-可通过如下两种方式初始化数据库:
-
-1. 配置开启模块初始化器:
-
-```yaml
-koala:
-  persist:
-    initializer:
-      system: true
-```
-
-2. 执行[脚本目录](../../koala-domains/koala-system/src/main/resources/database/system)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
+请先参照[快速开始](../../docs/guide/getting-started.md#初始化数据库)初始化数据库
 
 ### 接口文档
 
@@ -27,7 +16,43 @@ koala:
 
 ## 进阶
 
-### 自定义
+### 权限注册
+
+可通过实现权限注册登记器接口`PermissionRegistrar`实现权限注册:
+
+```java
+@Component
+public class TestPermissionRegistrar implements PermissionRegistrar {
+  
+  public String getCode() {
+    return "test"      
+  }
+  
+  public List<Permission> getPermissions() {
+    // 生成需要注册的权限...
+  }
+}
+```
+
+系统内置了如下权限注册登记器:
+
+- `SimplePermissionRegistrar`: 简易权限注册登记器, 支持父子两级权限注册
+- `CrudPermissionRegistrar`: 增删改查权限注册登记器, 根据领域名称, 自动创建父级权限和 `read` / `create` / `update` / `delete` 子级权限
+
+可通过配置文件对权限注册登记器进行控制:
+
+```yaml
+koala:
+  system:
+    permission-registrars:
+      test:
+        # 是否启用
+        enabled: true
+        # 是否覆盖
+        overwritten: true
+```
+
+### 自定义服务
 
 如现有系统管理功能不满足需求, 可以通过替换指定的服务或接口来实现定制
 

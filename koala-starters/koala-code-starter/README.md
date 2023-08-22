@@ -6,20 +6,9 @@
 
 ## 快速开始
 
-### 初始化
+### 数据库
 
-可通过如下两种方式初始化数据库:
-
-1. 配置开启模块初始化器:
-
-```yaml
-koala:
-  persist:
-    initializer:
-      code: true
-```
-
-2. 执行[脚本目录](../../koala-domains/koala-code/src/main/resources/database/code)下的结构脚本 `schema.sql` 和数据脚本 `data.sql`
+请先参照[快速开始](../../docs/guide/getting-started.md#初始化数据库)初始化数据库
 
 ### 配置
 

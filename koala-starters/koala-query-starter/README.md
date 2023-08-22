@@ -4,20 +4,9 @@
 
 ## 快速开始
 
-### 初始化
+### 数据库
 
-可通过如下两种方式初始化数据库:
-
-1. 配置开启模块初始化器:
-
-```yaml
-koala:
-  persist:
-    initializer:
-      query: true
-```
-
-2. 执行[脚本目录](../../koala-domains/koala-query/src/main/resources/database/query)下的结构脚本 `schema.sql`
+请先参照[快速开始](../../docs/guide/getting-started.md#初始化数据库)初始化数据库
 
 ### 接口文档
 

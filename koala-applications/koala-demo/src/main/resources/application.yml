@@ -3,8 +3,6 @@ server:
   servlet:
     context-path: /
 spring:
-  flyway:
-    locations: classpath:db/migration/{vendor}
   main:
     allow-bean-definition-overriding: true
   datasource:
