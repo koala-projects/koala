@@ -133,7 +133,7 @@ mvn archetype:generate ^
 
 ## 初始化数据库
 
-自 `2023.1.2`版本开始, 考拉默认使用 [Flyway](https://github.com/flyway/flyway) 作为数据库版本管理工具
+自 `2023.1.2` 版本开始, 考拉默认使用 [Flyway](https://github.com/flyway/flyway) 作为数据库版本管理工具
 
 1. 引入 Flyway 依赖:
 
@@ -155,7 +155,7 @@ mvn archetype:generate ^
 </dependency>
 ```
 
-3. 在[数据库脚本目录](../../db/migration)下选择项目数据库类型的数据库脚本, 移入项目目录`resources/db/migration`:
+3. 在[数据库脚本目录](../../db/migration)下选择项目数据库类型的数据库脚本, 移入项目目录 `resources/db/migration` :
 
 ```
 db
