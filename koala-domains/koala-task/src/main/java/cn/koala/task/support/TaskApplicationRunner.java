@@ -6,6 +6,7 @@ import cn.koala.task.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Order(3400)
 @RequiredArgsConstructor
 public class TaskApplicationRunner implements ApplicationRunner {
 

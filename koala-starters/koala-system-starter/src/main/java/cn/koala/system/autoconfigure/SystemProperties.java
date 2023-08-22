@@ -8,13 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 权限注册器属性类
+ * 系统配置属性类
  *
  * @author Houtaroy
  */
 @Data
-@ConfigurationProperties(prefix = "koala.system.permission.register")
-public class PermissionRegisterProperties {
+@ConfigurationProperties(prefix = "koala.system")
+public class SystemProperties {
 
-  private final Map<String, PermissionRegistrarConfig> registrars = new HashMap<>();
+  private boolean adminRegister;
+
+  private Map<String, PermissionRegistrarConfig> permissionRegistrars = new HashMap<>();
 }

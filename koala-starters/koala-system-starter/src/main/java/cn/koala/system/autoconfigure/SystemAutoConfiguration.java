@@ -1,6 +1,6 @@
 package cn.koala.system.autoconfigure;
 
-import cn.koala.system.SystemInitializer;
+import cn.koala.system.PermissionRegistrar;
 import cn.koala.system.apis.DepartmentApi;
 import cn.koala.system.apis.DepartmentApiImpl;
 import cn.koala.system.apis.DictionaryApi;
@@ -18,7 +18,6 @@ import cn.koala.system.repositories.DictionaryItemRepository;
 import cn.koala.system.repositories.DictionaryRepository;
 import cn.koala.system.repositories.PermissionRepository;
 import cn.koala.system.repositories.RoleRepository;
-import cn.koala.system.repositories.SettingRepository;
 import cn.koala.system.repositories.UserRepository;
 import cn.koala.system.services.DepartmentService;
 import cn.koala.system.services.DepartmentServiceImpl;
@@ -30,17 +29,21 @@ import cn.koala.system.services.PermissionService;
 import cn.koala.system.services.PermissionServiceImpl;
 import cn.koala.system.services.RoleService;
 import cn.koala.system.services.RoleServiceImpl;
-import cn.koala.system.services.SettingService;
-import cn.koala.system.services.SettingServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
+import cn.koala.system.support.AdminRegister;
+import cn.koala.system.support.PermissionRegister;
+import cn.koala.system.support.SystemPermissionRegistrar;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 
 /**
  * 系统管理自动配置类
@@ -48,7 +51,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Houtaroy
  */
 @Configuration
-@Import(PermissionRegisterAutoConfiguration.class)
+@EnableConfigurationProperties(SystemProperties.class)
 @MapperScan(basePackages = "cn.koala.system.repositories")
 public class SystemAutoConfiguration {
   @Bean
@@ -135,13 +138,23 @@ public class SystemAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
-  public SettingService settingService(SettingRepository settingRepository) {
-    return new SettingServiceImpl(settingRepository);
+  @ConditionalOnMissingBean(name = "systemPermissionRegistrar")
+  public PermissionRegistrar systemPermissionRegistrar() {
+    return new SystemPermissionRegistrar();
   }
 
   @Bean
-  public SystemInitializer systemInitializer() {
-    return new SystemInitializer();
+  public PermissionRegister permissionRegister(
+    List<PermissionRegistrar> registrars, SystemProperties properties, PermissionRepository repository) {
+
+    return new PermissionRegister(registrars, repository, properties.getPermissionRegistrars());
+  }
+
+  @Bean
+  @ConditionalOnProperty(prefix = "koala.system", name = "admin-register", havingValue = "true")
+  public AdminRegister adminRegister(PermissionRepository permissionRepository, RoleRepository roleRepository,
+                                     UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
+    return new AdminRegister(permissionRepository, roleRepository, userRepository, passwordEncoder);
   }
 }

@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Configuration
 @EnableConfigurationProperties(InitializerProperties.class)
-@Import({InitializerAutoConfiguration.class, EntityListenerAutoConfiguration.class})
+@Import({EntityListenerAutoConfiguration.class})
 public class PersistAutoConfiguration {
 
   @Bean

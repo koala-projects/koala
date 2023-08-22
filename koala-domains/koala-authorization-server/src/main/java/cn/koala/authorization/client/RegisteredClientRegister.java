@@ -3,6 +3,7 @@ package cn.koala.authorization.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Order(3200)
 @RequiredArgsConstructor
 public class RegisteredClientRegister implements ApplicationRunner {
 

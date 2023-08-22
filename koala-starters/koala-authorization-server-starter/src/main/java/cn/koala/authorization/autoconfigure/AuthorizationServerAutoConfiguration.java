@@ -170,9 +170,4 @@ public class AuthorizationServerAutoConfiguration {
   public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer(List<JwtOAuth2TokenCustomizer> customizers) {
     return new CompositeJwtOAuth2TokenCustomizer(customizers);
   }
-
-  @Bean
-  public AuthorizationServerInitializer authorizationServerInitializer() {
-    return new AuthorizationServerInitializer();
-  }
 }

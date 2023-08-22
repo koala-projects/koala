@@ -8,7 +8,6 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -39,10 +38,10 @@ public class KoalaUser implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    if (CollectionUtils.isEmpty(authorities)) {
+    if (this.authorities == null) {
       this.authorities = UserDetailsHelper.wrap(this.permissionCodes);
     }
-    return authorities;
+    return this.authorities;
   }
 
   @Override

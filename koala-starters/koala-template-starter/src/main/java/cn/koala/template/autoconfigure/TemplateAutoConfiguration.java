@@ -57,9 +57,4 @@ public class TemplateAutoConfiguration {
   public TemplateApi templateApi(TemplateService templateService, TemplateRenderer templateRenderer) {
     return new DefaultTemplateApi(templateService, templateRenderer);
   }
-
-  @Bean
-  public TemplateInitializer templateInitializer() {
-    return new TemplateInitializer();
-  }
 }

@@ -111,8 +111,8 @@
     delete from k_role_permission where role_id = #{id};
     <if test="!checkedIds.isEmpty() || !halfCheckedIds.isEmpty()">
       insert into k_role_permission values
-      <foreach item="checkedId" index="index" collection="checkedIds">
-        (#{id}, #{checkedId}, ${@cn.koala.persist.domain.YesNo@NO.value}),
+      <foreach item="checkedId" index="index" collection="checkedIds" separator=",">
+        (#{id}, #{checkedId}, ${@cn.koala.persist.domain.YesNo@NO.value})
       </foreach>
       <foreach item="halfCheckedId" index="index" collection="halfCheckedIds" separator=",">
         (#{id}, #{halfCheckedId}, ${@cn.koala.persist.domain.YesNo@YES.value})

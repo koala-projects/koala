@@ -77,6 +77,7 @@ CREATE TABLE t_attachment
 
 -- Database
 -- 数据库表
+DROP TABLE IF EXISTS t_database;
 CREATE TABLE t_database
 (
   `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',

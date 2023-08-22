@@ -1,6 +1,5 @@
 package cn.koala.database.autoconfigure;
 
-import cn.koala.database.DatabaseInitializer;
 import cn.koala.database.apis.DatabaseApi;
 import cn.koala.database.apis.DatabaseApiImpl;
 import cn.koala.database.repositories.DatabaseRepository;
@@ -37,10 +36,5 @@ public class DatabaseAutoConfiguration {
   @ConditionalOnMissingBean(name = "databaseMessageSourceLocator")
   public MessageSourceLocator databaseMessageSourceLocator() {
     return new DefaultableMessageSourceLocator("database");
-  }
-
-  @Bean
-  public DatabaseInitializer databaseInitializer() {
-    return new DatabaseInitializer();
   }
 }

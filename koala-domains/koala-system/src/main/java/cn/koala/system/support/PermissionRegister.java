@@ -7,6 +7,7 @@ import cn.koala.system.repositories.PermissionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Order(3100)
 @Slf4j
 @RequiredArgsConstructor
 public class PermissionRegister extends AbstractApplicationRunner {

@@ -9,7 +9,6 @@ import cn.koala.wechat.miniapp.processor.OAuth2WechatMiniAppPostProcessor;
 import cn.koala.wechat.miniapp.repository.WechatMiniAppUserRepository;
 import cn.koala.wechat.miniapp.support.DefaultWechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.support.WechatMiniAppClientRegistrar;
-import cn.koala.wechat.miniapp.support.WechatMiniAppInitializer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -43,10 +42,5 @@ public class WechatMiniAppAutoConfiguration {
   @ConditionalOnMissingBean(name = "wechatMiniAppClientRegistry")
   public RegisteredClientRegistrar wechatMiniAppClientRegistry(PasswordEncoder passwordEncoder) {
     return new WechatMiniAppClientRegistrar(passwordEncoder);
-  }
-
-  @Bean
-  public WechatMiniAppInitializer wechatMiniAppInitializer() {
-    return new WechatMiniAppInitializer();
   }
 }
