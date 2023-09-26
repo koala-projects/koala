@@ -248,8 +248,9 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Koala Code Generator
  */
-@RequiredArgsConstructor
+@Component
 @Getter
+@RequiredArgsConstructor
 public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(entity.properties.id.type)> {
 
   protected final #(name)Repository repository;
