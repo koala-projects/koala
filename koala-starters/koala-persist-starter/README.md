@@ -46,38 +46,6 @@ public enum YesNo implements EnumAdvice {
 
 ## 进阶
 
-### 数据源初始化
-
-可通过实现数据源初始化器接口`DataSourceInitializer`, 在项目启动后初始化数据:
-
-```java
-public class MyInitializer implements DataSourceInitializer {
-
-  // 初始化器名称
-  public String getName() {
-    return "my-initializer"
-  }
-
-  public void init(DataSource dataSource) {
-    // 初始化数据逻辑...
-  }
-}
-```
-
-在配置文件中开启初始化器:
-
-```yaml
-koala:
-  persist:
-    initializer:
-      "my-initializer": true
-```
-
-模块内置了如下两种初始化器:
-
-- `ScriptInitializer`: 脚本初始化器, 执行指定数据库脚本, 可通过继承抽象类`AbstractScriptInitializer`快速使用
-- `ModuleInitializer`: 模块初始化器, 一般用于模块开发, 可通过继承抽象类`AbstractModuleInitializer`快速使用
-
 ### 实体监听器
 
 在持久化过程中, 经常会遇到类似数据库触发器一般的需求, 例如增加审计信息
@@ -189,6 +157,12 @@ public class UserService extends AbstractCrudService<User, Long> {
   }
 }
 ```
+
+在使用实体监听器时, 切面会手动进行**事务管理**, 管理逻辑如下:
+
+1. 若当前存在事务, 则加入, 否则开启新事务
+2. 事务会在所有实体监听器运行结束后提交
+3. 若实体监听器抛出运行时异常, 则自动进行回滚
 
 ### 审计员感知器
 

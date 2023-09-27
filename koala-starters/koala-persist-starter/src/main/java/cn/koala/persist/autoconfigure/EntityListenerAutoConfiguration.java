@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
 
@@ -34,7 +35,8 @@ public class EntityListenerAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerAspect entityListenerAspect(List<EntityListener> listeners) {
-    return new EntityListenerAspect(listeners);
+  public EntityListenerAspect entityListenerAspect(List<EntityListener> listeners,
+                                                   PlatformTransactionManager transactionManager) {
+    return new EntityListenerAspect(listeners, transactionManager);
   }
 }

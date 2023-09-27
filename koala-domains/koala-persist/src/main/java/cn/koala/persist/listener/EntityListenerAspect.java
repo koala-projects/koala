@@ -8,6 +8,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -29,11 +33,13 @@ public class EntityListenerAspect {
   );
 
   private final List<EntityListenerWrapper> wrappers;
+  private final PlatformTransactionManager transactionManager;
 
   private final Map<CrudType, EntityListenerStrategy> strategies = DEFAULT_STRATEGIES;
 
-  public EntityListenerAspect(List<EntityListener> listeners) {
+  public EntityListenerAspect(List<EntityListener> listeners, PlatformTransactionManager transactionManager) {
     this.wrappers = listeners.stream().map(EntityListenerWrapper::from).toList();
+    this.transactionManager = transactionManager;
   }
 
   @Around("@annotation(action)")
@@ -43,17 +49,25 @@ public class EntityListenerAspect {
     Class<?> entityClass = determineEntityClass(action, args);
     EntityListenerStrategy strategy = strategies.get(type);
     List<EntityListenerWrapper> wrappers = this.getWrappers(entityClass);
-    if (isSkippable(entityClass, wrappers, strategy)) {
-      return joinPoint.proceed();
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED);
+    TransactionStatus status = transactionManager.getTransaction(def);
+    try {
+      if (isSkippable(entityClass, wrappers, strategy)) {
+        return joinPoint.proceed();
+      }
+      if (action.pre()) {
+        wrappers.forEach(wrapper -> strategy.pre(wrapper, args));
+      }
+      Object result = joinPoint.proceed();
+      if (action.post()) {
+        wrappers.forEach(wrapper -> strategy.post(wrapper, args));
+      }
+      transactionManager.commit(status);
+      return result;
+    } catch (Throwable throwable) {
+      transactionManager.rollback(status);
+      throw throwable;
     }
-    if (action.pre()) {
-      wrappers.forEach(wrapper -> strategy.pre(wrapper, args));
-    }
-    Object result = joinPoint.proceed();
-    if (action.post()) {
-      wrappers.forEach(wrapper -> strategy.post(wrapper, args));
-    }
-    return result;
   }
 
   protected Class<?> determineEntityClass(EntityListenAction action, Object[] args) {
