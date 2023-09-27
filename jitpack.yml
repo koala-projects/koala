@@ -1,1 +1,3 @@
-groupId: cn.koala
+env:
+  GROUP: cn.koala
+  ARTIFACT: koala
