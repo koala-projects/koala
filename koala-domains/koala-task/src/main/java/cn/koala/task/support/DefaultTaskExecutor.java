@@ -8,6 +8,7 @@ import cn.koala.task.TaskLogService;
 import cn.koala.task.TriggerFactory;
 import cn.koala.toolkit.DateHelper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.util.Assert;
 import org.springframework.util.ConcurrentReferenceHashMap;
@@ -22,6 +23,7 @@ import java.util.concurrent.ScheduledFuture;
  *
  * @author Houtaroy
  */
+@Slf4j
 @RequiredArgsConstructor
 public class DefaultTaskExecutor implements TaskExecutor {
 
@@ -74,10 +76,14 @@ public class DefaultTaskExecutor implements TaskExecutor {
     public void run() {
       TaskLog log = obtainTaskLog(task, execution);
       try {
+        LOGGER.info("任务[name = {}]开始执行", task.getName());
         this.instance.run();
         log.setTaskStatus(TaskLog.Status.SUCCESS);
+        LOGGER.info("任务[name = {}]执行成功", task.getName());
       } catch (Exception e) {
+        log.setTaskStatus(TaskLog.Status.FAIL);
         log.setTaskError(e.getLocalizedMessage());
+        LOGGER.error("任务[name = {}]执行失败", task.getName(), e);
       } finally {
         log.setEndTime(DateHelper.now());
         logService.create(log);
@@ -88,7 +94,6 @@ public class DefaultTaskExecutor implements TaskExecutor {
       return TaskLogEntity.builder()
         .taskId(task.getId())
         .execution(execution)
-        .taskStatus(TaskLog.Status.FAIL)
         .startTime(DateHelper.now())
         .build();
     }
