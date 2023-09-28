@@ -1,1 +1,2 @@
 cn.koala.log.autoconfigure.LogAutoConfiguration
+cn.koala.log.autoconfigure.LogPermissionAutoConfiguration

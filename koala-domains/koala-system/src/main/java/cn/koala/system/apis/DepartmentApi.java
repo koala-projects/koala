@@ -36,7 +36,7 @@ import java.util.List;
 @RestController
 @Validated
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "部门管理")
+@Tag(name = "01-04 部门管理")
 public interface DepartmentApi {
 
   /**

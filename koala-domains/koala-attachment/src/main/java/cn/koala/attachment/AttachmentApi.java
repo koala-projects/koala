@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/attachments")
-@Tag(name = "附件管理")
+@Tag(name = "06-01 附件管理")
 @SecurityRequirement(name = "spring-security")
 public interface AttachmentApi {
 

@@ -28,6 +28,12 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-system</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 
 </project>

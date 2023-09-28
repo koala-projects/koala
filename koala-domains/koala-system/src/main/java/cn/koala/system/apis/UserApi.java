@@ -44,7 +44,7 @@ import java.util.Map;
 @RestController
 @Validated
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "用户管理")
+@Tag(name = "01-01 用户管理")
 public interface UserApi {
 
   /**

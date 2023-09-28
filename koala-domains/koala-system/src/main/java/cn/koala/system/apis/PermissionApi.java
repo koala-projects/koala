@@ -38,7 +38,7 @@ import java.util.List;
 @RestController
 @Validated
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "权限管理")
+@Tag(name = "01-03 权限管理")
 public interface PermissionApi {
 
   /**

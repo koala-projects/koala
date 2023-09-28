@@ -40,7 +40,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/dictionaries")
 @Validated
-@Tag(name = "字典管理")
+@Tag(name = "01-05 字典管理")
 @SecurityRequirement(name = "spring-security")
 public interface DictionaryApi {
 

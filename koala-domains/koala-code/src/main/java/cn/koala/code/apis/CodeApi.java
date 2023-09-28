@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/code")
-@Tag(name = "代码接口")
+@Tag(name = "03-01 代码生成接口")
 public interface CodeApi {
   /**
    * 代码预览

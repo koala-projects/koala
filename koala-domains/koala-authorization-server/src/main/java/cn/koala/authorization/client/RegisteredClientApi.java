@@ -38,7 +38,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/registered-clients")
 @Validated
-@Tag(name = "注册客户端管理")
+@Tag(name = "02-02 注册客户端管理")
 @SecurityRequirement(name = "spring-security")
 public interface RegisteredClientApi {
 

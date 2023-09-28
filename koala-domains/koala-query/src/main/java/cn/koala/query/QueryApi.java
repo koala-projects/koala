@@ -37,7 +37,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/queries")
-@Tag(name = "查询管理")
+@Tag(name = "08-01 查询管理")
 public interface QueryApi {
 
   /**

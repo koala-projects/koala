@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/template-groups")
-@Tag(name = "模板组管理")
+@Tag(name = "05-01 模板组管理")
 public interface TemplateGroupApi {
 
   /**

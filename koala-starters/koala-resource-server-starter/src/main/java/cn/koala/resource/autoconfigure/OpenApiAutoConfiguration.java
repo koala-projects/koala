@@ -20,14 +20,15 @@ import org.springframework.core.annotation.Order;
 @Configuration
 @ConditionalOnClass(name = "io.swagger.v3.oas.models.OpenAPI")
 public class OpenApiAutoConfiguration {
+
   /**
    * OpenApi安全配置的bean
    *
    * @return OpenApi安全配置
    */
   @Bean
-  @ConditionalOnMissingBean(name = "oauth2OpenApi")
-  public OpenAPI oauth2OpenApi() {
+  @ConditionalOnMissingBean(name = "resourceServerOpenApi")
+  public OpenAPI resourceServerOpenApi() {
     return new OpenAPI().components(
       new Components().addSecuritySchemes(
         "spring-security",

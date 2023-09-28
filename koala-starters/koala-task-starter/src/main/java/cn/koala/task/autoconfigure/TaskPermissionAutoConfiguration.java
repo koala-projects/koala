@@ -1,4 +1,4 @@
-package cn.koala.attachment.autoconfigure;
+package cn.koala.task.autoconfigure;
 
 import cn.koala.system.PermissionRegistrar;
 import cn.koala.system.support.CrudPermissionRegistrar;
@@ -8,17 +8,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 附件权限自动配置类
+ * 任务权限自动配置类
  *
  * @author Houtaroy
  */
 @Configuration
 @ConditionalOnClass(name = "cn.koala.system.PermissionRegistrar")
-public class AttachmentPermissionAutoConfiguration {
+public class TaskPermissionAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean(name = "attachmentPermissionRegistrar")
-  public PermissionRegistrar attachmentPermissionRegistrar() {
-    return new CrudPermissionRegistrar("attachment", "附件管理", 6000, null);
+  @ConditionalOnMissingBean(name = "taskPermissionRegistrar")
+  public PermissionRegistrar taskPermissionRegistrar() {
+    CrudPermissionRegistrar result =
+      new CrudPermissionRegistrar("task", "任务管理", 7000, null);
+    result.addChild("execute", "执行");
+    return result;
   }
 }

@@ -1,4 +1,4 @@
-package cn.koala.attachment.autoconfigure;
+package cn.koala.query.autoconfigure;
 
 import cn.koala.system.PermissionRegistrar;
 import cn.koala.system.support.CrudPermissionRegistrar;
@@ -8,17 +8,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 附件权限自动配置类
+ * 任务权限自动配置类
  *
  * @author Houtaroy
  */
 @Configuration
 @ConditionalOnClass(name = "cn.koala.system.PermissionRegistrar")
-public class AttachmentPermissionAutoConfiguration {
+public class QueryPermissionAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean(name = "attachmentPermissionRegistrar")
-  public PermissionRegistrar attachmentPermissionRegistrar() {
-    return new CrudPermissionRegistrar("attachment", "附件管理", 6000, null);
+  @ConditionalOnMissingBean(name = "queryPermissionRegistrar")
+  public PermissionRegistrar queryPermissionRegistrar() {
+    CrudPermissionRegistrar result =
+      new CrudPermissionRegistrar("query", "查询管理", 8000, null);
+    result.addChild("execute", "执行");
+    return result;
   }
 }

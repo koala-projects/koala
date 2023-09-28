@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/task-logs")
-@Tag(name = "任务日志管理")
+@Tag(name = "07-02 任务日志管理")
 public interface TaskLogApi {
 
   /**

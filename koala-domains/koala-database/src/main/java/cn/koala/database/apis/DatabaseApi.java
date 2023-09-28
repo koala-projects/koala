@@ -39,7 +39,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/databases")
-@Tag(name = "数据库管理")
+@Tag(name = "04-01 数据库管理")
 public interface DatabaseApi {
 
   /**

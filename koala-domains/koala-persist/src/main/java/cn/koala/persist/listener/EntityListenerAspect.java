@@ -11,7 +11,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -42,6 +44,7 @@ public class EntityListenerAspect {
     this.transactionManager = transactionManager;
   }
 
+  @Transactional
   @Around("@annotation(action)")
   public Object around(ProceedingJoinPoint joinPoint, EntityListenAction action) throws Throwable {
     Object[] args = joinPoint.getArgs();
@@ -52,14 +55,12 @@ public class EntityListenerAspect {
     DefaultTransactionDefinition def = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED);
     TransactionStatus status = transactionManager.getTransaction(def);
     try {
-      if (isSkippable(entityClass, wrappers, strategy)) {
-        return joinPoint.proceed();
-      }
-      if (action.pre()) {
+      boolean listenable = isListenable(entityClass, wrappers, strategy);
+      if (listenable && action.pre()) {
         wrappers.forEach(wrapper -> strategy.pre(wrapper, args));
       }
       Object result = joinPoint.proceed();
-      if (action.post()) {
+      if (listenable && action.post()) {
         wrappers.forEach(wrapper -> strategy.post(wrapper, args));
       }
       transactionManager.commit(status);
@@ -84,8 +85,8 @@ public class EntityListenerAspect {
     return this.wrappers.stream().filter(wrapper -> wrapper.getListener().support(entityClass)).toList();
   }
 
-  protected boolean isSkippable(Class<?> entityClass, List<EntityListenerWrapper> wrappers,
-                                EntityListenerStrategy strategy) {
-    return entityClass == null || wrappers.isEmpty() || strategy == null;
+  private boolean isListenable(Class<?> entityClass, List<EntityListenerWrapper> wrappers,
+                               EntityListenerStrategy strategy) {
+    return entityClass != null && !CollectionUtils.isEmpty(wrappers) && strategy != null;
   }
 }

@@ -1,1 +1,2 @@
 cn.koala.query.autoconfigure.QueryAutoConfiguration
+cn.koala.query.autoconfigure.QueryPermissionAutoConfiguration

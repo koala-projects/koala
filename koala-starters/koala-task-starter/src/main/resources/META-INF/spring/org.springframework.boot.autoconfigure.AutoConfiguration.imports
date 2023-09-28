@@ -1,1 +1,2 @@
 cn.koala.task.autoconfigure.TaskAutoConfiguration
+cn.koala.task.autoconfigure.TaskPermissionAutoConfiguration

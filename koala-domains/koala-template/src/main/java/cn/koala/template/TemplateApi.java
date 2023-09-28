@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/templates")
-@Tag(name = "模板管理")
+@Tag(name = "05-02 模板管理")
 public interface TemplateApi {
 
   /**

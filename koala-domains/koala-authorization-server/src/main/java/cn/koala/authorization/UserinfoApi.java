@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/api/userinfo")
 @RestController
-@Tag(name = "用户信息")
+@Tag(name = "02-01 用户信息")
 @SecurityRequirement(name = "spring-security")
 public interface UserinfoApi {
   /**

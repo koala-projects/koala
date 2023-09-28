@@ -43,7 +43,7 @@ import java.util.Map;
 @RestController
 @Validated
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "角色管理")
+@Tag(name = "01-02 角色管理")
 public interface RoleApi {
 
   /**

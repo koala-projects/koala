@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/logs")
-@Tag(name = "日志管理")
+@Tag(name = "09-01 日志管理")
 @SecurityRequirement(name = "spring-security")
 public interface LogApi {
 
