@@ -19,6 +19,6 @@ public class AttachmentPermissionAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean(name = "attachmentPermissionRegistrar")
   public PermissionRegistrar attachmentPermissionRegistrar() {
-    return new CrudPermissionRegistrar("attachment", "附件管理", 600);
+    return new CrudPermissionRegistrar("attachment", "附件管理", 600, null);
   }
 }

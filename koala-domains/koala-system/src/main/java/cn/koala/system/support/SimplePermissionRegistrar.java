@@ -3,8 +3,8 @@ package cn.koala.system.support;
 import cn.koala.system.Permission;
 import cn.koala.system.PermissionRegistrar;
 import lombok.Getter;
-import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,22 +24,26 @@ public class SimplePermissionRegistrar implements PermissionRegistrar {
 
   protected final List<Permission> permissions;
 
-  public SimplePermissionRegistrar(String code, String name, Integer sortIndex, Map<String, String> children) {
+  public SimplePermissionRegistrar(String code, String name, Integer sortIndex, Long parentId,
+                                   Map<String, String> childrenCodeAndNames) {
     this.code = code;
     this.order = sortIndex;
-    this.permissions = PermissionFactory.create(code, name, sortIndex.longValue(), children);
+    this.permissions = new ArrayList<>(childrenCodeAndNames.size() + 1);
+    this.permissions.add(PermissionFactory.of(code, name, sortIndex.longValue(), parentId));
+    this.addChildren(childrenCodeAndNames);
   }
 
-  public void append(String code, String name) {
-    this.append(code, name, this.obtainNextCrudSortIndex());
+  public void addChildren(Map<String, String> childrenCodeAndNames) {
+    this.permissions.addAll(PermissionFactory.ofChildren(this.permissions.get(0), childrenCodeAndNames));
   }
 
-  public void append(String code, String name, Long sortIndex) {
-    Assert.isTrue(this.getPermissions().size() <= MAX, "权限注册器最多支持%d个权限".formatted(MAX));
-    this.getPermissions().add(PermissionFactory.create(code, name, sortIndex, this.getPermissions().get(0)));
+  public void addChild(String code, String name) {
+    this.permissions.add(
+      PermissionFactory.ofChild(this.permissions.get(0), code, name, this.obtainCurrentSortIndex() + 1)
+    );
   }
 
-  private Long obtainNextCrudSortIndex() {
-    return this.getPermissions().get(this.getPermissions().size() - 1).getSortIndex() + 1;
+  private Long obtainCurrentSortIndex() {
+    return this.permissions.get(this.permissions.size() - 1).getSortIndex();
   }
 }

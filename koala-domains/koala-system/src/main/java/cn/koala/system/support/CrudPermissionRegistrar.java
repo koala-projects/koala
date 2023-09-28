@@ -19,8 +19,7 @@ public class CrudPermissionRegistrar extends SimplePermissionRegistrar {
     "delete", "删除"
   );
 
-  public CrudPermissionRegistrar(String code, String name, Integer sortIndex) {
-    super(code, name, sortIndex, CrudPermissionRegistrar.CRUD_MAPPING);
+  public CrudPermissionRegistrar(String code, String name, Integer sortIndex, Long parentId) {
+    super(code, name, sortIndex, parentId, CrudPermissionRegistrar.CRUD_MAPPING);
   }
-
 }

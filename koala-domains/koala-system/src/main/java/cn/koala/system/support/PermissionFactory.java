@@ -26,40 +26,51 @@ public class PermissionFactory {
 
   public static final String PARENT_NAME_SUFFIX = "管理";
 
-  public static List<Permission> create(String code, String name, Long sortIndex, Map<String, String> children) {
-    List<Permission> result = new ArrayList<>(children.size() + 1);
+  public static final Map<String, String> CRUD_MAPPING = Map.of(
+    "read", "读取",
+    "create", "创建",
+    "update", "更新",
+    "delete", "删除"
+  );
 
-    Permission parent = PermissionEntity.builder()
+  public static List<Permission> ofCrud(String code, String name, Long sortIndex, Long parentId) {
+    List<Permission> result = new ArrayList<>(CRUD_MAPPING.size() + 1);
+    Permission parent = of(code, name, sortIndex, parentId);
+    result.add(parent);
+    result.addAll(ofChildren(parent, CRUD_MAPPING));
+    return result;
+  }
+
+  public static List<Permission> ofChildren(Permission parent, Map<String, String> codeAndNames) {
+    Assert.notNull(parent, "上级权限不能为空");
+    long currentSortIndex = parent.getSortIndex() + 1;
+    List<Permission> result = new ArrayList<>(codeAndNames.size());
+    for (String code : codeAndNames.keySet()) {
+      result.add(ofChild(parent, code, codeAndNames.get(code), currentSortIndex));
+      currentSortIndex += 1;
+    }
+    return result;
+  }
+
+  public static Permission ofChild(Permission parent, String code, String name, Long sortIndex) {
+    String domainName = obtainDomainName(parent.getName());
+    String actualCode = CODE_TEMPLATE.formatted(parent.getCode(), code);
+    String actualName = NAME_TEMPLATE.formatted(name, domainName);
+    return of(actualCode, actualName, sortIndex, parent.getId());
+  }
+
+  private static String obtainDomainName(String parentName) {
+    return parentName.endsWith(PermissionFactory.PARENT_NAME_SUFFIX) ?
+      parentName.substring(0, parentName.length() - PermissionFactory.PARENT_NAME_SUFFIX.length()) : parentName;
+  }
+
+  public static Permission of(String code, String name, Long sortIndex, Long parentId) {
+    return PermissionEntity.builder()
       .id(sortIndex)
       .code(code)
       .name(name)
       .sortIndex(sortIndex)
+      .parentId(parentId)
       .build();
-    result.add(parent);
-
-    long crudSortIndex = sortIndex + 1;
-    for (Map.Entry<String, String> entry : children.entrySet()) {
-      result.add(PermissionFactory.create(entry.getKey(), entry.getValue(), crudSortIndex, parent));
-      crudSortIndex += 1;
-    }
-
-    return result;
-  }
-
-  public static Permission create(String code, String name, Long sortIndex, Permission parent) {
-    Assert.notNull(parent, "上级权限不能为空");
-    String parentName = PermissionFactory.obtainParentName(parent.getName());
-    return PermissionEntity.builder()
-      .id(sortIndex)
-      .code(PermissionFactory.CODE_TEMPLATE.formatted(parent.getCode(), code))
-      .name(PermissionFactory.NAME_TEMPLATE.formatted(name, parentName))
-      .sortIndex(sortIndex)
-      .parentId(parent.getId())
-      .build();
-  }
-
-  private static String obtainParentName(String parentName) {
-    return parentName.endsWith(PermissionFactory.PARENT_NAME_SUFFIX) ?
-      parentName.substring(0, parentName.length() - PermissionFactory.PARENT_NAME_SUFFIX.length()) : parentName;
   }
 }

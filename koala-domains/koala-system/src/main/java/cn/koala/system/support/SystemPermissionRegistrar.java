@@ -22,6 +22,6 @@ public class SystemPermissionRegistrar extends MultiCrudPermissionRegistrar {
   }
 
   public SystemPermissionRegistrar() {
-    super("system", CRUDS, 100);
+    super("system", "系统管理", 1000, CRUDS);
   }
 }

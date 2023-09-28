@@ -16,20 +16,25 @@ import java.util.Map;
 @Getter
 public class MultiCrudPermissionRegistrar implements PermissionRegistrar {
 
+  private final static int CRUD_SORT_INDEX_STEP = 100;
+
   private final String code;
 
   private final int order;
 
   private final List<Permission> permissions;
 
-  public MultiCrudPermissionRegistrar(String code, Map<String, String> cruds, int startSortIndex) {
+  public MultiCrudPermissionRegistrar(String code, String name, Integer startSortIndex, Map<String, String> cruds) {
     this.code = code;
     this.order = startSortIndex;
     this.permissions = new ArrayList<>(cruds.size() * (CrudPermissionRegistrar.CRUD_MAPPING.size() + 1));
-    long currentSortIndex = startSortIndex;
-    for (Map.Entry<String, String> entry : cruds.entrySet()) {
-      this.permissions.addAll(PermissionFactory.create(entry.getKey(), entry.getValue(), currentSortIndex, CrudPermissionRegistrar.CRUD_MAPPING));
-      currentSortIndex += SimplePermissionRegistrar.MAX + 1;
+    this.permissions.add(PermissionFactory.of(code, name, startSortIndex.longValue(), null));
+    long currentSortIndex = startSortIndex + CRUD_SORT_INDEX_STEP;
+    for (String crudCode : cruds.keySet()) {
+      this.permissions.addAll(
+        PermissionFactory.ofCrud(crudCode, cruds.get(crudCode), currentSortIndex, startSortIndex.longValue())
+      );
+      currentSortIndex += CRUD_SORT_INDEX_STEP;
     }
   }
 }
