@@ -16,9 +16,9 @@
 
   <properties>
     <!--Spring-->
-    <spring-boot.version>3.0.9</spring-boot.version>
+    <spring-boot.version>3.0.11</spring-boot.version>
     <spring-security-oauth2-authorization-server.version>1.0.3</spring-security-oauth2-authorization-server.version>
-    <oauth2-oidc-sdk.version>10.9.1</oauth2-oidc-sdk.version>
+    <oauth2-oidc-sdk.version>10.15</oauth2-oidc-sdk.version>
     <springdoc-openapi-starter.version>2.1.0</springdoc-openapi-starter.version>
     <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
     <!--数据库相关-->
@@ -31,18 +31,18 @@
     <djl.version>0.22.1</djl.version>
     <dysmsapi.version>2.0.24</dysmsapi.version>
     <enjoy.version>5.0.3</enjoy.version>
-    <groovy.version>4.0.12</groovy.version>
-    <junit.version>5.8.2</junit.version>
-    <lombok.version>1.18.28</lombok.version>
+    <groovy.version>4.0.15</groovy.version>
+    <junit.version>5.9.3</junit.version>
+    <lombok.version>1.18.30</lombok.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
-    <minio.version>8.5.3</minio.version>
-    <pdfbox.version>2.0.27</pdfbox.version>
-    <powerjob.version>4.3.2</powerjob.version>
+    <minio.version>8.5.6</minio.version>
+    <pdfbox.version>2.0.29</pdfbox.version>
+    <powerjob.version>4.3.6</powerjob.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
-    <slf4j.version>2.0.7</slf4j.version>
+    <slf4j.version>2.0.9</slf4j.version>
     <tika.version>2.8.0</tika.version>
-    <tomcat-jdbc.version>11.0.0-M7</tomcat-jdbc.version>
+    <tomcat-jdbc.version>11.0.0-M11</tomcat-jdbc.version>
     <toolgood-words.version>3.1.0.0</toolgood-words.version>
     <wxjava.version>4.5.0</wxjava.version>
     <!--工具相关-->
