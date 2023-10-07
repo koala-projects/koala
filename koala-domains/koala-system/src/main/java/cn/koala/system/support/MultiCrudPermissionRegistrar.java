@@ -27,7 +27,7 @@ public class MultiCrudPermissionRegistrar implements PermissionRegistrar {
   public MultiCrudPermissionRegistrar(String code, String name, Integer startSortIndex, Map<String, String> cruds) {
     this.code = code;
     this.order = startSortIndex;
-    this.permissions = new ArrayList<>(cruds.size() * (CrudPermissionRegistrar.CRUD_MAPPING.size() + 1));
+    this.permissions = new ArrayList<>(cruds.size() * (PermissionFactory.CRUD_MAPPING.size() + 1));
     this.permissions.add(PermissionFactory.of(code, name, startSortIndex.longValue(), null));
     long currentSortIndex = startSortIndex + CRUD_SORT_INDEX_STEP;
     for (String crudCode : cruds.keySet()) {

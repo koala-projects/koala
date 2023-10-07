@@ -4,6 +4,7 @@ import cn.koala.system.Permission;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,12 +27,14 @@ public class PermissionFactory {
 
   public static final String PARENT_NAME_SUFFIX = "管理";
 
-  public static final Map<String, String> CRUD_MAPPING = Map.of(
-    "read", "读取",
-    "create", "创建",
-    "update", "更新",
-    "delete", "删除"
-  );
+  public static final Map<String, String> CRUD_MAPPING = new LinkedHashMap<>(4);
+
+  static {
+    CRUD_MAPPING.put("read", "读取");
+    CRUD_MAPPING.put("create", "创建");
+    CRUD_MAPPING.put("update", "更新");
+    CRUD_MAPPING.put("delete", "删除");
+  }
 
   public static List<Permission> ofCrud(String code, String name, Long sortIndex, Long parentId) {
     List<Permission> result = new ArrayList<>(CRUD_MAPPING.size() + 1);

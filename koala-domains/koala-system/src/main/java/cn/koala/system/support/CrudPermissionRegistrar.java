@@ -2,8 +2,6 @@ package cn.koala.system.support;
 
 import lombok.Getter;
 
-import java.util.Map;
-
 /**
  * 增删改查权限注册登记器
  *
@@ -12,14 +10,7 @@ import java.util.Map;
 @Getter
 public class CrudPermissionRegistrar extends SimplePermissionRegistrar {
 
-  public static final Map<String, String> CRUD_MAPPING = Map.of(
-    "read", "读取",
-    "create", "创建",
-    "update", "更新",
-    "delete", "删除"
-  );
-
   public CrudPermissionRegistrar(String code, String name, Integer sortIndex, Long parentId) {
-    super(code, name, sortIndex, parentId, CrudPermissionRegistrar.CRUD_MAPPING);
+    super(code, name, sortIndex, parentId, PermissionFactory.CRUD_MAPPING);
   }
 }
