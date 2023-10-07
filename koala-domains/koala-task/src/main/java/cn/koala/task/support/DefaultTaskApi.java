@@ -3,6 +3,7 @@ package cn.koala.task.support;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.task.Task;
 import cn.koala.task.TaskApi;
+import cn.koala.task.TaskExecuteResult;
 import cn.koala.task.TaskExecutor;
 import cn.koala.task.TaskService;
 import cn.koala.web.DataResponse;
@@ -69,7 +70,7 @@ public class DefaultTaskApi implements TaskApi {
 
   @Override
   public Response execute(Long id) {
-    executor.execute(service.load(id));
-    return Response.SUCCESS;
+    TaskExecuteResult result = executor.execute(service.load(id));
+    return result.isSucceed() ? Response.SUCCESS : Response.error(result.getMessage());
   }
 }

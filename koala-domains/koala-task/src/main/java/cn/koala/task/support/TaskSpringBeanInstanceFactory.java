@@ -1,26 +1,26 @@
 package cn.koala.task.support;
 
 import cn.koala.task.Task;
-import cn.koala.task.TaskFactory;
+import cn.koala.task.TaskInstanceFactory;
 import org.springframework.context.ApplicationContext;
 
 /**
- * 默认任务工厂
+ * 基于 Spring Bean 的任务工厂
  * <p>
  * 从Spring IOC容器中获取任务实例
  *
  * @author Houtaroy
  */
-public class DefaultTaskFactory implements TaskFactory {
+public class TaskSpringBeanInstanceFactory implements TaskInstanceFactory {
 
   private final ApplicationContext context;
 
-  public DefaultTaskFactory(ApplicationContext context) {
+  public TaskSpringBeanInstanceFactory(ApplicationContext context) {
     this.context = context;
   }
 
   @Override
-  public Runnable create(Task task) {
+  public Runnable from(Task task) {
     return context.getBean(task.getTaskConfig(), Runnable.class);
   }
 }

@@ -11,5 +11,5 @@ public interface TaskExecutor {
 
   void cancel(Task task);
 
-  void execute(Task task);
+  TaskExecuteResult execute(Task task);
 }

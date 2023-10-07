@@ -2,7 +2,7 @@
 
 考拉任务启动模块
 
-基于 [Spring Scheduling](https://docs.spring.io/spring-framework/reference/integration/scheduling.html) 开发, 实现了基于持久化的动态定时任务管理与执行功能
+基于 [Spring Scheduling](https://docs.spring.io/spring-framework/reference/integration/scheduling.html) 开发, 实现了持久化的动态定时任务管理与执行功能
 
 ## 快速开始
 
@@ -49,41 +49,41 @@ insert into k_task (name, task_config, trigger_config, is_enabled) values ("测�
 
 ## 进阶
 
-### 任务工厂
+### 任务实例工厂
 
-可实现`TaskFactory`自定义任务工厂:
+可实现`TaskInstanceFactory`自定义任务实例工厂:
 
 ```java
-public class MyTaskFactory implements TaskFactory {
+public class MyTaskInstanceFactory implements TaskInstanceFactory {
 
   @Override
-  public Runnable create(Task task) {
+  public Runnable from(Task task) {
     // 创建任务逻辑...
   }
 }
 ```
 
-模块内置了如下任务工厂:
+模块内置了如下任务实例工厂:
 
-- `DefaultTaskFactory`: 默认任务工厂, 从 Spring IOC 容器中获取任务 bean
+- `TaskSpringBeanInstanceFactory`: 基于 Spring Bean 的任务工厂, 从 IOC 容器中获取任务 bean
 
-### 触发器工厂
+### 任务触发器工厂
 
-可实现`TriggerFactory`自定义触发器工厂:
+可实现`TaskTriggerFactory`自定义任务触发器工厂:
 
 ```java
-public class MyTriggerFactory implements TriggerFactory {
+public class MyTaskTriggerFactory implements TaskTriggerFactory {
 
   @Override
-  public Trigger create(Task task) {
+  public Trigger from(Task task) {
     // 创建触发器逻辑...
   }
 }
 ```
 
-模块内置了如下触发器工厂:
+模块内置了如下任务触发器工厂:
 
-- `DefaultTriggerFactory`: 默认触发器工厂, 支持 cron 表达式和 [Duration 表达式](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-)
+- `TaskSchedulingTriggerFactory`: 基于 Trigger 的任务触发器工厂, 支持 cron 表达式和 [Duration 表达式](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-)
 
 ### 任务执行器
 

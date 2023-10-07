@@ -1,6 +1,8 @@
 package cn.koala.task.support;
 
+import cn.koala.task.Task;
 import cn.koala.task.TaskLog;
+import cn.koala.toolkit.DateHelper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,4 +40,12 @@ public class TaskLogEntity implements TaskLog {
 
   @Schema(description = "结束时间")
   private Date endTime;
+
+  public static TaskLogEntity from(Task task, Execution execution) {
+    return TaskLogEntity.builder()
+      .taskId(task.getId())
+      .execution(execution)
+      .startTime(DateHelper.now())
+      .build();
+  }
 }

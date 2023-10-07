@@ -1,7 +1,7 @@
 package cn.koala.task.support;
 
 import cn.koala.task.Task;
-import cn.koala.task.TriggerFactory;
+import cn.koala.task.TaskTriggerFactory;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.PeriodicTrigger;
@@ -9,16 +9,16 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 import java.time.Duration;
 
 /**
- * 默认触发器工厂
+ * 基于{@link Trigger Trigger}的任务触发器工厂
  * <p>
  * 仅支持Cron和Duration表达式
  *
  * @author Houtaroy
  */
-public class DefaultTriggerFactory implements TriggerFactory {
+public class TaskSchedulingTriggerFactory implements TaskTriggerFactory {
 
   @Override
-  public Trigger create(Task task) {
+  public Trigger from(Task task) {
     String expression = task.getTriggerConfig();
     return isDuration(expression) ? new PeriodicTrigger(Duration.parse(expression)) : new CronTrigger(expression);
   }

@@ -5,7 +5,7 @@ package cn.koala.task;
  *
  * @author Houtaroy
  */
-public interface TaskFactory {
+public interface TaskInstanceFactory {
 
-  Runnable create(Task task);
+  Runnable from(Task task);
 }

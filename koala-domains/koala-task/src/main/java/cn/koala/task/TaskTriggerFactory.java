@@ -3,11 +3,11 @@ package cn.koala.task;
 import org.springframework.scheduling.Trigger;
 
 /**
- * 触发器工厂接口
+ * 任务触发器工厂接口
  *
  * @author Houtaroy
  */
-public interface TriggerFactory {
+public interface TaskTriggerFactory {
 
-  Trigger create(Task task);
+  Trigger from(Task task);
 }

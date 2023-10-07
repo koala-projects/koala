@@ -2,22 +2,22 @@ package cn.koala.task.autoconfigure;
 
 import cn.koala.task.TaskApi;
 import cn.koala.task.TaskExecutor;
-import cn.koala.task.TaskFactory;
+import cn.koala.task.TaskInstanceFactory;
 import cn.koala.task.TaskLogApi;
 import cn.koala.task.TaskLogService;
 import cn.koala.task.TaskService;
-import cn.koala.task.TriggerFactory;
+import cn.koala.task.TaskTriggerFactory;
 import cn.koala.task.repository.TaskLogRepository;
 import cn.koala.task.repository.TaskRepository;
 import cn.koala.task.support.DefaultTaskApi;
 import cn.koala.task.support.DefaultTaskExecutor;
-import cn.koala.task.support.DefaultTaskFactory;
 import cn.koala.task.support.DefaultTaskLogApi;
 import cn.koala.task.support.DefaultTaskLogService;
 import cn.koala.task.support.DefaultTaskService;
-import cn.koala.task.support.DefaultTriggerFactory;
 import cn.koala.task.support.TaskApplicationRunner;
 import cn.koala.task.support.TaskListener;
+import cn.koala.task.support.TaskSchedulingTriggerFactory;
+import cn.koala.task.support.TaskSpringBeanInstanceFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
@@ -38,20 +38,21 @@ public class TaskAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskFactory taskFactory(ApplicationContext applicationContext) {
-    return new DefaultTaskFactory(applicationContext);
+  public TaskInstanceFactory taskInstanceFactory(ApplicationContext applicationContext) {
+    return new TaskSpringBeanInstanceFactory(applicationContext);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public TriggerFactory triggerFactory() {
-    return new DefaultTriggerFactory();
+  public TaskTriggerFactory taskTriggerFactory() {
+    return new TaskSchedulingTriggerFactory();
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskExecutor taskExecutor(TaskFactory taskFactory, TriggerFactory triggerFactory, TaskScheduler taskScheduler,
-                                   TaskLogService taskLogService) {
+  public TaskExecutor taskExecutor(TaskInstanceFactory taskFactory, TaskTriggerFactory triggerFactory,
+                                   TaskScheduler taskScheduler, TaskLogService taskLogService) {
+    
     return new DefaultTaskExecutor(taskFactory, triggerFactory, taskScheduler, taskLogService);
   }
 

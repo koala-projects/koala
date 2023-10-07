@@ -17,6 +17,8 @@ public interface TaskLog extends Persistable<Long> {
 
   Execution getExecution();
 
+  void setExecution(Execution execution);
+
   Status getTaskStatus();
 
   void setTaskStatus(Status taskStatus);
