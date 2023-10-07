@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="#(package).repository.#(name)Repository">
+
+  <sql id="select#(name)">
+    select
+#for(column : columns)
+    t.#(column.name)#if(!for.last),#end
+#end
+    from #(table.name) t
+  </sql>
+  
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+#if(mybatis.isAuditable())
+        order by t.created_time desc
+#else
+		order by t.id asc
+#end
+      </otherwise>
+    </choose>
+  </sql>
+  
+  <sql id="orderByField">
+#for(column: mybatis.columns)
+    <if test="order.property == '#(column.propertyName)'">
+        t.#(column.columnName) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+    </if>
+#end
+  </sql>
+  
+  <select id="list" resultType="#(package).entity.#(name)Entity">
+    <include refid="select#(name)"/>
+    <where>
+#if(mybatis.isStateful())
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+#end
+#for(column: mybatis.columns) 
+#if(column.columnName != 'id')
+      <if test="#(column.propertyName) != null and #(column.propertyName) != ''">
+       and t.#(column.columnName) = #{#(column.propertyName)}
+      </if>
+#end
+#end
+    </where>
+	<include refid="orderBy"/>
+  </select>
+  
+  <select id="load" resultType="#(package).entity.#(name)Entity">
+    <include refid="select#(name)"/>
+    where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+  </select>
+
+  <insert id="create" parameterType="#(package).entity.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
+    insert into #(table.name) 
+	value (
+#for(column: mybatis.columns)
+    #{#(column.propertyName)}#if(!for.last),#end
+#end
+    )
+  </insert>
+  
+  <update id="update" parameterType="#(package).entity.#(name)Entity">
+    update #(table.name)
+    <trim prefix="set" suffixOverrides=",">
+#for(column: mybatis.columns) 
+#if(column.columnName != 'id')
+      <if test="#(column.propertyName) != null">#(column.columnName)=#{#(column.propertyName)},</if>
+#end
+#end
+    </trim>
+    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
+  </update>
+  
+#if(mybatis.isStateful())
+  <update id="delete" parameterType="#(package).entity.#(name)Entity">
+    update #(table.name)
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
+#if(mybatis.isAuditable())
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+#end
+    where id = #{id}
+  </update>
+#else
+  <delete id="delete" parameterType="#(package).entity.#(name)Entity">
+    delete from #(table.name) where id = #{id}
+  </delete>
+#end
+</mapper>

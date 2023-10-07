@@ -270,7 +270,7 @@ import cn.koala.persist.repository.CrudRepository;
 public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entity.properties.id.type)> {
 }
 ', 1, 1),
-       (6, 'mapper/Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+       (6, 'Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repository.#(name)Repository">
@@ -367,4 +367,23 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
   </delete>
 #end
 </mapper>
+', 1, 1),
+       (7, 'config/PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
+
+import cn.koala.system.support.CrudPermissionRegistrar;
+import org.springframework.stereotype.Component;
+
+/**
+ * TODO: 请修改排序索引, 建议业务功能从30000开始, 30000以下为系统保留权限
+ * #(description)权限注册器
+ *
+ * @author Koala Code Generator
+ */
+@Component
+public class #(name)PermissionRegistrar extends CrudPermissionRegistrar {
+
+  public #(name)PermissionRegistrar() {
+    super("#(api.permission)", "#(description)管理", 30000, null);
+  }
+}
 ', 1, 1);
