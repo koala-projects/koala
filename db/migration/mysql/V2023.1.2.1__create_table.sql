@@ -206,7 +206,6 @@ CREATE TABLE k_permission
   PRIMARY KEY (id)
 ) COMMENT = '权限表';
 
-
 -- 角色表
 CREATE TABLE k_role
 (
