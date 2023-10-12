@@ -8,11 +8,12 @@ values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala_d
         'koala_demo', 'koala_demo', 1);
 
 -- 考拉代码模板
+-- 考拉代码-服务端
 insert into t_template_group(id, name, remark, is_systemic)
 values (1, '考拉代码-服务端', '考拉服务端代码生成模板', 1);
 
 insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (1, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
+values (101, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 
@@ -147,7 +148,7 @@ public interface #(name.pascal.singular)Api {
   }
 }
 ', 1, 1),
-       (2, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
+       (102, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).service.#(name.pascal.singular)Service;
@@ -202,7 +203,7 @@ public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Ap
   }
 }
 ', 1, 1),
-       (3, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
+       (103, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
 
 #if(entity.isAbstract)
 import cn.koala.mybatis.AbstractEntity;
@@ -268,7 +269,7 @@ public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends Abstrac
 #end
 }
 ', 1, 1),
-       (4, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
+       (104, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).repository.#(name.pascal.singular)Repository;
@@ -290,7 +291,7 @@ public class #(name.pascal.singular)Service extends AbstractMyBatisService<#(nam
   protected final #(name.pascal.singular)Repository repository;
 }
 ', 1, 1),
-       (5, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
+       (105, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 
@@ -304,7 +305,7 @@ import cn.koala.persist.repository.CrudRepository;
 public interface #(name.pascal.singular)Repository extends CrudRepository<#(name.pascal.singular)Entity, #(id.type.java)> {
 }
 ', 1, 1),
-       (6, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+       (106, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repository.#(name.pascal.singular)Repository">
@@ -397,7 +398,7 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
 #end
 </mapper>
 ', 1, 1),
-       (7, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
+       (107, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
 
 import cn.koala.system.support.CrudPermissionRegistrar;
 import org.springframework.stereotype.Component;
@@ -416,3 +417,223 @@ public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRe
   }
 }
 ', 1, 1);
+
+-- 考拉代码-客户端
+insert into t_template_group(id, name, remark, is_systemic)
+values (2, '考拉代码-客户端', '考拉客户端代码生成模板', 1);
+
+insert into t_template(id, name, remark, content, group_id, is_systemic)
+values (201, 'apis/#(name.kebab.singular)/index.ts', '接口请求代码模板', 'import { defHttp } from ''/@/utils/http/axios'';
+
+import type SearchParameters from ''../SearchParameters'';
+import type PageResult from ''../PageResult'';
+import type #(name.pascal.singular)Entity from ''./#(name.pascal.singular)Entity'';
+
+const domain = ''/#(name.kebab.plural)'';
+
+export function list#(name.pascal.singular)(params: SearchParameters) {
+  return defHttp.get<PageResult<#(name.pascal.singular)Entity>>({ url: domain, params }, { joinParamsToUrl: true });
+}
+
+export function load#(name.pascal.singular)(id: number) {
+  return defHttp.get<#(name.pascal.singular)Entity>({ url: `${domain}/${id}` });
+}
+
+export function create#(name.pascal.singular)(data: #(name.pascal.singular)Entity) {
+  return defHttp.post<#(name.pascal.singular)Entity>({ url: domain, data });
+}
+
+export function update#(name.pascal.singular)(id: number, data: #(name.pascal.singular)Entity) {
+  return defHttp.put<null>({ url: `${domain}/${id}`, data });
+}
+
+export function delete#(name.pascal.singular)(id: number) {
+  return defHttp.delete<null>({ url: `${domain}/${id}` });
+}
+
+export { #(name.pascal.singular)Entity };
+', 2, 1),
+       (202, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', '#if(entity.isAbstract)
+import type AbstractEntity from ''../AbstractEntity'';
+
+#end
+export default interface #(name.pascal.singular)Entity#if(entity.isAbstract) extends AbstractEntity#end  {
+#for(property: properties)
+  #if(entity.isAbstract)
+    #if(!entity.abstractIgnoredPropertyNames.contains(property.name.camel.singular))
+  #(property.name.camel.singular): #(property.type.ts)
+	#end
+  #else
+  #(property.name.camel.singular): #(property.type.ts)
+  #end
+#end
+}
+', 2, 1),
+       (203, 'views/#(name.kebab.singular)/#(name.kebab.singular).data.ts', '页面数据代码模板', 'import { BasicColumn, FormSchema } from ''/@/components/Table'';
+
+export const columns: BasicColumn[] = [
+#for(property: properties)
+  {
+    title: ''#(property.description)'',
+    dataIndex: ''#(property.name.camel.singular)'',
+  },
+#end
+];
+
+export const searchFormSchema: FormSchema[] = [
+#for(property: properties)
+  {
+    field: ''#(property.name.camel.singular)'',
+    label: ''#(property.description)'',
+    component: ''#(property.type.vben)'',
+    colProps: {
+  	  xl: 12,
+  	  xxl: 8,
+    },
+  },
+#end
+];
+
+export const formSchema: FormSchema[] = [
+#for(property: properties)
+  {
+    field: ''#(property.name.camel.singular)'',
+    label: ''#(property.description)'',
+    component: ''#(property.type.vben)'',
+  },
+#end
+];
+', 2, 1),
+       (204, 'views/#(name.kebab.singular)/index.vue', '列表页代码模板', '<script lang="ts" setup>
+  import { BasicTable, TableAction, useTable } from ''/@/components/Table'';
+  import { useModal } from ''/@/components/Modal'';
+  import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
+  import { YesNo } from ''/@/enums/YesNo'';
+  import #(name.pascal.singular)Modal from ''./#(name.pascal.singular)Modal.vue'';
+  import { columns, searchFormSchema } from ''./#(name.kebab.singular).data'';
+
+  const [register, { reload }] = useTable({
+    title: ''#(description)列表'',
+    columns: columns,
+    actionColumn: {
+      width: 120,
+      title: ''操作'',
+      dataIndex: ''action'',
+      fixed: undefined,
+    },
+    api: list#(name.pascal.singular),
+    showIndexColumn: false,
+    bordered: true,
+    showTableSetting: true,
+    canResize: false,
+    useSearchForm: true,
+    formConfig: {
+      labelWidth: 100,
+      schemas: searchFormSchema,
+    },
+  });
+  const [registerModal, { openModal }] = useModal();
+  function handleCreate() {
+    openModal(true, {
+      isUpdate: false,
+    });
+  }
+  function handleEdit(record: Recordable) {
+    openModal(true, {
+      record,
+      isUpdate: true,
+    });
+  }
+  async function handleDelete(record: Recordable) {
+    await delete#(name.pascal.singular)(record.id);
+    reload();
+  }
+  function handleSuccess() {
+    reload();
+  }
+</script>
+<template>
+  <div>
+    <basic-table @register="register">
+      <template #toolbar>
+        <a-button v-auth="''#(name.kebab.singular).create''" type="primary" @click="handleCreate"> 新增#(description) </a-button>
+      </template>
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === ''action''">
+          <table-action
+            :actions="[
+              {
+                icon: ''clarity:note-edit-line'',
+                tooltip: ''编辑'',
+                auth: ''#(name.kebab.singular).update'',
+                onClick: handleEdit.bind(null, record),
+              },
+              {
+                icon: ''ant-design:delete-outlined'',
+                tooltip: ''删除'',
+                color: ''error'',
+                auth: ''#(name.kebab.singular).delete'',
+                popConfirm: {
+                  title: ''是否确认删除'',
+                  placement: ''left'',
+                  confirm: handleDelete.bind(null, record),
+                },
+              },
+            ]"
+          />
+        </template>
+      </template>
+    </basic-table>
+    <#(name.kebab.singular)-modal @register="registerModal" @success="handleSuccess" />
+  </div>
+</template>
+', 2, 1),
+       (205, 'views/#(name.kebab.singular)/#(name.pascal.singular)Modal.vue', '表单弹窗代码模板', '<script lang="ts" setup>
+  import { ref, unref, computed } from ''vue'';
+  import { BasicModal, useModalInner } from ''/@/components/Modal'';
+  import { BasicForm, useForm } from ''/@/components/Form/index'';
+  import { formSchema } from ''./#(name.kebab.singular).data'';
+  import { create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
+  const isUpdate = ref(false);
+  const id = ref<number | null>(null);
+  const getTitle = computed(() => (!unref(isUpdate) ? ''新增#(description)'' : ''编辑#(description)''));
+  const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
+    labelWidth: 100,
+    baseColProps: { span: 24 },
+    schemas: formSchema,
+    showActionButtonGroup: false,
+  });
+  const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
+    resetFields();
+    setModalProps({ confirmLoading: false });
+    isUpdate.value = !!data?.isUpdate;
+    if (unref(isUpdate)) {
+      id.value = data.record.id;
+      setFieldsValue({
+        ...data.record,
+      });
+    }
+  });
+  const emit = defineEmits([''success'', ''register'']);
+  async function handleSubmit() {
+    try {
+      const values = await validate();
+      setModalProps({ confirmLoading: true });
+      if (unref(isUpdate)) {
+        await update#(name.pascal.singular)(unref(id)!, values);
+      } else {
+        await create#(name.pascal.singular)(values);
+      }
+      closeModal();
+      emit(''success'');
+    } finally {
+      setModalProps({ confirmLoading: false });
+    }
+  }
+</script>
+<template>
+  <basic-modal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
+    <basic-form @register="registerForm" />
+  </basic-modal>
+</template>
+', 2, 1);
