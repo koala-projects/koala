@@ -4,7 +4,7 @@ import cn.koala.database.DatabaseTableColumn;
 import lombok.Getter;
 
 /**
- * TODO: 修改类描述
+ * 命名的领域属性类型转换器
  *
  * @author Houtaroy
  */

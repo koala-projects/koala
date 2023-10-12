@@ -3,7 +3,7 @@ package cn.koala.codegen;
 import cn.koala.database.DatabaseTable;
 
 /**
- * TODO: 修改类描述
+ * 聚合代码生成上下文加工器
  *
  * @author Houtaroy
  */

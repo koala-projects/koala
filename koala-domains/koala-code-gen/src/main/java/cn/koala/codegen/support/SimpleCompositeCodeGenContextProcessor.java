@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * TODO: 修改类描述
+ * 简单的聚合代码生成上下文加工器
  *
  * @author Houtaroy
  */

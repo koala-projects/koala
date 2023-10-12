@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO: 修改类描述
+ * 表辅助类
  *
  * @author Houtaroy
  */

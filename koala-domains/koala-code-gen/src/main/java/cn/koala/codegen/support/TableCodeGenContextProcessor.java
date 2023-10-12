@@ -5,7 +5,7 @@ import cn.koala.codegen.CodeGenContextProcessor;
 import cn.koala.database.DatabaseTable;
 
 /**
- * TODO: 修改类描述
+ * 数据库表代码生成上下文加工器
  *
  * @author Houtaroy
  */

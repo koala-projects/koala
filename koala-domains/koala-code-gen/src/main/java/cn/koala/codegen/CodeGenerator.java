@@ -4,7 +4,7 @@ import cn.koala.database.DatabaseTable;
 import cn.koala.template.Template;
 
 /**
- * TODO: 修改类描述
+ * 代码生成器接口
  *
  * @author Houtaroy
  */

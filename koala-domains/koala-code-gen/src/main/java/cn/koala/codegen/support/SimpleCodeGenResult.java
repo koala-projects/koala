@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * TODO: 修改类描述
+ * 简易代码生成结果
  *
  * @author Houtaroy
  */

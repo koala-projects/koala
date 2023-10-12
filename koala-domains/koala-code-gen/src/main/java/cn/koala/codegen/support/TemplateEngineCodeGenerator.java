@@ -10,7 +10,7 @@ import cn.koala.template.TemplateRenderer;
 import cn.koala.template.support.TemplateEntity;
 
 /**
- * TODO: 修改类描述
+ * 模板引擎代码生成器
  *
  * @author Houtaroy
  */
