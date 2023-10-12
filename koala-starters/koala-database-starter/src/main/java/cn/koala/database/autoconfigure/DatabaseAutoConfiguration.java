@@ -4,7 +4,7 @@ import cn.koala.database.apis.DatabaseApi;
 import cn.koala.database.apis.DatabaseApiImpl;
 import cn.koala.database.repositories.DatabaseRepository;
 import cn.koala.database.services.DatabaseService;
-import cn.koala.database.services.DatabaseServiceImpl;
+import cn.koala.database.services.DefaultDatabaseService;
 import cn.koala.validation.DefaultableMessageSourceLocator;
 import cn.koala.validation.MessageSourceLocator;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,7 +23,7 @@ public class DatabaseAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public DatabaseService databaseService(DatabaseRepository databaseRepository) {
-    return new DatabaseServiceImpl(databaseRepository);
+    return new DefaultDatabaseService(databaseRepository);
   }
 
   @Bean

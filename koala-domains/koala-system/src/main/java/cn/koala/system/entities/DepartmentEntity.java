@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @Schema(description = "部门数据实体")
 @UniqueField(value = "name", message = "{department.name.unique}")
-public class DepartmentEntity extends AbstractEntity implements Department {
+public class DepartmentEntity extends AbstractEntity<Long> implements Department {
 
   @Schema(description = "部门名称")
   @NotBlank(message = "{department.name.not-blank}")

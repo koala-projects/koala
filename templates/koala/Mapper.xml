@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="#(package).repository.#(name)Repository">
+<mapper namespace="#(package).repository.#(name.pascal.singular)Repository">
 
-  <sql id="select#(name)">
-    select
-#for(column : columns)
-    t.#(column.name)#if(!for.last),#end
+  <sql id="select#(name.pascal.singular)">
+    select t.id,
+#for(property: properties)
+		   t.#(property.name.snake.singular)#if(!for.last),#end
 #end
     from #(table.name) t
   </sql>
@@ -19,7 +19,7 @@
         </foreach>
       </when>
       <otherwise>
-#if(mybatis.isAuditable())
+#if(entity.isAbstract)
         order by t.created_time desc
 #else
 		order by t.id asc
@@ -29,68 +29,63 @@
   </sql>
   
   <sql id="orderByField">
-#for(column: mybatis.columns)
-    <if test="order.property == '#(column.propertyName)'">
-        t.#(column.columnName) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+#for(property: properties)
+    <if test="order.property == '#(property.name.camel.singular)'">
+        t.#(property.name.snake.singular) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
     </if>
 #end
   </sql>
   
-  <select id="list" resultType="#(package).entity.#(name)Entity">
-    <include refid="select#(name)"/>
+  <select id="list" resultType="#(package).entity.#(name.pascal.singular)Entity">
+    <include refid="select#(name.pascal.singular)"/>
     <where>
-#if(mybatis.isStateful())
+#if(entity.isAbstract)
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
 #end
-#for(column: mybatis.columns) 
-#if(column.columnName != 'id')
-      <if test="#(column.propertyName) != null and #(column.propertyName) != ''">
-       and t.#(column.columnName) = #{#(column.propertyName)}
+#for(property: properties)
+      <if test="#(property.name.camel.singular) != null and #(property.name.camel.singular) != ''">
+       and t.#(property.name.snake.singular) = #{#(property.name.camel.singular)}
       </if>
-#end
 #end
     </where>
 	<include refid="orderBy"/>
   </select>
   
-  <select id="load" resultType="#(package).entity.#(name)Entity">
-    <include refid="select#(name)"/>
-    where#if(mybatis.isStateful()) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+  <select id="load" resultType="#(package).entity.#(name.pascal.singular)Entity">
+    <include refid="select#(name.pascal.singular)"/>
+    where#if(entity.isAbstract) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>
 
-  <insert id="create" parameterType="#(package).entity.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
-    insert into #(table.name) 
-	value (
-#for(column: mybatis.columns)
-    #{#(column.propertyName)}#if(!for.last),#end
+  <insert id="create" parameterType="#(package).entity.#(name.pascal.singular)Entity"  useGeneratedKeys="true" keyProperty="id">
+    insert into t_biological_information_log
+      value (
+			 #{id},
+#for(property: properties)
+			 #{#(property.name.camel.singular)}#if(!for.last),#end
 #end
-    )
+	  )
   </insert>
   
-  <update id="update" parameterType="#(package).entity.#(name)Entity">
+  <update id="update" parameterType="#(package).entity.#(name.pascal.singular)Entity">
     update #(table.name)
     <trim prefix="set" suffixOverrides=",">
-#for(column: mybatis.columns) 
-#if(column.columnName != 'id')
-      <if test="#(column.propertyName) != null">#(column.columnName)=#{#(column.propertyName)},</if>
-#end
+#for(property: properties)
+      <if test="#(property.name.camel.singular) != null">#(property.name.snake.singular)=#{#(property.name.camel.singular)},</if>
 #end
     </trim>
-    where#if(mybatis.isStateful()) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
+    where#if(entity.isAbstract) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
   </update>
   
-#if(mybatis.isStateful())
-  <update id="delete" parameterType="#(package).entity.#(name)Entity">
+#if(entity.isAbstract)
+  <update id="delete" parameterType="#(package).entity.#(name.pascal.singular)Entity">
     update #(table.name)
-    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
-#if(mybatis.isAuditable())
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
-#end
     where id = #{id}
   </update>
 #else
-  <delete id="delete" parameterType="#(package).entity.#(name)Entity">
+  <delete id="delete" parameterType="#(package).entity.#(name.pascal.singular)Entity">
     delete from #(table.name) where id = #{id}
   </delete>
 #end

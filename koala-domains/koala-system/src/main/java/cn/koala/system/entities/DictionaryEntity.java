@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Schema(description = "字典数据实体")
 @UniqueField(value = "code", message = "{dictionary.code.unique}")
 @UniqueField(value = "name", message = "{dictionary.name.unique}")
-public class DictionaryEntity extends AbstractEntity implements Dictionary {
+public class DictionaryEntity extends AbstractEntity<Long> implements Dictionary {
 
   @Schema(description = "字典代码")
   @NotBlank(message = "{dictionary.code.not-blank}")

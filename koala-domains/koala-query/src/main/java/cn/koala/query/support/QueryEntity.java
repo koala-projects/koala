@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "查询数据实体类")
-public class QueryEntity extends AbstractEntity implements Query {
+public class QueryEntity extends AbstractEntity<Long> implements Query {
 
   @NotBlank(message = "查询名称不允许为空", groups = {Create.class})
   @Size(max = 20, message = "查询名称长度不能大于20", groups = {Create.class})

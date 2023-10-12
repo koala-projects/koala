@@ -12,9 +12,12 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface DatabaseService extends CrudService<Database, Long> {
-  List<DatabaseTable> getTables(Database database);
-
-  DatabaseTable getTable(Database database, String table);
 
   boolean isConnectable(Database database);
+
+  List<DatabaseTable> listTable(Long id);
+
+  List<DatabaseTable> listTable(Long id, List<String> names);
+
+  DatabaseTable loadTable(Long id, String name);
 }

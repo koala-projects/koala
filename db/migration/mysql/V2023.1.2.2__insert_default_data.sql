@@ -9,15 +9,14 @@ values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala_d
 
 -- 考拉代码模板
 insert into t_template_group(id, name, remark, is_systemic)
-values (1, '考拉代码', '考拉代码生成模板', 1);
+values (1, '考拉代码-服务端', '考拉服务端代码生成模板', 1);
 
 insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (1, 'api/Api.java', '接口代码模板', 'package #(package).api;
+values (1, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
 
-import #(package).entity.#(name)Entity;
+import #(package).entity.#(name.pascal.singular)Entity;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -49,13 +48,13 @@ import java.util.Map;
 /**
  * #(description)接口
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
 @RestController
-@RequestMapping("/api/#(api.path)")
+@RequestMapping("/api/#(name.kebab.plural)")
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "#(description)")
-public interface #(name)Api {
+public interface #(name.pascal.singular)Api {
 
   /**
    * 根据条件分页查询#(description)
@@ -64,18 +63,20 @@ public interface #(name)Api {
    * @param pageable   分页条件
    * @return #(description)分页结果
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):page'')")
-  @Operation(operationId = "list#(pluralName)", summary = "根据条件分页查询#(description)")
+  @PreAuthorize("hasAuthority(''#(name.kebab.singular).read'')")
+  @Operation(operationId = "list#(name.pascal.plural)", summary = "根据条件分页查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)PageResult.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)PageResult.class))}
   )
-#for(parameter: api.parameters.others)
-  @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.type)"))
+#for(property: properties)
+  #if(!parameterIgnoredPropertyNames.contains(property.name.camel.singular))
+  @Parameter(in = ParameterIn.QUERY, name = "#(property.name.camel.singular)", description = "#(property.description)", schema = @Schema(type = "#(property.type.json)"))
+  #end
 #end
   @PageableAsQueryParam
   @GetMapping
-  DataResponse<Page<#(name)Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
-                                         @Parameter(hidden = true) Pageable pageable);
+  DataResponse<Page<#(name.pascal.singular)Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
+														 @Parameter(hidden = true) Pageable pageable);
 
   /**
    * 根据id查询#(description)
@@ -83,14 +84,14 @@ public interface #(name)Api {
    * @param id #(description)id
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):load'')")
-  @Operation(operationId = "load#(name)", summary = "根据id查询#(description)")
+  @PreAuthorize("hasAuthority(''#(name.kebab.singular).read'')")
+  @Operation(operationId = "load#(name.pascal.singular)", summary = "根据id查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)Result.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.type.json)"))
   @GetMapping("{id}")
-  DataResponse<#(name)Entity> load(@PathVariable("id") #(entity.properties.id.type) id);
+  DataResponse<#(name.pascal.singular)Entity> load(@PathVariable("id") #(id.type.java) id);
 
   /**
    * 创建#(description)
@@ -98,13 +99,13 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):create'')")
-  @Operation(operationId = "create#(name)", summary = "创建#(description)")
+  @PreAuthorize("hasAuthority(''#(name.kebab.singular).create'')")
+  @Operation(operationId = "create#(name.pascal.singular)", summary = "创建#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)Result.class))}
   )
   @PostMapping
-  DataResponse<#(name)Entity> create(@Validated(Create.class) @RequestBody #(name)Entity entity);
+  DataResponse<#(name.pascal.singular)Entity> create(@Validated(Create.class) @RequestBody #(name.pascal.singular)Entity entity);
 
   /**
    * 更新#(description)
@@ -113,15 +114,14 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):update'')")
-  @Operation(operationId = "update#(name)", summary = "更新#(description)")
+  @PreAuthorize("hasAuthority(''#(name.kebab.singular).update'')")
+  @Operation(operationId = "update#(name.pascal.singular)", summary = "更新#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.type.json)"))
   @PutMapping("{id}")
-  Response update(@EditableId(#(name)Entity.class) @PathVariable("id") #(entity.properties.id.type) id,
-                  @Validated(Update.class) @RequestBody #(name)Entity entity);
+  Response update(@PathVariable("id") #(id.type.java) id, @Validated(Update.class) @RequestBody #(name.pascal.singular)Entity entity);
 
   /**
    * 删除#(description)
@@ -129,28 +129,28 @@ public interface #(name)Api {
    * @param id #(description)id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority(''#(api.permission):delete'')")
-  @Operation(operationId = "delete#(name)", summary = "删除#(description)")
+  @PreAuthorize("hasAuthority(''#(name.kebab.singular).delete'')")
+  @Operation(operationId = "delete#(name.pascal.singular)", summary = "删除#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.type.json)"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(#(name)Entity.class) @PathVariable("id") #(entity.properties.id.type) id);
+  Response delete(@PathVariable("id") #(id.type.java) id);
 
-  class #(name)PageResult extends DataResponse<Page<#(name)Entity>> {
+  class #(name.pascal.singular)PageResult extends DataResponse<Page<#(name.pascal.singular)Entity>> {
 
   }
 
-  class #(name)Result extends DataResponse<#(name)Entity> {
+  class #(name.pascal.singular)Result extends DataResponse<#(name.pascal.singular)Entity> {
 
   }
 }
 ', 1, 1),
-       (2, 'api/ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
+       (2, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
 
-import #(package).entity.#(name)Entity;
-import #(package).service.#(name)Service;
+import #(package).entity.#(name.pascal.singular)Entity;
+import #(package).service.#(name.pascal.singular)Service;
 
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -164,80 +164,114 @@ import java.util.Map;
 /**
  * #(description)接口实现类
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
-@RequiredArgsConstructor
 @RestController
-public class #(name)ApiImpl implements #(name)Api {
+@RequiredArgsConstructor
+public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Api {
 
-  protected final #(name)Service service;
+  protected final #(name.pascal.singular)Service service;
 
   @Override
-  public DataResponse<Page<#(name)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
+  public DataResponse<Page<#(name.pascal.singular)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
     return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
-  public DataResponse<#(name)Entity> load(#(entity.properties.id.type) id) {
+  public DataResponse<#(name.pascal.singular)Entity> load(#(id.type.java) id) {
     return DataResponse.ok(service.load(id));
   }
 
   @Override
-  public DataResponse<#(name)Entity> create(#(name)Entity entity) {
+  public DataResponse<#(name.pascal.singular)Entity> create(#(name.pascal.singular)Entity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }
 
   @Override
-  public Response update(#(entity.properties.id.type) id, #(name)Entity entity) {
+  public Response update(#(id.type.id) id, #(name.pascal.singular)Entity entity) {
     entity.setIdIfAbsent(id);
     service.update(entity);
     return Response.SUCCESS;
   }
 
   @Override
-  public Response delete(#(entity.properties.id.type) id) {
-    service.delete(#(name)Entity.builder().id(id).build());
+  public Response delete(#(id.type.id) id) {
+    service.delete(#(name.pascal.singular)Entity.builder().id(id).build());
     return Response.SUCCESS;
   }
 }
 ', 1, 1),
-       (3, 'entity/Entity.java', '数据实体类代码模板', 'package #(package).entity;
+       (3, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
 
-#for(import: entity.imports)
-import #(import);
+#if(entity.isAbstract)
+import cn.koala.mybatis.AbstractEntity;
+#else
+import cn.koala.persist.domain.Persistable;
 #end
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+#if(entity.isAbstract)
+import lombok.EqualsAndHashCode;
+#end
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Date;
+
+
 
 /**
  * #(description)数据实体类
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
 @Data
+#if(entity.isAbstract)
+@EqualsAndHashCode(callSuper = true)
+#end
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "#(description)数据实体类")
-public class #(name)Entity implements Persistable<#(entity.properties.id.type)>#for(interface: entity.interfaces), #(interface)#end  {
+public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends AbstractEntity#else  implements Persistable#end<#(id.type.java)> {
+#if(!entity.isAbstract)
 
-  @Schema(description = "#(entity.properties.id.description)")
-  private #(entity.properties.id.type) id;
-#for(property: entity.properties.others)
-
-#for(validation: property.validations)
-  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
+  @Schema(description = "#(id.description)")
+  private #(id.type.java) id;
 #end
+#for(property: properties)
+  #if(entity.isAbstract)
+    #if(!entity.abstractIgnoredPropertyNames.contains(property.name.camel.singular))
+
+      #if(entity.validations.containsKey(property.name.camel.singular))
+        #for(validation: entity.validations.get(property.name.camel.singular))
+  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
+        #end
+      #end
   @Schema(description = "#(property.description)")
-  private #(property.type) #(property.name);
+  private #(property.type.java) #(property.name.camel.singular);
+    #end
+  #else
+	#if(entity.validations.containsKey(property.name.camel.singular))
+        #for(validation: entity.validations.get(property.name.camel.singular))
+  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
+        #end
+      #end
+  @Schema(description = "#(property.description)")
+  private #(property.type.java) #(property.name.camel.singular);
+  #end
 #end
 }
 ', 1, 1),
-       (4, 'service/Service.java', '服务类代码模板', 'package #(package).service;
+       (4, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
 
-import #(package).entity.#(name)Entity;
-import #(package).repository.#(name)Repository;
+import #(package).entity.#(name.pascal.singular)Entity;
+import #(package).repository.#(name.pascal.singular)Repository;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 import lombok.Getter;
@@ -246,39 +280,39 @@ import lombok.RequiredArgsConstructor;
 /**
  * #(description)服务类
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
 @Component
 @Getter
 @RequiredArgsConstructor
-public class #(name)Service extends AbstractMyBatisService<#(name)Entity, #(entity.properties.id.type)> {
+public class #(name.pascal.singular)Service extends AbstractMyBatisService<#(name.pascal.singular)Entity, #(id.type.java)> {
 
-  protected final #(name)Repository repository;
+  protected final #(name.pascal.singular)Repository repository;
 }
 ', 1, 1),
-       (5, 'repository/Repository.java', '仓库接口代码模板', 'package #(package).repository;
+       (5, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
-import #(package).entity.#(name)Entity;
+import #(package).entity.#(name.pascal.singular)Entity;
 
 import cn.koala.persist.repository.CrudRepository;
 
 /**
  * #(description)仓库接口
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
-public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entity.properties.id.type)> {
+public interface #(name.pascal.singular)Repository extends CrudRepository<#(name.pascal.singular)Entity, #(id.type.java)> {
 }
 ', 1, 1),
-       (6, 'Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+       (6, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="#(package).repository.#(name)Repository">
+<mapper namespace="#(package).repository.#(name.pascal.singular)Repository">
 
-  <sql id="select#(name)">
-    select
-#for(column : columns)
-    t.#(column.name)#if(!for.last),#end
+  <sql id="select#(name.pascal.singular)">
+    select t.id,
+#for(property: properties)
+		   t.#(property.name.snake.singular)#if(!for.last),#end
 #end
     from #(table.name) t
   </sql>
@@ -291,7 +325,7 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
         </foreach>
       </when>
       <otherwise>
-#if(mybatis.isAuditable())
+#if(entity.isAbstract)
         order by t.created_time desc
 #else
 		order by t.id asc
@@ -301,74 +335,69 @@ public interface #(name)Repository extends CrudRepository<#(name)Entity, #(entit
   </sql>
 
   <sql id="orderByField">
-#for(column: mybatis.columns)
-    <if test="order.property == ''#(column.propertyName)''">
-        t.#(column.columnName) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+#for(property: properties)
+    <if test="order.property == ''#(property.name.camel.singular)''">
+        t.#(property.name.snake.singular) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
     </if>
 #end
   </sql>
 
-  <select id="list" resultType="#(package).entity.#(name)Entity">
-    <include refid="select#(name)"/>
+  <select id="list" resultType="#(package).entity.#(name.pascal.singular)Entity">
+    <include refid="select#(name.pascal.singular)"/>
     <where>
-#if(mybatis.isStateful())
-      t.is_deleted = $\{@cn.koala.persist.domain.YesNo@NO.value}
+#if(entity.isAbstract)
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
 #end
-#for(column: mybatis.columns)
-#if(column.columnName != ''id'')
-      <if test="#(column.propertyName) != null and #(column.propertyName) != ''''">
-       and t.#(column.columnName) = #{#(column.propertyName)}
+#for(property: properties)
+      <if test="#(property.name.camel.singular) != null and #(property.name.camel.singular) != ''''">
+       and t.#(property.name.snake.singular) = #{#(property.name.camel.singular)}
       </if>
-#end
 #end
     </where>
 	<include refid="orderBy"/>
   </select>
 
-  <select id="load" resultType="#(package).entity.#(name)Entity">
-    <include refid="select#(name)"/>
-    where#if(mybatis.isStateful()) t.is_deleted = $\{@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+  <select id="load" resultType="#(package).entity.#(name.pascal.singular)Entity">
+    <include refid="select#(name.pascal.singular)"/>
+    where#if(entity.isAbstract) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
   </select>
 
-  <insert id="create" parameterType="#(package).entity.#(name)Entity"  useGeneratedKeys="true" keyProperty="id">
-    insert into #(table.name)
-	value (
-#for(column: mybatis.columns)
-    #{#(column.propertyName)}#if(!for.last),#end
+  <insert id="create" parameterType="#(package).entity.#(name.pascal.singular)Entity"  useGeneratedKeys="true" keyProperty="id">
+    insert into t_biological_information_log
+      value (
+			 #{id},
+#for(property: properties)
+			 #{#(property.name.camel.singular)}#if(!for.last),#end
 #end
-    )
+	  )
   </insert>
 
-  <update id="update" parameterType="#(package).entity.#(name)Entity">
+  <update id="update" parameterType="#(package).entity.#(name.pascal.singular)Entity">
     update #(table.name)
     <trim prefix="set" suffixOverrides=",">
-#for(column: mybatis.columns)
-#if(column.columnName != ''id'')
-      <if test="#(column.propertyName) != null">#(column.columnName)=#{#(column.propertyName)},</if>
-#end
+#for(property: properties)
+      <if test="#(property.name.camel.singular) != null">#(property.name.snake.singular)=#{#(property.name.camel.singular)},</if>
 #end
     </trim>
-    where#if(mybatis.isStateful()) is_deleted = $\{@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
+    where#if(entity.isAbstract) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
   </update>
 
-#if(mybatis.isStateful())
-  <update id="delete" parameterType="#(package).entity.#(name)Entity">
+#if(entity.isAbstract)
+  <update id="delete" parameterType="#(package).entity.#(name.pascal.singular)Entity">
     update #(table.name)
-    set is_deleted   = $\{@cn.koala.persist.domain.YesNo@YES.value}#if(mybatis.isAuditable()),#end
-#if(mybatis.isAuditable())
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
         deleted_time = #{deletedTime}
-#end
     where id = #{id}
   </update>
 #else
-  <delete id="delete" parameterType="#(package).entity.#(name)Entity">
+  <delete id="delete" parameterType="#(package).entity.#(name.pascal.singular)Entity">
     delete from #(table.name) where id = #{id}
   </delete>
 #end
 </mapper>
 ', 1, 1),
-       (7, 'config/PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
+       (7, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
 
 import cn.koala.system.support.CrudPermissionRegistrar;
 import org.springframework.stereotype.Component;
@@ -380,10 +409,10 @@ import org.springframework.stereotype.Component;
  * @author Koala Code Generator
  */
 @Component
-public class #(name)PermissionRegistrar extends CrudPermissionRegistrar {
+public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRegistrar {
 
-  public #(name)PermissionRegistrar() {
-    super("#(api.permission)", "#(description)管理", 30000, null);
+  public #(name.pascal.singular)PermissionRegistrar() {
+    super("#(name.kebab.singular)", "#(description)管理", 30000, null);
   }
 }
 ', 1, 1);

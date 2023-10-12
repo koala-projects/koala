@@ -309,7 +309,12 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-code</artifactId>
+        <artifactId>koala-code-gen</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.koala</groupId>
+        <artifactId>koala-code-gen-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -441,11 +446,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-cache-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-code-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

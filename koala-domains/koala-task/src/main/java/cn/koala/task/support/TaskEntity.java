@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "任务数据实体类")
-public class TaskEntity extends AbstractEntity implements Task {
+public class TaskEntity extends AbstractEntity<Long> implements Task {
 
   @Schema(description = "主键")
   private Long id;

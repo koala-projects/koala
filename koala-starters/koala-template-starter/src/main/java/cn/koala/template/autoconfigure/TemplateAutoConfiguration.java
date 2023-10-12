@@ -29,8 +29,9 @@ import org.springframework.context.annotation.Configuration;
 public class TemplateAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
-  public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository) {
-    return new DefaultTemplateGroupService(templateGroupRepository);
+  public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository,
+                                                   TemplateService templateService) {
+    return new DefaultTemplateGroupService(templateGroupRepository, templateService);
   }
 
   @Bean

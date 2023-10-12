@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "字典项数据实体")
-public class DictionaryItemEntity extends AbstractEntity implements DictionaryItem {
+public class DictionaryItemEntity extends AbstractEntity<Long> implements DictionaryItem {
 
   @Schema(description = "字典项代码")
   @NotBlank(message = "{dictionary-item.code.not-blank}")

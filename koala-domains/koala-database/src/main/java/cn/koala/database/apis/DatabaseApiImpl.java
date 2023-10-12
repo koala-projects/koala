@@ -9,8 +9,6 @@ import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -57,17 +55,12 @@ public class DatabaseApiImpl implements DatabaseApi {
 
   @Override
   public DataResponse<List<DatabaseTable>> listTables(Long id) {
-    Database database = service.load(id);
-    Assert.notNull(database, "数据库不存在");
-    return DataResponse.ok(service.getTables(database));
+    return DataResponse.ok(service.listTable(id));
   }
 
   @Override
   public DataResponse<DatabaseTable> loadTable(Long id, String name) {
-    Assert.isTrue(StringUtils.hasLength(name), "表名不能为空");
-    Database database = service.load(id);
-    Assert.notNull(database, "数据库不存在");
-    return DataResponse.ok(service.getTable(database, name));
+    return DataResponse.ok(service.loadTable(id, name));
   }
 
   @Override

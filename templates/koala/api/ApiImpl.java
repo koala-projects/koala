@@ -1,7 +1,7 @@
 package #(package).api;
 
-import #(package).entity.#(name)Entity;
-import #(package).service.#(name)Service;
+import #(package).entity.#(name.pascal.singular)Entity;
+import #(package).service.#(name.pascal.singular)Service;
 
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -15,40 +15,40 @@ import java.util.Map;
 /**
  * #(description)接口实现类
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
-@RequiredArgsConstructor
 @RestController
-public class #(name)ApiImpl implements #(name)Api {
+@RequiredArgsConstructor
+public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Api {
 	
-  protected final #(name)Service service;
+  protected final #(name.pascal.singular)Service service;
 
   @Override
-  public DataResponse<Page<#(name)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
+  public DataResponse<Page<#(name.pascal.singular)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
     return DataResponse.ok(service.page(parameters, pageable));
   }
 
   @Override
-  public DataResponse<#(name)Entity> load(#(entity.properties.id.type) id) {
+  public DataResponse<#(name.pascal.singular)Entity> load(#(id.type.java) id) {
     return DataResponse.ok(service.load(id));
   }
 
   @Override
-  public DataResponse<#(name)Entity> create(#(name)Entity entity) {
+  public DataResponse<#(name.pascal.singular)Entity> create(#(name.pascal.singular)Entity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }
 
   @Override
-  public Response update(#(entity.properties.id.type) id, #(name)Entity entity) {
+  public Response update(#(id.type.id) id, #(name.pascal.singular)Entity entity) {
     entity.setIdIfAbsent(id);
     service.update(entity);
     return Response.SUCCESS;
   }
 
   @Override
-  public Response delete(#(entity.properties.id.type) id) {
-    service.delete(#(name)Entity.builder().id(id).build());
+  public Response delete(#(id.type.id) id) {
+    service.delete(#(name.pascal.singular)Entity.builder().id(id).build());
     return Response.SUCCESS;
   }
 }

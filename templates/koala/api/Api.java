@@ -1,9 +1,8 @@
 package #(package).api;
 
-import #(package).entity.#(name)Entity;
+import #(package).entity.#(name.pascal.singular)Entity;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -35,13 +34,13 @@ import java.util.Map;
 /**
  * #(description)接口
  *
- * @author Koala Code Generator
+ * @author Koala Code Gen
  */
 @RestController
-@RequestMapping("/api/#(api.path)")
+@RequestMapping("/api/#(name.kebab.plural)")
 @SecurityRequirement(name = "spring-security")
 @Tag(name = "#(description)")
-public interface #(name)Api {
+public interface #(name.pascal.singular)Api {
 
   /**
    * 根据条件分页查询#(description)
@@ -50,18 +49,20 @@ public interface #(name)Api {
    * @param pageable   分页条件
    * @return #(description)分页结果
    */
-  @PreAuthorize("hasAuthority('#(api.permission):page')")
-  @Operation(operationId = "list#(pluralName)", summary = "根据条件分页查询#(description)")
+  @PreAuthorize("hasAuthority('#(name.kebab.singular).read')")
+  @Operation(operationId = "list#(name.pascal.plural)", summary = "根据条件分页查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)PageResult.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)PageResult.class))}
   )
-#for(parameter: api.parameters.others)
-  @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.type)"))
+#for(property: properties)
+  #if(!parameterIgnoredPropertyNames.contains(property.name.camel.singular))
+  @Parameter(in = ParameterIn.QUERY, name = "#(property.name.camel.singular)", description = "#(property.description)", schema = @Schema(type = "#(property.type.json)"))
+  #end
 #end
   @PageableAsQueryParam
   @GetMapping
-  DataResponse<Page<#(name)Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters,
-                                         @Parameter(hidden = true) Pageable pageable);
+  DataResponse<Page<#(name.pascal.singular)Entity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> parameters, 
+														 @Parameter(hidden = true) Pageable pageable);
 
   /**
    * 根据id查询#(description)
@@ -69,14 +70,14 @@ public interface #(name)Api {
    * @param id #(description)id
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority('#(api.permission):load')")
-  @Operation(operationId = "load#(name)", summary = "根据id查询#(description)")
+  @PreAuthorize("hasAuthority('#(name.kebab.singular).read')")
+  @Operation(operationId = "load#(name.pascal.singular)", summary = "根据id查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)Result.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.type.json)"))
   @GetMapping("{id}")
-  DataResponse<#(name)Entity> load(@PathVariable("id") #(entity.properties.id.type) id);
+  DataResponse<#(name.pascal.singular)Entity> load(@PathVariable("id") #(id.type.java) id);
 
   /**
    * 创建#(description)
@@ -84,13 +85,13 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return #(description)数据实体
    */
-  @PreAuthorize("hasAuthority('#(api.permission):create')")
-  @Operation(operationId = "create#(name)", summary = "创建#(description)")
+  @PreAuthorize("hasAuthority('#(name.kebab.singular).create')")
+  @Operation(operationId = "create#(name.pascal.singular)", summary = "创建#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
-    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name)Result.class))}
+    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)Result.class))}
   )
   @PostMapping
-  DataResponse<#(name)Entity> create(@Validated(Create.class) @RequestBody #(name)Entity entity);
+  DataResponse<#(name.pascal.singular)Entity> create(@Validated(Create.class) @RequestBody #(name.pascal.singular)Entity entity);
 
   /**
    * 更新#(description)
@@ -99,15 +100,14 @@ public interface #(name)Api {
    * @param entity #(description)数据实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('#(api.permission):update')")
-  @Operation(operationId = "update#(name)", summary = "更新#(description)")
+  @PreAuthorize("hasAuthority('#(name.kebab.singular).update')")
+  @Operation(operationId = "update#(name.pascal.singular)", summary = "更新#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.type.json)"))
   @PutMapping("{id}")
-  Response update(@EditableId(#(name)Entity.class) @PathVariable("id") #(entity.properties.id.type) id, 
-                  @Validated(Update.class) @RequestBody #(name)Entity entity);
+  Response update(@PathVariable("id") #(id.type.java) id, @Validated(Update.class) @RequestBody #(name.pascal.singular)Entity entity);
 
   /**
    * 删除#(description)
@@ -115,20 +115,20 @@ public interface #(name)Api {
    * @param id #(description)id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('#(api.permission):delete')")
-  @Operation(operationId = "delete#(name)", summary = "删除#(description)")
+  @PreAuthorize("hasAuthority('#(name.kebab.singular).delete')")
+  @Operation(operationId = "delete#(name.pascal.singular)", summary = "删除#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
-  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(api.parameters.id.type)"))
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "#(description)id", schema = @Schema(type = "#(id.type.json)"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(#(name)Entity.class) @PathVariable("id") #(entity.properties.id.type) id);
+  Response delete(@PathVariable("id") #(id.type.java) id);
 
-  class #(name)PageResult extends DataResponse<Page<#(name)Entity>> {
+  class #(name.pascal.singular)PageResult extends DataResponse<Page<#(name.pascal.singular)Entity>> {
 
   }
 
-  class #(name)Result extends DataResponse<#(name)Entity> {
+  class #(name.pascal.singular)Result extends DataResponse<#(name.pascal.singular)Entity> {
 
   }
 }

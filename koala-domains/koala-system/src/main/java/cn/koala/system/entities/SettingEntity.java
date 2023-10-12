@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "设置数据实体")
-public class SettingEntity extends AbstractEntity implements Setting {
+public class SettingEntity extends AbstractEntity<Long> implements Setting {
   @Schema(description = "设置代码")
   protected String code;
   @Schema(description = "设置名称")

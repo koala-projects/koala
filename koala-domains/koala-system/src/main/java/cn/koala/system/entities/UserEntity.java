@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @UniqueField(value = "username", message = "{user.username.unique}")
 @UniqueField(value = "nickname", message = "{user.nickname.unique}")
 @Schema(description = "用户数据实体")
-public class UserEntity extends AbstractEntity implements User {
+public class UserEntity extends AbstractEntity<Long> implements User {
 
   @Schema(description = "登录名")
   @NotBlank(message = "{user.username.not-blank}")

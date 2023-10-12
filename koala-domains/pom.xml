@@ -20,7 +20,7 @@
     <module>koala-authorization-server</module>
     <module>koala-boot</module>
     <module>koala-cache</module>
-    <module>koala-code</module>
+    <module>koala-code-gen</module>
     <module>koala-data-source</module>
     <module>koala-database</module>
     <module>koala-log</module>

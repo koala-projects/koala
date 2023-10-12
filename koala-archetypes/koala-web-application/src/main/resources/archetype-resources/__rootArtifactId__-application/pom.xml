@@ -21,7 +21,7 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-code-starter</artifactId>
+      <artifactId>koala-code-gen-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>

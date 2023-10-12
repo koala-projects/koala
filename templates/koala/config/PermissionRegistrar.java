@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * @author Koala Code Generator
  */
 @Component
-public class #(name)PermissionRegistrar extends CrudPermissionRegistrar {
+public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRegistrar {
 
-  public #(name)PermissionRegistrar() {
-    super("#(api.permission)", "#(description)管理", 30000, null);
+  public #(name.pascal.singular)PermissionRegistrar() {
+    super("#(name.kebab.singular)", "#(description)管理", 30000, null);
   }
 }

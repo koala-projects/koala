@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Schema(description = "角色数据实体")
 @UniqueField(value = "code", message = "{role.code.unique}")
 @UniqueField(value = "name", message = "{role.name.unique}")
-public class RoleEntity extends AbstractEntity implements Role {
+public class RoleEntity extends AbstractEntity<Long> implements Role {
 
   @Schema(description = "角色代码")
   @NotBlank(message = "{role.code.not-blank}")
