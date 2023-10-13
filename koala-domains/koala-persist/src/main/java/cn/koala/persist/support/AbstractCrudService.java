@@ -1,9 +1,7 @@
-package cn.koala.persist.service.support;
+package cn.koala.persist.support;
 
-import cn.koala.persist.CrudType;
-import cn.koala.persist.listener.EntityListenAction;
-import cn.koala.persist.repository.CrudRepository;
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudRepository;
+import cn.koala.persist.CrudService;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -52,19 +50,16 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
   }
 
   @Override
-  @EntityListenAction(CrudType.CREATE)
   public <S extends T> void create(@NonNull S entity) {
     getRepository().create(entity);
   }
 
   @Override
-  @EntityListenAction(CrudType.UPDATE)
   public <S extends T> void update(@NonNull S entity) {
     getRepository().update(entity);
   }
 
   @Override
-  @EntityListenAction(CrudType.DELETE)
   public <S extends T> void delete(@NonNull S entity) {
     getRepository().delete(entity);
   }

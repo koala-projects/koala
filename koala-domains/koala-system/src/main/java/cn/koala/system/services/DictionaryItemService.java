@@ -1,6 +1,6 @@
 package cn.koala.system.services;
 
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudService;
 import cn.koala.system.DictionaryItem;
 
 /**

@@ -1,7 +1,7 @@
 package cn.koala.attachment.repository;
 
 import cn.koala.attachment.Attachment;
-import cn.koala.persist.repository.CrudRepository;
+import cn.koala.persist.CrudRepository;
 
 /**
  * 附件仓库接口

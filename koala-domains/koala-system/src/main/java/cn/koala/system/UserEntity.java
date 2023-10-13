@@ -1,8 +1,7 @@
-package cn.koala.system.entities;
+package cn.koala.system;
 
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.persist.validator.UniqueField;
-import cn.koala.system.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,8 +15,8 @@ import lombok.experimental.SuperBuilder;
  *
  * @author Houtaroy
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @UniqueField(value = "username", message = "{user.username.unique}")

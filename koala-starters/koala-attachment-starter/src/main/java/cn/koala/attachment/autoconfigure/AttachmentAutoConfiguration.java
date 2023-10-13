@@ -1,7 +1,7 @@
 package cn.koala.attachment.autoconfigure;
 
 import cn.koala.attachment.AttachmentApi;
-import cn.koala.attachment.AttachmentListener;
+import cn.koala.attachment.AttachmentEntityListener;
 import cn.koala.attachment.AttachmentService;
 import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.storage.AttachmentStorage;
@@ -39,8 +39,8 @@ public class AttachmentAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean(name = "attachmentListener")
-  public AttachmentListener attachmentListener(AttachmentRepository repository, AttachmentStorage storage) {
-    return new AttachmentListener(repository, storage);
+  @ConditionalOnMissingBean(name = "attachmentEntityListener")
+  public AttachmentEntityListener attachmentEntityListener(AttachmentRepository repository, AttachmentStorage storage) {
+    return new AttachmentEntityListener(repository, storage);
   }
 }

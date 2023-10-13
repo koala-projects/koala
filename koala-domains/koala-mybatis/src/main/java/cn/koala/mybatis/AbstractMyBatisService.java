@@ -1,6 +1,6 @@
 package cn.koala.mybatis;
 
-import cn.koala.persist.service.support.AbstractCrudService;
+import cn.koala.persist.support.AbstractCrudService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

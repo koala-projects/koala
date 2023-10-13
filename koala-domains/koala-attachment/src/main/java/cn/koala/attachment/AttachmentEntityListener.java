@@ -2,7 +2,6 @@ package cn.koala.attachment;
 
 import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.persist.listener.support.AbstractInheritedEntityListener;
 import jakarta.persistence.PreRemove;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -13,13 +12,13 @@ import org.springframework.core.annotation.Order;
  * @author Houtaroy
  */
 @Slf4j
-@Order(3100)
-public class AttachmentListener extends AbstractInheritedEntityListener<Attachment> {
+@Order(1000)
+public class AttachmentEntityListener {
 
-  protected final AttachmentRepository repository;
-  protected final AttachmentStorage storage;
+  private final AttachmentRepository repository;
+  private final AttachmentStorage storage;
 
-  public AttachmentListener(AttachmentRepository repository, AttachmentStorage storage) {
+  public AttachmentEntityListener(AttachmentRepository repository, AttachmentStorage storage) {
     this.repository = repository;
     this.storage = storage;
   }
@@ -30,7 +29,7 @@ public class AttachmentListener extends AbstractInheritedEntityListener<Attachme
    * @param entity 附件实体
    */
   @PreRemove
-  public void preDelete(Attachment entity) {
+  public void preDelete(AttachmentEntity entity) {
     try {
       storage.remove(this.repository.load(entity.getId()).orElseThrow(() -> new IllegalArgumentException("附件不存在")));
     } catch (Exception e) {

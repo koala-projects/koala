@@ -15,7 +15,7 @@ import cn.koala.task.support.DefaultTaskLogApi;
 import cn.koala.task.support.DefaultTaskLogService;
 import cn.koala.task.support.DefaultTaskService;
 import cn.koala.task.support.TaskApplicationRunner;
-import cn.koala.task.support.TaskListener;
+import cn.koala.task.support.TaskEntityListener;
 import cn.koala.task.support.TaskSchedulingTriggerFactory;
 import cn.koala.task.support.TaskSpringBeanInstanceFactory;
 import org.mybatis.spring.annotation.MapperScan;
@@ -52,14 +52,14 @@ public class TaskAutoConfiguration {
   @ConditionalOnMissingBean
   public TaskExecutor taskExecutor(TaskInstanceFactory taskFactory, TaskTriggerFactory triggerFactory,
                                    TaskScheduler taskScheduler, TaskLogService taskLogService) {
-    
+
     return new DefaultTaskExecutor(taskFactory, triggerFactory, taskScheduler, taskLogService);
   }
 
   @Bean
-  @ConditionalOnMissingBean
-  public TaskListener taskListener(TaskRepository taskRepository, TaskExecutor taskExecutor) {
-    return new TaskListener(taskRepository, taskExecutor);
+  @ConditionalOnMissingBean(name = "taskEntityListener")
+  public TaskEntityListener taskEntityListener(TaskRepository taskRepository, TaskExecutor taskExecutor) {
+    return new TaskEntityListener(taskRepository, taskExecutor);
   }
 
   @Bean

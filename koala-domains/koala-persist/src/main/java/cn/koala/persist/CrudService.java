@@ -1,4 +1,4 @@
-package cn.koala.persist.service;
+package cn.koala.persist;
 
 import lombok.NonNull;
 import org.springframework.data.domain.Page;

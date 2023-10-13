@@ -48,7 +48,7 @@
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.system.entities.UserEntity">
+  <select id="list" resultType="cn.koala.system.UserEntity">
     <include refid="selectUser"/>
     <if test="departmentId != null and departmentId != ''">
       left join k_user_department ud on ud.user_id = t.id
@@ -74,19 +74,19 @@
     <include refid="orderBy"/>
   </select>
 
-  <select id="load" resultType="cn.koala.system.entities.UserEntity">
+  <select id="load" resultType="cn.koala.system.UserEntity">
     <include refid="selectUser"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.entities.UserEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.system.UserEntity" useGeneratedKeys="true" keyProperty="id">
     insert into k_user(id, username, password, nickname, avatar, email, mobile, remark, sort_index, is_enabled,
                        is_systemic, is_deleted, created_by, created_time)
     values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{remark}, #{sortIndex},
             #{isEnabled}, #{isSystemic}, #{isDeleted}, #{createdBy}, #{createdTime})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.entities.UserEntity">
+  <update id="update" parameterType="cn.koala.system.UserEntity">
     update k_user
     <trim prefix="set" suffixOverrides=",">
       <if test="username != null">username=#{username},</if>
@@ -101,7 +101,7 @@
     where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.entities.UserEntity">
+  <update id="delete" parameterType="cn.koala.system.UserEntity">
     update k_user
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},

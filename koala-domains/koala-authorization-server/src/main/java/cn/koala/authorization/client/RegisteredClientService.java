@@ -1,6 +1,6 @@
 package cn.koala.authorization.client;
 
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudService;
 
 /**
  * 注册客户端服务接口

@@ -1,9 +1,10 @@
-package cn.koala.system.apis;
+package cn.koala.system.support;
 
 import cn.koala.log.annotations.Log;
 import cn.koala.system.User;
-import cn.koala.system.apis.request.CreateUserRequest;
-import cn.koala.system.entities.UserEntity;
+import cn.koala.system.UserApi;
+import cn.koala.system.UserCreateRequest;
+import cn.koala.system.UserEntity;
 import cn.koala.system.services.UserService;
 import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
@@ -23,7 +24,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @RestController
-public class UserApiImpl implements UserApi {
+public class DefaultUserApi implements UserApi {
   protected final UserService service;
 
   @Override
@@ -40,7 +41,7 @@ public class UserApiImpl implements UserApi {
 
   @Override
   @Log(module = "用户管理", content = "创建用户[username=${#user.username}]")
-  public DataResponse<User> create(CreateUserRequest user) {
+  public DataResponse<User> create(UserCreateRequest user) {
     service.create(user);
     return DataResponse.ok(user);
   }

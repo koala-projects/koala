@@ -49,7 +49,7 @@ public abstract class ClassHelper {
       return null;
     }
     TypeToken<?> typeToken = TypeToken.of(objectClass);
-    return (Class<?>) typeToken.resolveType(genericClass.getTypeParameters()[index]).getType();
+    return typeToken.resolveType(genericClass.getTypeParameters()[index]).getRawType();
   }
 
   public static List<Method> getMethods(Class<?> clazz, Class<? extends Annotation> annotation) {

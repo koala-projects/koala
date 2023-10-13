@@ -1,6 +1,8 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.system.PermissionRegistrar;
+import cn.koala.system.UserApi;
+import cn.koala.system.UserCreateListener;
 import cn.koala.system.apis.DepartmentApi;
 import cn.koala.system.apis.DepartmentApiImpl;
 import cn.koala.system.apis.DictionaryApi;
@@ -10,9 +12,6 @@ import cn.koala.system.apis.DictionaryItemApiImpl;
 import cn.koala.system.apis.PermissionApi;
 import cn.koala.system.apis.PermissionApiImpl;
 import cn.koala.system.apis.RoleApiImpl;
-import cn.koala.system.apis.UserApi;
-import cn.koala.system.apis.UserApiImpl;
-import cn.koala.system.listeners.UserListener;
 import cn.koala.system.repositories.DepartmentRepository;
 import cn.koala.system.repositories.DictionaryItemRepository;
 import cn.koala.system.repositories.DictionaryRepository;
@@ -32,6 +31,7 @@ import cn.koala.system.services.RoleServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
 import cn.koala.system.support.AdminRegister;
+import cn.koala.system.support.DefaultUserApi;
 import cn.koala.system.support.PermissionRegister;
 import cn.koala.system.support.SystemPermissionRegistrar;
 import org.mybatis.spring.annotation.MapperScan;
@@ -121,8 +121,9 @@ public class SystemAutoConfiguration {
   }
 
   @Bean
-  public UserListener userListener(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    return new UserListener(userRepository, passwordEncoder);
+  @ConditionalOnMissingBean(name = "userCreateListener")
+  public UserCreateListener userCreateListener(PasswordEncoder passwordEncoder) {
+    return new UserCreateListener(passwordEncoder);
   }
 
   @Bean
@@ -134,7 +135,7 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public UserApi userApi(UserService userService) {
-    return new UserApiImpl(userService);
+    return new DefaultUserApi(userService);
   }
 
   @Bean

@@ -1,5 +1,7 @@
 package cn.koala.persist.service;
 
+import cn.koala.persist.CrudService;
+
 import java.util.Optional;
 
 /**

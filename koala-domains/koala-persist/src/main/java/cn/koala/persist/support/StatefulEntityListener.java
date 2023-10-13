@@ -1,11 +1,10 @@
-package cn.koala.persist.listener.support;
+package cn.koala.persist.support;
 
 import cn.koala.persist.domain.Stateful;
 import cn.koala.persist.domain.YesNo;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -13,9 +12,8 @@ import org.springframework.core.annotation.Order;
  *
  * @author Houtaroy
  */
-@Order(6100)
-@RequiredArgsConstructor
-public class StatefulEntityListener extends AbstractInheritedEntityListener<Stateful> {
+@Order(1000)
+public class StatefulEntityListener extends AbstractSystemEntityListener<Stateful> {
 
   @PrePersist
   public void preAdd(Stateful entity) {

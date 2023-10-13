@@ -1,6 +1,6 @@
 package cn.koala.query;
 
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

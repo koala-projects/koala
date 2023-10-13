@@ -1,6 +1,6 @@
 package cn.koala.system.repositories;
 
-import cn.koala.persist.repository.CrudRepository;
+import cn.koala.persist.CrudRepository;
 import cn.koala.system.Dictionary;
 
 /**

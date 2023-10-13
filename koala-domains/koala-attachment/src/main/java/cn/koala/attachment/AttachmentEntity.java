@@ -2,6 +2,7 @@ package cn.koala.attachment;
 
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.EntityListeners;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "附件数据实体类")
+@EntityListeners(AttachmentEntityListener.class)
 public class AttachmentEntity implements Attachment {
 
   @Schema(description = "主键")

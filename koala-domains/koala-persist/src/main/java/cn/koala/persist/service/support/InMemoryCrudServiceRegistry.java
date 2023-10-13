@@ -1,6 +1,6 @@
 package cn.koala.persist.service.support;
 
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudService;
 import cn.koala.persist.service.CrudServiceRegistry;
 import cn.koala.toolkit.ClassHelper;
 

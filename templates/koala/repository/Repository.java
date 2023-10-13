@@ -2,7 +2,7 @@ package #(package).repository;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 
-import cn.koala.persist.repository.CrudRepository;
+import cn.koala.persist.CrudRepository;
 
 /**
  * #(description)仓库接口

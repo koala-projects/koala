@@ -1,6 +1,6 @@
 package cn.koala.persist.autoconfigure;
 
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudService;
 import cn.koala.persist.service.CrudServiceRegistry;
 import cn.koala.persist.service.support.InMemoryCrudServiceRegistry;
 import cn.koala.validation.DefaultableMessageSourceLocator;

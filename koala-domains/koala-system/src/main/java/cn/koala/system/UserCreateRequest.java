@@ -1,7 +1,7 @@
-package cn.koala.system.apis.request;
+package cn.koala.system;
 
-import cn.koala.system.entities.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.EntityListeners;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Schema(description = "创建用户请求")
-public class CreateUserRequest extends UserEntity {
+@EntityListeners(UserCreateListener.class)
+public class UserCreateRequest extends UserEntity {
 
   @Schema(description = "明文密码")
   @NotBlank(message = "{user.password.not-blank}")

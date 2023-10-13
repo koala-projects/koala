@@ -1,6 +1,6 @@
 package cn.koala.template;
 
-import cn.koala.persist.service.CrudService;
+import cn.koala.persist.CrudService;
 
 import java.util.List;
 

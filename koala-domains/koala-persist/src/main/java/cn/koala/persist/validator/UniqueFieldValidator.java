@@ -1,7 +1,7 @@
 package cn.koala.persist.validator;
 
+import cn.koala.persist.CrudService;
 import cn.koala.persist.domain.Persistable;
-import cn.koala.persist.service.CrudService;
 import cn.koala.persist.service.CrudServiceRegistry;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

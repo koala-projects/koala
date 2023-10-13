@@ -1,6 +1,6 @@
 package cn.koala.task.repository;
 
-import cn.koala.persist.repository.CrudRepository;
+import cn.koala.persist.CrudRepository;
 import cn.koala.task.TaskLog;
 
 /**
