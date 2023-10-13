@@ -3,7 +3,7 @@ package cn.koala.persist;
 import java.util.List;
 
 /**
- * TODO: 修改类描述
+ * 实体监听器工厂
  *
  * @author Houtaroy
  */

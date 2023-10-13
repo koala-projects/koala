@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * 实体监听器工厂
+ * 实体监听器方法工厂
  *
  * @author Houtaroy
  */

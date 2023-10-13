@@ -8,15 +8,17 @@ import jakarta.persistence.PreUpdate;
 import org.springframework.data.domain.AuditorAware;
 
 /**
- * TODO: 修改类描述
+ * 审计实体监听器
+ * <p>
+ * 基于{@link AuditorAware}实现审计功能
  *
  * @author Houtaroy
  */
-public abstract class AbstractAuditingEntityListener<T> extends AbstractSystemEntityListener<Auditable<T>> {
+public class AuditingEntityListener<T> extends AbstractSystemEntityListener<Auditable<T>> {
 
   protected final AuditorAware<T> auditorAware;
 
-  public AbstractAuditingEntityListener(AuditorAware<T> auditorAware) {
+  public AuditingEntityListener(AuditorAware<T> auditorAware) {
     this.auditorAware = auditorAware;
   }
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * TODO: 修改类描述
+ * 简单实体监听器方法工厂
  *
  * @author Houtaroy
  */
