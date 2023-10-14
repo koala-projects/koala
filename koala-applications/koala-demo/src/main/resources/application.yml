@@ -74,7 +74,7 @@ springdoc:
     doc-expansion: none
 
 koala:
-  code:
+  code-gen:
     download-path: D:\Temp\koala\code\
   log:
     ignored-patterns:
