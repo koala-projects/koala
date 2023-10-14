@@ -1,16 +1,17 @@
 package cn.koala.persist.support;
 
 import cn.koala.persist.EntityListenerFactory;
+import cn.koala.persist.EntityListenerMethod;
 import cn.koala.persist.SystemEntityListener;
 import jakarta.persistence.EntityListeners;
 import lombok.Setter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.AnnotationAwareOrderComparator;
-import org.springframework.core.annotation.Order;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
 
   @Override
   public List<Object> getEntityListeners(Class<?> entityClass) {
+    if (entityClass == null) {
+      return List.of();
+    }
     List<Object> listeners = getEntityListeners(entityClass.getAnnotation(EntityListeners.class));
     List<SystemEntityListener> systemListeners = getSystemEntityListeners(entityClass);
     List<Object> result = new ArrayList<>(listeners.size() + systemListeners.size());
@@ -44,29 +48,34 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
     for (Class<?> clazz : annotation.value()) {
       result.add(applicationContext.getBean(clazz));
     }
-    return sort(result);
+    return SpringBeanHelper.sort(result);
   }
 
   private List<SystemEntityListener> getSystemEntityListeners(Class<?> entityClass) {
     Collection<SystemEntityListener> listeners = applicationContext.getBeansOfType(SystemEntityListener.class).values();
     List<SystemEntityListener> result = listeners.stream().filter(listener -> listener.support(entityClass)).toList();
-    return sort(result);
+    return SpringBeanHelper.sort(result);
   }
 
-  private <T> List<T> sort(List<T> listeners) {
-    List<T> orders = new ArrayList<>(listeners.size());
-    List<T> others = new ArrayList<>(listeners.size());
-    listeners.forEach(listener -> (isOrderly(listener) ? orders : others).add(listener));
+  @Override
+  public List<EntityListenerMethod> getEntityListenerMethods(Class<?> entityClass,
+                                                             Class<? extends Annotation> jpaAnnotation) {
 
-    List<T> result = new ArrayList<>(listeners.size());
-    AnnotationAwareOrderComparator.sort(orders);
-    result.addAll(orders);
-    result.addAll(others);
-
-    return result;
+    if (entityClass == null || jpaAnnotation == null) {
+      return List.of();
+    }
+    return getEntityListeners(entityClass).stream()
+      .flatMap(listener -> getEntityListenerMethods(listener, jpaAnnotation).stream())
+      .toList();
   }
 
-  private boolean isOrderly(Object listener) {
-    return listener.getClass().isAnnotationPresent(Order.class) || Ordered.class.isAssignableFrom(listener.getClass());
+  public List<EntityListenerMethod> getEntityListenerMethods(Object listener,
+                                                             Class<? extends Annotation> jpaAnnotation) {
+
+    List<Method> methods = Arrays.stream(listener.getClass().getMethods())
+      .filter(method -> method.isAnnotationPresent(jpaAnnotation))
+      .toList();
+    List<Method> sortedMethods = SpringBeanHelper.sort(methods);
+    return sortedMethods.stream().map(method -> EntityListenerMethod.of(listener, method)).toList();
   }
 }

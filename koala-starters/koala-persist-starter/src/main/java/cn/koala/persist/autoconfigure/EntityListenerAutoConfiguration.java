@@ -1,18 +1,9 @@
 package cn.koala.persist.autoconfigure;
 
-import cn.koala.persist.AnnotationResolver;
-import cn.koala.persist.AroundEntityListenerAspect;
-import cn.koala.persist.CrudMethod;
+import cn.koala.persist.CrudServiceEntityListenerAspect;
 import cn.koala.persist.EntityListenerFactory;
-import cn.koala.persist.EntityListenerMethodFactory;
 import cn.koala.persist.SystemEntityListener;
 import cn.koala.persist.support.AuditingEntityListener;
-import cn.koala.persist.support.CrudMethodEntityClassResolver;
-import cn.koala.persist.support.MethodAroundEntityListener;
-import cn.koala.persist.support.NameMappingAnnotationResolver;
-import cn.koala.persist.support.SimpleEntityListenerMethodFactory;
-import cn.koala.persist.support.SimpleMethodEntityListenerFactory;
-import cn.koala.persist.support.SimpleMethodEntityListenerMethodFactory;
 import cn.koala.persist.support.SpringBeanEntityListenerFactory;
 import cn.koala.persist.support.StatefulEntityListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -40,30 +31,10 @@ public class EntityListenerAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityListenerMethodFactory entityListenerMethodFactory() {
-    return new SimpleEntityListenerMethodFactory();
-  }
+  public CrudServiceEntityListenerAspect crudServiceEntityListenerAspect(PlatformTransactionManager transactionManager,
+                                                                         EntityListenerFactory entityListenerFactory) {
 
-  @Bean
-  @Order(3200)
-  @ConditionalOnMissingBean(name = "crudMethodEntityListenerAspect")
-  public AroundEntityListenerAspect crudMethodEntityListenerAspect(
-    PlatformTransactionManager transactionManager, EntityListenerFactory entityListenerFactory,
-    EntityListenerMethodFactory entityListenerMethodFactory) {
-
-    AnnotationResolver jpaPreAnnotationResolver =
-      new NameMappingAnnotationResolver(CrudMethod.JPA_PRE_ANNOTATION_MAPPING);
-    AnnotationResolver jpaPostAnnotationResolver =
-      new NameMappingAnnotationResolver(CrudMethod.JPA_POST_ANNOTATION_MAPPING);
-
-    return new AroundEntityListenerAspect(
-      new MethodAroundEntityListener(
-        transactionManager,
-        new SimpleMethodEntityListenerFactory(new CrudMethodEntityClassResolver(), entityListenerFactory),
-        new SimpleMethodEntityListenerMethodFactory(jpaPreAnnotationResolver, entityListenerMethodFactory),
-        new SimpleMethodEntityListenerMethodFactory(jpaPostAnnotationResolver, entityListenerMethodFactory)
-      )
-    );
+    return new CrudServiceEntityListenerAspect(transactionManager, entityListenerFactory);
   }
 
   @Bean

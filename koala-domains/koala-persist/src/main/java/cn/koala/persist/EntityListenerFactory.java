@@ -1,5 +1,6 @@
 package cn.koala.persist;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -10,4 +11,6 @@ import java.util.List;
 public interface EntityListenerFactory {
 
   List<Object> getEntityListeners(Class<?> entityClass);
+
+  List<EntityListenerMethod> getEntityListenerMethods(Class<?> entityClass, Class<? extends Annotation> jpaAnnotation);
 }
