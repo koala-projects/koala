@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 基于Spring Bean的实体监听器工厂
@@ -24,23 +26,27 @@ import java.util.List;
  */
 public class SpringBeanEntityListenerFactory implements EntityListenerFactory, ApplicationContextAware {
 
+  private final Map<Class<?>, List<Object>> listeners = new ConcurrentHashMap<>();
+  private final Map<String, List<EntityListenerMethod>> methods = new ConcurrentHashMap<>();
   @Setter
   private ApplicationContext applicationContext;
 
   @Override
   public List<Object> getEntityListeners(Class<?> entityClass) {
-    if (entityClass == null) {
-      return List.of();
-    }
-    List<Object> listeners = getEntityListeners(entityClass.getAnnotation(EntityListeners.class));
-    List<SystemEntityListener> systemListeners = getSystemEntityListeners(entityClass);
-    List<Object> result = new ArrayList<>(listeners.size() + systemListeners.size());
-    result.addAll(systemListeners);
-    result.addAll(listeners);
-    return result;
+    return listeners.computeIfAbsent(entityClass, (clazz) -> {
+      if (clazz == null) {
+        return List.of();
+      }
+      List<Object> listeners = getCustomEntityListeners(clazz.getAnnotation(EntityListeners.class));
+      List<SystemEntityListener> systemListeners = getSystemEntityListeners(clazz);
+      List<Object> result = new ArrayList<>(listeners.size() + systemListeners.size());
+      result.addAll(systemListeners);
+      result.addAll(listeners);
+      return result;
+    });
   }
 
-  private List<Object> getEntityListeners(EntityListeners annotation) {
+  private List<Object> getCustomEntityListeners(EntityListeners annotation) {
     if (annotation == null) {
       return List.of();
     }
@@ -64,13 +70,20 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
     if (entityClass == null || jpaAnnotation == null) {
       return List.of();
     }
-    return getEntityListeners(entityClass).stream()
-      .flatMap(listener -> getEntityListenerMethods(listener, jpaAnnotation).stream())
-      .toList();
+    String cacheKey = obtainEntityListenerMethodCacheKey(entityClass, jpaAnnotation);
+    return methods.computeIfAbsent(cacheKey, (clazz) ->
+      getEntityListeners(entityClass).stream()
+        .flatMap(listener -> getEntityListenerMethods(listener, jpaAnnotation).stream())
+        .toList()
+    );
   }
 
-  public List<EntityListenerMethod> getEntityListenerMethods(Object listener,
-                                                             Class<? extends Annotation> jpaAnnotation) {
+  private String obtainEntityListenerMethodCacheKey(Class<?> entityClass, Class<? extends Annotation> jpaAnnotation) {
+    return entityClass.getName() + "#" + jpaAnnotation.getName();
+  }
+
+  private List<EntityListenerMethod> getEntityListenerMethods(Object listener,
+                                                              Class<? extends Annotation> jpaAnnotation) {
 
     List<Method> methods = Arrays.stream(listener.getClass().getMethods())
       .filter(method -> method.isAnnotationPresent(jpaAnnotation))
