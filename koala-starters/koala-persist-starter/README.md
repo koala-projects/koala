@@ -63,88 +63,15 @@ public class MyUserService extends UserService {
 }
 ```
 
-如果这个检查是通用的, 除了`UserService`, 还需要重写更多的服务类
+为了尽可能的实现业务职责单一, 减少重写方法的心智负担, 模块参照 [Spring Data JPA](https://spring.io/projects/spring-data-jpa), 结合 [Spring AOP](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-api), 增加了实体监听器的功能
 
-模块参照 [Spring Data JPA](https://spring.io/projects/spring-data-jpa), 结合 [Spring AOP](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-api), 增加了实体监听器的功能, 您需要让服务类继承自`AbstractCrudService`:
-
-```java
-public class UserService extends AbstractCrudService<User, Long> {}
-```
-
-实现`EntityListener`, 编写自定义监听器:
-
-```java
-public class UserEntityListener implements EntityListener {
-    
-  @PreUpdate
-  public void preUpdate(User entity) {
-    // 增加审计信息...
-  }
-
-  @Override
-  public boolean support(Class<?> entityClass) {
-    return Objects.equals(User.class, entityClass);
-  }
-}
-```
-
-模块会自动解析注解`@PreUpdate`标注的方法, 并在更新前进行调用, 当前支持的生命周期有:
+模块会自动解析 JPA 注解标注的方法, 当前支持的生命周期有:
 
 - `@PrePersist` / `@PostPersist` : 新增前后
 - `@PreUpdate` / `@PostUpdate` : 更新前后
 - `@PreRemove` / `@PostRemove` : 删除前后
 
-如果您想要监听其他方法, 可以通过使用`@EntityListenAction`注解:
-
-```java
-public class MyUserService extends UserService {
-    
-  // value为CRUD操作类型, entity为实体类型
-  @EntityListenAction(value = CrudType.UPDATE, entity = User.class)
-  public void setUserDepartments(User entity, List<Department> departments) {
-    // 业务逻辑...
-  }
-  
-  // 不指定实体类型, 默认第一个参数类型为实体类型
-  @EntityListenAction(CrudType.UPDATE)
-  public void setUserRoles(User entity, List<Role> roles) {
-    // 业务逻辑...
-  }
-}
-```
-
-在调用监听方法时, 会传入被监听方法的**所有参数**:
-
-```java
-public class UserEntityListener implements EntityListener {
-    
-  @PreUpdate
-  public void preUpdateRoles(User entity, List<Role> roles) {
-    // 监听逻辑...
-  }
-
-  @Override
-  public boolean support(Class<?> entityClass) {
-    return Objects.equals(User.class, entityClass);
-  }
-}
-```
-
 需要注意的是, 在如下场景中**监听将会失效**:
-
-- 继承自`AbstractCrudService`, 但在子类中重写了`create`/`update`/`delete`方法:
-
-```java
-public class UserService extends AbstractCrudService<User, Long> {
-    
-  // 重写方法导致更新监听失效
-  // 可通过在方法上增加注解`@EntityListenAction(CrudType.UPDATE)`避免
-  @Override
-  public void update(User entity) {
-    // 自定义更新逻辑...
-  }
-}
-```
 
 - 在同一对象内部进行方法调用:
 
@@ -157,6 +84,56 @@ public class UserService extends AbstractCrudService<User, Long> {
   }
 }
 ```
+
+#### 自定义实体监听器
+
+1. 基于 JPA 书写自定义监听器:
+
+```java
+// 自定义实体监听器会按照排序执行
+@Order(1000)
+// 自定义实体监听器需被 Spring IOC 容器管理
+@Component
+public class UserEntityListener implements EntityListener {
+    
+  @PreUpdate
+  public void preUpdate(User entity) {
+    // 增加审计信息...
+  }
+}
+```
+
+2. 指定实体所需要的自定义实体监听器:
+
+```java
+@EntityListeners(UserEntityListener.class)
+public class UserEntity {
+    
+}
+```
+
+#### 系统实体监听器
+
+如果业务逻辑针对大部分或全部实体生效, 可实现系统实体监听器接口`SystemEntityListener`:
+
+```java
+@Order(1000)
+@Component
+public class AuditingEntityListener implements SystemEntityListener {
+    
+  @PrePersist
+  public void prePersist(Auditable<Long> entity) {
+    // 审计逻辑...
+  }
+    
+  @Override
+  public boolean support(Class<?> entityClass) {
+    // 判断是否支持当前实体...
+  }
+}
+```
+
+#### 事务管理
 
 在使用实体监听器时, 切面会手动进行**事务管理**, 管理逻辑如下:
 
