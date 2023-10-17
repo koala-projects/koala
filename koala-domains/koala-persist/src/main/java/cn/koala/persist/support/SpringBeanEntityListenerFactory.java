@@ -54,13 +54,13 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
     for (Class<?> clazz : annotation.value()) {
       result.add(applicationContext.getBean(clazz));
     }
-    return SpringBeanHelper.sort(result);
+    return BeanOrderUtils.sort(result);
   }
 
   private List<SystemEntityListener> getSystemEntityListeners(Class<?> entityClass) {
     Collection<SystemEntityListener> listeners = applicationContext.getBeansOfType(SystemEntityListener.class).values();
     List<SystemEntityListener> result = listeners.stream().filter(listener -> listener.support(entityClass)).toList();
-    return SpringBeanHelper.sort(result);
+    return BeanOrderUtils.sort(result);
   }
 
   @Override
@@ -88,7 +88,7 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
     List<Method> methods = Arrays.stream(listener.getClass().getMethods())
       .filter(method -> method.isAnnotationPresent(jpaAnnotation))
       .toList();
-    List<Method> sortedMethods = SpringBeanHelper.sort(methods);
+    List<Method> sortedMethods = BeanOrderUtils.sort(methods);
     return sortedMethods.stream().map(method -> EntityListenerMethod.of(listener, method)).toList();
   }
 }

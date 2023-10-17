@@ -20,11 +20,6 @@ import java.util.Map;
 public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
 
   @Override
-  public List<T> list(Map<String, Object> parameters) {
-    return getRepository().list(parameters);
-  }
-
-  @Override
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
     List<T> entities = list(parameters);
     return new PageImpl<>(doPage(entities, pageable), pageable, entities.size());
@@ -42,6 +37,11 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
     int startIndex = (pageNumber - 1) * pageable.getPageSize();
     int endIndex = Math.min(startIndex + pageable.getPageSize() - 1, entities.size());
     return entities.subList(startIndex, endIndex);
+  }
+
+  @Override
+  public List<T> list(Map<String, Object> parameters) {
+    return getRepository().list(parameters);
   }
 
   @Override

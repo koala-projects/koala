@@ -17,15 +17,15 @@ public class StatefulEntityListener extends AbstractSystemEntityListener<Statefu
 
   @PrePersist
   public void preAdd(Stateful entity) {
-    entity.setIsEnabled(YesNo.YES);
+    entity.setIsEnabledIfAbsent(YesNo.YES);
     entity.setIsSystemic(YesNo.NO);
     entity.setIsDeleted(YesNo.NO);
   }
 
   @PreUpdate
   public void preUpdate(Stateful entity) {
-    entity.setIsSystemic(YesNo.NO);
-    entity.setIsDeleted(YesNo.NO);
+    entity.setIsSystemic(null);
+    entity.setIsDeleted(null);
   }
 
   @PreRemove

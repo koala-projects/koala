@@ -14,7 +14,16 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-public abstract class SpringBeanHelper {
+public abstract class BeanOrderUtils {
+
+  public static <T> List<T> sort(List<T> beans) {
+    List<T> result = new ArrayList<>(beans.size());
+    List<T> orders = beans.stream().filter(BeanOrderUtils::isOrderly).toList();
+    AnnotationAwareOrderComparator.sort(orders);
+    result.addAll(orders);
+    result.addAll(beans.stream().filter(bean -> !isOrderly(bean)).toList());
+    return result;
+  }
 
   private static boolean isOrderly(Object bean) {
     if (bean == null) {
@@ -33,14 +42,5 @@ public abstract class SpringBeanHelper {
 
   private static boolean isOrderly(Class<?> clazz) {
     return clazz.isAnnotationPresent(Order.class) || Ordered.class.isAssignableFrom(clazz);
-  }
-
-  public static <T> List<T> sort(List<T> beans) {
-    List<T> result = new ArrayList<>(beans.size());
-    List<T> orders = beans.stream().filter(SpringBeanHelper::isOrderly).toList();
-    AnnotationAwareOrderComparator.sort(orders);
-    result.addAll(orders);
-    result.addAll(beans.stream().filter(bean -> !isOrderly(bean)).toList());
-    return result;
   }
 }

@@ -1,5 +1,7 @@
 package cn.koala.persist.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 有状态的模型
  *
@@ -19,6 +21,13 @@ public interface Stateful {
    * @param isEnabled 是否启用
    */
   void setIsEnabled(YesNo isEnabled);
+
+  @JsonIgnore
+  default void setIsEnabledIfAbsent(YesNo isEnabled) {
+    if (getIsEnabled() == null) {
+      setIsEnabled(isEnabled);
+    }
+  }
 
   /**
    * 获取是否系统的
