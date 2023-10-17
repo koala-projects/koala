@@ -4,6 +4,7 @@ import cn.koala.mybatis.AbstractEntity;
 import cn.koala.task.Task;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.EntityListeners;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -21,6 +22,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "任务数据实体类")
+@EntityListeners(TaskEntityListener.class)
 public class TaskEntity extends AbstractEntity<Long> implements Task {
 
   @Schema(description = "主键")
