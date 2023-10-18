@@ -2,10 +2,10 @@ package #(package).service;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).repository.#(name.pascal.singular)Repository;
-
 import cn.koala.mybatis.AbstractMyBatisService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * #(description)服务类

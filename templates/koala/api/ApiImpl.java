@@ -40,14 +40,14 @@ public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Ap
   }
 
   @Override
-  public Response update(#(id.type.id) id, #(name.pascal.singular)Entity entity) {
+  public Response update(#(id.type.java) id, #(name.pascal.singular)Entity entity) {
     entity.setIdIfAbsent(id);
     service.update(entity);
     return Response.SUCCESS;
   }
 
   @Override
-  public Response delete(#(id.type.id) id) {
+  public Response delete(#(id.type.java) id) {
     service.delete(#(name.pascal.singular)Entity.builder().id(id).build());
     return Response.SUCCESS;
   }

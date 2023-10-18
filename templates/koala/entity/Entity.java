@@ -51,6 +51,7 @@ public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends Abstrac
       #end
   @Schema(description = "#(property.description)")
   private #(property.type.java) #(property.name.camel.singular);
+  
     #end
   #else
 	#if(entity.validations.containsKey(property.name.camel.singular))
@@ -60,6 +61,7 @@ public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends Abstrac
       #end
   @Schema(description = "#(property.description)")
   private #(property.type.java) #(property.name.camel.singular);
+  
   #end
 #end
 }

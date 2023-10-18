@@ -57,7 +57,7 @@
   </select>
 
   <insert id="create" parameterType="#(package).entity.#(name.pascal.singular)Entity"  useGeneratedKeys="true" keyProperty="id">
-    insert into t_biological_information_log
+    insert into #(table.name)
       value (
 			 #{id},
 #for(property: properties)
