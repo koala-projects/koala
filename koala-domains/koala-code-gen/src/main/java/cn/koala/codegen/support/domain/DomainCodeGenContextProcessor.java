@@ -51,7 +51,11 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
   }
 
   private Name processDomainName(DatabaseTable table) {
-    return Name.fromSnakeSingular(table.getName().replace(tablePrefix, ""));
+    String snake = table.getName();
+    if (snake.startsWith(tablePrefix)) {
+      snake = snake.substring(tablePrefix.length());
+    }
+    return Name.fromSnakeSingular(snake);
   }
 
   private String processDomainDescription(DatabaseTable table) {
