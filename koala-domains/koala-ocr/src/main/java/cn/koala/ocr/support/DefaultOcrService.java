@@ -6,6 +6,7 @@ import ai.djl.opencv.OpenCVImageFactory;
 import cn.koala.ocr.OcrProcessor;
 import cn.koala.ocr.OcrService;
 import cn.koala.toolkit.MultipartFileHelper;
+import cn.koala.web.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -44,10 +45,10 @@ public class DefaultOcrService implements OcrService {
       return processor.process(OpenCVImageFactory.getInstance().fromInputStream(file.getInputStream())).items();
     } catch (IOException e) {
       LOGGER.error("上传文件[name={}]读取失败", file.getOriginalFilename(), e);
-      throw new IllegalArgumentException("上传文件读取失败");
+      throw new BusinessException("上传文件读取失败");
     } catch (Exception e) {
       LOGGER.error("图片识别失败", e);
-      throw new IllegalStateException("图片识别失败");
+      throw new BusinessException("图片识别失败");
     }
   }
 
@@ -69,10 +70,10 @@ public class DefaultOcrService implements OcrService {
       }
     } catch (IOException e) {
       LOGGER.error("上传文件[name={}]读取失败", file.getOriginalFilename(), e);
-      throw new IllegalArgumentException("上传文件读取失败");
+      throw new BusinessException("上传文件读取失败");
     } catch (Exception e) {
       LOGGER.error("PDF识别失败", e);
-      throw new IllegalStateException("PDF识别失败");
+      throw new BusinessException("PDF识别失败");
     }
   }
 

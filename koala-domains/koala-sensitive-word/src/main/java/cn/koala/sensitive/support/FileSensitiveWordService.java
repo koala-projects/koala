@@ -1,6 +1,7 @@
 package cn.koala.sensitive.support;
 
 import cn.koala.sensitive.SensitiveWordService;
+import cn.koala.web.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
@@ -36,12 +37,12 @@ public class FileSensitiveWordService implements SensitiveWordService {
   @Override
   public void add(String word) {
     LOGGER.debug("[koala-sensitive-word]: 文件敏感词服务不允许新增敏感词");
-    throw new IllegalStateException();
+    throw new BusinessException("文件敏感词服务不允许新增敏感词");
   }
 
   @Override
   public void delete(String word) {
     LOGGER.debug("[koala-sensitive-word]: 文件敏感词服务不允许删除敏感词");
-    throw new IllegalStateException();
+    throw new BusinessException("文件敏感词服务不允许删除敏感词");
   }
 }

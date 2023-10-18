@@ -4,6 +4,7 @@ import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.query.Query;
 import cn.koala.query.QueryService;
 import cn.koala.query.repository.QueryRepository;
+import cn.koala.web.BusinessException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ public class JdbcQueryService extends AbstractMyBatisService<Query, Long> implem
 
   @Override
   public Page<Map<String, Object>> execute(Long id, Map<String, Object> parameters, Pageable pageable) {
-    Query query = getRepository().load(id).orElseThrow(() -> new IllegalArgumentException("查询不存在"));
+    Query query = getRepository().load(id).orElseThrow(() -> new BusinessException("查询不存在"));
     addPageableParameters(parameters, pageable);
     resetNullParameters(parameters);
     List<Map<String, Object>> result = jdbcTemplate.queryForList(query.getSql(), parameters);

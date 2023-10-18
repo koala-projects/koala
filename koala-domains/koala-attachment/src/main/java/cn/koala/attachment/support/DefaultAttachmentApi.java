@@ -5,6 +5,7 @@ import cn.koala.attachment.AttachmentApi;
 import cn.koala.attachment.AttachmentEntity;
 import cn.koala.attachment.AttachmentService;
 import cn.koala.attachment.storage.AttachmentStorage;
+import cn.koala.web.BusinessException;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import jakarta.servlet.ServletOutputStream;
@@ -61,7 +62,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
       this.service.create(result);
       return DataResponse.ok(result);
     } catch (Exception e) {
-      throw new IllegalStateException("文件上传失败, 请联系服务管理员", e);
+      throw new BusinessException("文件上传失败, 请联系服务管理员", e);
     }
   }
 
@@ -78,7 +79,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
         IOUtils.copy(inputStream, outputStream);
       }
     } catch (Exception e) {
-      throw new IllegalStateException("文件下载失败, 请联系服务管理员", e);
+      throw new BusinessException("文件下载失败, 请联系服务管理员", e);
     }
   }
 }

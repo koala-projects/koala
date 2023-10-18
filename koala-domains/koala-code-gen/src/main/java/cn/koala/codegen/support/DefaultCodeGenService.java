@@ -8,6 +8,7 @@ import cn.koala.database.services.DatabaseService;
 import cn.koala.template.Template;
 import cn.koala.template.TemplateGroupService;
 import cn.koala.toolkit.CompressHelper;
+import cn.koala.web.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
@@ -45,7 +46,7 @@ public class DefaultCodeGenService implements CodeGenService {
       CompressHelper.compress(root, new File(downloadPath + result), ArchiveStreamFactory.ZIP);
       return result;
     } catch (Exception e) {
-      throw new IllegalStateException("生成代码文件失败", e);
+      throw new BusinessException("生成代码文件失败", e);
     }
   }
 

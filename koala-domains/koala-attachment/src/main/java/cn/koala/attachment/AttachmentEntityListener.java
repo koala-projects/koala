@@ -2,6 +2,7 @@ package cn.koala.attachment;
 
 import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.storage.AttachmentStorage;
+import cn.koala.web.BusinessException;
 import jakarta.persistence.PreRemove;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -31,9 +32,9 @@ public class AttachmentEntityListener {
   @PreRemove
   public void preDelete(AttachmentEntity entity) {
     try {
-      storage.remove(this.repository.load(entity.getId()).orElseThrow(() -> new IllegalArgumentException("附件不存在")));
+      storage.remove(this.repository.load(entity.getId()).orElseThrow(() -> new BusinessException("附件不存在")));
     } catch (Exception e) {
-      throw new IllegalStateException("附件删除失败, 请联系服务管理员", e);
+      throw new BusinessException("附件删除失败, 请联系服务管理员", e);
     }
   }
 }

@@ -7,6 +7,7 @@ import cn.koala.database.SimpleDatabaseTable;
 import cn.koala.database.SimpleDatabaseTableColumn;
 import cn.koala.database.repositories.DatabaseRepository;
 import cn.koala.mybatis.AbstractMyBatisService;
+import cn.koala.web.BusinessException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class DefaultDatabaseService extends AbstractMyBatisService<Database, Lon
 
   @Override
   public List<DatabaseTable> listTable(Long id) {
-    Database database = repository.load(id).orElseThrow(() -> new IllegalArgumentException("数据库不存在"));
+    Database database = repository.load(id).orElseThrow(() -> new BusinessException("数据库不存在"));
     return query(database, (connection) -> {
       ResultSet rs = connection.getMetaData().getTables(database.getCatalog(), database.getSchema(), null, new String[]{"TABLE"});
       List<DatabaseTable> result = new ArrayList<>();
@@ -51,14 +52,14 @@ public class DefaultDatabaseService extends AbstractMyBatisService<Database, Lon
 
   @Override
   public List<DatabaseTable> listTable(Long id, List<String> names) {
-    Database database = repository.load(id).orElseThrow(() -> new IllegalArgumentException("数据库不存在"));
+    Database database = repository.load(id).orElseThrow(() -> new BusinessException("数据库不存在"));
     Assert.notEmpty(names, "表名列表不能为空");
     return names.stream().map(name -> loadTable(database, name)).toList();
   }
 
   @Override
   public DatabaseTable loadTable(Long id, String name) {
-    Database database = repository.load(id).orElseThrow(() -> new IllegalArgumentException("数据库不存在"));
+    Database database = repository.load(id).orElseThrow(() -> new BusinessException("数据库不存在"));
     Assert.hasLength(name, "表名不能为空");
     return loadTable(database, name);
   }
@@ -67,7 +68,7 @@ public class DefaultDatabaseService extends AbstractMyBatisService<Database, Lon
     return query(database, (connection -> {
       ResultSet rs = connection.getMetaData().getTables(database.getCatalog(), database.getSchema(), table, new String[]{"TABLE"});
       if (!rs.next()) {
-        throw new IllegalArgumentException("表不存在");
+        throw new BusinessException("表不存在");
       }
       return SimpleDatabaseTable.builder()
         .name(rs.getString("TABLE_NAME"))
@@ -123,7 +124,7 @@ public class DefaultDatabaseService extends AbstractMyBatisService<Database, Lon
     try (Connection connection = getConnection(database)) {
       return query.query(connection);
     } catch (SQLException e) {
-      throw new IllegalStateException("数据库操作异常", e);
+      throw new BusinessException("数据库操作异常", e);
     }
   }
 

@@ -7,6 +7,7 @@ import cn.koala.codegen.support.TableHelper;
 import cn.koala.database.DatabaseTable;
 import cn.koala.database.DatabaseTableColumn;
 import cn.koala.toolkit.name.Name;
+import cn.koala.web.BusinessException;
 
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,7 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
       .filter(column -> COLUMN_ID_NAME.equals(column.getName()))
       .findFirst()
       .map(this::processDomainProperty)
-      .orElseThrow(() -> new IllegalArgumentException("数据表必须包含名为id的主键列"));
+      .orElseThrow(() -> new BusinessException("数据表必须包含名为id的主键列"));
   }
 
   private List<DomainProperty> processDomainProperties(DatabaseTable table) {
