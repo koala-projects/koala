@@ -38,6 +38,13 @@ public class RestExceptionHandler {
     return Response.error(e.getMessage());
   }
 
+  @ExceptionHandler(BusinessException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response exception(BusinessException e) {
+    LOGGER.error("业务异常", e);
+    return Response.error(e.getMessage());
+  }
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Response methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
