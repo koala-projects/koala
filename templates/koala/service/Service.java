@@ -17,5 +17,5 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class #(name.pascal.singular)Service extends AbstractMyBatisService<#(name.pascal.singular)Entity, #(id.type.java)> {
   
-  protected final #(name.pascal.singular)Repository repository;
+  private final #(name.pascal.singular)Repository repository;
 }

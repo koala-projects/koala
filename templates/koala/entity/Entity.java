@@ -51,9 +51,9 @@ public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends Abstrac
       #end
   @Schema(description = "#(property.description)")
   private #(property.type.java) #(property.name.camel.singular);
-  
     #end
   #else
+
 	#if(entity.validations.containsKey(property.name.camel.singular))
         #for(validation: entity.validations.get(property.name.camel.singular))
   @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
@@ -61,7 +61,6 @@ public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends Abstrac
       #end
   @Schema(description = "#(property.description)")
   private #(property.type.java) #(property.name.camel.singular);
-  
   #end
 #end
 }
