@@ -1,9 +1,11 @@
-package cn.koala.system.services;
+package cn.koala.system.support;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.persist.support.DomainHelper;
 import cn.koala.system.Role;
-import cn.koala.system.repositories.RoleRepository;
+import cn.koala.system.RoleService;
+import cn.koala.system.User;
+import cn.koala.system.repository.RoleRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +18,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Getter
-public class RoleServiceImpl extends AbstractMyBatisService<Role, Long> implements RoleService {
+public class DefaultRoleService extends AbstractMyBatisService<Role, Long> implements RoleService {
 
   protected final RoleRepository repository;
 
@@ -29,5 +31,10 @@ public class RoleServiceImpl extends AbstractMyBatisService<Role, Long> implemen
   public void authorize(Long id, List<Long> checkedIds, List<Long> halfCheckedIds) {
     DomainHelper.assertEditable(repository.load(id));
     getRepository().authorize(id, checkedIds, halfCheckedIds);
+  }
+
+  @Override
+  public List<User> listUser(Long id) {
+    return repository.listUserById(id);
   }
 }

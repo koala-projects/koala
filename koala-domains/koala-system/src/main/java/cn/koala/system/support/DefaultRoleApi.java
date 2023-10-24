@@ -1,10 +1,12 @@
-package cn.koala.system.apis;
+package cn.koala.system.support;
 
 import cn.koala.log.annotations.Log;
 import cn.koala.system.Role;
+import cn.koala.system.RoleApi;
+import cn.koala.system.RoleService;
+import cn.koala.system.User;
 import cn.koala.system.apis.request.RoleAuthorizeRequest;
 import cn.koala.system.entities.RoleEntity;
-import cn.koala.system.services.RoleService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +24,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @RestController
-public class RoleApiImpl implements RoleApi {
+public class DefaultRoleApi implements RoleApi {
   protected final RoleService roleService;
 
   @Override
@@ -70,5 +72,10 @@ public class RoleApiImpl implements RoleApi {
   public Response setRolePermissions(Long id, RoleAuthorizeRequest request) {
     roleService.authorize(id, request.getCheckedIds(), request.getHalfCheckedIds());
     return Response.SUCCESS;
+  }
+
+  @Override
+  public DataResponse<List<User>> listUser(Long id) {
+    return DataResponse.ok(roleService.listUser(id));
   }
 }

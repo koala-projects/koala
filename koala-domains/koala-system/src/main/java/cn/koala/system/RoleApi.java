@@ -1,8 +1,7 @@
-package cn.koala.system.apis;
+package cn.koala.system;
 
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.persist.validator.EditableId;
-import cn.koala.system.Role;
 import cn.koala.system.apis.request.RoleAuthorizeRequest;
 import cn.koala.system.entities.RoleEntity;
 import cn.koala.validation.group.Create;
@@ -157,6 +156,21 @@ public interface RoleApi {
   @PutMapping("{id}/authorize")
   Response setRolePermissions(@PathVariable("id") Long id, @RequestBody RoleAuthorizeRequest request);
 
+  /**
+   * 根据id查询角色的用户列表
+   *
+   * @param id 角色id
+   * @return 用户列表
+   */
+  @PreAuthorize("hasAuthority('role.read')")
+  @Operation(operationId = "listRoleUser", summary = "根据id查询角色的用户列表")
+  @ApiResponse(responseCode = "200", description = "成功", content = {
+    @Content(mediaType = "application/json", schema = @Schema(implementation = RoleUserListResult.class))
+  })
+  @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "integer"))
+  @GetMapping("{id}/users")
+  DataResponse<List<User>> listUser(@PathVariable("id") Long id);
+
   class RolePageResult extends DataResponse<Page<RoleEntity>> {
 
   }
@@ -166,6 +180,10 @@ public interface RoleApi {
   }
 
   class CheckedPermissionIdsResult extends DataResponse<List<Long>> {
+
+  }
+
+  class RoleUserListResult extends DataResponse<List<User>> {
 
   }
 }

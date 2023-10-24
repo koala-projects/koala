@@ -2,7 +2,7 @@ package cn.koala.system.services;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.DictionaryItem;
-import cn.koala.system.repositories.DictionaryItemRepository;
+import cn.koala.system.repository.DictionaryItemRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,6 +1,7 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.system.PermissionRegistrar;
+import cn.koala.system.RoleService;
 import cn.koala.system.UserApi;
 import cn.koala.system.UserCreateListener;
 import cn.koala.system.apis.DepartmentApi;
@@ -11,13 +12,12 @@ import cn.koala.system.apis.DictionaryItemApi;
 import cn.koala.system.apis.DictionaryItemApiImpl;
 import cn.koala.system.apis.PermissionApi;
 import cn.koala.system.apis.PermissionApiImpl;
-import cn.koala.system.apis.RoleApiImpl;
-import cn.koala.system.repositories.DepartmentRepository;
-import cn.koala.system.repositories.DictionaryItemRepository;
-import cn.koala.system.repositories.DictionaryRepository;
-import cn.koala.system.repositories.PermissionRepository;
-import cn.koala.system.repositories.RoleRepository;
-import cn.koala.system.repositories.UserRepository;
+import cn.koala.system.repository.DepartmentRepository;
+import cn.koala.system.repository.DictionaryItemRepository;
+import cn.koala.system.repository.DictionaryRepository;
+import cn.koala.system.repository.PermissionRepository;
+import cn.koala.system.repository.RoleRepository;
+import cn.koala.system.repository.UserRepository;
 import cn.koala.system.services.DepartmentService;
 import cn.koala.system.services.DepartmentServiceImpl;
 import cn.koala.system.services.DictionaryItemService;
@@ -26,11 +26,11 @@ import cn.koala.system.services.DictionaryService;
 import cn.koala.system.services.DictionaryServiceImpl;
 import cn.koala.system.services.PermissionService;
 import cn.koala.system.services.PermissionServiceImpl;
-import cn.koala.system.services.RoleService;
-import cn.koala.system.services.RoleServiceImpl;
 import cn.koala.system.services.UserService;
 import cn.koala.system.services.UserServiceImpl;
 import cn.koala.system.support.AdminRegister;
+import cn.koala.system.support.DefaultRoleApi;
+import cn.koala.system.support.DefaultRoleService;
 import cn.koala.system.support.DefaultUserApi;
 import cn.koala.system.support.PermissionRegister;
 import cn.koala.system.support.SystemPermissionRegistrar;
@@ -52,7 +52,7 @@ import java.util.List;
  */
 @Configuration
 @EnableConfigurationProperties(SystemProperties.class)
-@MapperScan(basePackages = "cn.koala.system.repositories")
+@MapperScan(basePackages = "cn.koala.system.repository")
 public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
@@ -105,13 +105,13 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public RoleService roleService(RoleRepository roleRepository) {
-    return new RoleServiceImpl(roleRepository);
+    return new DefaultRoleService(roleRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public RoleApiImpl roleApi(RoleService roleService) {
-    return new RoleApiImpl(roleService);
+  public DefaultRoleApi roleApi(RoleService roleService) {
+    return new DefaultRoleApi(roleService);
   }
 
   @Bean

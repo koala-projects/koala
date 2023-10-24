@@ -3,7 +3,7 @@ package cn.koala.system.support;
 import cn.koala.boot.AbstractApplicationRunner;
 import cn.koala.system.Permission;
 import cn.koala.system.PermissionRegistrar;
-import cn.koala.system.repositories.PermissionRepository;
+import cn.koala.system.repository.PermissionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

@@ -2,7 +2,7 @@ package cn.koala.system.services;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.Setting;
-import cn.koala.system.repositories.SettingRepository;
+import cn.koala.system.repository.SettingRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

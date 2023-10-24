@@ -3,7 +3,7 @@ package cn.koala.wechat.miniapp.autoconfigure;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.koala.authorization.builder.AuthorizationServerSecurityFilterChainPostProcessor;
 import cn.koala.authorization.client.RegisteredClientRegistrar;
-import cn.koala.system.repositories.UserRepository;
+import cn.koala.system.repository.UserRepository;
 import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;
 import cn.koala.wechat.miniapp.processor.OAuth2WechatMiniAppPostProcessor;
 import cn.koala.wechat.miniapp.repository.WechatMiniAppUserRepository;

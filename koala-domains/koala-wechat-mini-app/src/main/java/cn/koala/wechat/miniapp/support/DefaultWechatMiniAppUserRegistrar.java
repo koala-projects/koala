@@ -1,7 +1,7 @@
 package cn.koala.wechat.miniapp.support;
 
 import cn.koala.system.UserEntity;
-import cn.koala.system.repositories.UserRepository;
+import cn.koala.system.repository.UserRepository;
 import cn.koala.toolkit.DateHelper;
 import cn.koala.wechat.miniapp.WechatMiniAppUser;
 import cn.koala.wechat.miniapp.WechatMiniAppUserRegistrar;

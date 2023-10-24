@@ -119,4 +119,19 @@
       </foreach>
     </if>
   </insert>
+
+  <select id="listUserById" resultType="cn.koala.system.UserEntity">
+    select t.id,
+           t.username,
+           t.nickname,
+           t.avatar,
+           t.email,
+           t.mobile,
+           t.remark,
+           t.sort_index,
+           t.is_enabled
+    from k_user t
+           join k_user_role ur on t.id = ur.user_id and ur.role_id = #{id}
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+  </select>
 </mapper>

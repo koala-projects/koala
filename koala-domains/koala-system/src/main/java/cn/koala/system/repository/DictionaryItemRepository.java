@@ -1,4 +1,4 @@
-package cn.koala.system.repositories;
+package cn.koala.system.repository;
 
 import cn.koala.persist.CrudRepository;
 import cn.koala.system.DictionaryItem;

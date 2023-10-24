@@ -1,7 +1,8 @@
-package cn.koala.system.repositories;
+package cn.koala.system.repository;
 
 import cn.koala.persist.CrudRepository;
 import cn.koala.system.Role;
+import cn.koala.system.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
     @Param("checkedIds") List<Long> checkedIds,
     @Param("halfCheckedIds") List<Long> halfCheckedIds
   );
+
+  List<User> listUserById(Long id);
 }

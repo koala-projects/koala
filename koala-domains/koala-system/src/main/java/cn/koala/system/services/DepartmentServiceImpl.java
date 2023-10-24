@@ -2,7 +2,7 @@ package cn.koala.system.services;
 
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.Department;
-import cn.koala.system.repositories.DepartmentRepository;
+import cn.koala.system.repository.DepartmentRepository;
 import cn.koala.toolkit.tree.TreeHelper;
 import cn.koala.toolkit.tree.TreeNode;
 import lombok.Getter;
