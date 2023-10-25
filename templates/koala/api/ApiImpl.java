@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Api {
 	
-  protected final #(name.pascal.singular)Service service;
+  private final #(name.pascal.singular)Service service;
 
   @Override
   public DataResponse<Page<#(name.pascal.singular)Entity>> page(Map<String, Object> parameters, Pageable pageable) {
