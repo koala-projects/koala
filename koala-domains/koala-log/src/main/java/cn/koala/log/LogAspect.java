@@ -4,7 +4,7 @@ import cn.koala.log.annotations.Log;
 import cn.koala.log.services.LogService;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.toolkit.DateHelper;
-import cn.koala.toolkit.HttpHelper;
+import cn.koala.web.util.RequestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +85,7 @@ public class LogAspect {
       .module(log.module())
       .content(obtainLogContent(log.content(), joinPoint))
       .userId(determineUserId())
-      .userIp(HttpHelper.getRequestIp())
+      .userIp(RequestUtils.getIP())
       .request(toJson(joinPoint.getArgs()))
       .logTime(DateHelper.now())
       .build();

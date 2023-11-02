@@ -5,8 +5,8 @@ import ai.djl.modality.cv.output.DetectedObjects;
 import ai.djl.opencv.OpenCVImageFactory;
 import cn.koala.ocr.OcrProcessor;
 import cn.koala.ocr.OcrService;
-import cn.koala.toolkit.MultipartFileHelper;
 import cn.koala.web.BusinessException;
+import cn.koala.web.util.MultipartFileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -41,7 +41,7 @@ public class DefaultOcrService implements OcrService {
   @Override
   public List<DetectedObjects.DetectedObject> image(MultipartFile file) {
     try {
-      Assert.isTrue(MultipartFileHelper.isImage(file), "待识别文件不是图片");
+      Assert.isTrue(MultipartFileUtils.isImage(file), "待识别文件不是图片");
       return processor.process(OpenCVImageFactory.getInstance().fromInputStream(file.getInputStream())).items();
     } catch (IOException e) {
       LOGGER.error("上传文件[name={}]读取失败", file.getOriginalFilename(), e);
@@ -55,7 +55,7 @@ public class DefaultOcrService implements OcrService {
   @Override
   public List<String> pdf(MultipartFile file) {
     try {
-      Assert.isTrue(MultipartFileHelper.isPdf(file), "待识别文件不是PDF");
+      Assert.isTrue(MultipartFileUtils.isPdf(file), "待识别文件不是PDF");
       try (PDDocument document = PDDocument.load(file.getInputStream())) {
         PDFRenderer renderer = new PDFRenderer(document);
         List<String> result = new ArrayList<>(document.getNumberOfPages());

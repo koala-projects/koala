@@ -9,6 +9,7 @@ import java.util.Date;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class LocalDateHelper {
 
   public static LocalDateTime from(Date date) {

@@ -1,4 +1,4 @@
-package cn.koala.toolkit;
+package cn.koala.web.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
@@ -10,30 +10,31 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * HTTP帮助类
+ * 请求工具类
  *
  * @author Houtaroy
  */
-public abstract class HttpHelper {
+public abstract class RequestUtils {
+
   public static final String[] IP_HEADERS = {"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
   public static final String UNKNOWN = "unknown";
   public static final String IP_SEPARATOR = ",";
 
-  public static String getRequestIp() {
+  public static String getIP() {
     return Optional.of(RequestContextHolder.currentRequestAttributes())
       .filter(attributes -> attributes instanceof ServletRequestAttributes)
       .map(ServletRequestAttributes.class::cast)
       .map(ServletRequestAttributes::getRequest)
-      .map(HttpHelper::getRequestIp)
+      .map(RequestUtils::getIP)
       .orElse(null);
   }
 
-  public static String getRequestIp(@NonNull HttpServletRequest request) {
+  public static String getIP(@NonNull HttpServletRequest request) {
     return Arrays.stream(IP_HEADERS)
       .map(request::getHeader)
       .filter(header -> StringUtils.isNotBlank(header) && !UNKNOWN.equals(header))
       .findFirst()
-      .map(HttpHelper::getFirstNonUnknownIp)
+      .map(RequestUtils::getFirstNonUnknownIp)
       .orElse(getFirstNonUnknownIp(request.getRemoteAddr()));
   }
 
