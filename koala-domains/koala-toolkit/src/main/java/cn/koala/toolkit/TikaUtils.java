@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * TODO: 修改类描述
+ * Tika工具类
  *
  * @author Houtaroy
  */
