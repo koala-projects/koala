@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class LocalFileAttachmentStorageAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean
+  @ConditionalOnMissingBean(name = "localAttachmentStorage")
   public AttachmentStorage localAttachmentStorage(AttachmentProperties properties) {
     return new LocalFileAttachmentStorage(properties.getRoot());
   }
