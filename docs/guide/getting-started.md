@@ -99,7 +99,7 @@ mvn archetype:generate ^
    | [koala-attachment-starter](../../koala-starters/koala-attachment-starter) | 提供了附件上传和下载功能                                     |
    | [koala-authorization-server-starter](../../koala-starters/koala-authorization-server-starter) | 快速集成 Spring Authorization Server, 提供 OAuth 2.1 认证授权服务 |
    | [koala-cache-starter](../../koala-starters/koala-cache-starter) | 快速集成Redis缓存, 抽象了缓存条件配置                        |
-   | [koala-code-starter](../../koala-starters/koala-code-starter) | 提供了代码生成功能                                           |
+   | [koala-code-gen-starter](../../koala-starters/koala-code-gen-starter) | 提供了代码生成功能                                           |
    | [koala-data-source-starter](../../koala-starters/koala-data-source-starter) | 提供了动态切换多数据源的功能                                 |
    | [koala-database-starter](../../koala-starters/koala-database-starter) | 提供了数据库管理功能                                         |
    | [koala-log-starter](../../koala-starters/koala-log-starter)  | 提供了操作日志功能                                           |

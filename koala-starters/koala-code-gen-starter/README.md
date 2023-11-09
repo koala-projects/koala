@@ -25,6 +25,10 @@ koala:
     download-path: /tmp/koala/code
 ```
 
+### JVM参数
+
+在`enjoy`中使用`java.util`等相关内容, 需要增加jvm参数: `--add-opens java.base/java.util=ALL-UNNAMED`
+
 ### 接口文档
 
 实现了数据库管理/模板管理/代码生成接口, 可通过访问接口文档查看具体信息
