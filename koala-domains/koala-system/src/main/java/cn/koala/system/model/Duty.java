@@ -6,7 +6,7 @@ import cn.koala.persist.domain.Sortable;
 import cn.koala.persist.domain.Stateful;
 
 /**
- * TODO: 修改类描述
+ * 岗位
  *
  * @author Houtaroy
  */
