@@ -1,39 +1,45 @@
 package cn.koala.system.autoconfigure;
 
-import cn.koala.system.PermissionRegistrar;
-import cn.koala.system.RoleService;
-import cn.koala.system.UserApi;
-import cn.koala.system.UserCreateListener;
-import cn.koala.system.apis.DepartmentApi;
-import cn.koala.system.apis.DepartmentApiImpl;
-import cn.koala.system.apis.DictionaryApi;
-import cn.koala.system.apis.DictionaryApiImpl;
-import cn.koala.system.apis.DictionaryItemApi;
-import cn.koala.system.apis.DictionaryItemApiImpl;
-import cn.koala.system.apis.PermissionApi;
-import cn.koala.system.apis.PermissionApiImpl;
+import cn.koala.system.api.DepartmentApi;
+import cn.koala.system.api.DepartmentApiImpl;
+import cn.koala.system.api.DictionaryApi;
+import cn.koala.system.api.DictionaryApiImpl;
+import cn.koala.system.api.DictionaryItemApi;
+import cn.koala.system.api.DictionaryItemApiImpl;
+import cn.koala.system.api.DutyApi;
+import cn.koala.system.api.DutyApiImpl;
+import cn.koala.system.api.PermissionApi;
+import cn.koala.system.api.PermissionApiImpl;
+import cn.koala.system.api.RoleApi;
+import cn.koala.system.api.RoleApiImpl;
+import cn.koala.system.api.UserApi;
+import cn.koala.system.api.UserApiImpl;
+import cn.koala.system.boot.AdminRegister;
+import cn.koala.system.model.UserCreateListener;
+import cn.koala.system.permission.PermissionRegister;
+import cn.koala.system.permission.PermissionRegistrar;
+import cn.koala.system.permission.SystemPermissionRegistrar;
 import cn.koala.system.repository.DepartmentRepository;
 import cn.koala.system.repository.DictionaryItemRepository;
 import cn.koala.system.repository.DictionaryRepository;
+import cn.koala.system.repository.DutyRepository;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
-import cn.koala.system.services.DepartmentService;
-import cn.koala.system.services.DepartmentServiceImpl;
-import cn.koala.system.services.DictionaryItemService;
-import cn.koala.system.services.DictionaryItemServiceImpl;
-import cn.koala.system.services.DictionaryService;
-import cn.koala.system.services.DictionaryServiceImpl;
-import cn.koala.system.services.PermissionService;
-import cn.koala.system.services.PermissionServiceImpl;
-import cn.koala.system.services.UserService;
-import cn.koala.system.services.UserServiceImpl;
-import cn.koala.system.support.AdminRegister;
-import cn.koala.system.support.DefaultRoleApi;
-import cn.koala.system.support.DefaultRoleService;
-import cn.koala.system.support.DefaultUserApi;
-import cn.koala.system.support.PermissionRegister;
-import cn.koala.system.support.SystemPermissionRegistrar;
+import cn.koala.system.service.DepartmentService;
+import cn.koala.system.service.DepartmentServiceImpl;
+import cn.koala.system.service.DictionaryItemService;
+import cn.koala.system.service.DictionaryItemServiceImpl;
+import cn.koala.system.service.DictionaryService;
+import cn.koala.system.service.DictionaryServiceImpl;
+import cn.koala.system.service.DutyService;
+import cn.koala.system.service.DutyServiceImpl;
+import cn.koala.system.service.PermissionService;
+import cn.koala.system.service.PermissionServiceImpl;
+import cn.koala.system.service.RoleService;
+import cn.koala.system.service.RoleServiceImpl;
+import cn.koala.system.service.UserService;
+import cn.koala.system.service.UserServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -54,6 +60,19 @@ import java.util.List;
 @EnableConfigurationProperties(SystemProperties.class)
 @MapperScan(basePackages = "cn.koala.system.repository")
 public class SystemAutoConfiguration {
+
+  @Bean
+  @ConditionalOnMissingBean
+  public DutyService dutyService(DutyRepository dutyRepository) {
+    return new DutyServiceImpl(dutyRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public DutyApi dutyApi(DutyService dutyService) {
+    return new DutyApiImpl(dutyService);
+  }
+
   @Bean
   @ConditionalOnMissingBean
   public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository) {
@@ -105,13 +124,13 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public RoleService roleService(RoleRepository roleRepository) {
-    return new DefaultRoleService(roleRepository);
+    return new RoleServiceImpl(roleRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public DefaultRoleApi roleApi(RoleService roleService) {
-    return new DefaultRoleApi(roleService);
+  public RoleApi roleApi(RoleService roleService) {
+    return new RoleApiImpl(roleService);
   }
 
   @Bean
@@ -135,7 +154,7 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public UserApi userApi(UserService userService) {
-    return new DefaultUserApi(userService);
+    return new UserApiImpl(userService);
   }
 
   @Bean

@@ -1,7 +1,7 @@
 package cn.koala.system.repository;
 
 import cn.koala.persist.CrudRepository;
-import cn.koala.system.Dictionary;
+import cn.koala.system.model.Dictionary;
 
 /**
  * 字典仓库接口

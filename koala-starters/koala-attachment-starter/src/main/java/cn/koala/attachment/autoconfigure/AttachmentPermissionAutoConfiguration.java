@@ -1,7 +1,7 @@
 package cn.koala.attachment.autoconfigure;
 
-import cn.koala.system.PermissionRegistrar;
-import cn.koala.system.support.CrudPermissionRegistrar;
+import cn.koala.system.permission.CrudPermissionRegistrar;
+import cn.koala.system.permission.PermissionRegistrar;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Houtaroy
  */
 @Configuration
-@ConditionalOnClass(name = "cn.koala.system.PermissionRegistrar")
+@ConditionalOnClass(name = "cn.koala.system.permission.PermissionRegistrar")
 public class AttachmentPermissionAutoConfiguration {
 
   @Bean

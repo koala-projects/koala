@@ -1,7 +1,7 @@
 package cn.koala.system.repository;
 
 import cn.koala.persist.CrudRepository;
-import cn.koala.system.User;
+import cn.koala.system.model.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +19,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
   List<Long> findAllDepartmentIdById(Long id);
 
   void updateDepartmentIdById(@Param("id") Long id, @Param("departmentIds") List<Long> departmentIds);
+
+  List<Long> findAllDutyIdById(Long id);
+
+  void updateDutyIdById(@Param("id") Long id, @Param("dutyIds") List<Long> dutyIds);
 }

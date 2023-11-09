@@ -1,6 +1,6 @@
 package cn.koala.system.autoconfigure;
 
-import cn.koala.system.support.PermissionRegistrarConfig;
+import cn.koala.system.permission.PermissionRegistrarConfig;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

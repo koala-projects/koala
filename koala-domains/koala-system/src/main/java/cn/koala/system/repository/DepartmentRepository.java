@@ -1,7 +1,7 @@
 package cn.koala.system.repository;
 
 import cn.koala.persist.CrudRepository;
-import cn.koala.system.Department;
+import cn.koala.system.model.Department;
 
 /**
  * 部门仓库接口

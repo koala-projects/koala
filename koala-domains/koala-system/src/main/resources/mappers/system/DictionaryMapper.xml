@@ -48,7 +48,7 @@
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.system.entities.DictionaryEntity">
+  <select id="list" resultType="cn.koala.system.model.DictionaryEntity">
     <include refid="selectDictionary"/>
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
@@ -68,18 +68,18 @@
     <include refid="orderBy"/>
   </select>
 
-  <select id="load" resultType="cn.koala.system.entities.DictionaryEntity">
+  <select id="load" resultType="cn.koala.system.model.DictionaryEntity">
     <include refid="selectDictionary"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.entities.DictionaryEntity" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.system.model.DictionaryEntity" useGeneratedKeys="true"
           keyProperty="id">
     insert into k_dict(id, code, name, remark, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{remark}, #{createdBy}, #{createdTime})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.entities.DictionaryEntity">
+  <update id="update" parameterType="cn.koala.system.model.DictionaryEntity">
     update k_dict
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
@@ -91,7 +91,7 @@
     where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.entities.DictionaryEntity">
+  <update id="delete" parameterType="cn.koala.system.model.DictionaryEntity">
     update k_dict
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},

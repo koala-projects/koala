@@ -21,7 +21,7 @@
     from k_dict_item t
   </sql>
 
-  <select id="list" parameterType="map" resultType="cn.koala.system.entities.DictionaryItemEntity">
+  <select id="list" parameterType="map" resultType="cn.koala.system.model.DictionaryItemEntity">
     <include refid="selectDictionaryItem"/>
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
@@ -37,19 +37,19 @@
     </where>
   </select>
 
-  <select id="load" resultType="cn.koala.system.entities.DictionaryItemEntity">
+  <select id="load" resultType="cn.koala.system.model.DictionaryItemEntity">
     <include refid="selectDictionaryItem"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.entities.DictionaryItemEntity" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.system.model.DictionaryItemEntity" useGeneratedKeys="true"
           keyProperty="id">
     insert into k_dict_item(id, code, name, remark, dictionary_id, created_by, created_time)
     values (#{id}, #{code}, #{name}, #{remark}, #{dictionaryId}, #{createdBy}, #{createdTime})
   </insert>
 
 
-  <update id="update" parameterType="cn.koala.system.entities.DictionaryItemEntity">
+  <update id="update" parameterType="cn.koala.system.model.DictionaryItemEntity">
     update k_dict_item
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
@@ -61,7 +61,7 @@
     where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.entities.DictionaryItemEntity">
+  <update id="delete" parameterType="cn.koala.system.model.DictionaryItemEntity">
     update k_dict_item
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},

@@ -1,7 +1,7 @@
 package cn.koala.system.repository;
 
 import cn.koala.persist.CrudRepository;
-import cn.koala.system.Permission;
+import cn.koala.system.model.Permission;
 
 /**
  * 权限仓库接口

@@ -48,7 +48,7 @@
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.system.entities.RoleEntity">
+  <select id="list" resultType="cn.koala.system.model.RoleEntity">
     <include refid="selectRole"/>
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
@@ -68,14 +68,14 @@
     <include refid="orderBy"/>
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.entities.RoleEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.system.model.RoleEntity" useGeneratedKeys="true" keyProperty="id">
     insert into k_role(id, code, name, remark, sort_index, is_enabled, is_systemic, is_deleted, created_by,
                        created_time)
     values (#{id}, #{code}, #{name}, #{remark}, #{sortIndex}, #{isEnabled}, #{isSystemic}, #{isDeleted}, #{createdBy},
             #{createdTime})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.entities.RoleEntity">
+  <update id="update" parameterType="cn.koala.system.model.RoleEntity">
     update k_role
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
@@ -87,7 +87,7 @@
     where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.entities.RoleEntity">
+  <update id="delete" parameterType="cn.koala.system.model.RoleEntity">
     update k_role
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},
@@ -95,7 +95,7 @@
     where id = #{id}
   </update>
 
-  <select id="load" resultType="cn.koala.system.entities.RoleEntity">
+  <select id="load" resultType="cn.koala.system.model.RoleEntity">
     <include refid="selectRole"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
@@ -123,7 +123,7 @@
     </if>
   </insert>
 
-  <select id="listUserById" resultType="cn.koala.system.UserEntity">
+  <select id="listUserById" resultType="cn.koala.system.model.UserEntity">
     select t.id,
            t.username,
            t.nickname,

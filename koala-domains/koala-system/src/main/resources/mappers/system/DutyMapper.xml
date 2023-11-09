@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.system.repository.DutyRepository">
+
+  <sql id="selectDuty">
+    select t.id,
+           t.code,
+           t.name,
+           t.description,
+           t.sort_index,
+           t.is_enabled,
+           t.is_systemic,
+           t.is_deleted,
+           t.created_by,
+           t.created_time,
+           t.last_modified_by,
+           t.last_modified_time,
+           t.deleted_by,
+           t.deleted_time
+    from k_duty t
+  </sql>
+
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.created_time desc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+    <if test="order.property == 'code'">
+      t.code
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'name'">
+      t.name
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'description'">
+      t.description
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'sortIndex'">
+      t.sort_index
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'isEnabled'">
+      t.is_enabled
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'isSystemic'">
+      t.is_systemic
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'isDeleted'">
+      t.is_deleted
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdBy'">
+      t.created_by
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdTime'">
+      t.created_time
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedBy'">
+      t.last_modified_by
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedTime'">
+      t.last_modified_time
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedBy'">
+      t.deleted_by
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedTime'">
+      t.deleted_time
+      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
+  <select id="list" resultType="cn.koala.system.model.DutyEntity">
+    <include refid="selectDuty"/>
+    <where>
+      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+      <if test="code != null and code != ''">
+        and t.code = #{code}
+      </if>
+      <if test="name != null and name != ''">
+        and t.name = #{name}
+      </if>
+      <if test="description != null and description != ''">
+        and t.description = #{description}
+      </if>
+      <if test="sortIndex != null and sortIndex != ''">
+        and t.sort_index = #{sortIndex}
+      </if>
+      <if test="isEnabled != null and isEnabled != ''">
+        and t.is_enabled = #{isEnabled}
+      </if>
+      <if test="isSystemic != null and isSystemic != ''">
+        and t.is_systemic = #{isSystemic}
+      </if>
+      <if test="isDeleted != null and isDeleted != ''">
+        and t.is_deleted = #{isDeleted}
+      </if>
+      <if test="createdBy != null and createdBy != ''">
+        and t.created_by = #{createdBy}
+      </if>
+      <if test="createdTime != null and createdTime != ''">
+        and t.created_time = #{createdTime}
+      </if>
+      <if test="lastModifiedBy != null and lastModifiedBy != ''">
+        and t.last_modified_by = #{lastModifiedBy}
+      </if>
+      <if test="lastModifiedTime != null and lastModifiedTime != ''">
+        and t.last_modified_time = #{lastModifiedTime}
+      </if>
+      <if test="deletedBy != null and deletedBy != ''">
+        and t.deleted_by = #{deletedBy}
+      </if>
+      <if test="deletedTime != null and deletedTime != ''">
+        and t.deleted_time = #{deletedTime}
+      </if>
+    </where>
+    <include refid="orderBy"/>
+  </select>
+
+  <select id="load" resultType="cn.koala.system.model.DutyEntity">
+    <include refid="selectDuty"/>
+    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id=#{id}
+  </select>
+
+  <insert id="create" parameterType="cn.koala.system.model.DutyEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into k_duty
+      value (
+             #{id},
+             #{code},
+             #{name},
+             #{description},
+             #{sortIndex},
+             #{isEnabled},
+             #{isSystemic},
+             #{isDeleted},
+             #{createdBy},
+             #{createdTime},
+             #{lastModifiedBy},
+             #{lastModifiedTime},
+             #{deletedBy},
+             #{deletedTime}
+      )
+  </insert>
+
+  <update id="update" parameterType="cn.koala.system.model.DutyEntity">
+    update k_duty
+    <trim prefix="set" suffixOverrides=",">
+      <if test="code != null">code=#{code},</if>
+      <if test="name != null">name=#{name},</if>
+      <if test="description != null">description=#{description},</if>
+      <if test="sortIndex != null">sort_index=#{sortIndex},</if>
+      <if test="isEnabled != null">is_enabled=#{isEnabled},</if>
+      <if test="isSystemic != null">is_systemic=#{isSystemic},</if>
+      <if test="isDeleted != null">is_deleted=#{isDeleted},</if>
+      <if test="createdBy != null">created_by=#{createdBy},</if>
+      <if test="createdTime != null">created_time=#{createdTime},</if>
+      <if test="lastModifiedBy != null">last_modified_by=#{lastModifiedBy},</if>
+      <if test="lastModifiedTime != null">last_modified_time=#{lastModifiedTime},</if>
+      <if test="deletedBy != null">deleted_by=#{deletedBy},</if>
+      <if test="deletedTime != null">deleted_time=#{deletedTime},</if>
+    </trim>
+    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id = #{id}
+  </update>
+
+  <update id="delete" parameterType="cn.koala.system.model.DutyEntity">
+    update k_duty
+    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
+        deleted_by   = #{deletedBy},
+        deleted_time = #{deletedTime}
+    where id = #{id}
+  </update>
+</mapper>

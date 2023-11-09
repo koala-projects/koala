@@ -1,7 +1,7 @@
 package cn.koala.log.autoconfigure;
 
-import cn.koala.system.PermissionRegistrar;
-import cn.koala.system.support.SimplePermissionRegistrar;
+import cn.koala.system.permission.PermissionRegistrar;
+import cn.koala.system.permission.SimplePermissionRegistrar;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 @Configuration
-@ConditionalOnClass(name = "cn.koala.system.PermissionRegistrar")
+@ConditionalOnClass(name = "cn.koala.system.permission.PermissionRegistrar")
 public class LogPermissionAutoConfiguration {
 
   @Bean

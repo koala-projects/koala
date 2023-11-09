@@ -20,7 +20,7 @@
     from k_department t
   </sql>
 
-  <select id="list" resultType="cn.koala.system.entities.DepartmentEntity">
+  <select id="list" resultType="cn.koala.system.model.DepartmentEntity">
     <include refid="selectDepartment"/>
     <where>
       t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
@@ -30,18 +30,18 @@
     </where>
   </select>
 
-  <select id="load" resultType="cn.koala.system.entities.DepartmentEntity">
+  <select id="load" resultType="cn.koala.system.model.DepartmentEntity">
     <include refid="selectDepartment"/>
     where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.entities.DepartmentEntity" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.system.model.DepartmentEntity" useGeneratedKeys="true"
           keyProperty="id">
     insert into k_department(id, name, remark, parent_id, created_by, created_time)
     values (#{id}, #{name}, #{remark}, #{parentId}, #{createdBy}, #{createdTime})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.entities.DepartmentEntity">
+  <update id="update" parameterType="cn.koala.system.model.DepartmentEntity">
     update k_department
     <trim prefix="set" suffixOverrides=",">
       <if test="name != null">name=#{name},</if>
@@ -53,7 +53,7 @@
     where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.entities.DepartmentEntity">
+  <update id="delete" parameterType="cn.koala.system.model.DepartmentEntity">
     update k_department
     set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
         deleted_by   = #{deletedBy},

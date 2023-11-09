@@ -401,7 +401,7 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
 ', 1, 1),
        (107, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
 
-import cn.koala.system.support.CrudPermissionRegistrar;
+import cn.koala.system.permission.CrudPermissionRegistrar;
 import org.springframework.stereotype.Component;
 
 /**
