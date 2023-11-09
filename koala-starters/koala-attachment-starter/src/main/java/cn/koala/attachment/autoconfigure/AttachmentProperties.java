@@ -25,4 +25,6 @@ public class AttachmentProperties {
    * 根目录, 仅在本地存储时生效
    */
   private String root;
+
+  private String endpoint = "/attachments";
 }

@@ -13,7 +13,11 @@ import org.springframework.context.annotation.Configuration;
  * @author Houtaroy
  */
 @Configuration
-@ConditionalOnProperty(value = "koala.attachment.type", havingValue = AttachmentProperties.TYPE_LOCAL)
+@ConditionalOnProperty(
+  value = "koala.attachment.type",
+  havingValue = AttachmentProperties.TYPE_LOCAL,
+  matchIfMissing = true
+)
 public class LocalFileAttachmentStorageAutoConfiguration {
 
   @Bean

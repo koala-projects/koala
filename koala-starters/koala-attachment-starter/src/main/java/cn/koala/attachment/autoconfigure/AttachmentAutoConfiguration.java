@@ -20,8 +20,12 @@ import org.springframework.context.annotation.Import;
  * @author Houtaroy
  */
 @Configuration
-@Import({LocalFileAttachmentStorageAutoConfiguration.class, MinioAttachmentStorageAutoConfiguration.class,
-  AttachmentPermissionAutoConfiguration.class})
+@Import({
+  LocalFileAttachmentStorageAutoConfiguration.class,
+  LocalFileAttachmentWebMvcConfigurer.class,
+  MinioAttachmentStorageAutoConfiguration.class,
+  AttachmentPermissionAutoConfiguration.class
+})
 @EnableConfigurationProperties(AttachmentProperties.class)
 @MapperScan("cn.koala.attachment.repository")
 public class AttachmentAutoConfiguration {
