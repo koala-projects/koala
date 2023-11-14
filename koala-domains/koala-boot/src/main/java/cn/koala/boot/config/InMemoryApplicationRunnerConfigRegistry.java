@@ -1,6 +1,4 @@
-package cn.koala.boot.support;
-
-import cn.koala.boot.ApplicationRunnerConfigRegistry;
+package cn.koala.boot.config;
 
 import java.util.Map;
 

@@ -40,7 +40,7 @@
 - MyBatis: 了解 MyBatis 的基础使用方式
 - IDE: 至少掌握一种集成开发环境
 
-请参照: [快速开始文档](docs/guide/getting-started.md)
+请参照: [官方文档](https://koala-projects.github.io/koala-doc/)
 
 ## 关联项目
 

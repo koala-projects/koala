@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.annotation.Order;
-import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Map;
@@ -35,9 +34,8 @@ public class PermissionRegister extends AbstractApplicationRunner {
   }
 
   @Override
-  public boolean isEnabled() {
-    Assert.notNull(this.configRegistry, "ApplicationRunner配置注册器不能为空");
-    return this.configRegistry.getConfigOrDefault(getName(), true);
+  protected boolean getDefault() {
+    return true;
   }
 
   @Override

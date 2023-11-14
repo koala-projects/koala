@@ -1,10 +1,10 @@
 package cn.koala.boot;
 
+import cn.koala.boot.config.ApplicationRunnerConfigRegistry;
 import lombok.Getter;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.util.Assert;
 
 /**
  * ApplicationRunner抽象类
@@ -20,12 +20,13 @@ public abstract class AbstractApplicationRunner implements ConfigurableApplicati
 
   protected ApplicationRunnerConfigRegistry configRegistry;
 
-  public abstract String getName();
+  protected abstract String getName();
+
+  protected abstract boolean getDefault();
 
   @Override
   public boolean isEnabled() {
-    Assert.notNull(this.configRegistry, "ApplicationRunner配置注册器不能为空");
-    return this.configRegistry.getConfigOrDefault(getName(), false);
+    return this.configRegistry.getConfigOrDefault(getName(), getDefault());
   }
 
   @Override

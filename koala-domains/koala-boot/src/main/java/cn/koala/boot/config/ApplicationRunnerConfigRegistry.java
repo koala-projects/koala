@@ -1,4 +1,4 @@
-package cn.koala.boot;
+package cn.koala.boot.config;
 
 /**
  * ApplicationRunner配置注册表
