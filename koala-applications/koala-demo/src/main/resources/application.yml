@@ -1,5 +1,5 @@
 server:
-  port: 4200
+  port: 9000
   servlet:
     context-path: /
 spring:
@@ -54,7 +54,7 @@ spring:
     oauth2:
       resourceserver:
         opaque-token:
-          introspection-uri: http://127.0.0.1:4200/oauth2/introspect
+          introspection-uri: http://127.0.0.1:9000/oauth2/introspect
           client-id: koala-admin
           client-secret: 123456
 
@@ -72,6 +72,7 @@ logging:
 springdoc:
   swagger-ui:
     doc-expansion: none
+    tags-sorter: alpha
 
 koala:
   code-gen:
@@ -87,3 +88,9 @@ koala:
         - /api/databases/**
         - /api/template*/**
         - /api/code/**
+  system:
+    admin-register: true
+    permission-registrars:
+      system:
+        enabled: true
+        overwritten: true
