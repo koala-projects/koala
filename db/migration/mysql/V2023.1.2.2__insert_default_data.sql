@@ -4,7 +4,7 @@ values (1, '考拉开源', null, 1, 1, 1, now());
 
 -- 演示数据库
 insert into t_database(id, name, url, username, password, catalog, `schema`, is_systemic)
-values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala_demo', 'koala_demo',
+values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala', 'Koala@2023',
         'koala_demo', 'koala_demo', 1);
 
 -- 考拉代码模板

@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/koala_demo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
-    username: koala_demo
-    password: koala_demo
+    username: koala
+    password: Koala@2023
     hikari:
       minimum-idle: 5
       maximum-pool-size: 20
@@ -76,7 +76,7 @@ springdoc:
 
 koala:
   code-gen:
-    download-path: D:\Temp\koala\code\
+    download-path: /tmp/koala/code-gen/
   log:
     ignored-patterns:
       - "[部门|字典|权限|角色|设置].*"
@@ -92,5 +92,8 @@ koala:
     admin-register: true
     permission-registrars:
       system:
+        enabled: true
+        overwritten: true
+      log:
         enabled: true
         overwritten: true
