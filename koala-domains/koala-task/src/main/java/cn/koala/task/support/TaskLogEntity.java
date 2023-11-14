@@ -1,5 +1,6 @@
 package cn.koala.task.support;
 
+import cn.koala.common.Koala;
 import cn.koala.task.Task;
 import cn.koala.task.TaskLog;
 import cn.koala.toolkit.DateHelper;
@@ -8,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,7 +22,10 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "任务日志数据实体类")
-public class TaskLogEntity implements TaskLog {
+public class TaskLogEntity implements TaskLog, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;

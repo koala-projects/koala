@@ -1,10 +1,13 @@
 package cn.koala.log;
 
+import cn.koala.common.Koala;
 import cn.koala.persist.domain.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,7 +18,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class LogEntity implements Log {
+public class LogEntity implements Log, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  
   protected Long id;
   protected String module;
   protected String content;

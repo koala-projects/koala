@@ -1,5 +1,6 @@
 package cn.koala.database.entities;
 
+import cn.koala.common.Koala;
 import cn.koala.database.Database;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.validation.group.Create;
@@ -10,6 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 数据库数据实体类
  *
@@ -18,7 +22,10 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class DatabaseEntity implements Database {
+public class DatabaseEntity implements Database, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   protected Long id;

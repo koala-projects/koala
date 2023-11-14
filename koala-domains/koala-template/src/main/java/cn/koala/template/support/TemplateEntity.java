@@ -1,11 +1,15 @@
 package cn.koala.template.support;
 
+import cn.koala.common.Koala;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.template.Template;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 模板数据实体
@@ -16,7 +20,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "模板数据实体")
-public class TemplateEntity implements Template {
+public class TemplateEntity implements Template, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+
   @Schema(description = "主键")
   protected Long id;
   @Schema(description = "模板名称")

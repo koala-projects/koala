@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>koala-database</artifactId>
-  <description>考拉数据库模块</description>
+  <artifactId>koala-common</artifactId>
+  <description>考拉公共模块</description>
 
   <parent>
     <groupId>cn.koala</groupId>
@@ -15,17 +15,6 @@
   </parent>
 
   <dependencies>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-mybatis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-web</artifactId>
-    </dependency>
+    
   </dependencies>
 </project>

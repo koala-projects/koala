@@ -1,5 +1,6 @@
 package cn.koala.query.support;
 
+import cn.koala.common.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.query.Query;
 import cn.koala.validation.group.Create;
@@ -11,6 +12,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 查询数据实体类
  *
@@ -21,7 +25,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "查询数据实体类")
-public class QueryEntity extends AbstractEntity<Long> implements Query {
+public class QueryEntity extends AbstractEntity<Long> implements Query, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @NotBlank(message = "查询名称不允许为空", groups = {Create.class})
   @Size(max = 20, message = "查询名称长度不能大于20", groups = {Create.class})

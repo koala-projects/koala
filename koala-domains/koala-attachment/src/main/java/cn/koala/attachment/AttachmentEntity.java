@@ -1,5 +1,6 @@
 package cn.koala.attachment;
 
+import cn.koala.common.Koala;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EntityListeners;
@@ -9,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -21,7 +24,10 @@ import java.util.Date;
 @SuperBuilder(toBuilder = true)
 @Schema(description = "附件数据实体类")
 @EntityListeners(AttachmentEntityListener.class)
-public class AttachmentEntity implements Attachment {
+public class AttachmentEntity implements Attachment, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;

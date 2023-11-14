@@ -1,5 +1,6 @@
 package cn.koala.system.model;
 
+import cn.koala.common.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 字典项数据实体类
@@ -19,7 +23,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Schema(description = "字典项数据实体")
-public class DictionaryItemEntity extends AbstractEntity<Long> implements DictionaryItem {
+public class DictionaryItemEntity extends AbstractEntity<Long> implements DictionaryItem, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "字典项代码")
   @NotBlank(message = "{dictionary-item.code.not-blank}")

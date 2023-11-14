@@ -1,5 +1,6 @@
 package cn.koala.system.model;
 
+import cn.koala.common.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.persist.validator.UniqueField;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,6 +10,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 字典数据实体类
@@ -22,7 +26,10 @@ import lombok.experimental.SuperBuilder;
 @Schema(description = "字典数据实体")
 @UniqueField(value = "code", message = "{dictionary.code.unique}")
 @UniqueField(value = "name", message = "{dictionary.name.unique}")
-public class DictionaryEntity extends AbstractEntity<Long> implements Dictionary {
+public class DictionaryEntity extends AbstractEntity<Long> implements Dictionary, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "字典代码")
   @NotBlank(message = "{dictionary.code.not-blank}")

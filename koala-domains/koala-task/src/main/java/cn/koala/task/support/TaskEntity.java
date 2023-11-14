@@ -1,5 +1,6 @@
 package cn.koala.task.support;
 
+import cn.koala.common.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.task.Task;
 import cn.koala.validation.group.Create;
@@ -12,6 +13,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 任务数据实体类
  *
@@ -23,7 +27,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @Schema(description = "任务数据实体类")
 @EntityListeners(TaskEntityListener.class)
-public class TaskEntity extends AbstractEntity<Long> implements Task {
+public class TaskEntity extends AbstractEntity<Long> implements Task, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;

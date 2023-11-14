@@ -1,5 +1,6 @@
 package cn.koala.system.model;
 
+import cn.koala.common.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.persist.validator.UniqueField;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,6 +10,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 用户数据实体类
@@ -22,7 +26,10 @@ import lombok.experimental.SuperBuilder;
 @UniqueField(value = "username", message = "{user.username.unique}")
 @UniqueField(value = "nickname", message = "{user.nickname.unique}")
 @Schema(description = "用户数据实体")
-public class UserEntity extends AbstractEntity<Long> implements User {
+public class UserEntity extends AbstractEntity<Long> implements User, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
 
   @Schema(description = "登录名")
   @NotBlank(message = "{user.username.not-blank}")

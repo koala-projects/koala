@@ -1,9 +1,13 @@
 package cn.koala.wechat.miniapp;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.koala.common.Koala;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 微信小程序用户实体类
@@ -13,7 +17,11 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class WechatMiniAppUserEntity implements WechatMiniAppUser {
+public class WechatMiniAppUserEntity implements WechatMiniAppUser, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+
   private Long id;
   private String openid;
   private String unionid;
