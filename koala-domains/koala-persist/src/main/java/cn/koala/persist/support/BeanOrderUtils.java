@@ -8,6 +8,7 @@ import org.springframework.core.annotation.Order;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Spring Bean 帮助类
@@ -18,7 +19,7 @@ public abstract class BeanOrderUtils {
 
   public static <T> List<T> sort(List<T> beans) {
     List<T> result = new ArrayList<>(beans.size());
-    List<T> orders = beans.stream().filter(BeanOrderUtils::isOrderly).toList();
+    List<T> orders = beans.stream().filter(BeanOrderUtils::isOrderly).collect(Collectors.toList());
     AnnotationAwareOrderComparator.sort(orders);
     result.addAll(orders);
     result.addAll(beans.stream().filter(bean -> !isOrderly(bean)).toList());
