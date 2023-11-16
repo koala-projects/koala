@@ -118,7 +118,7 @@ CREATE TABLE k_query
   `name`               VARCHAR(100)  NOT NULL COMMENT '查询名称',
   `remark`             VARCHAR(500) COMMENT '查询备注',
   `sql`                VARCHAR(5000) NOT NULL COMMENT '查询语句',
-  `sort_index`         INT           NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                    DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT           NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT           NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT           NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -139,7 +139,7 @@ CREATE TABLE k_dict
   `code`               VARCHAR(100) NOT NULL COMMENT '字典代码',
   `name`               VARCHAR(100) NOT NULL COMMENT '字典名称',
   `remark`             VARCHAR(500) COMMENT '字典备注',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -160,7 +160,7 @@ CREATE TABLE k_dict_item
   `name`               VARCHAR(100) NOT NULL COMMENT '字典项名称',
   `remark`             VARCHAR(500) COMMENT '字典项备注',
   `dictionary_id`      BIGINT       NOT NULL COMMENT '字典id',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -173,6 +173,26 @@ CREATE TABLE k_dict_item
   PRIMARY KEY (id)
 ) COMMENT = '字典项表';
 
+-- 岗位表
+CREATE TABLE k_duty
+(
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(100) NOT NULL COMMENT '岗位代码',
+  `name`               VARCHAR(100) NOT NULL COMMENT '岗位名称',
+  `description`        VARCHAR(500) COMMENT '岗位描述',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
+  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_time`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '岗位表';
+
 -- 部门表
 CREATE TABLE k_department
 (
@@ -180,7 +200,7 @@ CREATE TABLE k_department
   `name`               VARCHAR(100) NOT NULL COMMENT '部门名称',
   `remark`             VARCHAR(500) COMMENT '部门备注',
   `parent_id`          BIGINT COMMENT '上级部门id',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -201,7 +221,7 @@ CREATE TABLE k_permission
   `name`       VARCHAR(100) NOT NULL COMMENT '权限名称',
   `remark`     VARCHAR(500) COMMENT '权限备注',
   `parent_id`  BIGINT COMMENT '上级权限id',
-  `sort_index` INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index` INT DEFAULT 0 COMMENT '排序索引',
   PRIMARY KEY (id)
 ) COMMENT = '权限表';
 
@@ -212,7 +232,7 @@ CREATE TABLE k_role
   `code`               VARCHAR(100) NOT NULL COMMENT '角色代码',
   `name`               VARCHAR(100) NOT NULL COMMENT '角色名称',
   `remark`             VARCHAR(500) COMMENT '角色备注',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -236,7 +256,7 @@ CREATE TABLE k_user
   `email`              VARCHAR(100) COMMENT '邮箱',
   `mobile`             VARCHAR(100) COMMENT '手机号',
   `remark`             VARCHAR(500) COMMENT '备注',
-  `sort_index`         INT          NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -271,6 +291,14 @@ CREATE TABLE k_user_department
   `department_id` BIGINT NOT NULL COMMENT '部门id'
 ) COMMENT = '用户部门关系表';
 
+-- 用户岗位关系表
+CREATE TABLE k_user_duty
+(
+  `user_id` BIGINT NOT NULL COMMENT '用户id',
+  `duty_id` BIGINT NOT NULL COMMENT '岗位id'
+) COMMENT = '用户岗位关系表';
+
+
 -- Task
 -- 任务表
 CREATE TABLE k_task
@@ -280,7 +308,7 @@ CREATE TABLE k_task
   `remark`             VARCHAR(500) COMMENT '任务备注',
   `task_config`        VARCHAR(2000) NOT NULL COMMENT '任务配置',
   `trigger_config`     VARCHAR(2000) NOT NULL COMMENT '触发配置',
-  `sort_index`         INT           NOT NULL DEFAULT 0 COMMENT '排序索引',
+  `sort_index`         INT                    DEFAULT 0 COMMENT '排序索引',
   `is_enabled`         INT           NOT NULL DEFAULT 1 COMMENT '是否启用',
   `is_systemic`        INT           NOT NULL DEFAULT 0 COMMENT '是否系统',
   `is_deleted`         INT           NOT NULL DEFAULT 0 COMMENT '是否删除',
