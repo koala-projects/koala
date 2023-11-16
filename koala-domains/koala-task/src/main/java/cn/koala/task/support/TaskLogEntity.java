@@ -3,7 +3,7 @@ package cn.koala.task.support;
 import cn.koala.Koala;
 import cn.koala.task.Task;
 import cn.koala.task.TaskLog;
-import cn.koala.toolkit.DateHelper;
+import cn.koala.util.LocalDateTimeUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,7 +51,7 @@ public class TaskLogEntity implements TaskLog, Serializable {
     return TaskLogEntity.builder()
       .taskId(task.getId())
       .execution(execution)
-      .startTime(DateHelper.now())
+      .startTime(LocalDateTimeUtils.toDate())
       .build();
   }
 }

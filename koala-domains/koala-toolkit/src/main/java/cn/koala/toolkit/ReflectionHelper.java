@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class ReflectionHelper extends ReflectionUtils {
 
   public static boolean isMethodInvokable(Method method, Object[] args) {

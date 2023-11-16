@@ -19,6 +19,7 @@ import java.nio.file.Files;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class CompressHelper {
   public static void compress(@NonNull File file, @NonNull File dest, @NonNull String type) throws IOException, ArchiveException {
     Assert.isTrue(file.exists(), "目标文件不存在");

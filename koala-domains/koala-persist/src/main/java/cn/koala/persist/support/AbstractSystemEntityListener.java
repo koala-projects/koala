@@ -1,7 +1,7 @@
 package cn.koala.persist.support;
 
 import cn.koala.persist.SystemEntityListener;
-import cn.koala.toolkit.ClassHelper;
+import cn.koala.util.ClassUtils;
 
 /**
  * 系统实体监听器抽象类
@@ -16,7 +16,7 @@ public abstract class AbstractSystemEntityListener<T> implements SystemEntityLis
 
   @SuppressWarnings("unchecked")
   public AbstractSystemEntityListener() {
-    supportEntityClass = (Class<T>) ClassHelper.getGenericClass(getClass(), AbstractSystemEntityListener.class);
+    supportEntityClass = (Class<T>) ClassUtils.getGenericClass(getClass(), AbstractSystemEntityListener.class);
   }
 
   @Override

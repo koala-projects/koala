@@ -1,7 +1,6 @@
 package cn.koala.cache;
 
-import cn.koala.toolkit.registry.Registry;
-
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -9,5 +8,7 @@ import java.util.Set;
  *
  * @author Houtaroy
  */
-public interface CacheConditionRegistry extends Registry<Set<String>, CacheConditionRegistration> {
+public interface CacheConditionRegistry {
+
+  Optional<CacheCondition> get(Set<String> cacheNames);
 }

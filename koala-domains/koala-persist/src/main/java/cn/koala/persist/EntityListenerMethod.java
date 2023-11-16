@@ -1,8 +1,8 @@
 package cn.koala.persist;
 
-import cn.koala.toolkit.ReflectionHelper;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 
@@ -19,7 +19,7 @@ public class EntityListenerMethod {
   private final Method original;
 
   public Object invoke(Object... args) {
-    return ReflectionHelper.invokeMethod(original, listener, args);
+    return ReflectionUtils.invokeMethod(original, listener, args);
   }
 
   public static EntityListenerMethod of(Object listener, Method method) {

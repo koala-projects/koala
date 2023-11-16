@@ -10,6 +10,7 @@ import java.io.IOException;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class MultipartFileUtils {
 
   public static boolean isImage(MultipartFile multipartFile) throws IOException {

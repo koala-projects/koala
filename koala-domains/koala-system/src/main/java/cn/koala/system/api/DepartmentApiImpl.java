@@ -4,7 +4,7 @@ import cn.koala.log.annotations.Log;
 import cn.koala.system.model.Department;
 import cn.koala.system.model.DepartmentEntity;
 import cn.koala.system.service.DepartmentService;
-import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.util.TreeNode;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;

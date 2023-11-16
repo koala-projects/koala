@@ -1,4 +1,4 @@
-package cn.koala.toolkit.datetime;
+package cn.koala.util;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,11 +9,18 @@ import java.util.Date;
  *
  * @author Houtaroy
  */
-@Deprecated
 public abstract class LocalDateTimeUtils {
 
   public static LocalDateTime from(Date date) {
     return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  public static Date toDate() {
+    return toDate(LocalDateTime.now());
+  }
+
+  public static Date toDate(LocalDateTime localDateTime) {
+    return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
   }
 
   public static LocalDateTime atEndOfDay() {

@@ -2,7 +2,7 @@ package cn.koala.persist.service.support;
 
 import cn.koala.persist.CrudService;
 import cn.koala.persist.service.CrudServiceRegistry;
-import cn.koala.toolkit.ClassHelper;
+import cn.koala.util.ClassUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class InMemoryCrudServiceRegistry implements CrudServiceRegistry {
 
   public InMemoryCrudServiceRegistry(List<CrudService<?, ?>> services) {
     this.services = services.stream().collect(Collectors.toMap(
-      service -> ClassHelper.getGenericClass(service.getClass(), CrudService.class),
+      service -> ClassUtils.getGenericClass(service.getClass(), CrudService.class),
       service -> service
     ));
   }

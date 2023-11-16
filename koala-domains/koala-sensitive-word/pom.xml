@@ -24,10 +24,6 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-toolkit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
     </dependency>
   </dependencies>

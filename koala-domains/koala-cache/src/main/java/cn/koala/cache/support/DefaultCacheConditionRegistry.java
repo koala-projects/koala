@@ -1,10 +1,11 @@
 package cn.koala.cache.support;
 
+import cn.koala.cache.CacheCondition;
 import cn.koala.cache.CacheConditionRegistration;
 import cn.koala.cache.CacheConditionRegistry;
-import cn.koala.toolkit.registry.AbstractCacheableRegistry;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -12,15 +13,19 @@ import java.util.Set;
  *
  * @author Houtaroy
  */
-public class DefaultCacheConditionRegistry extends AbstractCacheableRegistry<Set<String>, CacheConditionRegistration>
-  implements CacheConditionRegistry {
+public class DefaultCacheConditionRegistry implements CacheConditionRegistry {
+
+  private final List<CacheConditionRegistration> registrations;
 
   public DefaultCacheConditionRegistry(List<CacheConditionRegistration> registrations) {
-    super(registrations);
+    this.registrations = registrations;
   }
 
   @Override
-  protected boolean matches(Set<String> key, CacheConditionRegistration registration) {
-    return registration.getCacheNames().containsAll(key);
+  public Optional<CacheCondition> get(Set<String> cacheNames) {
+    return registrations.stream()
+      .filter(registration -> registration.getCacheNames().containsAll(cacheNames))
+      .findFirst()
+      .map(CacheConditionRegistration::getCacheCondition);
   }
 }

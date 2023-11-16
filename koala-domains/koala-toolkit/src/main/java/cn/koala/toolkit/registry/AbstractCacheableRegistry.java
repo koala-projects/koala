@@ -15,6 +15,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class AbstractCacheableRegistry<K, V> extends AbstractRegistry<K, V> {
 
   protected final MultiValueMap<K, V> cache;

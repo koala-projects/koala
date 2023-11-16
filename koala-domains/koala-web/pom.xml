@@ -23,10 +23,6 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-open-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-toolkit</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>

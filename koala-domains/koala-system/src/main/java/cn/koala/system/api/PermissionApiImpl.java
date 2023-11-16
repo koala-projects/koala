@@ -4,7 +4,7 @@ import cn.koala.log.annotations.Log;
 import cn.koala.system.model.Permission;
 import cn.koala.system.model.PermissionEntity;
 import cn.koala.system.service.PermissionService;
-import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.util.TreeNode;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;

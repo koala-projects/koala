@@ -3,8 +3,8 @@ package cn.koala.system.service;
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.model.Permission;
 import cn.koala.system.repository.PermissionRepository;
-import cn.koala.toolkit.tree.TreeHelper;
-import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.util.TreeNode;
+import cn.koala.util.TreeUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class PermissionServiceImpl extends AbstractMyBatisService<Permission, Lo
 
   @Override
   public List<TreeNode> tree() {
-    return TreeHelper.build(
+    return TreeUtils.build(
       list(Map.of()),
       permission -> new TreeNode(permission.getId(), permission.getName(), permission.getParentId(), permission)
     );

@@ -1,19 +1,15 @@
-package cn.koala.toolkit;
-
-import org.springframework.lang.Nullable;
+package cn.koala.util;
 
 import java.util.Arrays;
 
 /**
- * 数组帮助类
+ * 对象工具类
  *
  * @author Houtaroy
  */
-@Deprecated
-public abstract class ArrayHelper {
+public abstract class ObjectUtils extends org.springframework.util.ObjectUtils {
 
-  @Nullable
-  public static <T> T get(Object[] objects, Class<T> clazz) {
+  public static <T> T getFirst(Object[] objects, Class<T> clazz) {
     return Arrays.stream(objects)
       .filter(param -> clazz.isAssignableFrom(param.getClass()))
       .findFirst()

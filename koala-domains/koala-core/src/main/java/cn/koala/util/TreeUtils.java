@@ -1,4 +1,4 @@
-package cn.koala.toolkit.tree;
+package cn.koala.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 树帮助类
+ * 树工具类
  *
  * @author Houtaroy
  */
-public abstract class TreeHelper {
+public abstract class TreeUtils {
 
   /**
    * 构建树
@@ -24,7 +24,7 @@ public abstract class TreeHelper {
       return result;
     }
     result = nodes.stream().filter(node -> node.getParentId() == null).collect(Collectors.toList());
-    result.forEach(p -> p.setChildren(TreeHelper.build(nodes, p.getId())));
+    result.forEach(p -> p.setChildren(TreeUtils.build(nodes, p.getId())));
     return result;
   }
 
@@ -42,10 +42,10 @@ public abstract class TreeHelper {
       return result;
     }
     if (parentId == null) {
-      return TreeHelper.build(nodes);
+      return TreeUtils.build(nodes);
     }
     result = nodes.stream().filter(node -> parentId.equals(node.getParentId())).collect(Collectors.toList());
-    result.forEach(p -> p.setChildren(TreeHelper.build(nodes, p.getId())));
+    result.forEach(p -> p.setChildren(TreeUtils.build(nodes, p.getId())));
     return result;
   }
 

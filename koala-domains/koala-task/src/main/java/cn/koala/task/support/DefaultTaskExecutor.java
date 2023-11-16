@@ -7,8 +7,8 @@ import cn.koala.task.TaskInstanceFactory;
 import cn.koala.task.TaskLog;
 import cn.koala.task.TaskLogService;
 import cn.koala.task.TaskTriggerFactory;
-import cn.koala.toolkit.DateHelper;
 import cn.koala.util.BusinessAssert;
+import cn.koala.util.LocalDateTimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
@@ -95,7 +95,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
         LOGGER.error("任务[name = {}]执行失败", task.getName(), e);
         return TaskExecuteResult.from(e);
       } finally {
-        log.setEndTime(DateHelper.now());
+        log.setEndTime(LocalDateTimeUtils.toDate());
         logService.create(log);
       }
     }

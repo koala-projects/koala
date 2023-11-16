@@ -1,7 +1,7 @@
 package cn.koala.persist.support;
 
 import cn.koala.persist.domain.Auditable;
-import cn.koala.toolkit.DateHelper;
+import cn.koala.util.LocalDateTimeUtils;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
@@ -26,7 +26,7 @@ public class AuditingEntityListener<T> extends AbstractSystemEntityListener<Audi
   public void prePersist(Auditable<T> entity) {
     if (auditorAware != null) {
       entity.setCreatedBy(auditorAware.getCurrentAuditor().orElse(null));
-      entity.setCreatedTime(DateHelper.now());
+      entity.setCreatedTime(LocalDateTimeUtils.toDate());
     }
 
   }
@@ -35,7 +35,7 @@ public class AuditingEntityListener<T> extends AbstractSystemEntityListener<Audi
   public void preUpdate(Auditable<T> entity) {
     if (auditorAware != null) {
       entity.setLastModifiedBy(auditorAware.getCurrentAuditor().orElse(null));
-      entity.setLastModifiedTime(DateHelper.now());
+      entity.setLastModifiedTime(LocalDateTimeUtils.toDate());
     }
   }
 
@@ -43,7 +43,7 @@ public class AuditingEntityListener<T> extends AbstractSystemEntityListener<Audi
   public void preDelete(Auditable<T> entity) {
     if (auditorAware != null) {
       entity.setDeletedBy(auditorAware.getCurrentAuditor().orElse(null));
-      entity.setDeletedTime(DateHelper.now());
+      entity.setDeletedTime(LocalDateTimeUtils.toDate());
     }
   }
 }

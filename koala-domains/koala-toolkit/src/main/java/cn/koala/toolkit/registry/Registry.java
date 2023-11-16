@@ -10,6 +10,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Registry<K, V> {
   void register(V value);
 

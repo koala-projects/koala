@@ -9,6 +9,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Mapping<S, T> {
 
   @Nullable

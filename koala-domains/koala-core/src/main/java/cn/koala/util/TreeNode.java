@@ -1,4 +1,4 @@
-package cn.koala.toolkit.tree;
+package cn.koala.util;
 
 import lombok.Data;
 
@@ -11,11 +11,12 @@ import java.util.List;
  */
 @Data
 public class TreeNode {
-  protected Object id;
-  protected String name;
-  protected Object data;
-  protected Object parentId;
-  protected List<TreeNode> children;
+
+  private Object id;
+  private String name;
+  private Object data;
+  private Object parentId;
+  private List<TreeNode> children;
 
   /**
    * 构造函数

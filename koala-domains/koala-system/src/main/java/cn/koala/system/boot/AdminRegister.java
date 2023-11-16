@@ -9,7 +9,7 @@ import cn.koala.system.model.UserEntity;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
-import cn.koala.toolkit.DateHelper;
+import cn.koala.util.LocalDateTimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -70,7 +70,7 @@ public class AdminRegister implements ApplicationRunner {
       .isEnabled(YesNo.YES)
       .isDeleted(YesNo.NO)
       .createdBy(ADMIN_ID)
-      .createdTime(DateHelper.now())
+      .createdTime(LocalDateTimeUtils.toDate())
       .build();
   }
 
@@ -97,7 +97,7 @@ public class AdminRegister implements ApplicationRunner {
       .isEnabled(YesNo.YES)
       .isDeleted(YesNo.NO)
       .createdBy(ADMIN_ID)
-      .createdTime(DateHelper.now())
+      .createdTime(LocalDateTimeUtils.toDate())
       .build();
   }
 }

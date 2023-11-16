@@ -13,6 +13,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class AbstractRegistry<K, V> implements Registry<K, V> {
 
   protected final List<V> values;

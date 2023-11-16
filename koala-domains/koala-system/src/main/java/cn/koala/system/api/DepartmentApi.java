@@ -3,7 +3,7 @@ package cn.koala.system.api;
 import cn.koala.persist.validator.EditableId;
 import cn.koala.system.model.Department;
 import cn.koala.system.model.DepartmentEntity;
-import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.util.TreeNode;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;

@@ -8,6 +8,7 @@ import java.util.function.Function;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class ObjectHelper {
 
   public static <T, R> R getOrDefault(T object, Function<T, R> supplier, R defaultValue) {

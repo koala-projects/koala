@@ -1,7 +1,6 @@
-package cn.koala.toolkit;
+package cn.koala.util;
 
 import com.google.common.reflect.TypeToken;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.lang.Nullable;
 
 import java.lang.annotation.Annotation;
@@ -11,19 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 类帮助类
+ * 类工具类
  *
  * @author Houtaroy
  */
-@Deprecated
-public abstract class ClassHelper {
+public abstract class ClassUtils extends org.springframework.util.ClassUtils {
 
   @Nullable
   public static List<Class<?>> getGenericClasses(Class<?> objectClass, Class<?> genericClass) {
     if (!genericClass.isAssignableFrom(objectClass)) {
       return null;
     }
-    if (ArrayUtils.isEmpty(genericClass.getTypeParameters())) {
+    if (ObjectUtils.isEmpty(genericClass.getTypeParameters())) {
       return null;
     }
     TypeToken<?> typeToken = TypeToken.of(objectClass);
@@ -43,7 +41,7 @@ public abstract class ClassHelper {
     if (!genericClass.isAssignableFrom(objectClass)) {
       return null;
     }
-    if (ArrayUtils.isEmpty(genericClass.getTypeParameters())) {
+    if (ObjectUtils.isEmpty(genericClass.getTypeParameters())) {
       return null;
     }
     if (genericClass.getTypeParameters().length < index) {

@@ -8,6 +8,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class StaticMapping<S, T> implements Mapping<S, T> {
 
   protected final Map<S, T> statics;

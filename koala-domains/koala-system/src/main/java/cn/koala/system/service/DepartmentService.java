@@ -2,7 +2,7 @@ package cn.koala.system.service;
 
 import cn.koala.persist.CrudService;
 import cn.koala.system.model.Department;
-import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.util.TreeNode;
 
 import java.util.List;
 

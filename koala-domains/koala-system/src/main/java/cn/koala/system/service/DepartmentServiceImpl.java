@@ -3,8 +3,8 @@ package cn.koala.system.service;
 import cn.koala.mybatis.AbstractMyBatisService;
 import cn.koala.system.model.Department;
 import cn.koala.system.repository.DepartmentRepository;
-import cn.koala.toolkit.tree.TreeHelper;
-import cn.koala.toolkit.tree.TreeNode;
+import cn.koala.util.TreeNode;
+import cn.koala.util.TreeUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class DepartmentServiceImpl extends AbstractMyBatisService<Department, Lo
 
   @Override
   public List<TreeNode> tree() {
-    return TreeHelper.build(
+    return TreeUtils.build(
       list(Map.of()),
       department -> new TreeNode(department.getId(), department.getName(), department.getParentId(), department)
     );

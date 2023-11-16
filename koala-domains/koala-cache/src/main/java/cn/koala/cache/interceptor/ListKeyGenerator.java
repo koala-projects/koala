@@ -1,6 +1,6 @@
 package cn.koala.cache.interceptor;
 
-import cn.koala.toolkit.ArrayHelper;
+import cn.koala.util.ObjectUtils;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
@@ -24,8 +24,8 @@ public class ListKeyGenerator implements KeyGenerator {
   @SuppressWarnings("unchecked")
   public Object generate(@NonNull Object target, @NonNull Method method, @NonNull Object... params) {
     return LIST_KEY_TEMPLATE.formatted(
-      generateParameters(ArrayHelper.get(params, Map.class)),
-      generatePageable(ArrayHelper.get(params, Pageable.class))
+      generateParameters(ObjectUtils.getFirst(params, Map.class)),
+      generatePageable(ObjectUtils.getFirst(params, Pageable.class))
     );
   }
 
