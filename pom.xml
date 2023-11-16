@@ -10,7 +10,7 @@
   <version>${revision}</version>
 
   <properties>
-    <revision>2023.1.4-SNAPSHOT</revision>
+    <revision>2023.1.4</revision>
     <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -85,11 +85,11 @@
   <distributionManagement>
     <repository>
       <id>koala-releases</id>
-      <url>http://43.239.120.231:11381/repository/koala-releases/</url>
+      <url>file://D:/Project/koala-projects/maven-repository/releases/</url>
     </repository>
     <snapshotRepository>
       <id>koala-snapshots</id>
-      <url>http://43.239.120.231:11381/repository/koala-snapshots/</url>
+      <url>file://D:/Project/koala-projects/maven-repository/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
