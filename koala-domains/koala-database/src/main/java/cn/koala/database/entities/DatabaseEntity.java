@@ -1,6 +1,6 @@
 package cn.koala.database.entities;
 
-import cn.koala.common.Koala;
+import cn.koala.Koala;
 import cn.koala.database.Database;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.validation.group.Create;

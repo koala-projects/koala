@@ -1,6 +1,6 @@
 package cn.koala.query.support;
 
-import cn.koala.common.Koala;
+import cn.koala.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.query.Query;
 import cn.koala.validation.group.Create;

@@ -1,4 +1,4 @@
-package cn.koala.common;
+package cn.koala;
 
 /**
  * 考拉信息接口

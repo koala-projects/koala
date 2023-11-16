@@ -1,5 +1,6 @@
 package cn.koala.web;
 
+import cn.koala.exception.BusinessException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,27 +24,6 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Slf4j
 public class RestExceptionHandler {
-
-  @ExceptionHandler(IllegalArgumentException.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public Response exception(IllegalArgumentException e) {
-    LOGGER.error("非法参数异常", e);
-    return Response.error(e.getMessage());
-  }
-
-  @ExceptionHandler(IllegalStateException.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public Response exception(IllegalStateException e) {
-    LOGGER.error("非法状态异常", e);
-    return Response.error(e.getMessage());
-  }
-
-  @ExceptionHandler(BusinessException.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public Response exception(BusinessException e) {
-    LOGGER.error("业务异常", e);
-    return Response.error(e.getMessage());
-  }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -69,6 +49,13 @@ public class RestExceptionHandler {
     return e.getConstraintViolations().stream()
       .map(ConstraintViolation::getMessage)
       .collect(Collectors.joining(", "));
+  }
+
+  @ExceptionHandler(BusinessException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public Response exception(BusinessException e) {
+    LOGGER.error("业务异常", e);
+    return Response.error(e.getMessage());
   }
 
   @ExceptionHandler(Exception.class)

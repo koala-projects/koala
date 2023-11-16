@@ -8,10 +8,10 @@ import cn.koala.task.TaskLog;
 import cn.koala.task.TaskLogService;
 import cn.koala.task.TaskTriggerFactory;
 import cn.koala.toolkit.DateHelper;
+import cn.koala.util.BusinessAssert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
-import org.springframework.util.Assert;
 import org.springframework.util.ConcurrentReferenceHashMap;
 
 import java.util.Map;
@@ -37,11 +37,11 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
   @Override
   public void schedule(Task task) {
-    Assert.notNull(task, "任务不能为空");
+    BusinessAssert.notNull(task, "任务不存在");
     String key = task.getName();
-    Assert.isTrue(!instances.containsKey(key), "任务[name = %s]已在运行".formatted(key));
+    BusinessAssert.isTrue(!instances.containsKey(key), "任务已在计划中");
     Runnable instance = instanceFactory.from(task);
-    Assert.notNull(instance, "任务[name = %s]实例创建失败".formatted(key));
+    BusinessAssert.notNull(instance, "任务实例创建失败");
     ScheduledFuture<?> future = scheduler.schedule(
       new TaskLogWrapper(task, TaskLog.Execution.AUTO),
       triggerFactory.from(task)
@@ -51,7 +51,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
   @Override
   public void cancel(Task task) {
-    Assert.notNull(task, "任务不能为空");
+    BusinessAssert.notNull(task, "任务不存在");
     String key = task.getName();
     ScheduledFuture<?> instance = instances.get(key);
     if (instance != null) {
@@ -62,9 +62,9 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
   @Override
   public TaskExecuteResult execute(Task task) {
-    Assert.notNull(task, "任务不能为空");
+    BusinessAssert.notNull(task, "任务不存在");
     Runnable instance = instanceFactory.from(task);
-    Assert.notNull(instance, "任务[name = %s]实例创建失败".formatted(task.getName()));
+    BusinessAssert.notNull(instance, "任务实例创建失败");
     return new TaskLogWrapper(task, TaskLog.Execution.MANUAL).doRun();
   }
 

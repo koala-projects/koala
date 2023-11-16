@@ -5,16 +5,16 @@ import cn.koala.codegen.CodeGenService;
 import cn.koala.codegen.CodeGenerator;
 import cn.koala.database.DatabaseTable;
 import cn.koala.database.services.DatabaseService;
+import cn.koala.exception.BusinessException;
 import cn.koala.template.Template;
 import cn.koala.template.TemplateGroupService;
 import cn.koala.toolkit.CompressHelper;
-import cn.koala.web.BusinessException;
+import cn.koala.util.BusinessAssert;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.io.FileUtils;
 import org.springframework.lang.NonNull;
-import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,7 +68,7 @@ public class DefaultCodeGenService implements CodeGenService {
   public Map<String, List<CodeGenResult>> preview(Long databaseId, List<String> tableNames, Long templateGroupId) {
     List<DatabaseTable> tables = databaseService.listTable(databaseId, tableNames);
     List<Template> templates = templateGroupService.listTemplate(templateGroupId);
-    Assert.notEmpty(templates, "未找到指定的代码模板");
+    BusinessAssert.notEmpty(templates, "未找到指定的代码模板");
     return tables.stream().collect(Collectors.toMap(DatabaseTable::getName, table -> generate(table, templates)));
   }
 

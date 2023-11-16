@@ -6,8 +6,8 @@ import cn.koala.codegen.support.SimpleCodeGenContext;
 import cn.koala.codegen.support.TableHelper;
 import cn.koala.database.DatabaseTable;
 import cn.koala.database.DatabaseTableColumn;
+import cn.koala.exception.BusinessException;
 import cn.koala.toolkit.name.Name;
-import cn.koala.web.BusinessException;
 
 import java.util.List;
 import java.util.Map;

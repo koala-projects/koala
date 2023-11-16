@@ -1,7 +1,8 @@
 package cn.koala.system.service;
 
+import cn.koala.exception.BusinessException;
 import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.persist.support.DomainHelper;
+import cn.koala.persist.util.DomainUtils;
 import cn.koala.system.model.Role;
 import cn.koala.system.model.User;
 import cn.koala.system.repository.RoleRepository;
@@ -28,8 +29,11 @@ public class RoleServiceImpl extends AbstractMyBatisService<Role, Long> implemen
 
   @Override
   public void authorize(Long id, List<Long> checkedIds, List<Long> halfCheckedIds) {
-    DomainHelper.assertEditable(repository.load(id));
-    getRepository().authorize(id, checkedIds, halfCheckedIds);
+    Role persist = repository.load(id).orElseThrow(() -> new BusinessException("角色不存在"));
+    if (DomainUtils.isSystemic(persist)) {
+      throw new BusinessException("角色不允许修改");
+    }
+    repository.authorize(id, checkedIds, halfCheckedIds);
   }
 
   @Override

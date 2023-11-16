@@ -2,7 +2,7 @@ package cn.koala.persist.validator;
 
 import cn.koala.persist.CrudService;
 import cn.koala.persist.service.CrudServiceRegistry;
-import cn.koala.persist.support.DomainHelper;
+import cn.koala.persist.util.DomainUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeansException;
@@ -44,7 +44,7 @@ public class EditableIdValidator implements ConstraintValidator<EditableId, Obje
     return registry.getService(entityClass)
       .map(service -> (CrudService<?, Object>) service)
       .map(service -> service.load(id))
-      .filter(DomainHelper::isEditable)
+      .filter(entity -> !DomainUtils.isSystemic(entity))
       .isPresent();
   }
 }

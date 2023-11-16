@@ -1,7 +1,7 @@
 package cn.koala.wechat.miniapp;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
-import cn.koala.common.Koala;
+import cn.koala.Koala;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

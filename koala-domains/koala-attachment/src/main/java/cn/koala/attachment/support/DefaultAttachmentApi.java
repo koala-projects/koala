@@ -5,7 +5,8 @@ import cn.koala.attachment.AttachmentApi;
 import cn.koala.attachment.AttachmentEntity;
 import cn.koala.attachment.AttachmentService;
 import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.web.BusinessException;
+import cn.koala.exception.BusinessException;
+import cn.koala.util.BusinessAssert;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import jakarta.servlet.ServletOutputStream;
@@ -16,7 +17,6 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,7 +70,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
   public void download(Long id, HttpServletResponse response) {
     try {
       Attachment attachment = this.service.load(id);
-      Assert.notNull(attachment, "附件不存在");
+      BusinessAssert.notNull(attachment, "附件不存在");
       try (InputStream inputStream = this.storage.download(attachment);
            ServletOutputStream outputStream = response.getOutputStream()) {
         String filename = URLEncoder.encode(attachment.getOriginalFilename(), StandardCharsets.UTF_8);

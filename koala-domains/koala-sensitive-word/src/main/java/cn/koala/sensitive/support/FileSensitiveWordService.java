@@ -1,7 +1,7 @@
 package cn.koala.sensitive.support;
 
+import cn.koala.exception.BusinessException;
 import cn.koala.sensitive.SensitiveWordService;
-import cn.koala.web.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 

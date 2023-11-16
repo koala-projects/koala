@@ -1,6 +1,6 @@
 package cn.koala.template.support;
 
-import cn.koala.common.Koala;
+import cn.koala.Koala;
 import cn.koala.persist.domain.YesNo;
 import cn.koala.template.Template;
 import io.swagger.v3.oas.annotations.media.Schema;

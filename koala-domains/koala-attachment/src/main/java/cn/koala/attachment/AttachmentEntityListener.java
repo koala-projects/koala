@@ -2,7 +2,7 @@ package cn.koala.attachment;
 
 import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.web.BusinessException;
+import cn.koala.exception.BusinessException;
 import jakarta.persistence.PreRemove;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;

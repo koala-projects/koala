@@ -1,4 +1,4 @@
-package cn.koala.web;
+package cn.koala.exception;
 
 /**
  * 业务异常

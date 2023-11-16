@@ -4,13 +4,13 @@ import cn.koala.template.Template;
 import cn.koala.template.TemplateApi;
 import cn.koala.template.TemplateRenderer;
 import cn.koala.template.TemplateService;
+import cn.koala.util.BusinessAssert;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -59,7 +59,7 @@ public class DefaultTemplateApi implements TemplateApi {
   @Override
   public DataResponse<String> render(Long id, Map<String, Object> parameters) {
     Template template = service.load(id);
-    Assert.notNull(template, "模板不存在");
+    BusinessAssert.notNull(template, "模板不存在");
     return new DataResponse<>(HttpStatus.OK.value(), "请求成功", renderer.render(template, parameters));
   }
 }

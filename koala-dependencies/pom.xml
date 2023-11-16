@@ -319,7 +319,7 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-common</artifactId>
+        <artifactId>koala-core</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

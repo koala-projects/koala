@@ -1,6 +1,6 @@
 package cn.koala.system.model;
 
-import cn.koala.common.Koala;
+import cn.koala.Koala;
 import cn.koala.mybatis.AbstractEntity;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;

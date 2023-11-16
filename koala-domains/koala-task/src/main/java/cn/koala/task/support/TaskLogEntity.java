@@ -1,6 +1,6 @@
 package cn.koala.task.support;
 
-import cn.koala.common.Koala;
+import cn.koala.Koala;
 import cn.koala.task.Task;
 import cn.koala.task.TaskLog;
 import cn.koala.toolkit.DateHelper;

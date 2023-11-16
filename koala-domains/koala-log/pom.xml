@@ -17,10 +17,6 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
       <artifactId>koala-web</artifactId>
     </dependency>
     <dependency>
