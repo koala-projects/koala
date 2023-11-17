@@ -20,20 +20,26 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-code-gen-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-system-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
       <artifactId>koala-authorization-server-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-resource-server-starter</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-code-gen-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-system-starter</artifactId>
+    </dependency>
+
+    <!--<dependency>-->
+    <!--  <groupId>cn.koala</groupId>-->
+    <!--  <artifactId>koala-data-source-starter</artifactId>-->
+    <!--</dependency>-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -45,6 +51,12 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>8.0.32</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-3-starter</artifactId>
+    </dependency>
+
     <!--<dependency>-->
     <!--  <groupId>org.flywaydb</groupId>-->
     <!--  <artifactId>flyway-core</artifactId>-->

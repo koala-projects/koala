@@ -16,13 +16,12 @@
 
   <properties>
     <!--Spring-->
-    <spring-boot.version>3.0.11</spring-boot.version>
-    <spring-security-oauth2-authorization-server.version>1.0.3</spring-security-oauth2-authorization-server.version>
-    <oauth2-oidc-sdk.version>10.15</oauth2-oidc-sdk.version>
+    <spring-boot.version>3.0.12</spring-boot.version>
+    <spring-security-oauth2-authorization-server.version>1.0.4</spring-security-oauth2-authorization-server.version>
     <springdoc-openapi-starter.version>2.1.0</springdoc-openapi-starter.version>
     <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
     <!--数据库相关-->
-    <druid-spring-boot-starter.version>1.2.17</druid-spring-boot-starter.version>
+    <druid-spring-boot-3-starter.version>1.2.20</druid-spring-boot-3-starter.version>
     <mybatis.version>3.5.13</mybatis.version>
     <mybatis-spring-boot-starter.version>3.0.2</mybatis-spring-boot-starter.version>
     <pagehelper.version>5.3.3</pagehelper.version>
@@ -36,8 +35,9 @@
     <lombok.version>1.18.30</lombok.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
-    <minio.version>8.5.6</minio.version>
-    <pdfbox.version>2.0.29</pdfbox.version>
+    <minio.version>8.5.7</minio.version>
+    <oauth2-oidc-sdk.version>11.5</oauth2-oidc-sdk.version>
+    <pdfbox.version>2.0.30</pdfbox.version>
     <powerjob.version>4.3.6</powerjob.version>
     <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
     <slf4j.version>2.0.9</slf4j.version>
@@ -47,14 +47,14 @@
     <wxjava.version>4.5.0</wxjava.version>
     <!--工具相关-->
     <commons-compress.version>1.23.0</commons-compress.version>
-    <commons-io.version>2.13.0</commons-io.version>
+    <commons-io.version>2.14.0</commons-io.version>
     <commons-pool2.version>2.11.1</commons-pool2.version>
     <guava.version>32.1.2-jre</guava.version>
     <!--maven-->
     <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -115,8 +115,8 @@
       <!--数据库相关-->
       <dependency>
         <groupId>com.alibaba</groupId>
-        <artifactId>druid-spring-boot-starter</artifactId>
-        <version>${druid-spring-boot-starter.version}</version>
+        <artifactId>druid-spring-boot-3-starter</artifactId>
+        <version>${druid-spring-boot-3-starter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis</groupId>

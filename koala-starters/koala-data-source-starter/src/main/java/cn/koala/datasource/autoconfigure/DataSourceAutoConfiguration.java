@@ -3,8 +3,10 @@ package cn.koala.datasource.autoconfigure;
 import cn.koala.datasource.DynamicDataSource;
 import cn.koala.datasource.DynamicDataSourceAspect;
 import cn.koala.datasource.DynamicDataSourceFactory;
+import cn.koala.datasource.support.DruidDynamicDataSourceFactory;
 import cn.koala.datasource.support.HikariDynamicDataSourceFactory;
 import cn.koala.datasource.support.TomcatDynamicDataSourceFactory;
+import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceWrapper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -38,6 +40,13 @@ public class DataSourceAutoConfiguration {
   @ConditionalOnProperty(name = "spring.datasource.type", havingValue = "org.apache.tomcat.jdbc.pool.DataSource")
   public TomcatDynamicDataSourceFactory tomcatDynamicDataSourceFactory(Environment environment) {
     return new TomcatDynamicDataSourceFactory(environment);
+  }
+
+  @Bean
+  @ConditionalOnClass(DruidDataSourceWrapper.class)
+  @ConditionalOnProperty(name = "spring.datasource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource")
+  public DruidDynamicDataSourceFactory druidDynamicDataSourceFactory(Environment environment) {
+    return new DruidDynamicDataSourceFactory(environment);
   }
 
   @Bean
