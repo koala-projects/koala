@@ -14,18 +14,27 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>mysql-connector-j</artifactId>
-      <version>8.0.32</version>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-authorization-server-starter</artifactId>
     </dependency>
-
     <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-resource-server-starter</artifactId>
+    </dependency>
+	
+	<dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-code-gen-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>cn.koala</groupId>
       <artifactId>koala-system-starter</artifactId>
+    </dependency>
+	
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>8.0.32</version>
     </dependency>
   </dependencies>
 

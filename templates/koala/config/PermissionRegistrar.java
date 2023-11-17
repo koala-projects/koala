@@ -1,6 +1,4 @@
-package
-
-#(package).config;
+package #(package).config;
 
 import cn.koala.system.permission.CrudPermissionRegistrar;
 import org.springframework.stereotype.Component;
@@ -12,9 +10,10 @@ import org.springframework.stereotype.Component;
  * @author Koala Code Generator
  */
 @Component
-public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRegistrar{
+public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRegistrar {
 
-public #(name.pascal.singular)PermissionRegistrar(){
-  super("#(name.kebab.singular)","#(description)管理",30000,null);
+  public #(name.pascal.singular)PermissionRegistrar(){
+    super("#(name.kebab.singular)","#(description)管理",30000,null);
   }
-  }
+  
+}

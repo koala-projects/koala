@@ -6,6 +6,8 @@ package ${package}.service;
 import ${package}.entity.ExampleEntity;
 import ${package}.repository.ExampleRepository;
 import cn.koala.mybatis.AbstractMyBatisService;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,9 +16,10 @@ import org.springframework.stereotype.Component;
  * @author koala web application
  */
 @Component
+@RequiredArgsConstructor
+@Getter
 public class ExampleService extends AbstractMyBatisService<ExampleEntity, Long> {
-
-  public ExampleService(ExampleRepository repository) {
-    super(repository);
-  }
+	
+  private final ExampleRepository repository;
+  
 }

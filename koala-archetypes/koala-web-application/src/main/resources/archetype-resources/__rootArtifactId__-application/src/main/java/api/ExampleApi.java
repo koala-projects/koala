@@ -3,7 +3,6 @@
 #set( $symbol_escape = '\' )
 package ${package}.api;
 
-import ${package}.entity.ExampleEntity;
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.persist.validator.EditableId;
 import cn.koala.validation.group.Create;
@@ -42,7 +41,7 @@ import java.util.Map;
 @RestController
 @Validated
 @SecurityRequirement(name = "spring-security")
-@Tag(name = "示例管理")
+@Tag(name = "30-01 示例管理")
 public interface ExampleApi {
 
   /**
@@ -52,7 +51,7 @@ public interface ExampleApi {
    * @param pageable   分页条件
    * @return 示例实体列表
    */
-  @PreAuthorize("hasAuthority('example:page')")
+  @PreAuthorize("hasAuthority('example.read')")
   @Operation(operationId = "listExamples", summary = "根据条件分页查询示例")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ExamplePageResult.class))}
@@ -69,7 +68,7 @@ public interface ExampleApi {
    * @param id 示例id
    * @return 示例实体
    */
-  @PreAuthorize("hasAuthority('example:load')")
+  @PreAuthorize("hasAuthority('example.read')")
   @Operation(operationId = "loadExample", summary = "根据id查询示例")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ExampleResult.class))}
@@ -84,7 +83,7 @@ public interface ExampleApi {
    * @param entity 示例实体
    * @return 示例实体
    */
-  @PreAuthorize("hasAuthority('example:create')")
+  @PreAuthorize("hasAuthority('example.create')")
   @Operation(operationId = "createExample", summary = "创建示例")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ExampleResult.class))}
@@ -99,14 +98,15 @@ public interface ExampleApi {
    * @param entity 示例实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('example:update')")
+  @PreAuthorize("hasAuthority('example.update')")
   @Operation(operationId = "updateExample", summary = "更新示例")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "示例id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(ExampleEntity.class) @PathVariable("id") Long id, @RequestBody ExampleEntity entity);
+  Response update(@EditableId(ExampleEntity.class) @PathVariable("id") Long id,
+                  @Validated(Update.class) @RequestBody ExampleEntity entity);
 
   /**
    * 删除示例
@@ -114,7 +114,7 @@ public interface ExampleApi {
    * @param id 示例id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('example:delete')")
+  @PreAuthorize("hasAuthority('example.delete')")
   @Operation(operationId = "deleteExample", summary = "删除示例")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
