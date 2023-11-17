@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class AbstractRegularConverter implements Converter<String, String> {
   protected final Pattern pattern;
 

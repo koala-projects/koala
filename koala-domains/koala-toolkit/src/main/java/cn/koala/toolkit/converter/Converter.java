@@ -5,6 +5,7 @@ package cn.koala.toolkit.converter;
  *
  * @author Houtaroy
  */
+@Deprecated
 @FunctionalInterface
 public interface Converter<S, T> {
   T convert(S source);

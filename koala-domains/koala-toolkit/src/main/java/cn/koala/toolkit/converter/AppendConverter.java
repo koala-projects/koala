@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class AppendConverter extends AbstractRegularConverter {
   private final String appendage;
 

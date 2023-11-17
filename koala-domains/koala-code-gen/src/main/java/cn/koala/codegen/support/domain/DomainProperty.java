@@ -1,6 +1,6 @@
 package cn.koala.codegen.support.domain;
 
-import cn.koala.toolkit.name.Name;
+import cn.koala.codegen.name.Name;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

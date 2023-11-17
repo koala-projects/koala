@@ -2,12 +2,14 @@ package cn.koala.codegen.support.domain;
 
 import cn.koala.codegen.CodeGenContext;
 import cn.koala.codegen.CodeGenContextProcessor;
+import cn.koala.codegen.name.Name;
+import cn.koala.codegen.name.NameFactory;
 import cn.koala.codegen.support.SimpleCodeGenContext;
 import cn.koala.codegen.support.TableHelper;
 import cn.koala.database.DatabaseTable;
 import cn.koala.database.DatabaseTableColumn;
 import cn.koala.exception.BusinessException;
-import cn.koala.toolkit.name.Name;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
  *
  * @author Houtaroy
  */
+@RequiredArgsConstructor
 public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
 
   private static final List<NamedDomainPropertyTypeConverter> DEFAULT_TYPE_CONVERTERS = List.of(
@@ -30,15 +33,11 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
   private static final String COLUMN_ID_NAME = "id";
 
   private final String tablePrefix;
+  private final NameFactory nameFactory;
   private final List<NamedDomainPropertyTypeConverter> typeConverters;
 
-  public DomainCodeGenContextProcessor(String tablePrefix) {
-    this(tablePrefix, DEFAULT_TYPE_CONVERTERS);
-  }
-
-  public DomainCodeGenContextProcessor(String tablePrefix, List<NamedDomainPropertyTypeConverter> typeConverters) {
-    this.tablePrefix = tablePrefix;
-    this.typeConverters = typeConverters;
+  public DomainCodeGenContextProcessor(String tablePrefix, NameFactory nameFactory) {
+    this(tablePrefix, nameFactory, DEFAULT_TYPE_CONVERTERS);
   }
 
   @Override
@@ -56,7 +55,7 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
     if (snake.startsWith(tablePrefix)) {
       snake = snake.substring(tablePrefix.length());
     }
-    return Name.fromSnakeSingular(snake);
+    return nameFactory.fromSnakeSingular(snake);
   }
 
   private String processDomainDescription(DatabaseTable table) {
@@ -84,7 +83,7 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
 
   private DomainProperty processDomainProperty(DatabaseTableColumn column) {
     return DomainProperty.builder()
-      .name(Name.fromSnakeSingular(column.getName()))
+      .name(nameFactory.fromSnakeSingular(column.getName()))
       .description(column.getRemarks())
       .type(processDomainPropertyType(column))
       .build();

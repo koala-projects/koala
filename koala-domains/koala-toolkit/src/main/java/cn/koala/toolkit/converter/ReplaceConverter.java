@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class ReplaceConverter extends AbstractRegularConverter {
   private final String replacement;
 

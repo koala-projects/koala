@@ -9,6 +9,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 @RequiredArgsConstructor
 public class StaticConverter<S, T> implements Converter<S, T> {
   protected final Map<S, T> statics;

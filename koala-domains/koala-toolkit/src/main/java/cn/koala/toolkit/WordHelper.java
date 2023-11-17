@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class WordHelper {
   private static final List<Converter<String, String>> PLURAL_CONVERTERS;
 
