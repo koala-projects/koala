@@ -273,6 +273,12 @@
         "id": "19A8E4E1-6A15-4A94-BF58-21437D3DB402",
         "defName": "大整数",
         "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BIGINT"
+      },
+      {
+        "defKey": "json",
+        "defName": "JSON",
+        "id": "A218CF5C-C133-4F45-B15C-7A1BE19EF5BE",
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "json"
       }
     ]
   },
@@ -393,6 +399,15 @@
       "scale": "",
       "uiHint": "",
       "id": "17D5B117-A906-45DC-BE58-300D90969F7B"
+    },
+    {
+      "defKey": "json",
+      "defName": "JSON",
+      "applyFor": "A218CF5C-C133-4F45-B15C-7A1BE19EF5BE",
+      "len": "",
+      "scale": "",
+      "uiHint": "",
+      "id": "1C9679AC-7EC1-4608-BBE0-5E5C184DB920"
     }
   ]
 }

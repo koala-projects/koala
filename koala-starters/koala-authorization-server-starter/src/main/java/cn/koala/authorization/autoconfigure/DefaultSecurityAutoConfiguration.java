@@ -10,20 +10,21 @@ import cn.koala.authorization.client.RegisteredClientService;
 import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
 import cn.koala.authorization.client.support.DefaultRegisteredClientApi;
 import cn.koala.authorization.client.support.DefaultRegisteredClientService;
+import cn.koala.authorization.repository.AuthenticateLogRepository;
 import cn.koala.authorization.repository.KoalaUserRepository;
+import cn.koala.authorization.service.DefaultAuthenticateLogService;
 import cn.koala.authorization.support.DefaultUserDetailsService;
 import cn.koala.authorization.support.DefaultUserinfoApi;
 import cn.koala.authorization.support.DefaultUserinfoService;
 import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
 import cn.koala.resource.builder.support.PermitAllPostProcessor;
-import org.mybatis.spring.annotation.MapperScan;
+import cn.koala.security.authentication.event.AuthenticateLogService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -37,8 +38,6 @@ import java.util.List;
  * @author Houtaroy
  */
 @Configuration
-@EnableWebSecurity
-@MapperScan({"cn.koala.authorization.repository", "cn.koala.authorization.client.repository"})
 public class DefaultSecurityAutoConfiguration {
 
   @Bean
@@ -109,5 +108,11 @@ public class DefaultSecurityAutoConfiguration {
   @ConditionalOnMissingBean
   public UserinfoApi userinfoApi(UserinfoService userinfoService) {
     return new DefaultUserinfoApi(userinfoService);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public AuthenticateLogService authenticateLogService(AuthenticateLogRepository authenticateLogRepository) {
+    return new DefaultAuthenticateLogService(authenticateLogRepository);
   }
 }

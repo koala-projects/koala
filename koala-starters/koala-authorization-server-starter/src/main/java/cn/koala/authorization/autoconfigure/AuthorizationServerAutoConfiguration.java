@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -28,6 +29,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
@@ -55,8 +57,13 @@ import java.util.List;
  * @author Houtaroy
  */
 @Configuration
+@EnableWebSecurity
 @EnableConfigurationProperties(AuthorizationServerProperties.class)
 @Import(DefaultSecurityAutoConfiguration.class)
+@MapperScan({
+  "cn.koala.authorization.repository",
+  "cn.koala.authorization.client.repository",
+})
 public class AuthorizationServerAutoConfiguration {
 
   @Bean
