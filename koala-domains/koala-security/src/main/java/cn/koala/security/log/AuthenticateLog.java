@@ -1,4 +1,4 @@
-package cn.koala.security.authentication.event;
+package cn.koala.security.log;
 
 import cn.koala.persist.domain.Persistable;
 import cn.koala.persist.domain.YesNo;

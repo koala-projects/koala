@@ -1,7 +1,7 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.security.authentication.event.LoginLogService;
-import cn.koala.security.authentication.event.UsernamePasswordAuthenticationLogListener;
+import cn.koala.security.log.LoginLogService;
+import cn.koala.security.log.UsernamePasswordAuthenticationLogListener;
 import cn.koala.security.persist.SecurityAuditorAware;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

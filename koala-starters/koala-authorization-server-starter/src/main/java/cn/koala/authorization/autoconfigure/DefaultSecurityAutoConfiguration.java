@@ -16,13 +16,15 @@ import cn.koala.authorization.support.DefaultUserinfoApi;
 import cn.koala.authorization.support.DefaultUserinfoService;
 import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
 import cn.koala.resource.builder.support.PermitAllPostProcessor;
-import cn.koala.security.authentication.event.AuthenticateLogService;
-import cn.koala.security.authentication.event.DefaultAuthenticateLogService;
-import cn.koala.security.authentication.event.DefaultLoginLogService;
-import cn.koala.security.authentication.event.LoginLogService;
-import cn.koala.security.authentication.event.OAuth2AuthorizationCodeRequestAuthenticationLogListener;
-import cn.koala.security.authentication.event.repository.AuthenticateLogRepository;
-import cn.koala.security.authentication.event.repository.LoginLogRepository;
+import cn.koala.security.log.AuthenticateLogService;
+import cn.koala.security.log.DefaultAuthenticateLogService;
+import cn.koala.security.log.DefaultLoginLogApi;
+import cn.koala.security.log.DefaultLoginLogService;
+import cn.koala.security.log.LoginLogApi;
+import cn.koala.security.log.LoginLogService;
+import cn.koala.security.log.OAuth2AuthorizationCodeRequestAuthenticationLogListener;
+import cn.koala.security.log.repository.AuthenticateLogRepository;
+import cn.koala.security.log.repository.LoginLogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -134,5 +136,11 @@ public class DefaultSecurityAutoConfiguration {
   @ConditionalOnMissingBean
   public LoginLogService loginLogService(LoginLogRepository loginLogRepository) {
     return new DefaultLoginLogService(loginLogRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public LoginLogApi loginLogApi(LoginLogService loginLogService) {
+    return new DefaultLoginLogApi(loginLogService);
   }
 }

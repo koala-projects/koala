@@ -1,7 +1,7 @@
-package cn.koala.security.authentication.event.repository;
+package cn.koala.security.log.repository;
 
 import cn.koala.persist.CrudRepository;
-import cn.koala.security.authentication.event.AuthenticateLog;
+import cn.koala.security.log.AuthenticateLog;
 
 /**
  * 认证日志仓库

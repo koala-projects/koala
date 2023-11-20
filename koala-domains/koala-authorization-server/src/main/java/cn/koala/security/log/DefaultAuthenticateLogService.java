@@ -1,7 +1,7 @@
-package cn.koala.security.authentication.event;
+package cn.koala.security.log;
 
 import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.security.authentication.event.repository.AuthenticateLogRepository;
+import cn.koala.security.log.repository.AuthenticateLogRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

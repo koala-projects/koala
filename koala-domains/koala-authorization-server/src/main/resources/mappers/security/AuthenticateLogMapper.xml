@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.koala.security.authentication.event.repository.AuthenticateLogRepository">
+<mapper namespace="cn.koala.security.log.repository.AuthenticateLogRepository">
 
   <sql id="selectAuthenticateLog">
     select t.id,
@@ -34,7 +34,7 @@
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.security.authentication.event.AuthenticateLog">
+  <select id="list" resultType="cn.koala.security.log.AuthenticateLog">
     <include refid="selectAuthenticateLog"/>
     <where>
       <if test="remoteAddress != null and remoteAddress != ''">
@@ -56,12 +56,12 @@
     <include refid="orderBy"/>
   </select>
 
-  <select id="load" resultType="cn.koala.security.authentication.event.AuthenticateLog">
+  <select id="load" resultType="cn.koala.security.log.AuthenticateLog">
     <include refid="selectAuthenticateLog"/>
     where t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.security.authentication.event.AuthenticateLog" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.security.log.AuthenticateLog" useGeneratedKeys="true"
           keyProperty="id">
     insert into k_authenticate_log(id, remote_address, session_id, authentication, is_successful, exception_message,
                                    log_time)
@@ -69,7 +69,7 @@
             #{logTime})
   </insert>
 
-  <update id="update" parameterType="cn.koala.security.authentication.event.AuthenticateLog">
+  <update id="update" parameterType="cn.koala.security.log.AuthenticateLog">
     update k_authenticate_log
     <trim prefix="set" suffixOverrides=",">
       <if test="remoteAddress != null">remote_address=#{remoteAddress},</if>
@@ -82,7 +82,7 @@
     where id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.security.authentication.event.AuthenticateLog">
+  <update id="delete" parameterType="cn.koala.security.log.AuthenticateLog">
     delete
     from k_authenticate_log
     where id = #{id}
