@@ -5,6 +5,9 @@ import cn.koala.persist.domain.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
+import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import java.util.Date;
 
@@ -18,17 +21,45 @@ import java.util.Date;
 @SuperBuilder(toBuilder = true)
 public class AuthenticateLog implements Persistable<Long> {
 
-  private Long id;
+  protected Long id;
 
-  private String remoteAddress;
+  protected String remoteAddress;
 
-  private String sessionId;
+  protected String sessionId;
 
-  private String authentication;
+  protected String authentication;
 
-  private YesNo isSuccessful;
+  protected YesNo isSuccessful;
 
-  private String exceptionMessage;
+  protected String exceptionMessage;
 
-  private Date logTime;
+  protected Date logTime;
+
+  public static AuthenticateLog from(AbstractAuthenticationEvent event) {
+    AuthenticateLog result = new AuthenticateLog();
+    result.setAuthenticationDetails(event.getAuthentication().getDetails());
+    result.setStatus(event);
+    result.setLogTime(new Date(event.getTimestamp()));
+    return result;
+  }
+
+  protected void setAuthenticationDetails(Object details) {
+    if (details instanceof WebAuthenticationDetails webAuthenticationDetails) {
+      setWebAuthenticationDetails(webAuthenticationDetails);
+    }
+  }
+
+  protected void setWebAuthenticationDetails(WebAuthenticationDetails details) {
+    setRemoteAddress(details.getRemoteAddress());
+    setSessionId(details.getSessionId());
+  }
+
+  protected void setStatus(AbstractAuthenticationEvent event) {
+    if (event instanceof AbstractAuthenticationFailureEvent failureEvent) {
+      setIsSuccessful(YesNo.NO);
+      setExceptionMessage(failureEvent.getException().getMessage());
+    } else {
+      setIsSuccessful(YesNo.YES);
+    }
+  }
 }

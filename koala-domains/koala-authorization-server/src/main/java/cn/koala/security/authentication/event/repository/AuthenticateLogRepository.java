@@ -1,4 +1,4 @@
-package cn.koala.authorization.repository;
+package cn.koala.security.authentication.event.repository;
 
 import cn.koala.persist.CrudRepository;
 import cn.koala.security.authentication.event.AuthenticateLog;

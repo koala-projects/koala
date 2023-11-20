@@ -10,15 +10,20 @@ import cn.koala.authorization.client.RegisteredClientService;
 import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
 import cn.koala.authorization.client.support.DefaultRegisteredClientApi;
 import cn.koala.authorization.client.support.DefaultRegisteredClientService;
-import cn.koala.authorization.repository.AuthenticateLogRepository;
 import cn.koala.authorization.repository.KoalaUserRepository;
-import cn.koala.authorization.service.DefaultAuthenticateLogService;
 import cn.koala.authorization.support.DefaultUserDetailsService;
 import cn.koala.authorization.support.DefaultUserinfoApi;
 import cn.koala.authorization.support.DefaultUserinfoService;
 import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
 import cn.koala.resource.builder.support.PermitAllPostProcessor;
 import cn.koala.security.authentication.event.AuthenticateLogService;
+import cn.koala.security.authentication.event.DefaultAuthenticateLogService;
+import cn.koala.security.authentication.event.DefaultLoginLogService;
+import cn.koala.security.authentication.event.LoginLogService;
+import cn.koala.security.authentication.event.OAuth2AuthorizationCodeRequestAuthenticationLogListener;
+import cn.koala.security.authentication.event.repository.AuthenticateLogRepository;
+import cn.koala.security.authentication.event.repository.LoginLogRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -114,5 +119,20 @@ public class DefaultSecurityAutoConfiguration {
   @ConditionalOnMissingBean
   public AuthenticateLogService authenticateLogService(AuthenticateLogRepository authenticateLogRepository) {
     return new DefaultAuthenticateLogService(authenticateLogRepository);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "oauth2AuthorizationCodeRequestAuthenticationLogListener")
+  public OAuth2AuthorizationCodeRequestAuthenticationLogListener
+  oauth2AuthorizationCodeRequestAuthenticationLogListener(ObjectMapper objectMapper,
+                                                          AuthenticateLogService authenticateLogService) {
+
+    return new OAuth2AuthorizationCodeRequestAuthenticationLogListener(objectMapper, authenticateLogService);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public LoginLogService loginLogService(LoginLogRepository loginLogRepository) {
+    return new DefaultLoginLogService(loginLogRepository);
   }
 }

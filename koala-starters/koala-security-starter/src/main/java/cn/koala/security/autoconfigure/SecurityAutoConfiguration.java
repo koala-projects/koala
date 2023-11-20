@@ -1,9 +1,8 @@
 package cn.koala.security.autoconfigure;
 
-import cn.koala.security.authentication.event.AuthenticateLogListener;
-import cn.koala.security.authentication.event.AuthenticateLogService;
+import cn.koala.security.authentication.event.LoginLogService;
+import cn.koala.security.authentication.event.UsernamePasswordAuthenticationLogListener;
 import cn.koala.security.persist.SecurityAuditorAware;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -26,10 +25,10 @@ public class SecurityAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  @ConditionalOnBean(AuthenticateLogService.class)
-  public AuthenticateLogListener authenticateLogListener(ObjectMapper objectMapper,
-                                                         AuthenticateLogService authenticateLogService) {
+  @ConditionalOnBean(LoginLogService.class)
+  public UsernamePasswordAuthenticationLogListener usernamePasswordAuthenticationLogListener(
+    LoginLogService loginLogService) {
 
-    return new AuthenticateLogListener(objectMapper, authenticateLogService);
+    return new UsernamePasswordAuthenticationLogListener(loginLogService);
   }
 }
