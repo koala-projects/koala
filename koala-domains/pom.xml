@@ -38,7 +38,6 @@
     <module>koala-system</module>
     <module>koala-task</module>
     <module>koala-template</module>
-    <module>koala-toolkit</module>
     <module>koala-validation</module>
     <module>koala-web</module>
     <module>koala-wechat-mini-app</module>
