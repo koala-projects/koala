@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @AutoConfigureAfter(MybatisAutoConfiguration.class)
 @EnableTransactionManagement
-@MapperScan("cn.koala.mybatis.repository")
+@MapperScan("cn.koala.mybatis.common")
 public class MyBatisAutoConfiguration {
   /**
    * MyBatis中文枚举TypeHandler自定义配置
