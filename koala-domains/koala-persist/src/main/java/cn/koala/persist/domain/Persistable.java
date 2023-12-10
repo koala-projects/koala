@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param <T> id类型
  * @author Houtaroy
  */
+@Deprecated
 public interface Persistable<T> {
   T getId();
 

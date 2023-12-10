@@ -29,6 +29,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Aspect
 @Order(3200)
 @RequiredArgsConstructor

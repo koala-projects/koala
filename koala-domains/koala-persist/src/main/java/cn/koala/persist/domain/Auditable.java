@@ -7,6 +7,7 @@ import java.util.Date;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Auditable<ID> {
   ID getCreatedBy();
 

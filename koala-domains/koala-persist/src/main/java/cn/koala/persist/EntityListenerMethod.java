@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Getter
 @SuperBuilder(toBuilder = true)
 public class EntityListenerMethod {

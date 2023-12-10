@@ -9,6 +9,7 @@ import java.util.HashMap;
  *
  * @author Houtaroy
  */
+@Deprecated
 @ConfigurationProperties("koala.persist.initializer")
 public class InitializerProperties extends HashMap<String, Boolean> {
 

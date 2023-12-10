@@ -12,6 +12,7 @@ import org.springframework.core.annotation.Order;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Order(1000)
 public class StatefulEntityListener extends AbstractSystemEntityListener<Stateful> {
 

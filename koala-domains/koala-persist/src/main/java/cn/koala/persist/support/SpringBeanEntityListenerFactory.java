@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class SpringBeanEntityListenerFactory implements EntityListenerFactory, ApplicationContextAware {
 
   private final Map<Class<?>, List<Object>> listeners = new ConcurrentHashMap<>();

@@ -17,6 +17,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
 
   @Override

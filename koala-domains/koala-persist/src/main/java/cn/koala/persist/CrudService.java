@@ -12,6 +12,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface CrudService<T, ID> {
 
   /**

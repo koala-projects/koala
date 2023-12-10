@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class BeanOrderUtils {
 
   public static <T> List<T> sort(List<T> beans) {

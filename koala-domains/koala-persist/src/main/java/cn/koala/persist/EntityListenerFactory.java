@@ -8,6 +8,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface EntityListenerFactory {
 
   List<Object> getEntityListeners(Class<?> entityClass);

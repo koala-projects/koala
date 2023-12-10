@@ -5,6 +5,7 @@ package cn.koala.persist;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface SystemEntityListener {
 
   default boolean support(Class<?> entityClass) {

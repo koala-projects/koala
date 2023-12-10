@@ -20,6 +20,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Configuration
 public class EntityListenerAutoConfiguration {
 

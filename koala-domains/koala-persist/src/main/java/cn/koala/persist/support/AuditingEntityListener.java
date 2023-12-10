@@ -14,6 +14,7 @@ import org.springframework.data.domain.AuditorAware;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class AuditingEntityListener<T> extends AbstractSystemEntityListener<Auditable<T>> {
 
   protected final AuditorAware<T> auditorAware;

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Stateful {
   /**
    * 获取是否已启用

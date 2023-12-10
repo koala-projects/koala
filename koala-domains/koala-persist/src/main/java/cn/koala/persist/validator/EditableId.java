@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EditableIdValidator.class)

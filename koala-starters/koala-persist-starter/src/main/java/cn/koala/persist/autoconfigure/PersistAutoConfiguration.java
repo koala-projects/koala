@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Configuration
 @EnableConfigurationProperties(InitializerProperties.class)
 @Import({EntityListenerAutoConfiguration.class})

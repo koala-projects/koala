@@ -8,6 +8,7 @@ import cn.koala.persist.domain.YesNo;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class DomainUtils {
 
   public static boolean isSystemic(Object domain) {

@@ -9,6 +9,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface CrudRepository<T, ID> {
   /**
    * 查询全部数据

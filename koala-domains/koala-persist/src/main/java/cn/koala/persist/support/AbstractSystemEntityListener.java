@@ -10,6 +10,7 @@ import cn.koala.util.ClassUtils;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class AbstractSystemEntityListener<T> implements SystemEntityListener {
 
   protected final Class<T> supportEntityClass;

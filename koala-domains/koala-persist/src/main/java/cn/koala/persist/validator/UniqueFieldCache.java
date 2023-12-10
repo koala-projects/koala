@@ -15,6 +15,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class UniqueFieldCache {
   private final static String DEFAULT_MESSAGE_PREFIX = "值";
   private final static String DEFAULT_MESSAGE_VALUE_PLACEHOLDER = "[%s]";

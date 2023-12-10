@@ -8,6 +8,7 @@ import lombok.Getter;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Getter
 public enum CrudType implements EnumAdvice {
 

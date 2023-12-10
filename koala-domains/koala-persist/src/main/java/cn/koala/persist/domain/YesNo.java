@@ -7,6 +7,7 @@ import lombok.Getter;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Getter
 public enum YesNo implements EnumAdvice {
   YES("是", 1),

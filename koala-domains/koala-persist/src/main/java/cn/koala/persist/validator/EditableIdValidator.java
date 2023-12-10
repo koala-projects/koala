@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Component
 public class EditableIdValidator implements ConstraintValidator<EditableId, Object>, ApplicationContextAware {
 

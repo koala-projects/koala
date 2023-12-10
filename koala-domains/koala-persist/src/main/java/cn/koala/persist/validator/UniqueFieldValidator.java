@@ -22,6 +22,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Slf4j
 @Component
 public class UniqueFieldValidator implements ConstraintValidator<UniqueField, Persistable<?>>, ApplicationContextAware {

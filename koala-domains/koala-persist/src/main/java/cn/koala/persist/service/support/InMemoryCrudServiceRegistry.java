@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  *
  * @author Houtaroy
  */
+@Deprecated
 public class InMemoryCrudServiceRegistry implements CrudServiceRegistry {
 
   private final Map<Class<?>, CrudService<?, ?>> services;

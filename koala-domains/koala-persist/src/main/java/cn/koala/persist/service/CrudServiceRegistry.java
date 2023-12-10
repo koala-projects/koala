@@ -9,6 +9,7 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface CrudServiceRegistry {
 
   Optional<CrudService<?, ?>> getService(Class<?> entityClass);

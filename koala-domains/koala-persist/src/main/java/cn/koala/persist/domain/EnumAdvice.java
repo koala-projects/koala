@@ -5,6 +5,7 @@ package cn.koala.persist.domain;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface EnumAdvice {
 
   String getName();
