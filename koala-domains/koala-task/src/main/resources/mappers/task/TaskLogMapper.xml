@@ -30,23 +30,23 @@
   <sql id="orderByField">
     <if test="order.property == 'taskId'">
       t.task_id
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'execution'">
       t.execution
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'taskStatus'">
       t.task_status
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'startTime'">
       t.start_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'endTime'">
       t.end_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 
@@ -79,14 +79,13 @@
 
   <insert id="create" parameterType="cn.koala.task.support.TaskLogEntity" useGeneratedKeys="true" keyProperty="id">
     insert into k_task_log
-      value (
-             #{id},
-             #{taskId},
-             #{execution},
-             #{taskStatus},
-             #{taskError},
-             #{startTime},
-             #{endTime}
+      value ( #{id},
+      #{taskId},
+      #{execution},
+      #{taskStatus},
+      #{taskError},
+      #{startTime},
+      #{endTime}
       )
   </insert>
 

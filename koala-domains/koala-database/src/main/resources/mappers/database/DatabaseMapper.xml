@@ -32,10 +32,12 @@
 
   <sql id="orderByField">
     <if test="order.property == 'name'">
-      t.name <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+      t.name
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'isEnabled'">
-      t.is_enabled <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+      t.is_enabled
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 

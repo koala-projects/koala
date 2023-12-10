@@ -40,11 +40,11 @@
   <sql id="orderByField">
     <if test="order.property == 'nickname'">
       t.nickname
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'createdTime'">
       t.created_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 

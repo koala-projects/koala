@@ -34,27 +34,27 @@
   <sql id="orderByField">
     <if test="order.property == 'id'">
       t.id
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'originalFilename'">
       t.original_filename
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'contentType'">
       t.content_type
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'size'">
       t.size
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'createdBy'">
       t.created_by
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'createdTime'">
       t.created_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 
@@ -90,18 +90,17 @@
 
   <insert id="create" parameterType="cn.koala.attachment.AttachmentEntity" useGeneratedKeys="true" keyProperty="id">
     insert into t_attachment
-      value (
-             #{id},
-             #{originalFilename},
-             #{contentType},
-             #{size},
-             #{storagePath},
-             #{createdBy},
-             #{createdTime},
-             #{lastModifiedBy},
-             #{lastModifiedTime},
-             #{deletedBy},
-             #{deletedTime}
+      value ( #{id},
+      #{originalFilename},
+      #{contentType},
+      #{size},
+      #{storagePath},
+      #{createdBy},
+      #{createdTime},
+      #{lastModifiedBy},
+      #{lastModifiedTime},
+      #{deletedBy},
+      #{deletedTime}
       )
   </insert>
 

@@ -1,4 +1,4 @@
-package cn.koala.mybatis.repository;
+package cn.koala.mybatis.common;
 
 /**
  * 公共仓库接口

@@ -37,27 +37,27 @@
   <sql id="orderByField">
     <if test="order.property == 'name'">
       t.name
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'sortIndex'">
       t.sort_index
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'createdBy'">
       t.created_by
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'createdTime'">
       t.created_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'lastModifiedBy'">
       t.last_modified_by
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'lastModifiedTime'">
       t.last_modified_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 
@@ -94,22 +94,21 @@
 
   <insert id="create" parameterType="cn.koala.task.support.TaskEntity" useGeneratedKeys="true" keyProperty="id">
     insert into k_task
-      value (
-             #{id},
-             #{name},
-             #{remark},
-             #{taskConfig},
-             #{triggerConfig},
-             #{sortIndex},
-             #{isEnabled},
-             #{isSystemic},
-             #{isDeleted},
-             #{createdBy},
-             #{createdTime},
-             #{lastModifiedBy},
-             #{lastModifiedTime},
-             #{deletedBy},
-             #{deletedTime}
+      value ( #{id},
+      #{name},
+      #{remark},
+      #{taskConfig},
+      #{triggerConfig},
+      #{sortIndex},
+      #{isEnabled},
+      #{isSystemic},
+      #{isDeleted},
+      #{createdBy},
+      #{createdTime},
+      #{lastModifiedBy},
+      #{lastModifiedTime},
+      #{deletedBy},
+      #{deletedTime}
       )
   </insert>
 

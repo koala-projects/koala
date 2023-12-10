@@ -115,10 +115,10 @@ GET http://127.0.0.1:9000/user?page=0&size=10&sort=created_time,desc&sort=name,a
   <sql id="orderByField">
     <!--注意: 如果前端传值错误, 此处会抛出异常-->
     <if test="order.property == 'name'">
-      t.name <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+      t.name <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection" />
     </if>
     <if test="order.property == 'createdTime'">
-      t.created_time <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+      t.created_time <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection" />
     </if>
   </sql>
     

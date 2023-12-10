@@ -30,7 +30,7 @@
   <sql id="orderByField">
     <if test="order.property == 'logTime'">
       t.log_time
-      <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection"/>
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 
