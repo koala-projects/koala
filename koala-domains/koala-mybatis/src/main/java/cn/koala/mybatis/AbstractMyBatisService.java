@@ -15,6 +15,7 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
+@Deprecated
 public abstract class AbstractMyBatisService<T, ID> extends AbstractCrudService<T, ID> {
 
   @Override

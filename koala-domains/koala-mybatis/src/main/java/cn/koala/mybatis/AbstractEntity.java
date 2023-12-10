@@ -19,6 +19,7 @@ import java.util.Date;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
@@ -53,7 +54,7 @@ public abstract class AbstractEntity<T> implements Persistable<T>, Sortable, Sta
 
   @Schema(description = "最后删除者")
   protected Long deletedBy;
-  
+
   @Schema(description = "最后删除时间")
   protected Date deletedTime;
 }
