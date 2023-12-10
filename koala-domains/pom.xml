@@ -22,6 +22,7 @@
     <module>koala-cache</module>
     <module>koala-code-gen</module>
     <module>koala-core</module>
+    <module>koala-data</module>
     <module>koala-data-source</module>
     <module>koala-database</module>
     <module>koala-log</module>
