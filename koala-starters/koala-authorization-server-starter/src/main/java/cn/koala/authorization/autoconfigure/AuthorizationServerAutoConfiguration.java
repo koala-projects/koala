@@ -63,6 +63,7 @@ import java.util.List;
 @MapperScan({
   "cn.koala.authorization.repository",
   "cn.koala.authorization.client.repository",
+  "cn.koala.security.log.repository"
 })
 public class AuthorizationServerAutoConfiguration {
 

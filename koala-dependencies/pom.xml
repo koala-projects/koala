@@ -409,11 +409,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-toolkit</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-validation</artifactId>
         <version>${revision}</version>
       </dependency>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.koala.security.log.repository.AuthenticateLogRepository">
+
+  <sql id="selectAuthenticateLog">
+    select t.id,
+           t.remote_address,
+           t.session_id,
+           t.authentication,
+           t.is_successful,
+           t.exception_message,
+           t.log_time
+    from k_authenticate_log t
+  </sql>
+
+  <sql id="orderBy">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="orderByField"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.id asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="orderByField">
+    <if test="order.property == 'logTime'">
+      t.log_time
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
+  <select id="list" resultType="cn.koala.security.log.AuthenticateLog">
+    <include refid="selectAuthenticateLog"/>
+    <where>
+      <if test="remoteAddress != null and remoteAddress != ''">
+        and t.remote_address = #{remoteAddress}
+      </if>
+      <if test="sessionId != null and sessionId != ''">
+        and t.session_id = #{sessionId}
+      </if>
+      <if test="isSuccessful != null and isSuccessful != ''">
+        and t.is_successful = #{isSuccessful}
+      </if>
+      <if test="logTimeStart != null and logTimeStart != ''">
+        and t.log_time &gt;= #{logTimeStart}
+      </if>
+      <if test="logTimeEnd != null and logTimeEnd != ''">
+        and t.log_time &lt;= #{logTimeEnd}
+      </if>
+    </where>
+    <include refid="orderBy"/>
+  </select>
+
+  <select id="load" resultType="cn.koala.security.log.AuthenticateLog">
+    <include refid="selectAuthenticateLog"/>
+    where t.id = #{id}
+  </select>
+
+  <insert id="create" parameterType="cn.koala.security.log.AuthenticateLog" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into k_authenticate_log(id, remote_address, session_id, authentication, is_successful, exception_message,
+                                   log_time)
+    values (#{id}, #{remoteAddress}, #{sessionId}, #{authentication}, #{isSuccessful}, #{exceptionMessage},
+            #{logTime})
+  </insert>
+
+  <update id="update" parameterType="cn.koala.security.log.AuthenticateLog">
+    update k_authenticate_log
+    <trim prefix="set" suffixOverrides=",">
+      <if test="remoteAddress != null">remote_address=#{remoteAddress},</if>
+      <if test="sessionId != null">session_id=#{sessionId},</if>
+      <if test="authentication != null">authentication=#{authentication},</if>
+      <if test="isSuccessful != null">is_successful=#{isSuccessful},</if>
+      <if test="exceptionMessage != null">exception_message=#{exceptionMessage},</if>
+      <if test="logTime != null">log_time=#{logTime},</if>
+    </trim>
+    where id=#{id}
+  </update>
+
+  <update id="delete" parameterType="cn.koala.security.log.AuthenticateLog">
+    delete
+    from k_authenticate_log
+    where id = #{id}
+  </update>
+</mapper>
