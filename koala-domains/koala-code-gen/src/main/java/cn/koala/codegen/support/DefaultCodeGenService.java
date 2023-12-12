@@ -8,7 +8,7 @@ import cn.koala.database.services.DatabaseService;
 import cn.koala.exception.BusinessException;
 import cn.koala.template.Template;
 import cn.koala.template.TemplateGroupService;
-import cn.koala.util.BusinessAssert;
+import cn.koala.util.Assert;
 import cn.koala.util.CompressUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -68,7 +68,7 @@ public class DefaultCodeGenService implements CodeGenService {
   public Map<String, List<CodeGenResult>> preview(Long databaseId, List<String> tableNames, Long templateGroupId) {
     List<DatabaseTable> tables = databaseService.listTable(databaseId, tableNames);
     List<Template> templates = templateGroupService.listTemplate(templateGroupId);
-    BusinessAssert.notEmpty(templates, "未找到指定的代码模板");
+    Assert.notEmpty(templates, "未找到指定的代码模板");
     return tables.stream().collect(Collectors.toMap(DatabaseTable::getName, table -> generate(table, templates)));
   }
 

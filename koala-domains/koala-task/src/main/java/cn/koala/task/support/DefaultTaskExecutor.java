@@ -7,7 +7,7 @@ import cn.koala.task.TaskInstanceFactory;
 import cn.koala.task.TaskLog;
 import cn.koala.task.TaskLogService;
 import cn.koala.task.TaskTriggerFactory;
-import cn.koala.util.BusinessAssert;
+import cn.koala.util.Assert;
 import cn.koala.util.LocalDateTimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +37,11 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
   @Override
   public void schedule(Task task) {
-    BusinessAssert.notNull(task, "任务不存在");
+    Assert.notNull(task, "任务不存在");
     String key = task.getName();
-    BusinessAssert.isTrue(!instances.containsKey(key), "任务已在计划中");
+    Assert.isTrue(!instances.containsKey(key), "任务已在计划中");
     Runnable instance = instanceFactory.from(task);
-    BusinessAssert.notNull(instance, "任务实例创建失败");
+    Assert.notNull(instance, "任务实例创建失败");
     ScheduledFuture<?> future = scheduler.schedule(
       new TaskLogWrapper(task, TaskLog.Execution.AUTO),
       triggerFactory.from(task)
@@ -51,7 +51,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
   @Override
   public void cancel(Task task) {
-    BusinessAssert.notNull(task, "任务不存在");
+    Assert.notNull(task, "任务不存在");
     String key = task.getName();
     ScheduledFuture<?> instance = instances.get(key);
     if (instance != null) {
@@ -62,9 +62,9 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
   @Override
   public TaskExecuteResult execute(Task task) {
-    BusinessAssert.notNull(task, "任务不存在");
+    Assert.notNull(task, "任务不存在");
     Runnable instance = instanceFactory.from(task);
-    BusinessAssert.notNull(instance, "任务实例创建失败");
+    Assert.notNull(instance, "任务实例创建失败");
     return new TaskLogWrapper(task, TaskLog.Execution.MANUAL).doRun();
   }
 

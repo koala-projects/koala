@@ -6,7 +6,7 @@ import cn.koala.attachment.AttachmentEntity;
 import cn.koala.attachment.AttachmentService;
 import cn.koala.attachment.storage.AttachmentStorage;
 import cn.koala.exception.BusinessException;
-import cn.koala.util.BusinessAssert;
+import cn.koala.util.Assert;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import jakarta.servlet.ServletOutputStream;
@@ -70,7 +70,7 @@ public class DefaultAttachmentApi implements AttachmentApi {
   public void download(Long id, HttpServletResponse response) {
     try {
       Attachment attachment = this.service.load(id);
-      BusinessAssert.notNull(attachment, "附件不存在");
+      Assert.notNull(attachment, "附件不存在");
       try (InputStream inputStream = this.storage.download(attachment);
            ServletOutputStream outputStream = response.getOutputStream()) {
         String filename = URLEncoder.encode(attachment.getOriginalFilename(), StandardCharsets.UTF_8);

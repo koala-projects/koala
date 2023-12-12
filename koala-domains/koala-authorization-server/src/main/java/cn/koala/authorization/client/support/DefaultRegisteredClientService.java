@@ -5,7 +5,7 @@ import cn.koala.authorization.client.RegisteredClientEntity;
 import cn.koala.authorization.client.RegisteredClientService;
 import cn.koala.authorization.client.mapper.RegisteredClientDTOMapper;
 import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
-import cn.koala.util.BusinessAssert;
+import cn.koala.util.Assert;
 import com.github.pagehelper.PageHelper;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
@@ -53,7 +53,7 @@ public class DefaultRegisteredClientService implements RegisteredClientService {
   @Override
   public RegisteredClientDTO load(String id) {
     RegisteredClient persist = this.repository.findById(id);
-    BusinessAssert.notNull(persist, "注册客户端不存在");
+    Assert.notNull(persist, "注册客户端不存在");
     return RegisteredClientDTO.from(persist);
   }
 

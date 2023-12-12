@@ -8,7 +8,7 @@ import cn.koala.database.SimpleDatabaseTableColumn;
 import cn.koala.database.repositories.DatabaseRepository;
 import cn.koala.exception.BusinessException;
 import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.util.BusinessAssert;
+import cn.koala.util.Assert;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,14 +52,14 @@ public class DefaultDatabaseService extends AbstractMyBatisService<Database, Lon
 
   @Override
   public List<DatabaseTable> listTable(Long id, List<String> names) {
-    BusinessAssert.notEmpty(names, "表名不能为空");
+    Assert.notEmpty(names, "表名不能为空");
     Database database = repository.load(id).orElseThrow(() -> new BusinessException("数据库不存在"));
     return names.stream().map(name -> loadTable(database, name)).toList();
   }
 
   @Override
   public DatabaseTable loadTable(Long id, String name) {
-    BusinessAssert.hasLength(name, "表名不能为空");
+    Assert.hasLength(name, "表名不能为空");
     Database database = repository.load(id).orElseThrow(() -> new BusinessException("数据库不存在"));
     return loadTable(database, name);
   }
