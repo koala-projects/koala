@@ -1,10 +1,11 @@
 package cn.koala.system.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.system.model.User;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.system.domain.User;
 import cn.koala.system.repository.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.AuditorAware;
 
 import java.util.List;
 
@@ -13,11 +14,13 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @Getter
-public class UserServiceImpl extends AbstractMyBatisService<User, Long> implements UserService {
+@RequiredArgsConstructor
+public class UserServiceImpl extends AbstractSmartService<Long, User, Long> implements UserService {
 
-  protected final UserRepository repository;
+  private final UserRepository repository;
+
+  private final AuditorAware<Long> auditorAware;
 
   @Override
   public List<Long> getRoleIds(Long id) {

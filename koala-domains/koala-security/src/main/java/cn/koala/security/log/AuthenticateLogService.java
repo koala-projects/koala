@@ -1,6 +1,6 @@
 package cn.koala.security.log;
 
-import cn.koala.persist.CrudService;
+import cn.koala.data.service.CrudService;
 
 /**
  * 认证日志服务

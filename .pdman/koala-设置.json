@@ -17,7 +17,8 @@
           "domain": "IdOrKey",
           "refDict": "",
           "uiHint": "",
-          "id": "ADB3AD14-6603-43E2-8261-114E32442B5B"
+          "id": "ADB3AD14-6603-43E2-8261-114E32442B5B",
+          "baseType": "19A8E4E1-6A15-4A94-BF58-21437D3DB402"
         },
         {
           "defKey": "sort_index",
@@ -29,16 +30,17 @@
           "primaryKey": false,
           "notNull": false,
           "autoIncrement": false,
-          "defaultValue": "0",
+          "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
           "extProps": {},
           "domain": "Int",
           "id": "F314F696-A4E1-4B05-87D0-41E9EA22A2C3",
+          "baseType": "1D764C4A-6F9F-421E-B11A-6F3E23B51811",
           "uiHint": ""
         },
         {
-          "defKey": "is_enabled",
+          "defKey": "enabled",
           "defName": "是否启用",
           "comment": "",
           "type": "",
@@ -47,16 +49,17 @@
           "primaryKey": false,
           "notNull": true,
           "autoIncrement": false,
-          "defaultValue": "1",
+          "defaultValue": "'YES'",
           "hideInGraph": false,
           "refDict": "",
           "extProps": {},
-          "domain": "Int",
+          "domain": "enum-string",
           "id": "6C517FBF-207C-4A8D-9C23-1F96BB02996B",
-          "uiHint": ""
+          "uiHint": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
         },
         {
-          "defKey": "is_systemic",
+          "defKey": "systemic",
           "defName": "是否系统",
           "comment": "",
           "type": "",
@@ -65,30 +68,32 @@
           "primaryKey": false,
           "notNull": true,
           "autoIncrement": false,
-          "defaultValue": "0",
+          "defaultValue": "'NO'",
           "hideInGraph": false,
           "refDict": "",
           "extProps": {},
-          "domain": "Int",
+          "domain": "enum-string",
           "id": "5A1FE5AB-10EB-4BF2-BC30-6CADBCB9D60F",
-          "uiHint": ""
+          "uiHint": "",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
         },
         {
-          "defKey": "is_deleted",
+          "defKey": "deleted",
           "defName": "是否删除",
           "comment": "",
-          "domain": "Int",
+          "domain": "enum-string",
           "type": "",
           "len": "",
           "scale": "",
           "primaryKey": false,
           "notNull": true,
           "autoIncrement": false,
-          "defaultValue": "0",
+          "defaultValue": "'NO'",
           "hideInGraph": true,
           "refDict": "",
           "uiHint": "",
-          "id": "39A46A5D-DD93-4A98-8F1B-4669C3F6F1E6"
+          "id": "39A46A5D-DD93-4A98-8F1B-4669C3F6F1E6",
+          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
         },
         {
           "defKey": "created_by",
@@ -106,10 +111,11 @@
           "extProps": {},
           "domain": "IdOrKey",
           "id": "05F4E307-4DAE-403F-AC53-419F091696E6",
+          "baseType": "19A8E4E1-6A15-4A94-BF58-21437D3DB402",
           "uiHint": ""
         },
         {
-          "defKey": "created_time",
+          "defKey": "created_date",
           "defName": "创建时间",
           "comment": "",
           "type": "",
@@ -124,6 +130,7 @@
           "extProps": {},
           "domain": "DateTime",
           "id": "E36E40CD-C03B-49C0-BC36-DDBE4409A101",
+          "baseType": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
           "uiHint": ""
         },
         {
@@ -142,10 +149,11 @@
           "extProps": {},
           "domain": "IdOrKey",
           "id": "E39CCBF4-3019-4010-8CBA-F512E7C2112E",
+          "baseType": "19A8E4E1-6A15-4A94-BF58-21437D3DB402",
           "uiHint": ""
         },
         {
-          "defKey": "last_modified_time",
+          "defKey": "last_modified_date",
           "defName": "最后更新时间",
           "comment": "",
           "type": "",
@@ -160,6 +168,7 @@
           "extProps": {},
           "domain": "DateTime",
           "id": "06222E44-4630-4267-8CFF-BF1E8DA8DC88",
+          "baseType": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
           "uiHint": ""
         },
         {
@@ -178,10 +187,11 @@
           "extProps": {},
           "domain": "IdOrKey",
           "id": "BCEFBE3D-D2C7-4B16-A86A-A3260F84FE5F",
+          "baseType": "19A8E4E1-6A15-4A94-BF58-21437D3DB402",
           "uiHint": ""
         },
         {
-          "defKey": "deleted_time",
+          "defKey": "deleted_date",
           "defName": "删除时间",
           "comment": "",
           "type": "",
@@ -196,6 +206,7 @@
           "extProps": {},
           "domain": "DateTime",
           "id": "F9E5A143-59DD-439C-AA8E-FC615D3804CE",
+          "baseType": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
           "uiHint": ""
         }
       ],

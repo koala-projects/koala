@@ -46,6 +46,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -75,8 +76,10 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository) {
-    return new DictionaryServiceImpl(dictionaryRepository);
+  public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository,
+                                             AuditorAware<Long> auditorAware) {
+
+    return new DictionaryServiceImpl(dictionaryRepository, auditorAware);
   }
 
   @Bean
@@ -123,8 +126,8 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public RoleService roleService(RoleRepository roleRepository) {
-    return new RoleServiceImpl(roleRepository);
+  public RoleService roleService(RoleRepository roleRepository, AuditorAware<Long> auditorAware) {
+    return new RoleServiceImpl(roleRepository, auditorAware);
   }
 
   @Bean
@@ -147,8 +150,8 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository) {
-    return new UserServiceImpl(userRepository);
+  public UserService userService(UserRepository userRepository, AuditorAware<Long> auditorAware) {
+    return new UserServiceImpl(userRepository, auditorAware);
   }
 
   @Bean

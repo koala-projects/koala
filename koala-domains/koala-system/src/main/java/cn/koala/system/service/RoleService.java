@@ -1,8 +1,8 @@
 package cn.koala.system.service;
 
-import cn.koala.persist.CrudService;
-import cn.koala.system.model.Role;
-import cn.koala.system.model.User;
+import cn.koala.data.service.CrudService;
+import cn.koala.system.domain.Role;
+import cn.koala.system.domain.User;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface RoleService extends CrudService<Role, Long> {
+  
   List<Long> getCheckedPermissionIds(Long id);
 
   void authorize(Long id, List<Long> checkedIds, List<Long> halfCheckedIds);

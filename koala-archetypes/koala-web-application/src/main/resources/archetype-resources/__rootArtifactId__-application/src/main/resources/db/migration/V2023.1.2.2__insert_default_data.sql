@@ -339,7 +339,7 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
   <sql id="orderByField">
 #for(property: properties)
     <if test="order.property == ''#(property.name.camel.singular)''">
-        t.#(property.name.snake.singular) <include refid="cn.koala.mybatis.repository.CommonRepository.orderDirection" />
+        t.#(property.name.snake.singular) <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection" />
     </if>
 #end
   </sql>

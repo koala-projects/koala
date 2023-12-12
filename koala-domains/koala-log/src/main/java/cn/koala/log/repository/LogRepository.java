@@ -1,7 +1,7 @@
-package cn.koala.log.repositories;
+package cn.koala.log.repository;
 
 import cn.koala.log.Log;
-import cn.koala.persist.CrudRepository;
+import cn.koala.mybatis.repository.CrudRepository;
 
 /**
  * 日志仓库接口

@@ -1,10 +1,10 @@
 package cn.koala.system.api;
 
-import cn.koala.log.annotations.Log;
+import cn.koala.log.annotation.Log;
 import cn.koala.system.api.request.RoleAuthorizeRequest;
-import cn.koala.system.model.Role;
-import cn.koala.system.model.RoleEntity;
-import cn.koala.system.model.User;
+import cn.koala.system.domain.Role;
+import cn.koala.system.domain.RoleEntity;
+import cn.koala.system.domain.User;
 import cn.koala.system.service.RoleService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -21,10 +21,11 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class RoleApiImpl implements RoleApi {
-  protected final RoleService roleService;
+
+  private final RoleService roleService;
 
   @Override
   @Log(module = "角色管理", content = "查询角色列表")
@@ -48,7 +49,7 @@ public class RoleApiImpl implements RoleApi {
   @Override
   @Log(module = "角色管理", content = "更新角色[id=${#id}]")
   public Response update(Long id, RoleEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     roleService.update(entity);
     return Response.SUCCESS;
   }

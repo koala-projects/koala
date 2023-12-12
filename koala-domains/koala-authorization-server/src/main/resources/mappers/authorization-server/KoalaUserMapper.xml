@@ -8,7 +8,7 @@
     <result property="username" column="username"/>
     <result property="password" column="password"/>
     <result property="nickname" column="nickname"/>
-    <result property="isEnabled" column="is_enabled"/>
+    <result property="enabled" column="enabled"/>
     <collection property="permissionCodes" ofType="java.lang.String">
       <result column="permission.code"/>
     </collection>
@@ -19,13 +19,13 @@
            t.username,
            t.password,
            t.nickname,
-           t.is_enabled,
+           t.enabled,
            p.code as "permission.code"
     from k_user t
            left join k_user_role ur on ur.user_id = t.id
            left join k_role_permission rp on rp.role_id = ur.role_id
            left join k_permission p on rp.permission_id = p.id
-    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
+    where t.deleted = '${@cn.koala.data.domain.YesNo@NO.name()}'
       and t.username = #{username}
   </select>
 

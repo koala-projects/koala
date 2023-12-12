@@ -1,7 +1,7 @@
 package cn.koala.system.repository;
 
-import cn.koala.persist.CrudRepository;
-import cn.koala.system.model.User;
+import cn.koala.mybatis.repository.CrudRepository;
+import cn.koala.system.domain.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface UserRepository extends CrudRepository<User, Long> {
+
   List<Long> findAllRoleIdById(Long id);
 
   void updateRoleIdById(@Param("id") Long id, @Param("roleIds") List<Long> roleIds);

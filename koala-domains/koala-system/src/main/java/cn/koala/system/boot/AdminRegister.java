@@ -1,11 +1,11 @@
 package cn.koala.system.boot;
 
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
+import cn.koala.system.domain.Role;
+import cn.koala.system.domain.RoleEntity;
+import cn.koala.system.domain.User;
+import cn.koala.system.domain.UserEntity;
 import cn.koala.system.model.Permission;
-import cn.koala.system.model.Role;
-import cn.koala.system.model.RoleEntity;
-import cn.koala.system.model.User;
-import cn.koala.system.model.UserEntity;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
@@ -66,11 +66,11 @@ public class AdminRegister implements ApplicationRunner {
       .code("admin")
       .name("系统管理员")
       .sortIndex(ADMIN_ID)
-      .isSystemic(YesNo.YES)
-      .isEnabled(YesNo.YES)
-      .isDeleted(YesNo.NO)
+      .enabled(YesNo.YES)
+      .systemic(YesNo.YES)
+      .deleted(YesNo.NO)
       .createdBy(ADMIN_ID)
-      .createdTime(LocalDateTimeUtils.toDate())
+      .createdDate(LocalDateTimeUtils.toDate())
       .build();
   }
 
@@ -93,11 +93,11 @@ public class AdminRegister implements ApplicationRunner {
       .password(this.passwordEncoder.encode("123456"))
       .nickname("系统管理员")
       .sortIndex(ADMIN_ID)
-      .isSystemic(YesNo.YES)
-      .isEnabled(YesNo.YES)
-      .isDeleted(YesNo.NO)
+      .enabled(YesNo.YES)
+      .systemic(YesNo.YES)
+      .deleted(YesNo.NO)
       .createdBy(ADMIN_ID)
-      .createdTime(LocalDateTimeUtils.toDate())
+      .createdDate(LocalDateTimeUtils.toDate())
       .build();
   }
 }

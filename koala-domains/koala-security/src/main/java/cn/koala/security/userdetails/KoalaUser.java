@@ -1,6 +1,6 @@
 package cn.koala.security.userdetails;
 
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
 import cn.koala.security.userdetails.support.UserDetailsHelper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class KoalaUser implements UserDetails {
 
   private String nickname;
 
-  private YesNo isEnabled;
+  private YesNo enabled;
 
   private List<String> permissionCodes;
 
@@ -61,6 +61,6 @@ public class KoalaUser implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return isEnabled == YesNo.YES;
+    return getEnabled() == YesNo.YES;
   }
 }

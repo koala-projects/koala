@@ -2,11 +2,11 @@ package cn.koala.log.autoconfigure;
 
 import cn.koala.log.LogAspect;
 import cn.koala.log.LogProperties;
-import cn.koala.log.apis.LogApi;
-import cn.koala.log.apis.LogApiImpl;
-import cn.koala.log.repositories.LogRepository;
-import cn.koala.log.services.LogService;
-import cn.koala.log.services.LogServiceImpl;
+import cn.koala.log.api.LogApi;
+import cn.koala.log.api.LogApiImpl;
+import cn.koala.log.repository.LogRepository;
+import cn.koala.log.service.LogService;
+import cn.koala.log.service.LogServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.ObjectProvider;
@@ -24,7 +24,7 @@ import org.springframework.data.domain.AuditorAware;
  */
 @Configuration
 @EnableConfigurationProperties(LogProperties.class)
-@MapperScan(basePackages = "cn.koala.log.repositories")
+@MapperScan(basePackages = "cn.koala.log.repository")
 public class LogAutoConfiguration {
 
   @Bean

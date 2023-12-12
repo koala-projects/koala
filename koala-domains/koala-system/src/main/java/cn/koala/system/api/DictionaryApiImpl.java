@@ -1,8 +1,8 @@
 package cn.koala.system.api;
 
-import cn.koala.log.annotations.Log;
-import cn.koala.system.model.Dictionary;
-import cn.koala.system.model.DictionaryEntity;
+import cn.koala.log.annotation.Log;
+import cn.koala.system.domain.Dictionary;
+import cn.koala.system.domain.DictionaryEntity;
 import cn.koala.system.service.DictionaryService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -18,10 +18,11 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class DictionaryApiImpl implements DictionaryApi {
-  protected final DictionaryService service;
+
+  private final DictionaryService service;
 
   @Override
   @Log(module = "字典管理", content = "查询字典列表")
@@ -45,7 +46,7 @@ public class DictionaryApiImpl implements DictionaryApi {
   @Override
   @Log(module = "字典管理", content = "更新字典[id=${#id}]")
   public Response update(Long id, DictionaryEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

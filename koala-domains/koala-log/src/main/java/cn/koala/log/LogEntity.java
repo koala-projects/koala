@@ -1,7 +1,7 @@
 package cn.koala.log;
 
 import cn.koala.Koala;
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -22,16 +22,21 @@ public class LogEntity implements Log, Serializable {
 
   @Serial
   private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
-  
+
   protected Long id;
   protected String module;
   protected String content;
   protected Long userId;
   protected String userIp;
-  protected YesNo isSucceeded;
+  protected YesNo successful;
   protected String request;
   protected String response;
   protected String error;
   protected Long cost;
   protected Date logTime;
+
+  @Override
+  public boolean isNew() {
+    return false;
+  }
 }

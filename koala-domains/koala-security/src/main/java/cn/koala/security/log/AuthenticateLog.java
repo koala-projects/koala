@@ -1,10 +1,10 @@
 package cn.koala.security.log;
 
-import cn.koala.persist.domain.Persistable;
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.domain.Persistable;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -29,11 +29,16 @@ public class AuthenticateLog implements Persistable<Long> {
 
   protected String authentication;
 
-  protected YesNo isSuccessful;
+  protected YesNo successful;
 
   protected String exceptionMessage;
 
   protected Date logTime;
+
+  @Override
+  public boolean isNew() {
+    return false;
+  }
 
   public static AuthenticateLog from(AbstractAuthenticationEvent event) {
     AuthenticateLog result = new AuthenticateLog();
@@ -56,10 +61,10 @@ public class AuthenticateLog implements Persistable<Long> {
 
   protected void setStatus(AbstractAuthenticationEvent event) {
     if (event instanceof AbstractAuthenticationFailureEvent failureEvent) {
-      setIsSuccessful(YesNo.NO);
+      setSuccessful(YesNo.NO);
       setExceptionMessage(failureEvent.getException().getMessage());
     } else {
-      setIsSuccessful(YesNo.YES);
+      setSuccessful(YesNo.YES);
     }
   }
 }

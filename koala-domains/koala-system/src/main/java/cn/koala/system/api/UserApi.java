@@ -1,10 +1,9 @@
 package cn.koala.system.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
 import cn.koala.system.api.request.UserCreateRequest;
-import cn.koala.system.model.User;
-import cn.koala.system.model.UserEntity;
+import cn.koala.system.domain.User;
+import cn.koala.system.domain.UserEntity;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataRequest;
@@ -40,11 +39,10 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequestMapping("/api/users")
 @RestController
-@Validated
-@SecurityRequirement(name = "spring-security")
+@RequestMapping("/api/users")
 @Tag(name = "01-01 用户管理")
+@SecurityRequirement(name = "spring-security")
 public interface UserApi {
 
   /**
@@ -110,8 +108,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(User.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody UserEntity user);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody UserEntity user);
 
   /**
    * 删除用户
@@ -126,7 +123,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(User.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   /**
    * 根据id查询用户角色id列表
@@ -157,8 +154,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "integer"))
   @PutMapping("{id}/role-ids")
-  Response setRoleIds(@EditableId(User.class) @PathVariable("id") Long id,
-                      @RequestBody DataRequest<List<Long>> request);
+  Response setRoleIds(@PathVariable("id") Long id, @RequestBody DataRequest<List<Long>> request);
 
   /**
    * 根据id查询用户部门id列表
@@ -189,8 +185,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "integer"))
   @PutMapping("{id}/department-ids")
-  Response setDepartmentIds(@EditableId(User.class) @PathVariable("id") Long id,
-                            @RequestBody DataRequest<List<Long>> request);
+  Response setDepartmentIds(@PathVariable("id") Long id, @RequestBody DataRequest<List<Long>> request);
 
   /**
    * 根据id查询用户岗位id列表
@@ -221,8 +216,7 @@ public interface UserApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "用户id", schema = @Schema(type = "integer"))
   @PutMapping("{id}/duty-ids")
-  Response setUserDuties(@EditableId(User.class) @PathVariable("id") Long id,
-                         @RequestBody DataRequest<List<Long>> request);
+  Response setUserDuties(@PathVariable("id") Long id, @RequestBody DataRequest<List<Long>> request);
 
 
   class UserPageResult extends DataResponse<Page<User>> {

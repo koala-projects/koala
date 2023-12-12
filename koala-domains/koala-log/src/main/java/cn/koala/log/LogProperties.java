@@ -11,8 +11,8 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@ConfigurationProperties(prefix = "koala.log")
 @Data
+@ConfigurationProperties(prefix = "koala.log")
 public class LogProperties {
   private boolean enabled = true;
   private List<String> ignoredPatterns = new ArrayList<>();

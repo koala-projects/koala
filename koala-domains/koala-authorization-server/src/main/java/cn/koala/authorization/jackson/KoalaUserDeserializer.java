@@ -1,6 +1,6 @@
 package cn.koala.authorization.jackson;
 
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
 import cn.koala.security.userdetails.KoalaUser;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -34,13 +34,13 @@ public class KoalaUserDeserializer extends JsonDeserializer<KoalaUser> {
     String username = readJsonNode(jsonNode, "username").asText();
     String password = readJsonNode(jsonNode, "password").asText("");
     String nickname = readJsonNode(jsonNode, "nickname").asText("");
-    YesNo isEnable = YesNo.valueOf(readJsonNode(jsonNode, "isEnable").asText("NO"));
+    YesNo enabled = YesNo.valueOf(readJsonNode(jsonNode, "enabled").asText("NO"));
     return KoalaUser.builder()
       .id(id)
       .username(username)
       .password(password)
       .nickname(nickname)
-      .isEnabled(isEnable)
+      .enabled(enabled)
       .authorities(authorities)
       .build();
   }

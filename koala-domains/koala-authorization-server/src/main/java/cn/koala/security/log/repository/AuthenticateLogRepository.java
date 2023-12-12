@@ -1,6 +1,6 @@
 package cn.koala.security.log.repository;
 
-import cn.koala.persist.CrudRepository;
+import cn.koala.mybatis.repository.CrudRepository;
 import cn.koala.security.log.AuthenticateLog;
 
 /**

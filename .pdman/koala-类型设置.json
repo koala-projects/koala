@@ -284,24 +284,6 @@
   },
   "domains": [
     {
-      "defKey": "DefaultString",
-      "defName": "默认字串",
-      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 255,
-      "scale": "",
-      "uiHint": "",
-      "id": "9092C4E0-1A54-4859-ABBB-5B62DBC27573"
-    },
-    {
-      "defKey": "Name",
-      "defName": "名称",
-      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 100,
-      "scale": "",
-      "uiHint": "",
-      "id": "54611CCC-CA4B-42E1-9F32-4944C85B85A6"
-    },
-    {
       "defKey": "IdOrKey",
       "defName": "主键",
       "applyFor": "19A8E4E1-6A15-4A94-BF58-21437D3DB402",
@@ -347,15 +329,6 @@
       "id": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC"
     },
     {
-      "defKey": "YesNo",
-      "defName": "是否",
-      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": "1",
-      "scale": "",
-      "uiHint": "",
-      "id": "6F7C1C5C-D159-41E6-BF9D-54DEEFA79AFF"
-    },
-    {
       "defKey": "Dict",
       "defName": "数据字典",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
@@ -365,49 +338,40 @@
       "id": "73FD2BAD-2358-4336-B96D-45DC897BD792"
     },
     {
-      "defKey": "remark",
-      "defName": "备注",
+      "defKey": "enum-string",
+      "defName": "字符枚举",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 500,
+      "len": 20,
       "scale": "",
       "uiHint": "",
-      "id": "79F98B7E-549E-4EDB-959B-B2B87E962332"
+      "id": "F96A35F2-B76B-43BF-97D0-C7A420ABD94D"
     },
     {
-      "defKey": "LongText",
-      "defName": "长文本",
+      "defKey": "code",
+      "defName": "代码",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 2000,
+      "len": 20,
       "scale": "",
       "uiHint": "",
-      "id": "C4726CFF-54BE-4ADF-B475-065284054815"
+      "id": "EB087728-6581-4294-9819-8E6AC695C53B"
     },
     {
-      "defKey": "Text",
-      "defName": "大文本",
-      "applyFor": "B17BDED3-085F-40E1-9019-3B79CF2BF075",
-      "len": "",
+      "defKey": "name",
+      "defName": "名称",
+      "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+      "len": 20,
       "scale": "",
       "uiHint": "",
-      "id": "CD2D6622-959E-4FF8-A182-0EEA5AB808A8"
+      "id": "D6785B2A-5D68-4C9D-9949-A2AEBCF3245F"
     },
     {
       "defKey": "description",
       "defName": "描述",
       "applyFor": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
-      "len": 500,
+      "len": 200,
       "scale": "",
       "uiHint": "",
-      "id": "17D5B117-A906-45DC-BE58-300D90969F7B"
-    },
-    {
-      "defKey": "json",
-      "defName": "JSON",
-      "applyFor": "A218CF5C-C133-4F45-B15C-7A1BE19EF5BE",
-      "len": "",
-      "scale": "",
-      "uiHint": "",
-      "id": "1C9679AC-7EC1-4608-BBE0-5E5C184DB920"
+      "id": "661E72E3-AABC-4511-B95B-4D378DFEB175"
     }
   ]
 }

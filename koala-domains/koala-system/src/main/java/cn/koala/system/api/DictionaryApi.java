@@ -1,9 +1,8 @@
 package cn.koala.system.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
-import cn.koala.system.model.Dictionary;
-import cn.koala.system.model.DictionaryEntity;
+import cn.koala.system.domain.Dictionary;
+import cn.koala.system.domain.DictionaryEntity;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -39,7 +38,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/dictionaries")
-@Validated
 @Tag(name = "01-06 字典管理")
 @SecurityRequirement(name = "spring-security")
 public interface DictionaryApi {
@@ -106,8 +104,7 @@ public interface DictionaryApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典id", schema = @Schema(type = "string"))
   @PutMapping("{id}")
-  Response update(@EditableId(Dictionary.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody DictionaryEntity entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody DictionaryEntity entity);
 
   /**
    * 删除字典
@@ -122,7 +119,7 @@ public interface DictionaryApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典id", schema = @Schema(type = "string"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(Dictionary.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   class DictionaryPageResult extends DataResponse<Page<DictionaryEntity>> {
 

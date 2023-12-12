@@ -1,7 +1,7 @@
-package cn.koala.log.apis;
+package cn.koala.log.api;
 
 import cn.koala.log.Log;
-import cn.koala.log.services.LogService;
+import cn.koala.log.service.LogService;
 import cn.koala.web.DataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,8 +15,8 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class LogApiImpl implements LogApi {
   protected final LogService service;
 

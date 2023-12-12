@@ -1,6 +1,6 @@
 package cn.koala.system.api;
 
-import cn.koala.log.annotations.Log;
+import cn.koala.log.annotation.Log;
 import cn.koala.system.model.DictionaryItem;
 import cn.koala.system.model.DictionaryItemEntity;
 import cn.koala.system.service.DictionaryItemService;

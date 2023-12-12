@@ -3,58 +3,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.koala.system.repository.UserRepository">
 
-  <sql id="selectUser">
+  <sql id="select">
     select t.id,
            t.username,
            t.nickname,
            t.avatar,
            t.email,
            t.mobile,
-           t.remark,
+           t.description,
            t.sort_index,
-           t.is_enabled,
-           t.is_systemic,
-           t.is_deleted,
+           t.enabled,
+           t.systemic,
+           t.deleted,
            t.created_by,
-           t.created_time,
+           t.created_date,
            t.last_modified_by,
-           t.last_modified_time,
+           t.last_modified_date,
            t.deleted_by,
-           t.deleted_time
+           t.deleted_date
     from k_user t
   </sql>
 
-  <sql id="orderBy">
-    <choose>
-      <when test="orders != null and orders.size() > 0">
-        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
-          <include refid="orderByField"/>
-        </foreach>
-      </when>
-      <otherwise>
-        order by t.id asc
-      </otherwise>
-    </choose>
-  </sql>
-
-  <sql id="orderByField">
-    <if test="order.property == 'nickname'">
-      t.nickname
-      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
-    </if>
-    <if test="order.property == 'createdTime'">
-      t.created_time
-      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
-    </if>
-  </sql>
-
-  <select id="list" resultType="cn.koala.system.model.UserEntity">
-    <include refid="selectUser"/>
+  <sql id="where">
     <if test="departmentId != null and departmentId != ''">
       left join k_user_department ud on ud.user_id = t.id
     </if>
     <where>
-      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
       <if test="username != null and username != ''">
         and t.username = #{username}
       </if>
@@ -67,26 +41,65 @@
       <if test="nicknameLike != null and nicknameLike != ''">
         and t.nickname like concat(#{nicknameLike}, '%')
       </if>
+      <if test="deleted != null">
+        and t.deleted = #{deleted}
+      </if>
       <if test="departmentId != null and departmentId != ''">
         and ud.department_id = #{departmentId}
       </if>
     </where>
-    <include refid="orderBy"/>
+  </sql>
+
+  <sql id="orders">
+    <choose>
+      <when test="pageable != null and pageable.getSort() != null">
+        <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
+                 separator=",">
+          <include refid="order"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.sort_index asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="order">
+    <if test="order.property == 'username'">
+      t.username
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'nickname'">
+      t.nickname
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdTime'">
+      t.created_time
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
+  <select id="list" resultType="cn.koala.system.domain.UserEntity">
+    <include refid="select"/>
+    <include refid="where"/>
+    <include refid="orders"/>
   </select>
 
-  <select id="load" resultType="cn.koala.system.model.UserEntity">
-    <include refid="selectUser"/>
-    where t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and t.id = #{id}
+  <select id="load" resultType="cn.koala.system.domain.UserEntity">
+    <include refid="select"/>
+    where t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.model.UserEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into k_user(id, username, password, nickname, avatar, email, mobile, remark, sort_index, is_enabled,
-                       is_systemic, is_deleted, created_by, created_time)
-    values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{remark}, #{sortIndex},
-            #{isEnabled}, #{isSystemic}, #{isDeleted}, #{createdBy}, #{createdTime})
+  <insert id="create" parameterType="cn.koala.system.domain.UserEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into k_user(id, username, password, nickname, avatar, email, mobile, description, sort_index, enabled,
+                       systemic, deleted, created_by, created_date, last_modified_by, last_modified_date, deleted_by,
+                       deleted_date)
+    values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{description}, #{sortIndex},
+            #{enabled}, #{systemic}, #{deleted}, #{createdBy}, #{createdDate}, #{lastModifiedBy}, #{lastModifiedDate},
+            #{deletedBy}, #{deletedDate})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.model.UserEntity">
+  <update id="update" parameterType="cn.koala.system.domain.UserEntity">
     update k_user
     <trim prefix="set" suffixOverrides=",">
       <if test="username != null">username=#{username},</if>
@@ -94,18 +107,24 @@
       <if test="avatar != null">avatar=#{avatar},</if>
       <if test="email != null">email=#{email},</if>
       <if test="mobile != null">mobile=#{mobile},</if>
-      <if test="remark != null">remark=#{remark},</if>
-      last_modified_by = #{lastModifiedBy},
-      last_modified_time = #{lastModifiedTime},
+      <if test="description != null">description=#{description},</if>
+      <if test="sortIndex != null">sort_index=#{sortIndex},</if>
+      <if test="enabled != null">enabled=#{enabled},</if>
+      <if test="systemic != null">systemic=#{systemic},</if>
+      <if test="deleted != null">deleted=#{deleted},</if>
+      <if test="createdBy != null">created_by=#{createdBy},</if>
+      <if test="createdDate != null">created_date=#{createdDate},</if>
+      <if test="lastModifiedBy != null">last_modified_by=#{lastModifiedBy},</if>
+      <if test="lastModifiedDate != null">last_modified_date=#{lastModifiedDate},</if>
+      <if test="deletedBy != null">deleted_by=#{deletedBy},</if>
+      <if test="deletedDate != null">deleted_date=#{deletedDate},</if>
     </trim>
-    where is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and id=#{id}
+    where id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.model.UserEntity">
-    update k_user
-    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
-        deleted_by   = #{deletedBy},
-        deleted_time = #{deletedTime}
+  <update id="delete" parameterType="cn.koala.system.domain.UserEntity">
+    delete
+    from k_user
     where id = #{id}
   </update>
 

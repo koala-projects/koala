@@ -1,8 +1,8 @@
 package cn.koala.log;
 
-import cn.koala.log.annotations.Log;
-import cn.koala.log.services.LogService;
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
+import cn.koala.log.annotation.Log;
+import cn.koala.log.service.LogService;
 import cn.koala.util.LocalDateTimeUtils;
 import cn.koala.web.util.RequestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -63,11 +63,11 @@ public class LogAspect {
     LogEntity entity = obtainLogEntity(joinPoint, log);
     try {
       Object result = joinPoint.proceed();
-      entity.setIsSucceeded(YesNo.YES);
+      entity.setSuccessful(YesNo.YES);
       entity.setResponse(toJson(result));
       return result;
     } catch (Throwable e) {
-      entity.setIsSucceeded(YesNo.NO);
+      entity.setSuccessful(YesNo.NO);
       entity.setError(e.getLocalizedMessage());
       throw e;
     } finally {

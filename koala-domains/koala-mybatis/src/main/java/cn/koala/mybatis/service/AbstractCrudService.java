@@ -1,6 +1,7 @@
 package cn.koala.mybatis.service;
 
 import cn.koala.data.service.CrudService;
+import cn.koala.data.util.DomainNames;
 import cn.koala.mybatis.repository.CrudRepository;
 import com.github.pagehelper.PageHelper;
 import lombok.NonNull;
@@ -12,10 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 增删改查服务抽象类
- * <p>
- * 基于{@link CrudRepository}实现
- *
  * @author Houtaroy
  */
 public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
@@ -24,7 +21,8 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
 
   @Override
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
-    parameters.put("orders", pageable.getSort().toList());
+    parameters.put(DomainNames.PAGEABLE, pageable);
+    // parameters.put("orders", pageable.getSort().toList());
     com.github.pagehelper.Page<T> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
       .doSelectPage(() -> getRepository().list(parameters));

@@ -1,9 +1,9 @@
 package cn.koala.system.api;
 
-import cn.koala.log.annotations.Log;
+import cn.koala.log.annotation.Log;
 import cn.koala.system.api.request.UserCreateRequest;
-import cn.koala.system.model.User;
-import cn.koala.system.model.UserEntity;
+import cn.koala.system.domain.User;
+import cn.koala.system.domain.UserEntity;
 import cn.koala.system.service.UserService;
 import cn.koala.web.DataRequest;
 import cn.koala.web.DataResponse;
@@ -24,7 +24,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 public class UserApiImpl implements UserApi {
-  protected final UserService service;
+
+  private final UserService service;
 
   @Override
   @Log(module = "用户管理", content = "查询用户列表")
@@ -48,7 +49,7 @@ public class UserApiImpl implements UserApi {
   @Override
   @Log(module = "用户管理", content = "更新用户[id=${#id}]")
   public Response update(Long id, UserEntity user) {
-    user.setIdIfAbsent(id);
+    user.setId(id);
     service.update(user);
     return Response.SUCCESS;
   }

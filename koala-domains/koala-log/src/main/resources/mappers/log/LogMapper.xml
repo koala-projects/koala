@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.koala.log.repositories.LogRepository">
+<mapper namespace="cn.koala.log.repository.LogRepository">
 
-  <sql id="selectLog">
+  <sql id="select">
     select t.id,
            t.module,
            t.content,
            t.user_id,
            t.user_ip,
-           t.is_succeeded,
+           t.successful,
            t.request,
            t.response,
            t.error,
@@ -18,14 +18,13 @@
     from k_log t
   </sql>
 
-  <select id="list" resultType="cn.koala.log.LogEntity">
-    <include refid="selectLog"/>
+  <sql id="where">
     <where>
       <if test="module != null and module != ''">
         t.module like concat(#{module}, '%')
       </if>
-      <if test="isSucceeded != null and isSucceeded != ''">
-        and t.is_succeeded = #{isSucceeded}
+      <if test="successful != null and successful != ''">
+        and t.successful = #{successful}
       </if>
       <if test="logTimeStart != null and logTimeStart != ''">
         and t.log_time &gt; #{logTimeStart}
@@ -34,16 +33,42 @@
         and t.log_time &lt; #{logTimeEnd}
       </if>
     </where>
+  </sql>
+
+  <sql id="orders">
+    <choose>
+      <when test="orders != null and orders.size() > 0">
+        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
+          <include refid="order"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.log_time desc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="order">
+    <if test="order.property == 'logTime'">
+      t.log_time
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
+  <select id="list" resultType="cn.koala.log.LogEntity">
+    <include refid="select"/>
+    <include refid="where"/>
+    <include refid="orders"/>
   </select>
 
   <select id="load" resultType="cn.koala.log.LogEntity">
-    <include refid="selectLog"/>
+    <include refid="select"/>
     where t.id = #{id}
   </select>
 
   <insert id="create" parameterType="cn.koala.log.LogEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into k_log(module, content, user_id, user_ip, is_succeeded, request, response, error, cost, log_time)
-    values (#{module}, #{content}, #{userId}, #{userIp}, #{isSucceeded}, #{request}, #{response}, #{error}, #{cost},
+    insert into k_log(module, content, user_id, user_ip, successful, request, response, error, cost, log_time)
+    values (#{module}, #{content}, #{userId}, #{userIp}, #{successful}, #{request}, #{response}, #{error}, #{cost},
             #{logTime})
   </insert>
 

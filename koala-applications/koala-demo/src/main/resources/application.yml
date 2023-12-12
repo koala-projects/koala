@@ -70,5 +70,5 @@ koala:
         enabled: false
         overwritten: true
       login-log:
-        enabled: true
+        enabled: false
         overwritten: true

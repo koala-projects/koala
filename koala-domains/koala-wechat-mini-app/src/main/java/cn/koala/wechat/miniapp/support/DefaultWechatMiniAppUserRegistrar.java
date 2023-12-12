@@ -1,6 +1,6 @@
 package cn.koala.wechat.miniapp.support;
 
-import cn.koala.system.model.UserEntity;
+import cn.koala.system.domain.UserEntity;
 import cn.koala.system.repository.UserRepository;
 import cn.koala.util.LocalDateTimeUtils;
 import cn.koala.wechat.miniapp.WechatMiniAppUser;
@@ -46,7 +46,7 @@ public class DefaultWechatMiniAppUserRegistrar implements WechatMiniAppUserRegis
       .nickname("微信用户")
       .password(passwordEncoder.encode(wechatMiniAppUser.getOpenid()))
       .createdBy(-1L)
-      .createdTime(LocalDateTimeUtils.toDate())
+      .createdDate(LocalDateTimeUtils.toDate())
       .build();
     userRepository.create(user);
     wechatMiniAppUser.setUserId(user.getId());

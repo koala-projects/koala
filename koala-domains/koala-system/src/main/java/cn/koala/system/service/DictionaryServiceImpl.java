@@ -1,19 +1,22 @@
 package cn.koala.system.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.system.model.Dictionary;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.system.domain.Dictionary;
 import cn.koala.system.repository.DictionaryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.AuditorAware;
 
 /**
  * 字典服务实现类
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @Getter
-public class DictionaryServiceImpl extends AbstractMyBatisService<Dictionary, Long> implements DictionaryService {
+@RequiredArgsConstructor
+public class DictionaryServiceImpl extends AbstractSmartService<Long, Dictionary, Long> implements DictionaryService {
 
-  protected final DictionaryRepository repository;
+  private final DictionaryRepository repository;
+
+  private final AuditorAware<Long> auditorAware;
 }

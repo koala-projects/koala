@@ -1,7 +1,7 @@
 package cn.koala.log;
 
-import cn.koala.persist.domain.Persistable;
-import cn.koala.persist.domain.YesNo;
+import cn.koala.data.domain.YesNo;
+import org.springframework.data.domain.Persistable;
 
 import java.util.Date;
 
@@ -11,6 +11,7 @@ import java.util.Date;
  * @author Houtaroy
  */
 public interface Log extends Persistable<Long> {
+
   String getModule();
 
   String getContent();
@@ -19,7 +20,7 @@ public interface Log extends Persistable<Long> {
 
   String getUserIp();
 
-  YesNo getIsSucceeded();
+  YesNo getSuccessful();
 
   String getRequest();
 

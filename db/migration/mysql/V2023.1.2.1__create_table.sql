@@ -92,24 +92,6 @@ CREATE TABLE t_database
   PRIMARY KEY (id)
 ) COMMENT = '数据库';
 
--- Log
--- 日志表
-CREATE TABLE k_log
-(
-  `id`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `module`       VARCHAR(100) NOT NULL COMMENT '日志模块',
-  `content`      VARCHAR(100) NOT NULL COMMENT '日志内容',
-  `user_id`      BIGINT       NOT NULL COMMENT '用户id',
-  `user_ip`      VARCHAR(100) NOT NULL COMMENT '用户ip',
-  `is_succeeded` INT          NOT NULL COMMENT '是否成功',
-  `request`      VARCHAR(2000) COMMENT '请求',
-  `response`     VARCHAR(2000) COMMENT '响应',
-  `error`        VARCHAR(2000) COMMENT '错误',
-  `cost`         INT          NOT NULL COMMENT '消耗时间',
-  `log_time`     DATETIME     NOT NULL COMMENT '日志时间',
-  PRIMARY KEY (id)
-) COMMENT = '日志表';
-
 -- Query
 -- 查询表
 CREATE TABLE k_query
@@ -228,20 +210,20 @@ CREATE TABLE k_permission
 -- 角色表
 CREATE TABLE k_role
 (
-  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`               VARCHAR(100) NOT NULL COMMENT '角色代码',
-  `name`               VARCHAR(100) NOT NULL COMMENT '角色名称',
-  `remark`             VARCHAR(500) COMMENT '角色备注',
-  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
-  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
-  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(20) NOT NULL COMMENT '角色代码',
+  `name`               VARCHAR(20) NOT NULL COMMENT '角色名称',
+  `description`        VARCHAR(200) COMMENT '角色描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
   `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
   `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_time`       DATETIME COMMENT '删除时间',
+  `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '角色表';
 
@@ -249,23 +231,23 @@ CREATE TABLE k_role
 CREATE TABLE k_user
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `username`           VARCHAR(100) NOT NULL COMMENT '用户名',
-  `password`           VARCHAR(500) NOT NULL COMMENT '密码',
-  `nickname`           VARCHAR(100) NOT NULL COMMENT '昵称',
-  `avatar`             VARCHAR(500) COMMENT '头像',
-  `email`              VARCHAR(100) COMMENT '邮箱',
-  `mobile`             VARCHAR(100) COMMENT '手机号',
-  `remark`             VARCHAR(500) COMMENT '备注',
-  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
-  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `username`           VARCHAR(20)  NOT NULL COMMENT '用户名',
+  `password`           VARCHAR(200) NOT NULL COMMENT '密码',
+  `nickname`           VARCHAR(20)  NOT NULL COMMENT '昵称',
+  `avatar`             VARCHAR(200) COMMENT '头像',
+  `email`              VARCHAR(50) COMMENT '邮箱',
+  `mobile`             VARCHAR(20) COMMENT '手机号',
+  `description`        VARCHAR(200) COMMENT '描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20)  NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否删除',
   `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
-  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `created_date`       DATETIME     NOT NULL COMMENT '创建时间',
   `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
   `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_time`       DATETIME COMMENT '删除时间',
+  `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '用户表';
 
@@ -279,9 +261,9 @@ CREATE TABLE k_user_role
 -- 角色权限关系表
 CREATE TABLE k_role_permission
 (
-  `role_id`         BIGINT NOT NULL COMMENT '角色id',
-  `permission_id`   BIGINT NOT NULL DEFAULT 0 COMMENT '权限id',
-  `is_half_checked` INT    NOT NULL COMMENT '是否半选'
+  `role_id`         BIGINT      NOT NULL COMMENT '角色id',
+  `permission_id`   BIGINT      NOT NULL DEFAULT 0 COMMENT '权限id',
+  `is_half_checked` VARCHAR(20) NOT NULL COMMENT '是否半选'
 ) COMMENT = '角色权限关系表';
 
 -- 用户部门关系表
@@ -298,6 +280,23 @@ CREATE TABLE k_user_duty
   `duty_id` BIGINT NOT NULL COMMENT '岗位id'
 ) COMMENT = '用户岗位关系表';
 
+-- Log
+-- 日志表
+CREATE TABLE k_log
+(
+  `id`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `module`     VARCHAR(20)  NOT NULL COMMENT '日志模块',
+  `content`    VARCHAR(200) NOT NULL COMMENT '日志内容',
+  `user_id`    BIGINT       NOT NULL COMMENT '用户id',
+  `user_ip`    VARCHAR(20)  NOT NULL COMMENT '用户ip',
+  `successful` VARCHAR(20)  NOT NULL COMMENT '是否成功',
+  `request`    TEXT COMMENT '请求',
+  `response`   TEXT COMMENT '响应',
+  `error`      TEXT COMMENT '错误',
+  `cost`       INT          NOT NULL COMMENT '消耗时间',
+  `log_time`   DATETIME     NOT NULL COMMENT '日志时间',
+  PRIMARY KEY (id)
+) COMMENT = '日志表';
 
 -- Task
 -- 任务表
@@ -377,29 +376,30 @@ CREATE TABLE wechat_mini_app_user
 -- 认证日志表
 CREATE TABLE k_authenticate_log
 (
-  `id`                BIGINT   NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `remote_address`    VARCHAR(500) COMMENT '远程地址',
-  `session_id`        VARCHAR(100) COMMENT 'SessionId',
-  `authentication`    json     NOT NULL COMMENT '认证信息',
-  `is_successful`     INT      NOT NULL COMMENT '是否成功',
-  `exception_message` VARCHAR(500) COMMENT '异常信息',
-  `log_time`          DATETIME NOT NULL COMMENT '日志时间',
+  `id`                BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `remote_address`    VARCHAR(20) COMMENT '远程地址',
+  `session_id`        VARCHAR(50) COMMENT 'SessionId',
+  `authentication`    TEXT        NOT NULL COMMENT '认证信息',
+  `successful`        VARCHAR(20) NOT NULL COMMENT '是否成功',
+  `exception_message` TEXT COMMENT '异常信息',
+  `log_time`          DATETIME    NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
 ) COMMENT = '认证日志表';
 
+
 -- 登录日志表
-DROP TABLE IF EXISTS k_login_log;
 CREATE TABLE k_login_log
 (
-  `id`                BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `remote_address`    VARCHAR(500) COMMENT '远程地址',
-  `session_id`        VARCHAR(100) COMMENT 'SessionId',
+  `id`                BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `remote_address`    VARCHAR(20) COMMENT '远程地址',
+  `session_id`        VARCHAR(50) COMMENT 'SessionId',
   `user_id`           INT COMMENT '用户id',
-  `username`          VARCHAR(100) NOT NULL COMMENT '用户名',
-  `password`          VARCHAR(500) COMMENT '密码',
-  `is_successful`     INT          NOT NULL COMMENT '是否成功',
-  `exception_message` VARCHAR(500) COMMENT '异常信息',
-  `log_time`          DATETIME     NOT NULL COMMENT '日志时间',
+  `username`          VARCHAR(20) NOT NULL COMMENT '用户名',
+  `password`          VARCHAR(200) COMMENT '密码',
+  `successful`        VARCHAR(20) NOT NULL COMMENT '是否成功',
+  `exception_message` TEXT COMMENT '异常信息',
+  `log_time`          DATETIME    NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
 ) COMMENT = '登录日志表';
+
 

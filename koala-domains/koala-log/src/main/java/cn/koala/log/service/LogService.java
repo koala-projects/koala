@@ -1,7 +1,7 @@
-package cn.koala.log.services;
+package cn.koala.log.service;
 
+import cn.koala.data.service.CrudService;
 import cn.koala.log.Log;
-import cn.koala.persist.CrudService;
 
 /**
  * 日志服务

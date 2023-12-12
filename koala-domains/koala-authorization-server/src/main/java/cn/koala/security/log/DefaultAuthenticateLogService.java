@@ -1,6 +1,6 @@
 package cn.koala.security.log;
 
-import cn.koala.mybatis.AbstractMyBatisService;
+import cn.koala.mybatis.service.AbstractCrudService;
 import cn.koala.security.log.repository.AuthenticateLogRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public class DefaultAuthenticateLogService extends AbstractMyBatisService<AuthenticateLog, Long>
+public class DefaultAuthenticateLogService extends AbstractCrudService<AuthenticateLog, Long>
   implements AuthenticateLogService {
 
   private final AuthenticateLogRepository repository;

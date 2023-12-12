@@ -1,4 +1,4 @@
-package cn.koala.log.apis;
+package cn.koala.log.api;
 
 import cn.koala.log.Log;
 import cn.koala.log.LogEntity;

@@ -17,6 +17,10 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-data</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-persist</artifactId>
     </dependency>
 

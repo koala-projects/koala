@@ -1,7 +1,7 @@
 package cn.koala.system.service;
 
-import cn.koala.persist.CrudService;
-import cn.koala.system.model.User;
+import cn.koala.data.service.CrudService;
+import cn.koala.system.domain.User;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface UserService extends CrudService<User, Long> {
+
   List<Long> getRoleIds(Long id);
 
   void setRoleIds(Long id, List<Long> roleIds);

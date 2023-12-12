@@ -10,6 +10,7 @@ import cn.koala.persist.domain.Stateful;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface User extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   String getUsername();
 

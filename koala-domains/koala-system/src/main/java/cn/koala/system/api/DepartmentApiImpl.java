@@ -1,6 +1,6 @@
 package cn.koala.system.api;
 
-import cn.koala.log.annotations.Log;
+import cn.koala.log.annotation.Log;
 import cn.koala.system.model.Department;
 import cn.koala.system.model.DepartmentEntity;
 import cn.koala.system.service.DepartmentService;

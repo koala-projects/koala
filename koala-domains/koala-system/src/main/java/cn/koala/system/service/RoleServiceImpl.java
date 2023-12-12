@@ -1,13 +1,14 @@
 package cn.koala.system.service;
 
+import cn.koala.data.util.DomainUtils;
 import cn.koala.exception.BusinessException;
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.persist.util.DomainUtils;
-import cn.koala.system.model.Role;
-import cn.koala.system.model.User;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.system.domain.Role;
+import cn.koala.system.domain.User;
 import cn.koala.system.repository.RoleRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.AuditorAware;
 
 import java.util.List;
 
@@ -18,9 +19,10 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Getter
-public class RoleServiceImpl extends AbstractMyBatisService<Role, Long> implements RoleService {
+public class RoleServiceImpl extends AbstractSmartService<Long, Role, Long> implements RoleService {
 
-  protected final RoleRepository repository;
+  private final RoleRepository repository;
+  private final AuditorAware<Long> auditorAware;
 
   @Override
   public List<Long> getCheckedPermissionIds(Long id) {

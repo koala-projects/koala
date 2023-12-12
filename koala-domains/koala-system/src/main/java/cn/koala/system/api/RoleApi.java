@@ -1,11 +1,10 @@
 package cn.koala.system.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
 import cn.koala.system.api.request.RoleAuthorizeRequest;
-import cn.koala.system.model.Role;
-import cn.koala.system.model.RoleEntity;
-import cn.koala.system.model.User;
+import cn.koala.system.domain.Role;
+import cn.koala.system.domain.RoleEntity;
+import cn.koala.system.domain.User;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -109,8 +108,7 @@ public interface RoleApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(Role.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody RoleEntity entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody RoleEntity entity);
 
   /**
    * 删除角色
@@ -125,7 +123,7 @@ public interface RoleApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "角色id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(Role.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   /**
    * 根据id查询全选权限id列表
