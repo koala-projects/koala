@@ -8,7 +8,6 @@ import cn.koala.database.service.DefaultDatabaseService;
 import cn.koala.validation.DefaultableMessageSourceLocator;
 import cn.koala.validation.MessageSourceLocator;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,12 +18,12 @@ import org.springframework.data.domain.AuditorAware;
  *
  * @author Houtaroy
  */
-@MapperScan("cn.koala.database.repository")
 @Configuration
+@MapperScan("cn.koala.database.repository")
 public class DatabaseAutoConfiguration {
+
   @Bean
   @ConditionalOnMissingBean
-  @ConditionalOnBean(AuditorAware.class)
   public DatabaseService databaseService(DatabaseRepository databaseRepository, AuditorAware<Long> auditorAware) {
     return new DefaultDatabaseService(databaseRepository, auditorAware);
   }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Houtaroy
  */
 @Configuration
-@ConditionalOnClass(name = "cn.koala.system.permission.PermissionRegistrar")
+@ConditionalOnClass(name = "cn.koala.system.permission.PermissionRegister")
 public class DatabasePermissionAutoConfiguration {
 
   @Bean
