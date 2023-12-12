@@ -1,6 +1,7 @@
 package cn.koala.codegen;
 
-import cn.koala.database.DatabaseTable;
+
+import cn.koala.database.domain.DatabaseTable;
 
 /**
  * 代码生成上下文加工器

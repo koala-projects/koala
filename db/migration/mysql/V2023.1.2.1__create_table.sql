@@ -75,23 +75,6 @@ CREATE TABLE t_attachment
   PRIMARY KEY (id)
 ) COMMENT = '附件表';
 
--- Database
--- 数据库表
-CREATE TABLE t_database
-(
-  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`        VARCHAR(100) NOT NULL COMMENT '数据库名称',
-  `url`         VARCHAR(500) NOT NULL COMMENT '数据库连接',
-  `username`    VARCHAR(100) NOT NULL COMMENT '数据库用户名',
-  `password`    VARCHAR(100) NOT NULL COMMENT '数据库密码',
-  `catalog`     VARCHAR(100) COMMENT '数据库目录',
-  `schema`      VARCHAR(100) COMMENT '数据库模式',
-  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  PRIMARY KEY (id)
-) COMMENT = '数据库';
-
 -- Query
 -- 查询表
 CREATE TABLE k_query
@@ -297,6 +280,31 @@ CREATE TABLE k_log
   `log_time`   DATETIME     NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
 ) COMMENT = '日志表';
+
+-- Database
+-- 数据库表
+CREATE TABLE k_database
+(
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`               VARCHAR(20)  NOT NULL COMMENT '数据库名称',
+  `url`                VARCHAR(200) NOT NULL COMMENT '数据库连接',
+  `username`           VARCHAR(20)  NOT NULL COMMENT '数据库用户名',
+  `password`           VARCHAR(20)  NOT NULL COMMENT '数据库密码',
+  `catalog`            VARCHAR(20) COMMENT '数据库目录',
+  `schema`             VARCHAR(20) COMMENT '数据库模式',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20)  NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '数据库表';
+
 
 -- Task
 -- 任务表

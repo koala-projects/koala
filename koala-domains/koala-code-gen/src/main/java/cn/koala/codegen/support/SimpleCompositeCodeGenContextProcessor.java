@@ -3,7 +3,7 @@ package cn.koala.codegen.support;
 import cn.koala.codegen.CodeGenContext;
 import cn.koala.codegen.CodeGenContextProcessor;
 import cn.koala.codegen.CompositeCodeGenContextProcessor;
-import cn.koala.database.DatabaseTable;
+import cn.koala.database.domain.DatabaseTable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

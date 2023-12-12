@@ -1,17 +1,18 @@
-package cn.koala.database.services;
+package cn.koala.database.service;
 
-import cn.koala.database.ConnectionQuery;
-import cn.koala.database.Database;
-import cn.koala.database.DatabaseTable;
-import cn.koala.database.SimpleDatabaseTable;
-import cn.koala.database.SimpleDatabaseTableColumn;
-import cn.koala.database.repositories.DatabaseRepository;
+import cn.koala.database.domain.Database;
+import cn.koala.database.domain.DatabaseConnectionQuery;
+import cn.koala.database.domain.DatabaseTable;
+import cn.koala.database.domain.SimpleDatabaseTable;
+import cn.koala.database.domain.SimpleDatabaseTableColumn;
+import cn.koala.database.repository.DatabaseRepository;
 import cn.koala.exception.BusinessException;
-import cn.koala.mybatis.AbstractMyBatisService;
+import cn.koala.mybatis.service.AbstractSmartService;
 import cn.koala.util.Assert;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.AuditorAware;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,15 +29,17 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Getter
-public class DefaultDatabaseService extends AbstractMyBatisService<Database, Long> implements DatabaseService {
+public class DefaultDatabaseService extends AbstractSmartService<Long, Database, Long> implements DatabaseService {
 
   public static final int TIME_OUT = 60;
 
-  protected final DatabaseRepository repository;
+  private final DatabaseRepository repository;
+
+  private final AuditorAware<Long> auditorAware;
 
   @Override
   public List<DatabaseTable> listTable(Long id) {
-    Database database = repository.load(id).orElseThrow(() -> new BusinessException("数据库不存在"));
+    Database database = load(id);
     return query(database, (connection) -> {
       ResultSet rs = connection.getMetaData().getTables(database.getCatalog(), database.getSchema(), null, new String[]{"TABLE"});
       List<DatabaseTable> result = new ArrayList<>();
@@ -120,7 +123,7 @@ public class DefaultDatabaseService extends AbstractMyBatisService<Database, Lon
     }
   }
 
-  protected <R> R query(Database database, ConnectionQuery<R> query) {
+  protected <R> R query(Database database, DatabaseConnectionQuery<R> query) {
     try (Connection connection = getConnection(database)) {
       return query.query(connection);
     } catch (SQLException e) {

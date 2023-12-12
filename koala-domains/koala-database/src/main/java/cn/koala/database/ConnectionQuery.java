@@ -9,6 +9,7 @@ import java.sql.SQLException;
  * @param <R> 返回值类型
  * @author Houtaroy
  */
+@Deprecated
 @FunctionalInterface
 public interface ConnectionQuery<R> {
   R query(Connection connection) throws SQLException;

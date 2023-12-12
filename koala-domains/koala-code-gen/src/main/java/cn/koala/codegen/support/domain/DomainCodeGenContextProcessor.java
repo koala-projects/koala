@@ -6,8 +6,8 @@ import cn.koala.codegen.name.Name;
 import cn.koala.codegen.name.NameFactory;
 import cn.koala.codegen.support.SimpleCodeGenContext;
 import cn.koala.codegen.support.TableHelper;
-import cn.koala.database.DatabaseTable;
-import cn.koala.database.DatabaseTableColumn;
+import cn.koala.database.domain.DatabaseTable;
+import cn.koala.database.domain.DatabaseTableColumn;
 import cn.koala.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 

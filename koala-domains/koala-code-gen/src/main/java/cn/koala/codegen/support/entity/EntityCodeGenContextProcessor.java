@@ -3,8 +3,8 @@ package cn.koala.codegen.support.entity;
 import cn.koala.codegen.CodeGenContext;
 import cn.koala.codegen.CodeGenContextProcessor;
 import cn.koala.codegen.support.SimpleCodeGenContext;
-import cn.koala.database.DatabaseTable;
-import cn.koala.database.DatabaseTableColumn;
+import cn.koala.database.domain.DatabaseTable;
+import cn.koala.database.domain.DatabaseTableColumn;
 import com.google.common.base.CaseFormat;
 
 import java.util.HashMap;

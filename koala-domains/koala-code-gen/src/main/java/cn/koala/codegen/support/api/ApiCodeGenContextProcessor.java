@@ -3,7 +3,7 @@ package cn.koala.codegen.support.api;
 import cn.koala.codegen.CodeGenContext;
 import cn.koala.codegen.CodeGenContextProcessor;
 import cn.koala.codegen.support.SimpleCodeGenContext;
-import cn.koala.database.DatabaseTable;
+import cn.koala.database.domain.DatabaseTable;
 
 import java.util.Set;
 

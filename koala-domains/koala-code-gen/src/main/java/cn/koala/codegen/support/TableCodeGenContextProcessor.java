@@ -2,7 +2,7 @@ package cn.koala.codegen.support;
 
 import cn.koala.codegen.CodeGenContext;
 import cn.koala.codegen.CodeGenContextProcessor;
-import cn.koala.database.DatabaseTable;
+import cn.koala.database.domain.DatabaseTable;
 
 /**
  * 数据库表代码生成上下文加工器

@@ -1,4 +1,4 @@
-package cn.koala.database;
+package cn.koala.database.domain;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@Deprecated
 public interface DatabaseTable {
   String getName();
 

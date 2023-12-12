@@ -4,7 +4,7 @@ import cn.koala.codegen.support.domain.JavaType;
 import cn.koala.codegen.support.domain.JsonType;
 import cn.koala.codegen.support.domain.TypeScriptType;
 import cn.koala.codegen.support.domain.VbenComponentType;
-import cn.koala.database.DatabaseTableColumn;
+import cn.koala.database.domain.DatabaseTableColumn;
 
 import java.util.HashMap;
 import java.util.Map;

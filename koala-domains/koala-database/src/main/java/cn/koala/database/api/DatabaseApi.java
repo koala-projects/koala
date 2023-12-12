@@ -1,9 +1,10 @@
-package cn.koala.database.apis;
+package cn.koala.database.api;
 
-import cn.koala.database.Database;
-import cn.koala.database.DatabaseTable;
-import cn.koala.database.SimpleDatabaseTable;
-import cn.koala.database.entities.DatabaseEntity;
+
+import cn.koala.database.domain.Database;
+import cn.koala.database.domain.DatabaseEntity;
+import cn.koala.database.domain.DatabaseTable;
+import cn.koala.database.domain.SimpleDatabaseTable;
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -15,9 +16,11 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +43,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/databases")
 @Tag(name = "04-01 数据库管理")
+@SecurityRequirement(name = "spring-security")
 public interface DatabaseApi {
 
   /**
@@ -49,6 +53,7 @@ public interface DatabaseApi {
    * @param pageable   分页条件
    * @return 数据库列表
    */
+  @PreAuthorize("hasAuthority('database.read')")
   @Operation(operationId = "listDatabases", summary = "根据条件分页查询数据库")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabasePageResult.class))}
@@ -65,6 +70,7 @@ public interface DatabaseApi {
    * @param id 数据库id
    * @return 数据库
    */
+  @PreAuthorize("hasAuthority('database.read')")
   @Operation(operationId = "loadDatabase", summary = "根据id查询数据库")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseResult.class))}
@@ -79,6 +85,7 @@ public interface DatabaseApi {
    * @param entity 数据库数据实体
    * @return 数据库
    */
+  @PreAuthorize("hasAuthority('database.create')")
   @Operation(operationId = "createDatabase", summary = "创建数据库")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseResult.class))}
@@ -93,6 +100,7 @@ public interface DatabaseApi {
    * @param entity 数据库数据实体
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('database.update')")
   @Operation(operationId = "updateDatabase", summary = "更新数据库")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -107,6 +115,7 @@ public interface DatabaseApi {
    * @param id 数据库id
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('database.delete')")
   @Operation(operationId = "deleteDatabase", summary = "删除数据库")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -121,6 +130,7 @@ public interface DatabaseApi {
    * @param id 数据库id
    * @return 数据库表列表
    */
+  @PreAuthorize("hasAuthority('database.read')")
   @Operation(operationId = "listDatabaseTables", summary = "查询数据库表列表")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseTablesResult.class))}
@@ -136,6 +146,7 @@ public interface DatabaseApi {
    * @param name 表名
    * @return 数据库表
    */
+  @PreAuthorize("hasAuthority('database.read')")
   @Operation(operationId = "loadDatabaseTable", summary = "根据表名查询数据库表")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseTablesResult.class))}
@@ -151,6 +162,7 @@ public interface DatabaseApi {
    * @param entity 数据库数据实体
    * @return 数据库
    */
+  @PreAuthorize("hasAuthority('database.read')")
   @Operation(operationId = "connectDatabase", summary = "连接数据库")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DatabaseConnectResult.class))}

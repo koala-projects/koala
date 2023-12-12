@@ -19,6 +19,7 @@ import java.io.Serializable;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)

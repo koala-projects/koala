@@ -1,6 +1,6 @@
 package cn.koala.codegen;
 
-import cn.koala.database.DatabaseTable;
+import cn.koala.database.domain.DatabaseTable;
 import cn.koala.template.Template;
 
 /**

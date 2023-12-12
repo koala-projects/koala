@@ -8,6 +8,7 @@ import cn.koala.persist.domain.Stateful;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Database extends Persistable<Long>, Stateful {
   String getName();
 

@@ -1,8 +1,8 @@
-package cn.koala.database.services;
+package cn.koala.database.service;
 
-import cn.koala.database.Database;
-import cn.koala.database.DatabaseTable;
-import cn.koala.persist.CrudService;
+import cn.koala.data.service.CrudService;
+import cn.koala.database.domain.Database;
+import cn.koala.database.domain.DatabaseTable;
 
 import java.util.List;
 

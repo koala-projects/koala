@@ -1,7 +1,7 @@
 package cn.koala.codegen.support.entity;
 
 import cn.koala.codegen.support.TableHelper;
-import cn.koala.database.DatabaseTableColumn;
+import cn.koala.database.domain.DatabaseTableColumn;
 
 import java.util.List;
 

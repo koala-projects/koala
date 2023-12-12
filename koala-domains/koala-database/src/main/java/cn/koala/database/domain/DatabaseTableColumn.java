@@ -1,12 +1,12 @@
-package cn.koala.database;
+package cn.koala.database.domain;
 
 /**
  * 数据库表列
  *
  * @author Houtaroy
  */
-@Deprecated
 public interface DatabaseTableColumn {
+  
   String getName();
 
   Integer getType();

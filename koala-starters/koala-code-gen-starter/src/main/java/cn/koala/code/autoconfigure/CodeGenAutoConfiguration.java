@@ -22,7 +22,7 @@ import cn.koala.codegen.support.TemplateEngineCodeGenerator;
 import cn.koala.codegen.support.api.ApiCodeGenContextProcessor;
 import cn.koala.codegen.support.domain.DomainCodeGenContextProcessor;
 import cn.koala.codegen.support.entity.EntityCodeGenContextProcessor;
-import cn.koala.database.services.DatabaseService;
+import cn.koala.database.service.DatabaseService;
 import cn.koala.template.TemplateGroupService;
 import cn.koala.template.TemplateRenderer;
 import com.google.common.collect.Maps;

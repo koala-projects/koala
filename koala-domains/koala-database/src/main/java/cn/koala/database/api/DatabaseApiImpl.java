@@ -1,9 +1,9 @@
-package cn.koala.database.apis;
+package cn.koala.database.api;
 
-import cn.koala.database.Database;
-import cn.koala.database.DatabaseTable;
-import cn.koala.database.entities.DatabaseEntity;
-import cn.koala.database.services.DatabaseService;
+import cn.koala.database.domain.Database;
+import cn.koala.database.domain.DatabaseEntity;
+import cn.koala.database.domain.DatabaseTable;
+import cn.koala.database.service.DatabaseService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +42,7 @@ public class DatabaseApiImpl implements DatabaseApi {
 
   @Override
   public Response update(Long id, DatabaseEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

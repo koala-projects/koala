@@ -17,6 +17,11 @@
   <dependencies>
     <dependency>
       <groupId>cn.koala</groupId>
+      <artifactId>koala-database</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis-starter</artifactId>
     </dependency>
     <dependency>
@@ -26,7 +31,8 @@
 
     <dependency>
       <groupId>cn.koala</groupId>
-      <artifactId>koala-database</artifactId>
+      <artifactId>koala-system</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 

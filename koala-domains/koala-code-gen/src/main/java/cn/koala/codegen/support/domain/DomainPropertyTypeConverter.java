@@ -1,6 +1,7 @@
 package cn.koala.codegen.support.domain;
 
-import cn.koala.database.DatabaseTableColumn;
+
+import cn.koala.database.domain.DatabaseTableColumn;
 
 /**
  * 领域属性类型转换器

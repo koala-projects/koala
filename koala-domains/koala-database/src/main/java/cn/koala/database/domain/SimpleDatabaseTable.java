@@ -1,4 +1,4 @@
-package cn.koala.database;
+package cn.koala.database.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)

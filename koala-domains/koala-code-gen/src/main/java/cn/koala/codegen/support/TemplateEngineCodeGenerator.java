@@ -4,7 +4,7 @@ import cn.koala.codegen.CodeGenContext;
 import cn.koala.codegen.CodeGenResult;
 import cn.koala.codegen.CodeGenerator;
 import cn.koala.codegen.CompositeCodeGenContextProcessor;
-import cn.koala.database.DatabaseTable;
+import cn.koala.database.domain.DatabaseTable;
 import cn.koala.template.Template;
 import cn.koala.template.TemplateRenderer;
 import cn.koala.template.support.TemplateEntity;

@@ -2,7 +2,7 @@ package cn.koala.codegen.support.entity;
 
 import cn.koala.codegen.support.TableHelper;
 import cn.koala.codegen.support.domain.JavaType;
-import cn.koala.database.DatabaseTableColumn;
+import cn.koala.database.domain.DatabaseTableColumn;
 
 import java.util.List;
 import java.util.Map;
