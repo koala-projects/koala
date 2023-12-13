@@ -19,6 +19,13 @@ public class TemplatePermissionAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean(name = "templatePermissionRegistrar")
   public PermissionRegistrar templatePermissionRegistrar() {
-    return new CrudPermissionRegistrar("template", "模板管理", 5000, null);
+    CrudPermissionRegistrar result = new CrudPermissionRegistrar(
+      "template",
+      "模板管理",
+      5000,
+      null
+    );
+    result.addChild("render", "渲染");
+    return result;
   }
 }
