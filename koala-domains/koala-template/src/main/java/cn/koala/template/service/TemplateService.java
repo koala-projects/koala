@@ -1,6 +1,7 @@
-package cn.koala.template;
+package cn.koala.template.service;
 
-import cn.koala.persist.CrudService;
+import cn.koala.data.service.CrudService;
+import cn.koala.template.domain.Template;
 
 /**
  * 模板服务接口

@@ -1,4 +1,4 @@
-package cn.koala.template;
+package cn.koala.template.domain;
 
 import java.util.Map;
 

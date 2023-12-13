@@ -1,23 +1,24 @@
 package cn.koala.template.autoconfigure;
 
-import cn.koala.template.TemplateApi;
-import cn.koala.template.TemplateGroupApi;
-import cn.koala.template.TemplateGroupService;
-import cn.koala.template.TemplateRenderer;
-import cn.koala.template.TemplateService;
+import cn.koala.template.api.DefaultTemplateApi;
+import cn.koala.template.api.DefaultTemplateGroupApi;
+import cn.koala.template.api.TemplateApi;
+import cn.koala.template.api.TemplateGroupApi;
+import cn.koala.template.domain.EnjoyTemplateRenderer;
+import cn.koala.template.domain.TemplateRenderer;
 import cn.koala.template.repository.TemplateGroupRepository;
 import cn.koala.template.repository.TemplateRepository;
-import cn.koala.template.support.DefaultTemplateApi;
-import cn.koala.template.support.DefaultTemplateGroupApi;
-import cn.koala.template.support.DefaultTemplateGroupService;
-import cn.koala.template.support.DefaultTemplateService;
-import cn.koala.template.support.EnjoyTemplateRenderer;
+import cn.koala.template.service.DefaultTemplateGroupService;
+import cn.koala.template.service.DefaultTemplateService;
+import cn.koala.template.service.TemplateGroupService;
+import cn.koala.template.service.TemplateService;
 import com.jfinal.template.Engine;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 
 /**
  * 数据库自动配置类
@@ -27,11 +28,13 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("cn.koala.template.repository")
 @Configuration
 public class TemplateAutoConfiguration {
+  
   @Bean
   @ConditionalOnMissingBean
   public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository,
-                                                   TemplateService templateService) {
-    return new DefaultTemplateGroupService(templateGroupRepository, templateService);
+                                                   TemplateService templateService, AuditorAware<Long> auditorAware) {
+
+    return new DefaultTemplateGroupService(templateGroupRepository, templateService, auditorAware);
   }
 
   @Bean
@@ -42,13 +45,13 @@ public class TemplateAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TemplateService templateService(TemplateRepository templateRepository) {
-    return new DefaultTemplateService(templateRepository);
+  public TemplateService templateService(TemplateRepository templateRepository, AuditorAware<Long> auditorAware) {
+    return new DefaultTemplateService(templateRepository, auditorAware);
   }
 
   @Bean
-  @ConditionalOnClass(Engine.class)
   @ConditionalOnMissingBean
+  @ConditionalOnClass(Engine.class)
   public TemplateRenderer templateRenderer() {
     return new EnjoyTemplateRenderer();
   }

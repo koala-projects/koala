@@ -1,1 +1,2 @@
 cn.koala.template.autoconfigure.TemplateAutoConfiguration
+cn.koala.template.autoconfigure.TemplatePermissionAutoConfiguration

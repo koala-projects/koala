@@ -9,11 +9,11 @@ values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala',
 
 -- 考拉代码模板
 -- 考拉代码-服务端
-insert into t_template_group(id, name, remark, is_systemic)
-values (1, '考拉代码-服务端', '考拉服务端代码生成模板', 1);
+insert into k_template_group(id, name, description, systemic, created_by, created_date)
+values (1, '考拉代码-服务端', '考拉服务端代码生成模板', 'YES', 1, now());
 
-insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (101, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
+insert into k_template(id, group_id, name, description, content, systemic, created_by, created_date)
+values (101, 1, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 
@@ -147,8 +147,8 @@ public interface #(name.pascal.singular)Api {
 
   }
 }
-', 1, 1),
-       (102, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
+', 'YES', 1, now()),
+       (102, 1, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).service.#(name.pascal.singular)Service;
@@ -202,8 +202,8 @@ public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Ap
     return Response.SUCCESS;
   }
 }
-', 1, 1),
-       (103, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
+', 'YES', 1, now()),
+       (103, 1, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
 
 #if(entity.isAbstract)
 import cn.koala.mybatis.AbstractEntity;
@@ -269,8 +269,8 @@ public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends Abstrac
   #end
 #end
 }
-', 1, 1),
-       (104, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
+', 'YES', 1, now()),
+       (104, 1, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).repository.#(name.pascal.singular)Repository;
@@ -291,8 +291,8 @@ public class #(name.pascal.singular)Service extends AbstractMyBatisService<#(nam
 
   private final #(name.pascal.singular)Repository repository;
 }
-', 1, 1),
-       (105, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
+', 'YES', 1, now()),
+       (105, 1, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 
@@ -305,8 +305,8 @@ import cn.koala.persist.CrudRepository;
  */
 public interface #(name.pascal.singular)Repository extends CrudRepository<#(name.pascal.singular)Entity, #(id.type.java)> {
 }
-', 1, 1),
-       (106, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+', 'YES', 1, now()),
+       (106, 1, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repository.#(name.pascal.singular)Repository">
@@ -398,8 +398,8 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
   </delete>
 #end
 </mapper>
-', 1, 1),
-       (107, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
+', 'YES', 1, now()),
+       (107, 1, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
 
 import cn.koala.system.permission.CrudPermissionRegistrar;
 import org.springframework.stereotype.Component;
@@ -417,14 +417,14 @@ public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRe
     super("#(name.kebab.singular)", "#(description)管理", 30000, null);
   }
 }
-', 1, 1);
+', 'YES', 1, now());
 
 -- 考拉代码-客户端
-insert into t_template_group(id, name, remark, is_systemic)
-values (2, '考拉代码-客户端', '考拉客户端代码生成模板', 1);
+insert into k_template_group(id, name, description, systemic, created_by, created_date)
+values (2, '考拉代码-客户端', '考拉客户端代码生成模板', 'YES', 1, now());
 
-insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (201, 'apis/#(name.kebab.singular)/index.ts', '接口请求代码模板', 'import { defHttp } from ''/@/utils/http/axios'';
+insert into k_template(id, group_id, name, description, content, systemic, created_by, created_date)
+values (201, 2, 'apis/#(name.kebab.singular)/index.ts', '接口请求代码模板', 'import { defHttp } from ''/@/utils/http/axios'';
 
 import type SearchParameters from ''../SearchParameters'';
 import type PageResult from ''../PageResult'';
@@ -453,8 +453,8 @@ export function delete#(name.pascal.singular)(id: number) {
 }
 
 export { #(name.pascal.singular)Entity };
-', 2, 1),
-       (202, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', '#if(entity.isAbstract)
+', 'YES', 1, now()),
+       (202, 2, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', '#if(entity.isAbstract)
 import type AbstractEntity from ''../AbstractEntity'';
 
 #end
@@ -469,8 +469,8 @@ export default interface #(name.pascal.singular)Entity#if(entity.isAbstract) ext
   #end
 #end
 }
-', 2, 1),
-       (203, 'views/#(name.kebab.singular)/#(name.kebab.singular).data.ts', '页面数据代码模板', 'import { BasicColumn, FormSchema } from ''/@/components/Table'';
+', 'YES', 1, now()),
+       (203, 2, 'views/#(name.kebab.singular)/#(name.kebab.singular).data.ts', '页面数据代码模板', 'import { BasicColumn, FormSchema } from ''/@/components/Table'';
 
 export const columns: BasicColumn[] = [
 #for(property: properties)
@@ -504,8 +504,8 @@ export const formSchema: FormSchema[] = [
   },
 #end
 ];
-', 2, 1),
-       (204, 'views/#(name.kebab.singular)/index.vue', '列表页代码模板', '<script lang="ts" setup>
+', 'YES', 1, now()),
+       (204, 2, 'views/#(name.kebab.singular)/index.vue', '列表页代码模板', '<script lang="ts" setup>
   import { BasicTable, TableAction, useTable } from ''/@/components/Table'';
   import { useModal } from ''/@/components/Modal'';
   import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
@@ -588,8 +588,8 @@ export const formSchema: FormSchema[] = [
     <#(name.kebab.singular)-modal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
-', 2, 1),
-       (205, 'views/#(name.kebab.singular)/#(name.pascal.singular)Modal.vue', '表单弹窗代码模板', '<script lang="ts" setup>
+', 'YES', 1, now()),
+       (205, 2, 'views/#(name.kebab.singular)/#(name.pascal.singular)Modal.vue', '表单弹窗代码模板', '<script lang="ts" setup>
   import { ref, unref, computed } from ''vue'';
   import { BasicModal, useModalInner } from ''/@/components/Modal'';
   import { BasicForm, useForm } from ''/@/components/Form/index'';
@@ -637,4 +637,4 @@ export const formSchema: FormSchema[] = [
     <basic-form @register="registerForm" />
   </basic-modal>
 </template>
-', 2, 1);
+', 'YES', 1, now());

@@ -1,7 +1,5 @@
-package cn.koala.template.support;
+package cn.koala.template.domain;
 
-import cn.koala.template.Template;
-import cn.koala.template.TemplateRenderer;
 import com.jfinal.template.Engine;
 
 import java.util.Map;

@@ -1,7 +1,7 @@
 package cn.koala.codegen;
 
 import cn.koala.database.domain.DatabaseTable;
-import cn.koala.template.Template;
+import cn.koala.template.domain.Template;
 
 /**
  * 代码生成器接口

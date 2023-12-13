@@ -1,10 +1,9 @@
-package cn.koala.template.support;
+package cn.koala.template.api;
 
-import cn.koala.template.Template;
-import cn.koala.template.TemplateApi;
-import cn.koala.template.TemplateRenderer;
-import cn.koala.template.TemplateService;
-import cn.koala.util.Assert;
+import cn.koala.template.domain.Template;
+import cn.koala.template.domain.TemplateEntity;
+import cn.koala.template.domain.TemplateRenderer;
+import cn.koala.template.service.TemplateService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,8 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class DefaultTemplateApi implements TemplateApi {
 
   protected final TemplateService service;
@@ -45,7 +44,7 @@ public class DefaultTemplateApi implements TemplateApi {
 
   @Override
   public Response update(Long id, TemplateEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }
@@ -59,7 +58,6 @@ public class DefaultTemplateApi implements TemplateApi {
   @Override
   public DataResponse<String> render(Long id, Map<String, Object> parameters) {
     Template template = service.load(id);
-    Assert.notNull(template, "模板不存在");
     return new DataResponse<>(HttpStatus.OK.value(), "请求成功", renderer.render(template, parameters));
   }
 }

@@ -1,7 +1,8 @@
-package cn.koala.template;
+package cn.koala.template.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.template.support.TemplateGroupEntity;
+import cn.koala.template.domain.TemplateGroup;
+import cn.koala.template.domain.TemplateGroupEntity;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,9 +11,11 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +36,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/template-groups")
 @Tag(name = "05-01 模板组管理")
+@SecurityRequirement(name = "spring-security")
 public interface TemplateGroupApi {
 
   /**
@@ -42,6 +46,7 @@ public interface TemplateGroupApi {
    * @param pageable   分页条件
    * @return 模板组列表
    */
+  @PreAuthorize("hasAuthority('template.read')")
   @Operation(operationId = "listTemplateGroups", summary = "根据条件分页查询模板组")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplateGroupPageResult.class))}
@@ -58,6 +63,7 @@ public interface TemplateGroupApi {
    * @param id 模板组id
    * @return 模板组
    */
+  @PreAuthorize("hasAuthority('template.read')")
   @Operation(operationId = "loadTemplateGroup", summary = "根据id查询模板组")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplateGroupResult.class))}
@@ -72,6 +78,7 @@ public interface TemplateGroupApi {
    * @param entity 模板组数据实体
    * @return 模板组
    */
+  @PreAuthorize("hasAuthority('template.create')")
   @Operation(operationId = "createTemplateGroup", summary = "创建模板组")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TemplateGroupResult.class))}
@@ -86,6 +93,7 @@ public interface TemplateGroupApi {
    * @param entity 模板组数据实体
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('template.update')")
   @Operation(operationId = "updateTemplateGroup", summary = "更新模板组")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -100,6 +108,7 @@ public interface TemplateGroupApi {
    * @param id 模板组id
    * @return 操作结果
    */
+  @PreAuthorize("hasAuthority('template.delete')")
   @Operation(operationId = "deleteTemplateGroup", summary = "删除模板组")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

@@ -1,8 +1,8 @@
-package cn.koala.template.support;
+package cn.koala.template.api;
 
-import cn.koala.template.TemplateGroup;
-import cn.koala.template.TemplateGroupApi;
-import cn.koala.template.TemplateGroupService;
+import cn.koala.template.domain.TemplateGroup;
+import cn.koala.template.domain.TemplateGroupEntity;
+import cn.koala.template.service.TemplateGroupService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,11 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class DefaultTemplateGroupApi implements TemplateGroupApi {
-  protected final TemplateGroupService service;
+
+  private final TemplateGroupService service;
 
   @Override
   public DataResponse<Page<TemplateGroup>> page(Map<String, Object> parameters, Pageable pageable) {
@@ -40,7 +41,7 @@ public class DefaultTemplateGroupApi implements TemplateGroupApi {
 
   @Override
   public Response update(Long id, TemplateGroupEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }
