@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 考拉接口代码生成上下文加工器
+ *
  * @author Houtaroy
  */
 public class KoalaApiCodeGenContextProcessor implements CodeGenContextProcessor {

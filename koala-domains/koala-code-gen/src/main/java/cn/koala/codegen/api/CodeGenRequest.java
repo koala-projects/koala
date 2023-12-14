@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 代码请求
+ * 代码生成请求
  *
  * @author Houtaroy
  */

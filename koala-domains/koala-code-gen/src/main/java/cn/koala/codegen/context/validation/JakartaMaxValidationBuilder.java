@@ -5,7 +5,7 @@ import cn.koala.database.domain.DatabaseTableColumn;
 import java.util.List;
 
 /**
- * 最大值校验转换器
+ * 最大值校验构建器
  *
  * @author Houtaroy
  */

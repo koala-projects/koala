@@ -15,5 +15,5 @@ public enum JsonType {
   BOOLEAN,
   STRING,
   TIME,
-  DATE_TIME;
+  DATE_TIME
 }

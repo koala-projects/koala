@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * JDBC TypeScript类型映射器
+ *
  * @author Houtaroy
  */
 public class JdbcTypeScriptTypeMapping extends AbstractJdbcTypeMapping<TypeScriptType> {

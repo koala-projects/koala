@@ -2,8 +2,6 @@ package cn.koala.codegen.context;
 
 /**
  * 代码生成上下文加工器
- * <p>
- * 将数据库表转换为代码生成上下文
  *
  * @author Houtaroy
  */

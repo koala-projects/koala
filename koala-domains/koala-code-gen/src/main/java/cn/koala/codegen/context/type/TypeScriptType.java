@@ -12,5 +12,5 @@ public enum TypeScriptType {
 
   NUMBER,
   STRING,
-  BOOLEAN;
+  BOOLEAN
 }

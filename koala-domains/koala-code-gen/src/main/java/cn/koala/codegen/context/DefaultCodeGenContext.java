@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 默认代码生成上下文
+ * <p>
+ * 包含数据库表对象
+ *
  * @author Houtaroy
  */
 public class DefaultCodeGenContext implements CodeGenContext {

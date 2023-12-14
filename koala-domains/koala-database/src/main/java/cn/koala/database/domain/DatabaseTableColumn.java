@@ -6,7 +6,9 @@ package cn.koala.database.domain;
  * @author Houtaroy
  */
 public interface DatabaseTableColumn {
-  
+
+  String ID_NAME = "id";
+
   String getName();
 
   Integer getType();
@@ -22,4 +24,8 @@ public interface DatabaseTableColumn {
   Boolean getIsAutoincrement();
 
   Boolean getIsPrimaryKey();
+
+  default boolean isId() {
+    return ID_NAME.equals(getName());
+  }
 }

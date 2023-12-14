@@ -12,5 +12,5 @@ public enum VbenComponentType {
 
   INPUT,
   INPUT_NUMBER,
-  SWITCH;
+  SWITCH
 }

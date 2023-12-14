@@ -6,6 +6,8 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 /**
+ * 考拉实体属性
+ *
  * @author Houtaroy
  */
 @Data

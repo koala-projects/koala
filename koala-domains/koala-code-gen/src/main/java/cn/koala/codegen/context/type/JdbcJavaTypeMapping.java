@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * JDBC Java类型映射器
+ *
  * @author Houtaroy
  */
 public class JdbcJavaTypeMapping extends AbstractJdbcTypeMapping<JavaType> {

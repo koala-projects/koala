@@ -3,7 +3,7 @@ package cn.koala.codegen.context.validation;
 import cn.koala.database.domain.DatabaseTableColumn;
 
 /**
- * 不为空校验转换器
+ * 不为空校验构建器
  *
  * @author Houtaroy
  */

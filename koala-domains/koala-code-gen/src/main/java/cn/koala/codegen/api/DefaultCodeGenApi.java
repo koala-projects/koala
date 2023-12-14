@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 默认代码接口
+ * 默认代码生成接口
  *
  * @author Houtaroy
  */
@@ -49,19 +49,17 @@ public class DefaultCodeGenApi implements CodeGenApi {
     var templates = templateService.list(Map.of("groupId", request.getTemplateGroupId()));
     var multiResults = codeGenService.generate(tables, templates);
     var dir = new File(codeGenPath + File.separator + UUID.randomUUID());
-    multiResults.forEach(multiResult -> {
-      multiResult.getCodeGenResults().forEach(result -> {
-        try {
-          FileUtils.write(
-            new File(dir.getPath() + File.separator + result.getFilename()),
-            result.getContent(),
-            Charset.defaultCharset()
-          );
-        } catch (IOException e) {
-          throw new BusinessException("生成代码文件[filename=%s]失败".formatted(result.getFilename()));
-        }
-      });
-    });
+    multiResults.forEach(multiResult -> multiResult.getCodeGenResults().forEach(result -> {
+      try {
+        FileUtils.write(
+          new File(dir.getPath() + File.separator + result.getFilename()),
+          result.getContent(),
+          Charset.defaultCharset()
+        );
+      } catch (IOException e) {
+        throw new BusinessException("生成代码文件[filename=%s]失败".formatted(result.getFilename()));
+      }
+    }));
     String filename = dir.getName() + "." + ArchiveStreamFactory.ZIP;
     try {
       CompressUtils.compress(dir, new File(codeGenPath + filename), ArchiveStreamFactory.ZIP);

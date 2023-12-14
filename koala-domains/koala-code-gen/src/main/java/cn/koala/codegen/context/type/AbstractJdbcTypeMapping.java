@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.Map;
 
 /**
+ * JDBC类型映射器抽象类
+ *
  * @author Houtaroy
  */
 @RequiredArgsConstructor

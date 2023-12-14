@@ -3,11 +3,11 @@ package cn.koala.codegen.utils;
 import java.util.Set;
 
 /**
+ * 代码生成名称
+ *
  * @author Houtaroy
  */
 public interface CodeGenNames {
-
-  String COLUMN_ID = "id";
 
   String COLUMN_SORTABLE = "sort_index";
 

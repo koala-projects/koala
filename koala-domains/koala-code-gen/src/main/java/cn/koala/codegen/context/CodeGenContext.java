@@ -5,6 +5,8 @@ import cn.koala.database.domain.DatabaseTable;
 import java.util.Map;
 
 /**
+ * 代码生成上下文
+ *
  * @author Houtaroy
  */
 public interface CodeGenContext {

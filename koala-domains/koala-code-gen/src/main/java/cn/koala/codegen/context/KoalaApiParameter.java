@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 /**
+ * 考拉接口查询参数
+ *
  * @author Houtaroy
  */
 @Data

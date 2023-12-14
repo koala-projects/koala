@@ -5,7 +5,7 @@ import cn.koala.database.domain.DatabaseTableColumn;
 import java.util.List;
 
 /**
- * 长度校验转换器
+ * 长度校验构建器
  *
  * @author Houtaroy
  */

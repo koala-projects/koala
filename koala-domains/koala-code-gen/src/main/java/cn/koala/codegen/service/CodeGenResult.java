@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
+ * 代码生成结果
+ *
  * @author Houtaroy
  */
 @Data

@@ -4,7 +4,6 @@ import cn.koala.codegen.context.type.JdbcTypeMapping;
 import cn.koala.codegen.name.Name;
 import cn.koala.codegen.name.NameFactory;
 import cn.koala.codegen.utils.CodeGenNames;
-import cn.koala.codegen.utils.CodeGenUtils;
 import cn.koala.database.domain.DatabaseTable;
 import cn.koala.database.domain.DatabaseTableColumn;
 import cn.koala.exception.BusinessException;
@@ -16,6 +15,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * 领域代码上下文加工器
+ * <p>
+ * 会增加 名称 / 描述 / 主键属性 / 属性列表 / 是否审计 / 是否排序 等领域相关属性
+ *
  * @author Houtaroy
  */
 @RequiredArgsConstructor
@@ -62,7 +65,7 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
 
   private DomainProperty processDomainId(DatabaseTable table) {
     return table.getColumns().stream()
-      .filter(CodeGenUtils::isId)
+      .filter(DatabaseTableColumn::isId)
       .findFirst()
       .map(this::processDomainProperty)
       .orElseThrow(() -> new BusinessException("数据表必须包含名为id的主键列"));
@@ -70,7 +73,7 @@ public class DomainCodeGenContextProcessor implements CodeGenContextProcessor {
 
   private List<DomainProperty> processDomainProperties(DatabaseTable table) {
     return table.getColumns().stream()
-      .filter(column -> !CodeGenUtils.isId(column))
+      .filter(column -> !column.isId())
       .map(this::processDomainProperty)
       .toList();
   }

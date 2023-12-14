@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 实体校验类
+ * 校验类
  *
  * @author Houtaroy
  */

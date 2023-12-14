@@ -17,5 +17,5 @@ public enum JavaType {
   BOOLEAN,
   STRING,
   TIME,
-  DATE;
+  DATE
 }
