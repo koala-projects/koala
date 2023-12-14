@@ -2,7 +2,6 @@ package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).service.#(name.pascal.singular)Service;
-
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +40,7 @@ public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Ap
 
   @Override
   public Response update(#(id.type.java) id, #(name.pascal.singular)Entity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

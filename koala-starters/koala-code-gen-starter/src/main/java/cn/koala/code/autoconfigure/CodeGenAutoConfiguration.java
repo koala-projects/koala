@@ -1,41 +1,29 @@
 package cn.koala.code.autoconfigure;
 
-import cn.koala.codegen.CodeGenApi;
-import cn.koala.codegen.CodeGenContextProcessor;
-import cn.koala.codegen.CodeGenService;
-import cn.koala.codegen.CodeGenerator;
-import cn.koala.codegen.CompositeCodeGenContextProcessor;
-import cn.koala.codegen.name.AppendPluralConverter;
+import cn.koala.codegen.api.CodeGenApi;
+import cn.koala.codegen.api.DefaultCodeGenApi;
+import cn.koala.codegen.context.CodeGenContextProcessor;
+import cn.koala.codegen.context.DomainCodeGenContextProcessor;
+import cn.koala.codegen.context.JavaPackageCodeGenContextProcessor;
+import cn.koala.codegen.context.KoalaApiCodeGenContextProcessor;
+import cn.koala.codegen.context.KoalaEntityCodeGenContextProcessor;
+import cn.koala.codegen.context.type.JdbcTypeMapping;
+import cn.koala.codegen.context.validation.JakartaDigitsValidationBuilder;
 import cn.koala.codegen.name.NameFactory;
-import cn.koala.codegen.name.NameStyleFactory;
-import cn.koala.codegen.name.PluralConverter;
-import cn.koala.codegen.name.PluralService;
-import cn.koala.codegen.name.ReplacePluralConverter;
-import cn.koala.codegen.name.SimplePluralService;
-import cn.koala.codegen.name.StaticPluralConverter;
-import cn.koala.codegen.support.DefaultCodeGenApi;
-import cn.koala.codegen.support.DefaultCodeGenService;
-import cn.koala.codegen.support.PackageCodeGenContextProcessor;
-import cn.koala.codegen.support.SimpleCompositeCodeGenContextProcessor;
-import cn.koala.codegen.support.TableCodeGenContextProcessor;
-import cn.koala.codegen.support.TemplateEngineCodeGenerator;
-import cn.koala.codegen.support.api.ApiCodeGenContextProcessor;
-import cn.koala.codegen.support.domain.DomainCodeGenContextProcessor;
-import cn.koala.codegen.support.entity.EntityCodeGenContextProcessor;
+import cn.koala.codegen.service.CodeGenService;
+import cn.koala.codegen.service.DefaultCodeGenService;
 import cn.koala.database.service.DatabaseService;
 import cn.koala.template.domain.TemplateRenderer;
-import cn.koala.template.service.TemplateGroupService;
-import com.google.common.collect.Maps;
+import cn.koala.template.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
  * 代码自动配置类
@@ -43,122 +31,65 @@ import java.util.regex.Pattern;
  * @author Houtaroy
  */
 @Configuration
-@Import(CodeGenWebMvcConfigurer.class)
 @EnableConfigurationProperties(CodeGenProperties.class)
 @RequiredArgsConstructor
-public class CodeGenAutoConfiguration {
+public class CodeGenAutoConfiguration implements WebMvcConfigurer {
 
-  @Bean
-  @ConditionalOnMissingBean(name = "staticPluralConverter")
-  public PluralConverter staticPluralConverter() {
-    Map<String, String> statics = Maps.newHashMap();
-    statics.put("child", "children");
-    statics.put("Chinese", "Chinese");
-    statics.put("deer", "deer");
-    statics.put("foot", "feet");
-    statics.put("goose", "geese");
-    statics.put("Japanese", "Japanese");
-    statics.put("man", "men");
-    statics.put("mouse", "mice");
-    statics.put("person", "people");
-    statics.put("sheep", "sheep");
-    statics.put("tooth", "teeth");
-    statics.put("woman", "women");
-    return new StaticPluralConverter(statics);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "vesReplacePluralConverter")
-  public PluralConverter vesReplacePluralConverter() {
-    return new ReplacePluralConverter(Pattern.compile("(f|fe)$", Pattern.CASE_INSENSITIVE), "ves");
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "iesReplacePluralConverter")
-  public PluralConverter iesReplacePluralConverter() {
-    return new ReplacePluralConverter(
-      Pattern.compile("([^aeiou])y$", Pattern.CASE_INSENSITIVE),
-      "$1ies"
-    );
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "esAppendPluralConverter")
-  public PluralConverter esAppendPluralConverter() {
-    return new AppendPluralConverter(Pattern.compile("(s|sh|ch|x)$", Pattern.CASE_INSENSITIVE), "es");
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "sAppendPluralConverter")
-  public PluralConverter sAppendPluralConverter() {
-    return new AppendPluralConverter(Pattern.compile("$", Pattern.CASE_INSENSITIVE), "s");
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public PluralService pluralService(List<PluralConverter> converters) {
-    return new SimplePluralService(converters);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public NameFactory nameFactory(PluralService pluralService) {
-    return new NameFactory(new NameStyleFactory(pluralService));
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "tableCodeGenContextProcessor")
-  public CodeGenContextProcessor tableCodeGenContextProcessor() {
-    return new TableCodeGenContextProcessor();
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "domainCodeGenContextProcessor")
-  public CodeGenContextProcessor domainCodeGenContextProcessor(CodeGenProperties properties, NameFactory nameFactory) {
-    return new DomainCodeGenContextProcessor(properties.getTablePrefix(), nameFactory);
-  }
+  private final CodeGenProperties properties;
 
   @Bean
   @ConditionalOnMissingBean(name = "packageCodeGenContextProcessor")
   public CodeGenContextProcessor packageCodeGenContextProcessor(CodeGenProperties properties) {
-    return new PackageCodeGenContextProcessor(properties.getPackageName());
+    return new JavaPackageCodeGenContextProcessor(properties.getPackageName());
   }
 
   @Bean
-  @ConditionalOnMissingBean(name = "apiCodeGenContextProcessor")
-  public CodeGenContextProcessor apiCodeGenContextProcessor() {
-    return new ApiCodeGenContextProcessor();
+  @ConditionalOnMissingBean(name = "domainCodeGenContextProcessor")
+  public CodeGenContextProcessor domainCodeGenContextProcessor(NameFactory nameFactory,
+                                                               List<JdbcTypeMapping> typeMappings) {
+
+    return new DomainCodeGenContextProcessor(
+      properties.getTablePrefix(),
+      properties.getTableRemarksSuffix(),
+      nameFactory,
+      typeMappings
+    );
+  }
+
+
+  @Bean
+  @ConditionalOnMissingBean(name = "koalaEntityCodeGenContextProcessor")
+  public CodeGenContextProcessor koalaEntityCodeGenContextProcessor(
+    List<JakartaDigitsValidationBuilder> validationBuilders) {
+
+    return new KoalaEntityCodeGenContextProcessor(validationBuilders);
   }
 
   @Bean
-  @ConditionalOnMissingBean(name = "entityCodeGenContextProcessor")
-  public CodeGenContextProcessor entityCodeGenContextProcessor() {
-    return new EntityCodeGenContextProcessor();
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public CompositeCodeGenContextProcessor compositeCodeGenContextProcessor(List<CodeGenContextProcessor> processors) {
-    return new SimpleCompositeCodeGenContextProcessor(processors);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public CodeGenerator codeGenerator(TemplateRenderer templateRenderer, CompositeCodeGenContextProcessor processor) {
-    return new TemplateEngineCodeGenerator(templateRenderer, processor);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public CodeGenService codeGenService(DatabaseService databaseService, TemplateGroupService templateGroupService,
-                                       CodeGenerator codeGenerator, CodeGenProperties properties) {
-
-    return new DefaultCodeGenService(databaseService, templateGroupService, codeGenerator, properties.getDownloadPath());
+  @ConditionalOnMissingBean(name = "koalaApiCodeGenContextProcessor")
+  public CodeGenContextProcessor koalaApiCodeGenContextProcessor() {
+    return new KoalaApiCodeGenContextProcessor();
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public CodeGenApi codeApi(CodeGenService codeGenService) {
-    return new DefaultCodeGenApi(codeGenService);
+  public CodeGenService codeGenService(List<CodeGenContextProcessor> contextProcessors,
+                                       TemplateRenderer templateRenderer) {
+
+    return new DefaultCodeGenService(contextProcessors, templateRenderer);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public CodeGenApi codeApi(DatabaseService databaseService, TemplateService templateService,
+                            CodeGenService codeGenService, CodeGenProperties properties) {
+
+    return new DefaultCodeGenApi(databaseService, templateService, codeGenService, properties.getPath());
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/api/code-gen/file/**")
+      .addResourceLocations("file:" + properties.getPath());
   }
 }

@@ -1,1 +1,5 @@
+cn.koala.code.autoconfigure.NameFactoryAutoConfiguration
+cn.koala.code.autoconfigure.JdbcTypeMappingAutoConfiguration
+cn.koala.code.autoconfigure.JakartaValidationBuilderAutoConfiguration
 cn.koala.code.autoconfigure.CodeGenAutoConfiguration
+cn.koala.code.autoconfigure.CodePermissionAutoConfiguration

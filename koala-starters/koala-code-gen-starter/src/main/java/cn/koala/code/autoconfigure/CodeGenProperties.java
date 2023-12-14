@@ -12,9 +12,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class CodeGenProperties {
 
+  private String path;
+
   private String packageName = "cn.koala.code";
 
   private String tablePrefix = "t_";
 
-  private String downloadPath;
+  private String tableRemarksSuffix = "表";
 }

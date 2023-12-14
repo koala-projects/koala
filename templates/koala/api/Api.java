@@ -1,7 +1,6 @@
 package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
-
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -50,14 +49,12 @@ public interface #(name.pascal.singular)Api {
    * @return #(description)分页结果
    */
   @PreAuthorize("hasAuthority('#(name.kebab.singular).read')")
-  @Operation(operationId = "list#(name.pascal.plural)", summary = "根据条件分页查询#(description)")
+  @Operation(operationId = "list#(name.pascal.singular)", summary = "根据条件分页查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)PageResult.class))}
   )
-#for(property: properties)
-  #if(!parameterIgnoredPropertyNames.contains(property.name.camel.singular))
-  @Parameter(in = ParameterIn.QUERY, name = "#(property.name.camel.singular)", description = "#(property.description)", schema = @Schema(type = "#(property.type.json)"))
-  #end
+#for(parameter: koala.parameters)
+  @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.type)"))
 #end
   @PageableAsQueryParam
   @GetMapping

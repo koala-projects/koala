@@ -343,28 +343,42 @@ CREATE TABLE k_task_log
 
 -- Template
 -- 模板组表
-CREATE TABLE t_template_group
+CREATE TABLE k_template_group
 (
-  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`        VARCHAR(100) NOT NULL COMMENT '模板组名称',
-  `remark`      VARCHAR(500) COMMENT '模板组备注',
-  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`               VARCHAR(20) NOT NULL COMMENT '模板组名称',
+  `description`        VARCHAR(200) COMMENT '模板组描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '模板组表';
 
 -- 模板表
-CREATE TABLE t_template
+CREATE TABLE k_template
 (
-  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`        VARCHAR(100) NOT NULL COMMENT '模板名称',
-  `content`     TEXT         NOT NULL COMMENT '模板内容',
-  `remark`      VARCHAR(500) COMMENT '模板备注',
-  `group_id`    BIGINT COMMENT '模板组id',
-  `is_enabled`  INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic` INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`  INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `group_id`           BIGINT COMMENT '模板组id',
+  `name`               VARCHAR(100) NOT NULL COMMENT '模板名称',
+  `description`        VARCHAR(200) COMMENT '模板描述',
+  `content`            TEXT        NOT NULL COMMENT '模板内容',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '模板表';
 

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Persistable;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -40,19 +41,20 @@ public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, I
   @Override
 
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
-    parameters.put(DomainNames.PAGEABLE, pageable);
-    parameters.put(DomainNames.DELETED, YesNo.NO);
-    // parameters.put("orders", pageable.getSort().toList());
+    var temp = new HashMap<>(parameters);
+    temp.put(DomainNames.PAGEABLE, pageable);
+    temp.put(DomainNames.DELETED, YesNo.NO);
     com.github.pagehelper.Page<T> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
-      .doSelectPage(() -> getRepository().list(parameters));
+      .doSelectPage(() -> getRepository().list(temp));
     return new PageImpl<>(page.getResult(), pageable, page.getTotal());
   }
 
   @Override
   public List<T> list(Map<String, Object> parameters) {
-    parameters.put(DomainNames.DELETED, YesNo.NO);
-    return getRepository().list(parameters);
+    var temp = new HashMap<>(parameters);
+    temp.put(DomainNames.DELETED, YesNo.NO);
+    return getRepository().list(temp);
   }
 
   @Override

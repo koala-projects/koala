@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.7.0",
   "createdTime": "2023-1-29 08:59:43",
-  "updatedTime": "2023-12-12 21:53:09",
+  "updatedTime": "2023-12-14 14:54:11",
   "dbConns": [],
   "profile": {
     "default": {
@@ -5436,8 +5436,8 @@
           "defKey": "name",
           "defName": "模板名称",
           "comment": "",
-          "type": "",
-          "len": "",
+          "type": "VARCHAR",
+          "len": 100,
           "scale": "",
           "primaryKey": false,
           "notNull": true,
@@ -5446,7 +5446,7 @@
           "hideInGraph": false,
           "refDict": "",
           "extProps": {},
-          "domain": "D6785B2A-5D68-4C9D-9949-A2AEBCF3245F",
+          "domain": "",
           "id": "A1094A32-4867-4575-9FD7-36145329F3C7",
           "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64"
         },

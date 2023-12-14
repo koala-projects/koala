@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRegistrar {
 
   public #(name.pascal.singular)PermissionRegistrar(){
-    super("#(name.kebab.singular)","#(description)管理",30000,null);
+    super("#(name.kebab.singular)", "#(description)管理", 30000, null);
   }
-  
 }

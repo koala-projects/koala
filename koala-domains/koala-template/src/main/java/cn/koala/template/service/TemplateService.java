@@ -9,4 +9,5 @@ import cn.koala.template.domain.Template;
  * @author Houtaroy
  */
 public interface TemplateService extends CrudService<Template, Long> {
+  
 }

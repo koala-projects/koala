@@ -28,13 +28,13 @@ import org.springframework.data.domain.AuditorAware;
 @MapperScan("cn.koala.template.repository")
 @Configuration
 public class TemplateAutoConfiguration {
-  
+
   @Bean
   @ConditionalOnMissingBean
   public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository,
-                                                   TemplateService templateService, AuditorAware<Long> auditorAware) {
+                                                   AuditorAware<Long> auditorAware) {
 
-    return new DefaultTemplateGroupService(templateGroupRepository, templateService, auditorAware);
+    return new DefaultTemplateGroupService(templateGroupRepository, auditorAware);
   }
 
   @Bean
