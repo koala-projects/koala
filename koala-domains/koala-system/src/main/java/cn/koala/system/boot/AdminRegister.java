@@ -1,11 +1,11 @@
 package cn.koala.system.boot;
 
 import cn.koala.data.domain.YesNo;
+import cn.koala.system.domain.Permission;
 import cn.koala.system.domain.Role;
 import cn.koala.system.domain.RoleEntity;
 import cn.koala.system.domain.User;
 import cn.koala.system.domain.UserEntity;
-import cn.koala.system.model.Permission;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;

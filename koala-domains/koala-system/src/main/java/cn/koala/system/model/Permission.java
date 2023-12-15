@@ -8,6 +8,7 @@ import cn.koala.persist.domain.Sortable;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Permission extends Persistable<Long>, Sortable {
 
   String getCode();

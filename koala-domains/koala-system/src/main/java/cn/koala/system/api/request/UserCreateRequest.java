@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

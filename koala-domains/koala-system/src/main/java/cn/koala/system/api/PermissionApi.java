@@ -1,8 +1,7 @@
 package cn.koala.system.api;
 
-import cn.koala.persist.validator.EditableId;
-import cn.koala.system.model.Permission;
-import cn.koala.system.model.PermissionEntity;
+import cn.koala.system.domain.Permission;
+import cn.koala.system.domain.PermissionEntity;
 import cn.koala.util.TreeNode;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -97,8 +96,7 @@ public interface PermissionApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "权限id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(Permission.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody PermissionEntity permission);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody PermissionEntity permission);
 
   /**
    * 删除权限
@@ -113,7 +111,7 @@ public interface PermissionApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "权限id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(Permission.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   class PermissionTreeResult extends DataResponse<List<TreeNode>> {
 

@@ -3,54 +3,200 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.koala.system.repository.PermissionRepository">
 
-  <sql id="selectPermission">
+  <sql id="select">
     select t.id,
+           t.parent_id,
            t.code,
            t.name,
-           t.remark,
-           t.parent_id,
-           t.sort_index
+           t.description,
+           t.sort_index,
+           t.enabled,
+           t.systemic,
+           t.deleted,
+           t.created_by,
+           t.created_date,
+           t.last_modified_by,
+           t.last_modified_date,
+           t.deleted_by,
+           t.deleted_date
     from k_permission t
   </sql>
 
-  <select id="list" resultType="cn.koala.system.model.PermissionEntity">
-    <include refid="selectPermission"/>
+  <sql id="where">
     <where>
+      <if test="parentId != null and parentId != ''">
+        and t.parent_id = #{parentId}
+      </if>
       <if test="code != null and code != ''">
         and t.code = #{code}
       </if>
       <if test="name != null and name != ''">
         and t.name = #{name}
       </if>
+      <if test="description != null and description != ''">
+        and t.description = #{description}
+      </if>
+      <if test="sortIndex != null and sortIndex != ''">
+        and t.sort_index = #{sortIndex}
+      </if>
+      <if test="enabled != null and enabled != ''">
+        and t.enabled = #{enabled}
+      </if>
+      <if test="systemic != null and systemic != ''">
+        and t.systemic = #{systemic}
+      </if>
+      <if test="deleted != null and deleted != ''">
+        and t.deleted = #{deleted}
+      </if>
+      <if test="createdBy != null and createdBy != ''">
+        and t.created_by = #{createdBy}
+      </if>
+      <if test="createdDate != null and createdDate != ''">
+        and t.created_date = #{createdDate}
+      </if>
+      <if test="lastModifiedBy != null and lastModifiedBy != ''">
+        and t.last_modified_by = #{lastModifiedBy}
+      </if>
+      <if test="lastModifiedDate != null and lastModifiedDate != ''">
+        and t.last_modified_date = #{lastModifiedDate}
+      </if>
+      <if test="deletedBy != null and deletedBy != ''">
+        and t.deleted_by = #{deletedBy}
+      </if>
+      <if test="deletedDate != null and deletedDate != ''">
+        and t.deleted_date = #{deletedDate}
+      </if>
     </where>
+  </sql>
+
+  <sql id="orders">
+    <choose>
+      <when test="pageable != null and pageable.getSort() != null">
+        <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
+                 separator=",">
+          <include refid="order"/>
+        </foreach>
+      </when>
+      <otherwise>
+        order by t.sort_index asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="order">
+    <if test="order.property == 'parentId'">
+      t.parent_id
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'code'">
+      t.code
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'name'">
+      t.name
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'description'">
+      t.description
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'sortIndex'">
+      t.sort_index
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'enabled'">
+      t.enabled
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'systemic'">
+      t.systemic
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deleted'">
+      t.deleted
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdBy'">
+      t.created_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdDate'">
+      t.created_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedBy'">
+      t.last_modified_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedDate'">
+      t.last_modified_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedBy'">
+      t.deleted_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedDate'">
+      t.deleted_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
+  <select id="list" resultType="cn.koala.system.domain.PermissionEntity">
+    <include refid="select"/>
+    <include refid="where"/>
+    <include refid="orders"/>
   </select>
 
-  <select id="load" resultType="cn.koala.system.model.PermissionEntity">
-    <include refid="selectPermission"/>
+  <select id="load" resultType="cn.koala.system.domain.PermissionEntity">
+    <include refid="select"/>
     where t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.system.model.PermissionEntity" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.system.domain.PermissionEntity" useGeneratedKeys="true"
           keyProperty="id">
-    insert into k_permission(id, code, name, remark, parent_id, sort_index)
-    values (#{id}, #{code}, #{name}, #{remark}, #{parentId}, #{sortIndex})
+    insert into k_permission
+    values (#{id},
+            #{parentId},
+            #{code},
+            #{name},
+            #{description},
+            #{sortIndex},
+            #{enabled},
+            #{systemic},
+            #{deleted},
+            #{createdBy},
+            #{createdDate},
+            #{lastModifiedBy},
+            #{lastModifiedDate},
+            #{deletedBy},
+            #{deletedDate})
   </insert>
 
-  <update id="update" parameterType="cn.koala.system.model.PermissionEntity">
+  <update id="update" parameterType="cn.koala.system.domain.PermissionEntity">
     update k_permission
     <trim prefix="set" suffixOverrides=",">
+      <if test="parentId != null">parent_id=#{parentId},</if>
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
-      <if test="remark != null">remark=#{remark},</if>
-      <if test="parentId != null">parent_id=#{parentId},</if>
+      <if test="description != null">description=#{description},</if>
       <if test="sortIndex != null">sort_index=#{sortIndex},</if>
+      <if test="enabled != null">enabled=#{enabled},</if>
+      <if test="systemic != null">systemic=#{systemic},</if>
+      <if test="deleted != null">deleted=#{deleted},</if>
+      <if test="createdBy != null">created_by=#{createdBy},</if>
+      <if test="createdDate != null">created_date=#{createdDate},</if>
+      <if test="lastModifiedBy != null">last_modified_by=#{lastModifiedBy},</if>
+      <if test="lastModifiedDate != null">last_modified_date=#{lastModifiedDate},</if>
+      <if test="deletedBy != null">deleted_by=#{deletedBy},</if>
+      <if test="deletedDate != null">deleted_date=#{deletedDate},</if>
     </trim>
     where id=#{id}
   </update>
 
-  <update id="delete" parameterType="cn.koala.system.model.PermissionEntity">
+  <delete id="delete" parameterType="cn.koala.system.domain.PermissionEntity">
     delete
     from k_permission
     where id = #{id}
-  </update>
+  </delete>
 </mapper>

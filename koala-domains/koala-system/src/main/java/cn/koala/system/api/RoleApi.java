@@ -1,7 +1,6 @@
 package cn.koala.system.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.system.api.request.RoleAuthorizeRequest;
 import cn.koala.system.domain.Role;
 import cn.koala.system.domain.RoleEntity;
 import cn.koala.system.domain.User;

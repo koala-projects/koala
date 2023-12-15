@@ -1,7 +1,7 @@
 package cn.koala.system.permission;
 
 import cn.koala.boot.AbstractApplicationRunner;
-import cn.koala.system.model.Permission;
+import cn.koala.system.domain.Permission;
 import cn.koala.system.repository.PermissionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

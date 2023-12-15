@@ -1,6 +1,6 @@
 package cn.koala.system.permission;
 
-import cn.koala.system.model.Permission;
+import cn.koala.system.domain.Permission;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -27,11 +27,11 @@ public class MultiCrudPermissionRegistrar implements PermissionRegistrar {
     this.code = code;
     this.order = startSortIndex;
     this.permissions = new ArrayList<>(cruds.size() * (PermissionFactory.CRUD_MAPPING.size() + 1));
-    this.permissions.add(PermissionFactory.of(code, name, startSortIndex.longValue(), null));
+    this.permissions.add(PermissionFactory.of(null, code, name, startSortIndex.longValue()));
     long currentSortIndex = startSortIndex + CRUD_SORT_INDEX_STEP;
     for (String crudCode : cruds.keySet()) {
       this.permissions.addAll(
-        PermissionFactory.ofCrud(crudCode, cruds.get(crudCode), currentSortIndex, startSortIndex.longValue())
+        PermissionFactory.ofCrud(startSortIndex.longValue(), crudCode, cruds.get(crudCode), currentSortIndex)
       );
       currentSortIndex += CRUD_SORT_INDEX_STEP;
     }

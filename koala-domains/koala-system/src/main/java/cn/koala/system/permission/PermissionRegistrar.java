@@ -1,6 +1,6 @@
 package cn.koala.system.permission;
 
-import cn.koala.system.model.Permission;
+import cn.koala.system.domain.Permission;
 import org.springframework.core.Ordered;
 
 import java.util.List;

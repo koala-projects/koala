@@ -1,6 +1,6 @@
 package cn.koala.system.permission;
 
-import cn.koala.system.model.Permission;
+import cn.koala.system.domain.Permission;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class SimplePermissionRegistrar implements PermissionRegistrar {
     this.code = code;
     this.order = sortIndex;
     this.permissions = new ArrayList<>(childrenCodeAndNames.size() + 1);
-    this.permissions.add(PermissionFactory.of(code, name, sortIndex.longValue(), parentId));
+    this.permissions.add(PermissionFactory.of(parentId, code, name, sortIndex.longValue()));
     this.addChildren(childrenCodeAndNames);
   }
 

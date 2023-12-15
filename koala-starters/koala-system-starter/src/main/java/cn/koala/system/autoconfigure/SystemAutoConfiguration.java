@@ -1,6 +1,7 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.system.api.DefaultDepartmentApi;
+import cn.koala.system.api.DefaultPermissionApi;
 import cn.koala.system.api.DefaultRoleApi;
 import cn.koala.system.api.DefaultUserApi;
 import cn.koala.system.api.DepartmentApi;
@@ -11,7 +12,6 @@ import cn.koala.system.api.DictionaryItemApiImpl;
 import cn.koala.system.api.DutyApi;
 import cn.koala.system.api.DutyApiImpl;
 import cn.koala.system.api.PermissionApi;
-import cn.koala.system.api.PermissionApiImpl;
 import cn.koala.system.api.RoleApi;
 import cn.koala.system.api.UserApi;
 import cn.koala.system.boot.AdminRegister;
@@ -118,7 +118,7 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public PermissionApi permissionApi(PermissionService permissionService) {
-    return new PermissionApiImpl(permissionService);
+    return new DefaultPermissionApi(permissionService);
   }
 
   @Bean

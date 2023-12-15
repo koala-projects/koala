@@ -1,7 +1,10 @@
 package cn.koala.system.permission;
 
-import cn.koala.system.model.Permission;
-import cn.koala.system.model.PermissionEntity;
+import cn.koala.data.domain.YesNo;
+import cn.koala.system.domain.Permission;
+import cn.koala.system.domain.PermissionEntity;
+import cn.koala.system.util.SystemNames;
+import cn.koala.util.LocalDateTimeUtils;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -37,9 +40,9 @@ public class PermissionFactory {
     CRUD_MAPPING.put("delete", "删除");
   }
 
-  public static List<Permission> ofCrud(String code, String name, Long sortIndex, Long parentId) {
+  public static List<Permission> ofCrud(Long parentId, String code, String name, Long sortIndex) {
     List<Permission> result = new ArrayList<>(CRUD_MAPPING.size() + 1);
-    Permission parent = of(code, name, sortIndex, parentId);
+    Permission parent = of(parentId, code, name, sortIndex);
     result.add(parent);
     result.addAll(ofChildren(parent, CRUD_MAPPING));
     return result;
@@ -60,7 +63,7 @@ public class PermissionFactory {
     String domainName = obtainDomainName(parent.getName());
     String actualCode = CODE_TEMPLATE.formatted(parent.getCode(), code);
     String actualName = NAME_TEMPLATE.formatted(name, domainName);
-    return of(actualCode, actualName, sortIndex, parent.getId());
+    return of(parent.getId(), actualCode, actualName, sortIndex);
   }
 
   private static String obtainDomainName(String parentName) {
@@ -68,13 +71,18 @@ public class PermissionFactory {
       parentName.substring(0, parentName.length() - PermissionFactory.PARENT_NAME_SUFFIX.length()) : parentName;
   }
 
-  public static Permission of(String code, String name, Long sortIndex, Long parentId) {
+  public static Permission of(Long parentId, String code, String name, Long sortIndex) {
     return PermissionEntity.builder()
       .id(sortIndex)
+      .parentId(parentId)
       .code(code)
       .name(name)
       .sortIndex(sortIndex)
-      .parentId(parentId)
+      .enabled(YesNo.YES)
+      .systemic(YesNo.NO)
+      .deleted(YesNo.NO)
+      .createdBy(SystemNames.ADMIN_ID)
+      .createdDate(LocalDateTimeUtils.toDate())
       .build();
   }
 }

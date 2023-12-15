@@ -1,8 +1,8 @@
 package cn.koala.system.api;
 
 import cn.koala.log.annotation.Log;
-import cn.koala.system.model.Permission;
-import cn.koala.system.model.PermissionEntity;
+import cn.koala.system.domain.Permission;
+import cn.koala.system.domain.PermissionEntity;
 import cn.koala.system.service.PermissionService;
 import cn.koala.util.TreeNode;
 import cn.koala.web.DataResponse;
@@ -17,10 +17,11 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
-public class PermissionApiImpl implements PermissionApi {
-  protected final PermissionService service;
+@RequiredArgsConstructor
+public class DefaultPermissionApi implements PermissionApi {
+
+  private final PermissionService service;
 
   @Override
   @Log(module = "权限管理", content = "查询权限树")
@@ -44,7 +45,7 @@ public class PermissionApiImpl implements PermissionApi {
   @Override
   @Log(module = "权限管理", content = "更新权限[id=${#id}]")
   public Response update(Long id, PermissionEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

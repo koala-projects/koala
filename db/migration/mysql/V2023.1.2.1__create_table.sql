@@ -97,6 +97,140 @@ CREATE TABLE k_query
 ) COMMENT = '查询表';
 
 -- System
+-- 用户表
+CREATE TABLE k_user
+(
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username`           VARCHAR(20)  NOT NULL COMMENT '用户名',
+  `password`           VARCHAR(200) NOT NULL COMMENT '密码',
+  `nickname`           VARCHAR(20)  NOT NULL COMMENT '昵称',
+  `avatar`             VARCHAR(200) COMMENT '头像',
+  `email`              VARCHAR(50) COMMENT '邮箱',
+  `mobile`             VARCHAR(20) COMMENT '手机号',
+  `description`        VARCHAR(200) COMMENT '描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20)  NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '用户表';
+
+-- 角色表
+CREATE TABLE k_role
+(
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(20) NOT NULL COMMENT '角色代码',
+  `name`               VARCHAR(20) NOT NULL COMMENT '角色名称',
+  `description`        VARCHAR(200) COMMENT '角色描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '角色表';
+
+-- 权限表
+CREATE TABLE k_permission
+(
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `parent_id`          BIGINT COMMENT '上级权限id',
+  `code`               VARCHAR(20) NOT NULL COMMENT '权限代码',
+  `name`               VARCHAR(20) NOT NULL COMMENT '权限名称',
+  `description`        VARCHAR(200) COMMENT '权限描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '权限表';
+
+-- 部门表
+CREATE TABLE k_department
+(
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `parent_id`          BIGINT COMMENT '上级部门id',
+  `name`               VARCHAR(20) NOT NULL COMMENT '部门名称',
+  `description`        VARCHAR(200) COMMENT '部门描述',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '部门表';
+
+-- 岗位表
+CREATE TABLE k_duty
+(
+  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code`               VARCHAR(100) NOT NULL COMMENT '岗位代码',
+  `name`               VARCHAR(100) NOT NULL COMMENT '岗位名称',
+  `description`        VARCHAR(500) COMMENT '岗位描述',
+  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
+  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
+  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
+  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_time` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_time`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '岗位表';
+
+-- 用户角色关系表
+CREATE TABLE k_user_role
+(
+  `user_id` BIGINT NOT NULL COMMENT '用户id',
+  `role_id` BIGINT NOT NULL COMMENT '角色id'
+) COMMENT = '用户角色关系表';
+
+-- 角色权限关系表
+CREATE TABLE k_role_permission
+(
+  `role_id`         BIGINT      NOT NULL COMMENT '角色id',
+  `permission_id`   BIGINT      NOT NULL DEFAULT 0 COMMENT '权限id',
+  `is_half_checked` VARCHAR(20) NOT NULL COMMENT '是否半选'
+) COMMENT = '角色权限关系表';
+
+-- 用户部门关系表
+CREATE TABLE k_user_department
+(
+  `user_id`       BIGINT NOT NULL COMMENT '用户id',
+  `department_id` BIGINT NOT NULL COMMENT '部门id'
+) COMMENT = '用户部门关系表';
+
+-- 用户岗位关系表
+CREATE TABLE k_user_duty
+(
+  `user_id` BIGINT NOT NULL COMMENT '用户id',
+  `duty_id` BIGINT NOT NULL COMMENT '岗位id'
+) COMMENT = '用户岗位关系表';
+
 -- 字典表
 CREATE TABLE k_dict
 (
@@ -137,132 +271,6 @@ CREATE TABLE k_dict_item
   `deleted_time`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '字典项表';
-
--- 岗位表
-CREATE TABLE k_duty
-(
-  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`               VARCHAR(100) NOT NULL COMMENT '岗位代码',
-  `name`               VARCHAR(100) NOT NULL COMMENT '岗位名称',
-  `description`        VARCHAR(500) COMMENT '岗位描述',
-  `sort_index`         INT                   DEFAULT 0 COMMENT '排序索引',
-  `is_enabled`         INT          NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic`        INT          NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`         INT          NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
-  `created_time`       DATETIME     NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_time` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_time`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '岗位表';
-
--- 部门表
-CREATE TABLE k_department
-(
-  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `parent_id`          BIGINT COMMENT '上级部门id',
-  `name`               VARCHAR(20) NOT NULL COMMENT '部门名称',
-  `description`        VARCHAR(200) COMMENT '部门描述',
-  `sort_index`         INT COMMENT '排序索引',
-  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
-  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
-  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
-  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
-  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_date` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_date`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '部门表';
-
-
--- 权限表
-CREATE TABLE k_permission
-(
-  `id`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`       VARCHAR(100) NOT NULL COMMENT '权限代码',
-  `name`       VARCHAR(100) NOT NULL COMMENT '权限名称',
-  `remark`     VARCHAR(500) COMMENT '权限备注',
-  `parent_id`  BIGINT COMMENT '上级权限id',
-  `sort_index` INT DEFAULT 0 COMMENT '排序索引',
-  PRIMARY KEY (id)
-) COMMENT = '权限表';
-
--- 角色表
-CREATE TABLE k_role
-(
-  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code`               VARCHAR(20) NOT NULL COMMENT '角色代码',
-  `name`               VARCHAR(20) NOT NULL COMMENT '角色名称',
-  `description`        VARCHAR(200) COMMENT '角色描述',
-  `sort_index`         INT COMMENT '排序索引',
-  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
-  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
-  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
-  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
-  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_date` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_date`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '角色表';
-
--- 用户表
-CREATE TABLE k_user
-(
-  `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `username`           VARCHAR(20)  NOT NULL COMMENT '用户名',
-  `password`           VARCHAR(200) NOT NULL COMMENT '密码',
-  `nickname`           VARCHAR(20)  NOT NULL COMMENT '昵称',
-  `avatar`             VARCHAR(200) COMMENT '头像',
-  `email`              VARCHAR(50) COMMENT '邮箱',
-  `mobile`             VARCHAR(20) COMMENT '手机号',
-  `description`        VARCHAR(200) COMMENT '描述',
-  `sort_index`         INT COMMENT '排序索引',
-  `enabled`            VARCHAR(20)  NOT NULL DEFAULT 'YES' COMMENT '是否启用',
-  `systemic`           VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否系统',
-  `deleted`            VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否删除',
-  `created_by`         BIGINT       NOT NULL COMMENT '创建人ID',
-  `created_date`       DATETIME     NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_date` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_date`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '用户表';
-
--- 用户角色关系表
-CREATE TABLE k_user_role
-(
-  `user_id` BIGINT NOT NULL COMMENT '用户id',
-  `role_id` BIGINT NOT NULL COMMENT '角色id'
-) COMMENT = '用户角色关系表';
-
--- 角色权限关系表
-CREATE TABLE k_role_permission
-(
-  `role_id`         BIGINT      NOT NULL COMMENT '角色id',
-  `permission_id`   BIGINT      NOT NULL DEFAULT 0 COMMENT '权限id',
-  `is_half_checked` VARCHAR(20) NOT NULL COMMENT '是否半选'
-) COMMENT = '角色权限关系表';
-
--- 用户部门关系表
-CREATE TABLE k_user_department
-(
-  `user_id`       BIGINT NOT NULL COMMENT '用户id',
-  `department_id` BIGINT NOT NULL COMMENT '部门id'
-) COMMENT = '用户部门关系表';
-
--- 用户岗位关系表
-CREATE TABLE k_user_duty
-(
-  `user_id` BIGINT NOT NULL COMMENT '用户id',
-  `duty_id` BIGINT NOT NULL COMMENT '岗位id'
-) COMMENT = '用户岗位关系表';
 
 -- Log
 -- 日志表

@@ -1,7 +1,7 @@
 package cn.koala.system.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.system.model.Permission;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.system.domain.Permission;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.util.TreeNode;
 import cn.koala.util.TreeUtils;
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @Getter
-public class PermissionServiceImpl extends AbstractMyBatisService<Permission, Long> implements PermissionService {
+public class PermissionServiceImpl extends AbstractSmartService<Long, Permission, Long> implements PermissionService {
 
   protected final PermissionRepository repository;
 
