@@ -5,10 +5,11 @@ import cn.koala.codegen.api.DefaultCodeGenApi;
 import cn.koala.codegen.context.CodeGenContextProcessor;
 import cn.koala.codegen.context.DomainCodeGenContextProcessor;
 import cn.koala.codegen.context.JavaPackageCodeGenContextProcessor;
+import cn.koala.codegen.context.KoalaAdminCodeGenContextProcessor;
 import cn.koala.codegen.context.KoalaApiCodeGenContextProcessor;
 import cn.koala.codegen.context.KoalaEntityCodeGenContextProcessor;
 import cn.koala.codegen.context.type.JdbcTypeMapping;
-import cn.koala.codegen.context.validation.JakartaDigitsValidationBuilder;
+import cn.koala.codegen.context.validation.JakartaValidationBuilder;
 import cn.koala.codegen.name.NameFactory;
 import cn.koala.codegen.service.CodeGenService;
 import cn.koala.codegen.service.DefaultCodeGenService;
@@ -60,7 +61,7 @@ public class CodeGenAutoConfiguration implements WebMvcConfigurer {
   @Bean
   @ConditionalOnMissingBean(name = "koalaEntityCodeGenContextProcessor")
   public CodeGenContextProcessor koalaEntityCodeGenContextProcessor(
-    List<JakartaDigitsValidationBuilder> validationBuilders) {
+    List<JakartaValidationBuilder> validationBuilders) {
 
     return new KoalaEntityCodeGenContextProcessor(validationBuilders);
   }
@@ -69,6 +70,12 @@ public class CodeGenAutoConfiguration implements WebMvcConfigurer {
   @ConditionalOnMissingBean(name = "koalaApiCodeGenContextProcessor")
   public CodeGenContextProcessor koalaApiCodeGenContextProcessor() {
     return new KoalaApiCodeGenContextProcessor();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "koalaAdminCodeGenContextProcessor")
+  public CodeGenContextProcessor koalaAdminCodeGenContextProcessor() {
+    return new KoalaAdminCodeGenContextProcessor();
   }
 
   @Bean

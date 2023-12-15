@@ -1,6 +1,6 @@
 package cn.koala.codegen.context;
 
-import cn.koala.codegen.context.validation.JakartaDigitsValidationBuilder;
+import cn.koala.codegen.context.validation.JakartaValidationBuilder;
 import cn.koala.codegen.utils.CodeGenNames;
 import cn.koala.database.domain.DatabaseTable;
 import cn.koala.database.domain.DatabaseTableColumn;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class KoalaEntityCodeGenContextProcessor implements CodeGenContextProcessor {
 
-  private final List<JakartaDigitsValidationBuilder> validationBuilders;
+  private final List<JakartaValidationBuilder> validationBuilders;
 
   @Override
   public CodeGenContext process(CodeGenContext context) {

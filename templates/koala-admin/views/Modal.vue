@@ -2,10 +2,10 @@
   import { ref, unref, computed } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './#(api.permission).data';
+  import { formSchema } from './#(name.kebab.singular).data';
   import { create#(name.pascal.singular), update#(name.pascal.singular) } from '/@/apis/#(name.kebab.plural)';
   const isUpdate = ref(false);
-  const id = ref<number | null>(null);
+  const id = ref<#(id.type.ts) | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增#(description)' : '编辑#(description)'));
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 100,

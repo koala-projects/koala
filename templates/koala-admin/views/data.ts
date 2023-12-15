@@ -1,20 +1,20 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
     title: '#(property.description)',
-    dataIndex: '#(property.name.camel.singular)',
+    dataIndex: '#(property.name)',
   },
 #end
 ];
 
 export const searchFormSchema: FormSchema[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
-    field: '#(property.name.camel.singular)',
+    field: '#(property.name)',
     label: '#(property.description)',
-    component: '#(property.type.vben)',
+    component: '#(property.type)',
     colProps: {
   	  xl: 12,
   	  xxl: 8,
@@ -24,11 +24,11 @@ export const searchFormSchema: FormSchema[] = [
 ];
 
 export const formSchema: FormSchema[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
-    field: '#(property.name.camel.singular)',
+    field: '#(property.name)',
     label: '#(property.description)',
-    component: '#(property.type.vben)',
+    component: '#(property.type)',
   },
 #end
 ];

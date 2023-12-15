@@ -426,7 +426,7 @@ export function list#(name.pascal.singular)(params: SearchParameters) {
   return defHttp.get<PageResult<#(name.pascal.singular)Entity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
-export function load#(name.pascal.singular)(id: number) {
+export function load#(name.pascal.singular)(id: #(id.type.ts)) {
   return defHttp.get<#(name.pascal.singular)Entity>({ url: `${domain}/${id}` });
 }
 
@@ -434,49 +434,42 @@ export function create#(name.pascal.singular)(data: #(name.pascal.singular)Entit
   return defHttp.post<#(name.pascal.singular)Entity>({ url: domain, data });
 }
 
-export function update#(name.pascal.singular)(id: number, data: #(name.pascal.singular)Entity) {
+export function update#(name.pascal.singular)(id: #(id.type.ts), data: #(name.pascal.singular)Entity) {
   return defHttp.put<null>({ url: `${domain}/${id}`, data });
 }
 
-export function delete#(name.pascal.singular)(id: number) {
+export function delete#(name.pascal.singular)(id: #(id.type.ts)) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
 }
 
 export { #(name.pascal.singular)Entity };
 ', 'YES', 1, now()),
-       (202, 2, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', '#if(entity.isAbstract)
-import type AbstractEntity from ''../AbstractEntity'';
-
-#end
-export default interface #(name.pascal.singular)Entity#if(entity.isAbstract) extends AbstractEntity#end  {
-#for(property: properties)
-  #if(entity.isAbstract)
-    #if(!entity.abstractIgnoredPropertyNames.contains(property.name.camel.singular))
-  #(property.name.camel.singular): #(property.type.ts)
-	#end
-  #else
-  #(property.name.camel.singular): #(property.type.ts)
-  #end
+       (202, 2, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', 'interface #(name.pascal.singular)Entity {
+  id: #(id.type.ts);
+#for(property: koalaAdmin.properties)
+  #(property.name): #(property.type);
 #end
 }
+
+export default #(name.pascal.singular)Entity;
 ', 'YES', 1, now()),
        (203, 2, 'views/#(name.kebab.singular)/#(name.kebab.singular).data.ts', '页面数据代码模板', 'import { BasicColumn, FormSchema } from ''/@/components/Table'';
 
 export const columns: BasicColumn[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
     title: ''#(property.description)'',
-    dataIndex: ''#(property.name.camel.singular)'',
+    dataIndex: ''#(property.name)'',
   },
 #end
 ];
 
 export const searchFormSchema: FormSchema[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
-    field: ''#(property.name.camel.singular)'',
+    field: ''#(property.name)'',
     label: ''#(property.description)'',
-    component: ''#(property.type.vben)'',
+    component: ''#(property.type)'',
     colProps: {
   	  xl: 12,
   	  xxl: 8,
@@ -486,11 +479,11 @@ export const searchFormSchema: FormSchema[] = [
 ];
 
 export const formSchema: FormSchema[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
-    field: ''#(property.name.camel.singular)'',
+    field: ''#(property.name)'',
     label: ''#(property.description)'',
-    component: ''#(property.type.vben)'',
+    component: ''#(property.type)'',
   },
 #end
 ];
@@ -498,10 +491,10 @@ export const formSchema: FormSchema[] = [
        (204, 2, 'views/#(name.kebab.singular)/index.vue', '列表页代码模板', '<script lang="ts" setup>
   import { BasicTable, TableAction, useTable } from ''/@/components/Table'';
   import { useModal } from ''/@/components/Modal'';
-  import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
+  import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
   import { YesNo } from ''/@/enums/YesNo'';
   import #(name.pascal.singular)Modal from ''./#(name.pascal.singular)Modal.vue'';
-  import { columns, searchFormSchema } from ''./#(name.kebab.singular).data'';
+  import { columns, searchFormSchema } from ''./#(name.pascal.singular).data'';
 
   const [register, { reload }] = useTable({
     title: ''#(description)列表'',
@@ -584,9 +577,9 @@ export const formSchema: FormSchema[] = [
   import { BasicModal, useModalInner } from ''/@/components/Modal'';
   import { BasicForm, useForm } from ''/@/components/Form/index'';
   import { formSchema } from ''./#(name.kebab.singular).data'';
-  import { create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
+  import { create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
   const isUpdate = ref(false);
-  const id = ref<number | null>(null);
+  const id = ref<#(id.type.ts) | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? ''新增#(description)'' : ''编辑#(description)''));
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 100,
