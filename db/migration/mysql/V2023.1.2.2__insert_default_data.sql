@@ -1,6 +1,6 @@
 -- 默认部门
-insert into k_department(id, name, parent_id, sort_index, is_systemic, created_by, created_time)
-values (1, '考拉开源', null, 1, 1, 1, now());
+insert into k_department(id, parent_id, name, sort_index, systemic, created_by, created_date)
+values (1, null, '考拉开源', 1, 'YES', 1, now());
 
 -- 演示数据库
 insert into k_database(id, name, url, username, password, catalog, `schema`, systemic, created_by, created_date)
