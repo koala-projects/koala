@@ -14,6 +14,8 @@ public interface User extends Auditable<Long, Long>, Sortable, Enableable, Syste
 
   String getUsername();
 
+  void setUsername(String username);
+
   String getPassword();
 
   void setPassword(String password);

@@ -26,6 +26,7 @@ import cn.koala.system.repository.DutyRepository;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
+import cn.koala.system.service.DefaultUserService;
 import cn.koala.system.service.DepartmentService;
 import cn.koala.system.service.DepartmentServiceImpl;
 import cn.koala.system.service.DictionaryItemService;
@@ -39,7 +40,6 @@ import cn.koala.system.service.PermissionServiceImpl;
 import cn.koala.system.service.RoleService;
 import cn.koala.system.service.RoleServiceImpl;
 import cn.koala.system.service.UserService;
-import cn.koala.system.service.UserServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -150,8 +150,10 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository, AuditorAware<Long> auditorAware) {
-    return new UserServiceImpl(userRepository, auditorAware);
+  public UserService userService(UserRepository userRepository, AuditorAware<Long> auditorAware,
+                                 PasswordEncoder passwordEncoder) {
+
+    return new DefaultUserService(userRepository, auditorAware, passwordEncoder);
   }
 
   @Bean

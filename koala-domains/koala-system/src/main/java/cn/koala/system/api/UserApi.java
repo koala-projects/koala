@@ -1,7 +1,6 @@
 package cn.koala.system.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.system.api.request.UserCreateRequest;
 import cn.koala.system.domain.User;
 import cn.koala.system.domain.UserEntity;
 import cn.koala.validation.group.Create;
@@ -92,7 +91,7 @@ public interface UserApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = UserResult.class))}
   )
   @PostMapping
-  DataResponse<User> create(@Validated(Create.class) @RequestBody UserCreateRequest user);
+  DataResponse<User> create(@Validated(Create.class) @RequestBody UserEntity user);
 
   /**
    * 更新用户

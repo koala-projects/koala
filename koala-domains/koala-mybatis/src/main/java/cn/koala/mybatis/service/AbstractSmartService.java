@@ -1,6 +1,7 @@
 package cn.koala.mybatis.service;
 
 import cn.koala.data.domain.Auditable;
+import cn.koala.data.domain.Enableable;
 import cn.koala.data.domain.Systemic;
 import cn.koala.data.domain.YesNo;
 import cn.koala.data.service.CrudService;
@@ -69,6 +70,9 @@ public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, I
   @Override
   @SuppressWarnings("unchecked")
   public <S extends T> void create(@NonNull S entity) {
+    if (entity instanceof Enableable enableable && enableable.getEnabled() == null) {
+      enableable.setEnabled(YesNo.YES);
+    }
     if (entity instanceof Systemic systemic) {
       systemic.setSystemic(YesNo.NO);
     }

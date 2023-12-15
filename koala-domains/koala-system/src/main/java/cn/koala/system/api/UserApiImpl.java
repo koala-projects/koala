@@ -1,7 +1,6 @@
 package cn.koala.system.api;
 
 import cn.koala.log.annotation.Log;
-import cn.koala.system.api.request.UserCreateRequest;
 import cn.koala.system.domain.User;
 import cn.koala.system.domain.UserEntity;
 import cn.koala.system.service.UserService;
@@ -41,7 +40,7 @@ public class UserApiImpl implements UserApi {
 
   @Override
   @Log(module = "用户管理", content = "创建用户[username=${#user.username}]")
-  public DataResponse<User> create(UserCreateRequest user) {
+  public DataResponse<User> create(UserEntity user) {
     service.create(user);
     return DataResponse.ok(user);
   }

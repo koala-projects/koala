@@ -31,14 +31,14 @@ public class RoleEntity extends AbstractEntity<Long, Long> implements Role, Seri
   @Schema(description = "角色代码")
   @NotBlank(message = "角色代码不能为空")
   @Size(min = 4, max = 20, message = "角色代码长度必须在4-20之间")
-  protected String code;
+  private String code;
 
   @Schema(description = "角色名称")
   @NotBlank(message = "角色名称不能为空")
   @Size(min = 2, max = 20, message = "角色名称长度必须在2-20之间")
-  protected String name;
+  private String name;
 
   @Schema(description = "角色描述")
   @Size(max = 200, message = "角色描述长度不能超过200")
-  protected String description;
+  private String description;
 }

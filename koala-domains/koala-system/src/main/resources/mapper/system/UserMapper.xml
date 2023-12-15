@@ -73,8 +73,8 @@
       t.nickname
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
-    <if test="order.property == 'createdTime'">
-      t.created_time
+    <if test="order.property == 'createdDate'">
+      t.created_date
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
