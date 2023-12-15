@@ -11,6 +11,7 @@ import cn.koala.data.domain.Systemic;
  * @author Houtaroy
  */
 public interface Role extends Auditable<Long, Long>, Sortable, Enableable, Systemic {
+
   String getCode();
 
   String getName();

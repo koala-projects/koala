@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequiredArgsConstructor
-public class RoleApiImpl implements RoleApi {
+public class DefaultRoleApi implements RoleApi {
 
   private final RoleService roleService;
 

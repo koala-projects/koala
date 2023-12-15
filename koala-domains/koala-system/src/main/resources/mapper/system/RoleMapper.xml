@@ -41,6 +41,9 @@
       <if test="deleted != null and deleted != ''">
         and t.deleted = #{deleted}
       </if>
+      <if test="createdBy != null and createdBy != ''">
+        and t.created_by = #{createdBy}
+      </if>
     </where>
   </sql>
 
@@ -67,8 +70,8 @@
       t.name
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
-    <if test="order.property == 'createdTime'">
-      t.created_time
+    <if test="order.property == 'createdDate'">
+      t.created_date
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
@@ -85,10 +88,21 @@
   </select>
 
   <insert id="create" parameterType="cn.koala.system.domain.RoleEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into k_role(id, code, name, description, sort_index, enabled, systemic, deleted, created_by,
-                       created_date, last_modified_by, last_modified_date, deleted_by, deleted_date)
-    values (#{id}, #{code}, #{name}, #{description}, #{sortIndex}, #{enabled}, #{systemic}, #{deleted}, #{createdBy},
-            #{createdDate}, #{lastModifiedBy}, #{lastModifiedDate}, #{deletedBy}, #{deletedDate})
+    insert into k_role
+    values (#{id},
+            #{code},
+            #{name},
+            #{description},
+            #{sortIndex},
+            #{enabled},
+            #{systemic},
+            #{deleted},
+            #{createdBy},
+            #{createdDate},
+            #{lastModifiedBy},
+            #{lastModifiedDate},
+            #{deletedBy},
+            #{deletedDate})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.domain.RoleEntity">

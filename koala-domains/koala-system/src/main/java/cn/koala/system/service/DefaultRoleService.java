@@ -16,9 +16,9 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @Getter
-public class RoleServiceImpl extends AbstractSmartService<Long, Role, Long> implements RoleService {
+@RequiredArgsConstructor
+public class DefaultRoleService extends AbstractSmartService<Long, Role, Long> implements RoleService {
 
   private final RoleRepository repository;
 

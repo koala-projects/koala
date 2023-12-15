@@ -13,6 +13,7 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface RoleRepository extends CrudRepository<Role, Long> {
+  
   List<Long> findAllCheckedPermissionIdById(Long id);
 
   void authorize(

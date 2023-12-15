@@ -1,6 +1,7 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.system.api.DefaultDepartmentApi;
+import cn.koala.system.api.DefaultRoleApi;
 import cn.koala.system.api.DefaultUserApi;
 import cn.koala.system.api.DepartmentApi;
 import cn.koala.system.api.DictionaryApi;
@@ -12,7 +13,6 @@ import cn.koala.system.api.DutyApiImpl;
 import cn.koala.system.api.PermissionApi;
 import cn.koala.system.api.PermissionApiImpl;
 import cn.koala.system.api.RoleApi;
-import cn.koala.system.api.RoleApiImpl;
 import cn.koala.system.api.UserApi;
 import cn.koala.system.boot.AdminRegister;
 import cn.koala.system.model.UserCreateListener;
@@ -27,6 +27,7 @@ import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
 import cn.koala.system.service.DefaultDepartmentService;
+import cn.koala.system.service.DefaultRoleService;
 import cn.koala.system.service.DefaultUserService;
 import cn.koala.system.service.DepartmentService;
 import cn.koala.system.service.DictionaryItemService;
@@ -38,7 +39,6 @@ import cn.koala.system.service.DutyServiceImpl;
 import cn.koala.system.service.PermissionService;
 import cn.koala.system.service.PermissionServiceImpl;
 import cn.koala.system.service.RoleService;
-import cn.koala.system.service.RoleServiceImpl;
 import cn.koala.system.service.UserService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -124,13 +124,13 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public RoleService roleService(RoleRepository roleRepository) {
-    return new RoleServiceImpl(roleRepository);
+    return new DefaultRoleService(roleRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public RoleApi roleApi(RoleService roleService) {
-    return new RoleApiImpl(roleService);
+    return new DefaultRoleApi(roleService);
   }
 
   @Bean

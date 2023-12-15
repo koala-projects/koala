@@ -91,12 +91,25 @@
   </select>
 
   <insert id="create" parameterType="cn.koala.system.domain.UserEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into k_user(id, username, password, nickname, avatar, email, mobile, description, sort_index, enabled,
-                       systemic, deleted, created_by, created_date, last_modified_by, last_modified_date, deleted_by,
-                       deleted_date)
-    values (#{id}, #{username}, #{password}, #{nickname}, #{avatar}, #{email}, #{mobile}, #{description}, #{sortIndex},
-            #{enabled}, #{systemic}, #{deleted}, #{createdBy}, #{createdDate}, #{lastModifiedBy}, #{lastModifiedDate},
-            #{deletedBy}, #{deletedDate})
+    insert into k_user
+    values (#{id},
+            #{username},
+            #{password},
+            #{nickname},
+            #{avatar},
+            #{email},
+            #{mobile},
+            #{description},
+            #{sortIndex},
+            #{enabled},
+            #{systemic},
+            #{deleted},
+            #{createdBy},
+            #{createdDate},
+            #{lastModifiedBy},
+            #{lastModifiedDate},
+            #{deletedBy},
+            #{deletedDate})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.domain.UserEntity">
