@@ -11,6 +11,10 @@ import java.util.Date;
  */
 public interface Auditable<U, ID> extends Persistable<ID> {
 
+  YesNo getDeleted();
+
+  void setDeleted(YesNo deleted);
+
   U getCreatedBy();
 
   void setCreatedBy(U createdBy);
@@ -26,10 +30,6 @@ public interface Auditable<U, ID> extends Persistable<ID> {
   Date getLastModifiedDate();
 
   void setLastModifiedDate(Date lastModifiedDate);
-
-  YesNo getDeleted();
-
-  void setDeleted(YesNo deleted);
 
   U getDeletedBy();
 

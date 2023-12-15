@@ -31,7 +31,7 @@ spring:
           client-secret: 123456
 
 mybatis:
-  mapper-locations: classpath*:mappers/**/*Mapper.xml
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
 
