@@ -1,7 +1,7 @@
 package cn.koala.system.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.system.model.Duty;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.system.domain.Duty;
 import cn.koala.system.repository.DutyRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class DutyServiceImpl extends AbstractMyBatisService<Duty, Long> implements DutyService {
+public class DefaultDutyService extends AbstractSmartService<Long, Duty, Long> implements DutyService {
 
-  protected final DutyRepository repository;
+  private final DutyRepository repository;
 }

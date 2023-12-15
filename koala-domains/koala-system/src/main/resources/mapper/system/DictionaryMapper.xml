@@ -61,7 +61,7 @@
 
   <sql id="orders">
     <choose>
-      <when test="pageable != null and pageable.getSort() != null">
+      <when test="pageable != null and pageable.getSort() != null and pageable.getSort().isSorted()">
         <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
                  separator=",">
           <include refid="order"/>

@@ -1,7 +1,7 @@
 package cn.koala.system.api;
 
-import cn.koala.system.model.Duty;
-import cn.koala.system.model.DutyEntity;
+import cn.koala.system.domain.Duty;
+import cn.koala.system.domain.DutyEntity;
 import cn.koala.system.service.DutyService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @RestController
 @RequiredArgsConstructor
-public class DutyApiImpl implements DutyApi {
+public class DefaultDutyApi implements DutyApi {
 
   protected final DutyService service;
 
@@ -41,7 +41,7 @@ public class DutyApiImpl implements DutyApi {
 
   @Override
   public Response update(Long id, DutyEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

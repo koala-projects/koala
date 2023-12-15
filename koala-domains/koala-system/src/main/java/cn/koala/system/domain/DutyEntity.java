@@ -1,7 +1,7 @@
-package cn.koala.system.model;
+package cn.koala.system.domain;
 
-import cn.koala.Koala;
-import cn.koala.mybatis.AbstractEntity;
+import cn.koala.mybatis.domain.AbstractEntity;
+import cn.koala.system.util.Versions;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -16,32 +16,31 @@ import java.io.Serializable;
 
 
 /**
- * 岗位数据实体类
+ * 岗位实体类
  *
  * @author Koala Code Gen
  */
-@Deprecated
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Schema(description = "岗位数据实体类")
-public class DutyEntity extends AbstractEntity<Long> implements Duty, Serializable {
+@Schema(description = "岗位实体")
+public class DutyEntity extends AbstractEntity<Long, Long> implements Duty, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = Versions.SERIAL;
 
   @NotBlank(message = "岗位代码不允许为空", groups = {Create.class})
-  @Size(max = 100, message = "岗位代码长度不能大于100", groups = {Create.class})
+  @Size(max = 20, message = "岗位代码长度不能大于20", groups = {Create.class})
   @Schema(description = "岗位代码")
   private String code;
 
   @NotBlank(message = "岗位名称不允许为空", groups = {Create.class})
-  @Size(max = 100, message = "岗位名称长度不能大于100", groups = {Create.class})
+  @Size(max = 20, message = "岗位名称长度不能大于20", groups = {Create.class})
   @Schema(description = "岗位名称")
   private String name;
 
-  @Size(max = 500, message = "岗位描述长度不能大于500", groups = {Create.class})
+  @Size(max = 200, message = "岗位描述长度不能大于200", groups = {Create.class})
   @Schema(description = "岗位描述")
   private String description;
 }

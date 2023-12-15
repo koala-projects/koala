@@ -1,7 +1,8 @@
 package cn.koala.system.service;
 
-import cn.koala.persist.CrudService;
-import cn.koala.system.model.Duty;
+
+import cn.koala.data.service.CrudService;
+import cn.koala.system.domain.Duty;
 
 /**
  * 岗位服务接口

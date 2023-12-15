@@ -1,7 +1,8 @@
 package cn.koala.system.repository;
 
-import cn.koala.persist.CrudRepository;
-import cn.koala.system.model.Duty;
+
+import cn.koala.mybatis.repository.CrudRepository;
+import cn.koala.system.domain.Duty;
 
 /**
  * 岗位仓库接口

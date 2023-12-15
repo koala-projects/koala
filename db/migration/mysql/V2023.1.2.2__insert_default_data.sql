@@ -324,7 +324,7 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
 
   <sql id="orders">
     <choose>
-      <when test="pageable != null and pageable.getSort() != null">
+      <when test="pageable != null and pageable.getSort() != null and pageable.getSort().isSorted()">
         <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
                  separator=",">
           <include refid="order"/>
@@ -469,7 +469,7 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: ''#(property.name)'',
     label: ''#(property.description)'',
-    component: ''#(property.type)'',
+    component: ''#(property.component)'',
     colProps: {
   	  xl: 12,
   	  xxl: 8,
@@ -483,7 +483,7 @@ export const formSchema: FormSchema[] = [
   {
     field: ''#(property.name)'',
     label: ''#(property.description)'',
-    component: ''#(property.type)'',
+    component: ''#(property.component)'',
   },
 #end
 ];
@@ -492,9 +492,11 @@ export const formSchema: FormSchema[] = [
   import { BasicTable, TableAction, useTable } from ''/@/components/Table'';
   import { useModal } from ''/@/components/Modal'';
   import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
+#if(abstract)
   import { YesNo } from ''/@/enums/YesNo'';
+#end
   import #(name.pascal.singular)Modal from ''./#(name.pascal.singular)Modal.vue'';
-  import { columns, searchFormSchema } from ''./#(name.pascal.singular).data'';
+  import { columns, searchFormSchema } from ''./#(name.kebab.singular).data'';
 
   const [register, { reload }] = useTable({
     title: ''#(description)列表'',
@@ -550,6 +552,9 @@ export const formSchema: FormSchema[] = [
                 icon: ''clarity:note-edit-line'',
                 tooltip: ''编辑'',
                 auth: ''#(name.kebab.singular).update'',
+#if(abstract)
+				ifShow: record.systemic === YesNo.NO,
+#end
                 onClick: handleEdit.bind(null, record),
               },
               {
@@ -557,6 +562,9 @@ export const formSchema: FormSchema[] = [
                 tooltip: ''删除'',
                 color: ''error'',
                 auth: ''#(name.kebab.singular).delete'',
+#if(abstract)
+				ifShow: record.systemic === YesNo.NO,
+#end
                 popConfirm: {
                   title: ''是否确认删除'',
                   placement: ''left'',
@@ -578,6 +586,7 @@ export const formSchema: FormSchema[] = [
   import { BasicForm, useForm } from ''/@/components/Form/index'';
   import { formSchema } from ''./#(name.kebab.singular).data'';
   import { #(name.pascal.singular)Entity, create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
+
   const isUpdate = ref(false);
   const id = ref<#(id.type.ts) | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? ''新增#(description)'' : ''编辑#(description)''));

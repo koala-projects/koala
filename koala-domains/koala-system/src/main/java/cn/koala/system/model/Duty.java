@@ -10,6 +10,7 @@ import cn.koala.persist.domain.Stateful;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Duty extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
 
   String getCode();

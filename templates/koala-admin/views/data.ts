@@ -14,7 +14,7 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: '#(property.name)',
     label: '#(property.description)',
-    component: '#(property.type)',
+    component: '#(property.component)',
     colProps: {
   	  xl: 12,
   	  xxl: 8,
@@ -28,7 +28,7 @@ export const formSchema: FormSchema[] = [
   {
     field: '#(property.name)',
     label: '#(property.description)',
-    component: '#(property.type)',
+    component: '#(property.component)',
   },
 #end
 ];

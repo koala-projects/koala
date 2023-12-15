@@ -1,6 +1,7 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.system.api.DefaultDepartmentApi;
+import cn.koala.system.api.DefaultDutyApi;
 import cn.koala.system.api.DefaultPermissionApi;
 import cn.koala.system.api.DefaultRoleApi;
 import cn.koala.system.api.DefaultUserApi;
@@ -10,7 +11,6 @@ import cn.koala.system.api.DictionaryApiImpl;
 import cn.koala.system.api.DictionaryItemApi;
 import cn.koala.system.api.DictionaryItemApiImpl;
 import cn.koala.system.api.DutyApi;
-import cn.koala.system.api.DutyApiImpl;
 import cn.koala.system.api.PermissionApi;
 import cn.koala.system.api.RoleApi;
 import cn.koala.system.api.UserApi;
@@ -27,6 +27,7 @@ import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
 import cn.koala.system.service.DefaultDepartmentService;
+import cn.koala.system.service.DefaultDutyService;
 import cn.koala.system.service.DefaultRoleService;
 import cn.koala.system.service.DefaultUserService;
 import cn.koala.system.service.DepartmentService;
@@ -35,7 +36,6 @@ import cn.koala.system.service.DictionaryItemServiceImpl;
 import cn.koala.system.service.DictionaryService;
 import cn.koala.system.service.DictionaryServiceImpl;
 import cn.koala.system.service.DutyService;
-import cn.koala.system.service.DutyServiceImpl;
 import cn.koala.system.service.PermissionService;
 import cn.koala.system.service.PermissionServiceImpl;
 import cn.koala.system.service.RoleService;
@@ -64,13 +64,13 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public DutyService dutyService(DutyRepository dutyRepository) {
-    return new DutyServiceImpl(dutyRepository);
+    return new DefaultDutyService(dutyRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public DutyApi dutyApi(DutyService dutyService) {
-    return new DutyApiImpl(dutyService);
+    return new DefaultDutyApi(dutyService);
   }
 
   @Bean

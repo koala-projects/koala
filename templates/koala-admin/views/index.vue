@@ -2,9 +2,11 @@
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
   import { list#(name.pascal.singular), delete#(name.pascal.singular) } from '/@/apis/#(name.kebab.plural)';
+#if(abstract)
   import { YesNo } from '/@/enums/YesNo';
+#end
   import #(name.pascal.singular)Modal from './#(name.pascal.singular)Modal.vue';
-  import { columns, searchFormSchema } from './#(name.pascal.singular).data';
+  import { columns, searchFormSchema } from './#(name.kebab.singular).data';
 
   const [register, { reload }] = useTable({
     title: '#(description)列表',
@@ -60,6 +62,9 @@
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
                 auth: '#(name.kebab.singular).update',
+#if(abstract)
+				ifShow: record.systemic === YesNo.NO,
+#end
                 onClick: handleEdit.bind(null, record),
               },
               {
@@ -67,6 +72,9 @@
                 tooltip: '删除',
                 color: 'error',
                 auth: '#(name.kebab.singular).delete',
+#if(abstract)
+				ifShow: record.systemic === YesNo.NO,
+#end
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',
