@@ -1,7 +1,7 @@
 package cn.koala.system.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.system.model.Department;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.system.domain.Department;
 import cn.koala.system.repository.DepartmentRepository;
 import cn.koala.util.TreeNode;
 import cn.koala.util.TreeUtils;
@@ -18,9 +18,9 @@ import java.util.Map;
  */
 @Getter
 @RequiredArgsConstructor
-public class DepartmentServiceImpl extends AbstractMyBatisService<Department, Long> implements DepartmentService {
+public class DefaultDepartmentService extends AbstractSmartService<Long, Department, Long> implements DepartmentService {
 
-  protected final DepartmentRepository repository;
+  private final DepartmentRepository repository;
 
   @Override
   public List<TreeNode> tree() {

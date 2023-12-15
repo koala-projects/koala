@@ -1,8 +1,7 @@
 package cn.koala.system.api;
 
-import cn.koala.persist.validator.EditableId;
-import cn.koala.system.model.Department;
-import cn.koala.system.model.DepartmentEntity;
+import cn.koala.system.domain.Department;
+import cn.koala.system.domain.DepartmentEntity;
 import cn.koala.util.TreeNode;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -95,8 +94,7 @@ public interface DepartmentApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(Department.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody DepartmentEntity entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody DepartmentEntity entity);
 
   /**
    * 删除部门
@@ -111,7 +109,7 @@ public interface DepartmentApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "部门id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(Department.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   class DepartmentResult extends DataResponse<DepartmentEntity> {
 

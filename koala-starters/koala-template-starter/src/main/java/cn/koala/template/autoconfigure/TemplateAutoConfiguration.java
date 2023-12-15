@@ -18,7 +18,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.AuditorAware;
 
 /**
  * 数据库自动配置类
@@ -31,10 +30,8 @@ public class TemplateAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository,
-                                                   AuditorAware<Long> auditorAware) {
-
-    return new DefaultTemplateGroupService(templateGroupRepository, auditorAware);
+  public TemplateGroupService templateGroupService(TemplateGroupRepository templateGroupRepository) {
+    return new DefaultTemplateGroupService(templateGroupRepository);
   }
 
   @Bean
@@ -45,8 +42,8 @@ public class TemplateAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TemplateService templateService(TemplateRepository templateRepository, AuditorAware<Long> auditorAware) {
-    return new DefaultTemplateService(templateRepository, auditorAware);
+  public TemplateService templateService(TemplateRepository templateRepository) {
+    return new DefaultTemplateService(templateRepository);
   }
 
   @Bean

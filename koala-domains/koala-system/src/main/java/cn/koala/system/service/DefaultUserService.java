@@ -6,7 +6,6 @@ import cn.koala.system.repository.UserRepository;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -21,8 +20,6 @@ import java.util.List;
 public class DefaultUserService extends AbstractSmartService<Long, User, Long> implements UserService {
 
   private final UserRepository repository;
-
-  private final AuditorAware<Long> auditorAware;
 
   private final PasswordEncoder passwordEncoder;
 

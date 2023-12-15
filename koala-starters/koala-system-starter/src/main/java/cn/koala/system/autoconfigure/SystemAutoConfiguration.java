@@ -1,7 +1,8 @@
 package cn.koala.system.autoconfigure;
 
+import cn.koala.system.api.DefaultDepartmentApi;
+import cn.koala.system.api.DefaultUserApi;
 import cn.koala.system.api.DepartmentApi;
-import cn.koala.system.api.DepartmentApiImpl;
 import cn.koala.system.api.DictionaryApi;
 import cn.koala.system.api.DictionaryApiImpl;
 import cn.koala.system.api.DictionaryItemApi;
@@ -13,7 +14,6 @@ import cn.koala.system.api.PermissionApiImpl;
 import cn.koala.system.api.RoleApi;
 import cn.koala.system.api.RoleApiImpl;
 import cn.koala.system.api.UserApi;
-import cn.koala.system.api.UserApiImpl;
 import cn.koala.system.boot.AdminRegister;
 import cn.koala.system.model.UserCreateListener;
 import cn.koala.system.permission.PermissionRegister;
@@ -26,9 +26,9 @@ import cn.koala.system.repository.DutyRepository;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
+import cn.koala.system.service.DefaultDepartmentService;
 import cn.koala.system.service.DefaultUserService;
 import cn.koala.system.service.DepartmentService;
-import cn.koala.system.service.DepartmentServiceImpl;
 import cn.koala.system.service.DictionaryItemService;
 import cn.koala.system.service.DictionaryItemServiceImpl;
 import cn.koala.system.service.DictionaryService;
@@ -46,7 +46,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -76,10 +75,8 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository,
-                                             AuditorAware<Long> auditorAware) {
-
-    return new DictionaryServiceImpl(dictionaryRepository, auditorAware);
+  public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository) {
+    return new DictionaryServiceImpl(dictionaryRepository);
   }
 
   @Bean
@@ -103,13 +100,13 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public DepartmentService departmentService(DepartmentRepository departmentRepository) {
-    return new DepartmentServiceImpl(departmentRepository);
+    return new DefaultDepartmentService(departmentRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public DepartmentApi departmentApi(DepartmentService departmentService) {
-    return new DepartmentApiImpl(departmentService);
+    return new DefaultDepartmentApi(departmentService);
   }
 
   @Bean
@@ -126,8 +123,8 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public RoleService roleService(RoleRepository roleRepository, AuditorAware<Long> auditorAware) {
-    return new RoleServiceImpl(roleRepository, auditorAware);
+  public RoleService roleService(RoleRepository roleRepository) {
+    return new RoleServiceImpl(roleRepository);
   }
 
   @Bean
@@ -150,16 +147,15 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository, AuditorAware<Long> auditorAware,
-                                 PasswordEncoder passwordEncoder) {
+  public UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
-    return new DefaultUserService(userRepository, auditorAware, passwordEncoder);
+    return new DefaultUserService(userRepository, passwordEncoder);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public UserApi userApi(UserService userService) {
-    return new UserApiImpl(userService);
+    return new DefaultUserApi(userService);
   }
 
   @Bean

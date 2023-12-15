@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @RestController
-public class UserApiImpl implements UserApi {
+public class DefaultUserApi implements UserApi {
 
   private final UserService service;
 

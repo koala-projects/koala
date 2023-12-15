@@ -1,8 +1,8 @@
 package cn.koala.system.api;
 
 import cn.koala.log.annotation.Log;
-import cn.koala.system.model.Department;
-import cn.koala.system.model.DepartmentEntity;
+import cn.koala.system.domain.Department;
+import cn.koala.system.domain.DepartmentEntity;
 import cn.koala.system.service.DepartmentService;
 import cn.koala.util.TreeNode;
 import cn.koala.web.DataResponse;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-public class DepartmentApiImpl implements DepartmentApi {
+public class DefaultDepartmentApi implements DepartmentApi {
   protected final DepartmentService service;
 
   @Override
@@ -44,7 +44,7 @@ public class DepartmentApiImpl implements DepartmentApi {
   @Override
   @Log(module = "部门管理", content = "更新部门[id=${#id}]")
   public Response update(Long id, DepartmentEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

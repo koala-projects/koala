@@ -8,7 +8,6 @@ import cn.koala.system.domain.User;
 import cn.koala.system.repository.RoleRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.AuditorAware;
 
 import java.util.List;
 
@@ -22,7 +21,6 @@ import java.util.List;
 public class RoleServiceImpl extends AbstractSmartService<Long, Role, Long> implements RoleService {
 
   private final RoleRepository repository;
-  private final AuditorAware<Long> auditorAware;
 
   @Override
   public List<Long> getCheckedPermissionIds(Long id) {

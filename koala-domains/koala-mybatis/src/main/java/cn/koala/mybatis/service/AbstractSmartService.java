@@ -12,12 +12,16 @@ import cn.koala.mybatis.repository.CrudRepository;
 import cn.koala.util.Assert;
 import cn.koala.util.LocalDateTimeUtils;
 import com.github.pagehelper.PageHelper;
-import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Persistable;
+import org.springframework.lang.NonNull;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -32,29 +36,26 @@ import java.util.function.Consumer;
  *
  * @author Houtaroy
  */
-public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, ID> {
+@Slf4j
+public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, ID>, ApplicationContextAware {
 
-  protected abstract CrudRepository<T, ID> getRepository();
-
-  protected abstract AuditorAware<U> getAuditorAware();
-
+  private ApplicationContext applicationContext;
+  private AuditorAware<U> auditorAware;
 
   @Override
-
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
     var temp = new HashMap<>(parameters);
     temp.put(DomainNames.PAGEABLE, pageable);
-    temp.put(DomainNames.DELETED, YesNo.NO);
     com.github.pagehelper.Page<T> page = PageHelper
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
-      .doSelectPage(() -> getRepository().list(temp));
+      .doSelectPage(() -> list(temp));
     return new PageImpl<>(page.getResult(), pageable, page.getTotal());
   }
 
   @Override
   public List<T> list(Map<String, Object> parameters) {
     var temp = new HashMap<>(parameters);
-    temp.put(DomainNames.DELETED, YesNo.NO);
+    temp.put(DomainNames.DELETED, YesNo.NO.name());
     return getRepository().list(temp);
   }
 
@@ -123,5 +124,25 @@ public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, I
     U auditor = getAuditorAware().getCurrentAuditor().orElseThrow(() -> new BusinessException("未找到审计用户"));
     auditorConsumer.accept(auditor);
     auditDateConsumer.accept(LocalDateTimeUtils.toDate());
+  }
+
+  protected abstract CrudRepository<T, ID> getRepository();
+
+  @SuppressWarnings("unchecked")
+  protected AuditorAware<U> getAuditorAware() {
+    try {
+      if (auditorAware == null) {
+        auditorAware = applicationContext.getBean(AuditorAware.class);
+      }
+      return auditorAware;
+    } catch (Exception e) {
+      LOGGER.error("获取AuditorAware失败", e);
+      throw new BusinessException("未找到审计用户");
+    }
+  }
+
+  @Override
+  public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
+    this.applicationContext = applicationContext;
   }
 }

@@ -10,6 +10,7 @@ import cn.koala.persist.domain.Stateful;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Department extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   /**
    * 获取部门名称

@@ -5,7 +5,6 @@ import cn.koala.system.domain.Dictionary;
 import cn.koala.system.repository.DictionaryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.AuditorAware;
 
 /**
  * 字典服务实现类
@@ -17,6 +16,4 @@ import org.springframework.data.domain.AuditorAware;
 public class DictionaryServiceImpl extends AbstractSmartService<Long, Dictionary, Long> implements DictionaryService {
 
   private final DictionaryRepository repository;
-
-  private final AuditorAware<Long> auditorAware;
 }

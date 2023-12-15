@@ -11,7 +11,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.AuditorAware;
 
 /**
  * 数据库自动配置类
@@ -24,8 +23,8 @@ public class DatabaseAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public DatabaseService databaseService(DatabaseRepository databaseRepository, AuditorAware<Long> auditorAware) {
-    return new DefaultDatabaseService(databaseRepository, auditorAware);
+  public DatabaseService databaseService(DatabaseRepository databaseRepository) {
+    return new DefaultDatabaseService(databaseRepository);
   }
 
   @Bean

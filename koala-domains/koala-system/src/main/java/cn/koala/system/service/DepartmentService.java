@@ -1,7 +1,7 @@
 package cn.koala.system.service;
 
-import cn.koala.persist.CrudService;
-import cn.koala.system.model.Department;
+import cn.koala.data.service.CrudService;
+import cn.koala.system.domain.Department;
 import cn.koala.util.TreeNode;
 
 import java.util.List;
@@ -12,10 +12,6 @@ import java.util.List;
  * @author Houtaroy
  */
 public interface DepartmentService extends CrudService<Department, Long> {
-  /**
-   * 查询全部部门, 以树形形式返回
-   *
-   * @return 部门树列表
-   */
+  
   List<TreeNode> tree();
 }

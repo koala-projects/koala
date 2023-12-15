@@ -5,7 +5,6 @@ import cn.koala.template.domain.TemplateGroup;
 import cn.koala.template.repository.TemplateGroupRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.AuditorAware;
 
 /**
  * 默认模板组服务
@@ -18,5 +17,4 @@ public class DefaultTemplateGroupService extends AbstractSmartService<Long, Temp
   implements TemplateGroupService {
 
   private final TemplateGroupRepository repository;
-  private final AuditorAware<Long> auditorAware;
 }

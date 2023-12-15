@@ -12,7 +12,6 @@ import cn.koala.util.Assert;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.AuditorAware;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,8 +33,6 @@ public class DefaultDatabaseService extends AbstractSmartService<Long, Database,
   public static final int TIME_OUT = 60;
 
   private final DatabaseRepository repository;
-
-  private final AuditorAware<Long> auditorAware;
 
   @Override
   public List<DatabaseTable> listTable(Long id) {
