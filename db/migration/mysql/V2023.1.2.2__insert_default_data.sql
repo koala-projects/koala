@@ -442,7 +442,7 @@ export function delete#(name.pascal.singular)(id: #(id.type.ts)) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
 }
 
-export { #(name.pascal.singular)Entity };
+export type { #(name.pascal.singular)Entity };
 ', 'YES', 1, now()),
        (202, 2, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', 'interface #(name.pascal.singular)Entity {
   id: #(id.type.ts);
@@ -577,7 +577,7 @@ export const formSchema: FormSchema[] = [
   import { BasicModal, useModalInner } from ''/@/components/Modal'';
   import { BasicForm, useForm } from ''/@/components/Form/index'';
   import { formSchema } from ''./#(name.kebab.singular).data'';
-  import { create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
+  import { create#(name.pascal.singular), update#(name.pascal.singular), #(name.pascal.singular)Entity } from ''/@/apis/#(name.kebab.plural)'';
   const isUpdate = ref(false);
   const id = ref<#(id.type.ts) | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? ''新增#(description)'' : ''编辑#(description)''));
@@ -601,7 +601,7 @@ export const formSchema: FormSchema[] = [
   const emit = defineEmits([''success'', ''register'']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: #(name.pascal.singular)Entity = await validate();
       setModalProps({ confirmLoading: true });
       if (unref(isUpdate)) {
         await update#(name.pascal.singular)(unref(id)!, values);

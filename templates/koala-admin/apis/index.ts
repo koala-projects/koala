@@ -26,4 +26,4 @@ export function delete#(name.pascal.singular)(id: #(id.type.ts)) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
 }
 
-export { #(name.pascal.singular)Entity };
+export type { #(name.pascal.singular)Entity };
