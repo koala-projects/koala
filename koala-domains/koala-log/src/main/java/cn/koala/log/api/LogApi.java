@@ -47,7 +47,7 @@ public interface LogApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = LogPageResult.class))}
   )
   @Parameter(in = ParameterIn.QUERY, name = "module", description = "模块名称", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "isSucceeded", description = "是否成功", schema = @Schema(type = "integer"))
+  @Parameter(in = ParameterIn.QUERY, name = "successful", description = "是否成功", schema = @Schema(type = "integer"))
   @Parameter(in = ParameterIn.QUERY, name = "logTimeStart", description = "日志开始时间", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.QUERY, name = "logTimeEnd", description = "日志结束时间", schema = @Schema(type = "string"))
   @PageableAsQueryParam
