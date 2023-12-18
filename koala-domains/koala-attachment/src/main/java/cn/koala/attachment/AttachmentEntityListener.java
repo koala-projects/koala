@@ -12,6 +12,7 @@ import org.springframework.core.annotation.Order;
  *
  * @author Houtaroy
  */
+@Deprecated
 @Slf4j
 @Order(1000)
 public class AttachmentEntityListener {

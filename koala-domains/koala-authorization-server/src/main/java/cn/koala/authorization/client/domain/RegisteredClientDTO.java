@@ -1,14 +1,15 @@
 package cn.koala.authorization.client.domain;
 
-import cn.koala.persist.domain.Persistable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.domain.Persistable;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 import java.util.Map;
@@ -79,5 +80,10 @@ public class RegisteredClientDTO implements Persistable<String> {
       .clientSettings(client.getClientSettings().getSettings())
       .tokenSettings(client.getTokenSettings().getSettings())
       .build();
+  }
+
+  @Override
+  public boolean isNew() {
+    return !StringUtils.hasText(id);
   }
 }

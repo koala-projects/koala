@@ -1,6 +1,6 @@
 package cn.koala.wechat.miniapp.support;
 
-import cn.koala.authorization.client.RegisteredClientRegistrar;
+import cn.koala.authorization.client.domain.RegisteredClientRegistrar;
 import cn.koala.wechat.miniapp.authentication.WechatGrantType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
