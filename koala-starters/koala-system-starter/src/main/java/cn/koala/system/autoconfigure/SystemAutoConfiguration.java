@@ -1,6 +1,7 @@
 package cn.koala.system.autoconfigure;
 
 import cn.koala.system.api.DefaultDepartmentApi;
+import cn.koala.system.api.DefaultDictionaryItemApi;
 import cn.koala.system.api.DefaultDutyApi;
 import cn.koala.system.api.DefaultPermissionApi;
 import cn.koala.system.api.DefaultRoleApi;
@@ -9,7 +10,6 @@ import cn.koala.system.api.DepartmentApi;
 import cn.koala.system.api.DictionaryApi;
 import cn.koala.system.api.DictionaryApiImpl;
 import cn.koala.system.api.DictionaryItemApi;
-import cn.koala.system.api.DictionaryItemApiImpl;
 import cn.koala.system.api.DutyApi;
 import cn.koala.system.api.PermissionApi;
 import cn.koala.system.api.RoleApi;
@@ -27,17 +27,17 @@ import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
 import cn.koala.system.repository.UserRepository;
 import cn.koala.system.service.DefaultDepartmentService;
+import cn.koala.system.service.DefaultDictionaryItemService;
+import cn.koala.system.service.DefaultDictionaryService;
 import cn.koala.system.service.DefaultDutyService;
+import cn.koala.system.service.DefaultPermissionService;
 import cn.koala.system.service.DefaultRoleService;
 import cn.koala.system.service.DefaultUserService;
 import cn.koala.system.service.DepartmentService;
 import cn.koala.system.service.DictionaryItemService;
-import cn.koala.system.service.DictionaryItemServiceImpl;
 import cn.koala.system.service.DictionaryService;
-import cn.koala.system.service.DictionaryServiceImpl;
 import cn.koala.system.service.DutyService;
 import cn.koala.system.service.PermissionService;
-import cn.koala.system.service.PermissionServiceImpl;
 import cn.koala.system.service.RoleService;
 import cn.koala.system.service.UserService;
 import org.mybatis.spring.annotation.MapperScan;
@@ -76,7 +76,7 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public DictionaryService dictionaryService(DictionaryRepository dictionaryRepository) {
-    return new DictionaryServiceImpl(dictionaryRepository);
+    return new DefaultDictionaryService(dictionaryRepository);
   }
 
   @Bean
@@ -88,13 +88,13 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public DictionaryItemService dictionaryItemService(DictionaryItemRepository dictionaryItemRepository) {
-    return new DictionaryItemServiceImpl(dictionaryItemRepository);
+    return new DefaultDictionaryItemService(dictionaryItemRepository);
   }
 
   @Bean
   @ConditionalOnMissingBean
   public DictionaryItemApi dictionaryItemApi(DictionaryItemService dictionaryItemService) {
-    return new DictionaryItemApiImpl(dictionaryItemService);
+    return new DefaultDictionaryItemApi(dictionaryItemService);
   }
 
   @Bean
@@ -112,7 +112,7 @@ public class SystemAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public PermissionService permissionService(PermissionRepository permissionRepository) {
-    return new PermissionServiceImpl(permissionRepository);
+    return new DefaultPermissionService(permissionRepository);
   }
 
   @Bean

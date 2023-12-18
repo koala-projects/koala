@@ -1,9 +1,8 @@
 package cn.koala.system.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
-import cn.koala.system.model.DictionaryItem;
-import cn.koala.system.model.DictionaryItemEntity;
+import cn.koala.system.domain.DictionaryItem;
+import cn.koala.system.domain.DictionaryItemEntity;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -33,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 字典接口
+ * 字典项接口
  *
  * @author Houtaroy
  */
@@ -57,7 +56,7 @@ public interface DictionaryItemApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = DictionaryItemPageResult.class))}
   )
   @Parameter(in = ParameterIn.QUERY, name = "code", description = "字典项代码", schema = @Schema(type = "string"))
-  @Parameter(in = ParameterIn.QUERY, name = "name", description = "字典项名称", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "nameLike", description = "字典项名称, 模糊查询", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.QUERY, name = "dictionaryId", description = "字典id", schema = @Schema(type = "integer"))
   @PageableAsQueryParam
   @GetMapping
@@ -107,8 +106,7 @@ public interface DictionaryItemApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典项id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(DictionaryItem.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody DictionaryItemEntity entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody DictionaryItemEntity entity);
 
   /**
    * 删除字典
@@ -123,7 +121,7 @@ public interface DictionaryItemApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "字典项id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(DictionaryItem.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   class DictionaryItemPageResult extends DataResponse<Page<DictionaryItemEntity>> {
 

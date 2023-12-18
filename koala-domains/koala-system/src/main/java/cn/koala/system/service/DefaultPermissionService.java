@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @RequiredArgsConstructor
 @Getter
-public class PermissionServiceImpl extends AbstractSmartService<Long, Permission, Long> implements PermissionService {
+public class DefaultPermissionService extends AbstractSmartService<Long, Permission, Long> implements PermissionService {
 
   protected final PermissionRepository repository;
 

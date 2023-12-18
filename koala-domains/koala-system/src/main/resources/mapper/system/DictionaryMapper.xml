@@ -18,14 +18,11 @@
            t.last_modified_date,
            t.deleted_by,
            t.deleted_date
-    from k_dict t
+    from k_dictionary t
   </sql>
 
   <sql id="where">
     <where>
-      <if test="id != null and id != ''">
-        and t.id = #{id}
-      </if>
       <if test="code != null and code != ''">
         and t.code = #{code}
       </if>
@@ -38,25 +35,40 @@
       <if test="nameLike != null and nameLike != ''">
         and t.name like concat(#{nameLike}, '%')
       </if>
+      <if test="description != null and description != ''">
+        and t.description = #{description}
+      </if>
+      <if test="sortIndex != null and sortIndex != ''">
+        and t.sort_index = #{sortIndex}
+      </if>
+      <if test="enabled != null and enabled != ''">
+        and t.enabled = #{enabled}
+      </if>
+      <if test="systemic != null and systemic != ''">
+        and t.systemic = #{systemic}
+      </if>
       <if test="deleted != null and deleted != ''">
         and t.deleted = #{deleted}
       </if>
+      <if test="createdBy != null and createdBy != ''">
+        and t.created_by = #{createdBy}
+      </if>
+      <if test="createdDate != null and createdDate != ''">
+        and t.created_date = #{createdDate}
+      </if>
+      <if test="lastModifiedBy != null and lastModifiedBy != ''">
+        and t.last_modified_by = #{lastModifiedBy}
+      </if>
+      <if test="lastModifiedDate != null and lastModifiedDate != ''">
+        and t.last_modified_date = #{lastModifiedDate}
+      </if>
+      <if test="deletedBy != null and deletedBy != ''">
+        and t.deleted_by = #{deletedBy}
+      </if>
+      <if test="deletedDate != null and deletedDate != ''">
+        and t.deleted_date = #{deletedDate}
+      </if>
     </where>
-  </sql>
-
-  <sql id="order">
-    <if test="order.property == 'code'">
-      t.code
-      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
-    </if>
-    <if test="order.property == 'name'">
-      t.name
-      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
-    </if>
-    <if test="order.property == 'createdDate'">
-      t.created_date
-      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
-    </if>
   </sql>
 
   <sql id="orders">
@@ -73,6 +85,61 @@
     </choose>
   </sql>
 
+  <sql id="order">
+    <if test="order.property == 'code'">
+      t.code
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'name'">
+      t.name
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'description'">
+      t.description
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'sortIndex'">
+      t.sort_index
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'enabled'">
+      t.enabled
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'systemic'">
+      t.systemic
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deleted'">
+      t.deleted
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdBy'">
+      t.created_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'createdDate'">
+      t.created_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedBy'">
+      t.last_modified_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedDate'">
+      t.last_modified_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedBy'">
+      t.deleted_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedDate'">
+      t.deleted_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+  </sql>
+
   <select id="list" resultType="cn.koala.system.domain.DictionaryEntity">
     <include refid="select"/>
     <include refid="where"/>
@@ -86,14 +153,15 @@
 
   <insert id="create" parameterType="cn.koala.system.domain.DictionaryEntity" useGeneratedKeys="true"
           keyProperty="id">
-    insert into k_dict(id, code, name, description, sort_index, enabled, systemic, deleted, created_by, created_date,
-                       last_modified_by, last_modified_date, deleted_by, deleted_date)
+    insert into k_dictionary(id, code, name, description, sort_index, enabled, systemic, deleted, created_by,
+                             created_date,
+                             last_modified_by, last_modified_date, deleted_by, deleted_date)
     values (#{id}, #{code}, #{name}, #{description}, #{sortIndex}, #{enabled}, #{systemic}, #{deleted}, #{createdBy},
             #{createdDate}, #{lastModifiedBy}, #{lastModifiedDate}, #{deletedBy}, #{deletedDate})
   </insert>
 
   <update id="update" parameterType="cn.koala.system.domain.DictionaryEntity">
-    update k_dict
+    update k_dictionary
     <trim prefix="set" suffixOverrides=",">
       <if test="code != null">code=#{code},</if>
       <if test="name != null">name=#{name},</if>
@@ -114,7 +182,7 @@
 
   <update id="delete" parameterType="cn.koala.system.domain.DictionaryEntity">
     delete
-    from k_dict
+    from k_dictionary
     where id = #{id};
   </update>
 </mapper>

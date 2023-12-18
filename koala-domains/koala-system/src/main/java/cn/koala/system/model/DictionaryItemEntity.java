@@ -18,6 +18,7 @@ import java.io.Serializable;
  *
  * @author Houtaroy
  */
+@Deprecated
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package cn.koala.system.repository;
 
-import cn.koala.persist.CrudRepository;
-import cn.koala.system.model.DictionaryItem;
+import cn.koala.mybatis.repository.CrudRepository;
+import cn.koala.system.domain.DictionaryItem;
 
 /**
  * 字典项仓库接口

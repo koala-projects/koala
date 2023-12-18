@@ -1,7 +1,7 @@
 package cn.koala.system.service;
 
-import cn.koala.persist.CrudService;
-import cn.koala.system.model.DictionaryItem;
+import cn.koala.data.service.CrudService;
+import cn.koala.system.domain.DictionaryItem;
 
 /**
  * 字典项服务接口

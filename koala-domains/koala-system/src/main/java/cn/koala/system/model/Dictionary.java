@@ -10,6 +10,7 @@ import cn.koala.persist.domain.Stateful;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Dictionary extends Persistable<Long>, Sortable, Stateful, Auditable<Long> {
   /**
    * 获取字典代码

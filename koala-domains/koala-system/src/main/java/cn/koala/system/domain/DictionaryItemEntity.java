@@ -16,7 +16,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 字典项数据实体类
+ * 字典项实体类
  *
  * @author Houtaroy
  */
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Schema(description = "字典项数据实体")
+@Schema(description = "字典项实体")
 public class DictionaryItemEntity extends AbstractEntity<Long, Long> implements DictionaryItem, Serializable {
 
   @Serial

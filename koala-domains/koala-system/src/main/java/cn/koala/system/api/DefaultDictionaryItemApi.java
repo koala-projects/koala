@@ -1,8 +1,8 @@
 package cn.koala.system.api;
 
 import cn.koala.log.annotation.Log;
-import cn.koala.system.model.DictionaryItem;
-import cn.koala.system.model.DictionaryItemEntity;
+import cn.koala.system.domain.DictionaryItem;
+import cn.koala.system.domain.DictionaryItemEntity;
 import cn.koala.system.service.DictionaryItemService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 字典接口实现
+ * 字典项接口实现
  *
  * @author Houtaroy
  */
-@RequiredArgsConstructor
 @RestController
-public class DictionaryItemApiImpl implements DictionaryItemApi {
-  protected final DictionaryItemService service;
+@RequiredArgsConstructor
+public class DefaultDictionaryItemApi implements DictionaryItemApi {
+
+  private final DictionaryItemService service;
 
   @Override
   @Log(module = "字典项管理", content = "查询字典项列表")
@@ -45,7 +46,7 @@ public class DictionaryItemApiImpl implements DictionaryItemApi {
   @Override
   @Log(module = "字典项管理", content = "更新字典项[id=${#id}]")
   public Response update(Long id, DictionaryItemEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }
