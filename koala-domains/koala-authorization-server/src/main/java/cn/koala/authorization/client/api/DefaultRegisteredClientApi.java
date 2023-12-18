@@ -40,7 +40,7 @@ public class DefaultRegisteredClientApi implements RegisteredClientApi {
 
   @Override
   public Response update(String id, RegisteredClientDTO dto) {
-    dto.setIdIfAbsent(id);
+    dto.setId(id);
     this.service.update(dto);
     return Response.SUCCESS;
   }
