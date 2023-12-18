@@ -57,27 +57,6 @@ CREATE TABLE oauth2_authorization
   PRIMARY KEY (id)
 );
 
--- Query
--- 查询表
-CREATE TABLE k_query
-(
-  `id`                 BIGINT        NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`               VARCHAR(100)  NOT NULL COMMENT '查询名称',
-  `remark`             VARCHAR(500) COMMENT '查询备注',
-  `sql`                VARCHAR(5000) NOT NULL COMMENT '查询语句',
-  `sort_index`         INT                    DEFAULT 0 COMMENT '排序索引',
-  `is_enabled`         INT           NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic`        INT           NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`         INT           NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `created_by`         BIGINT        NOT NULL COMMENT '创建人ID',
-  `created_time`       DATETIME      NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_time` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_time`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '查询表';
-
 -- System
 -- 用户表
 CREATE TABLE k_user
@@ -436,3 +415,24 @@ CREATE TABLE k_attachment
   `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '附件表';
+
+-- Query
+-- 查询表
+CREATE TABLE k_query
+(
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`               VARCHAR(20) NOT NULL COMMENT '查询名称',
+  `description`        VARCHAR(200) COMMENT '查询描述',
+  `sql`                TEXT        NOT NULL COMMENT '查询语句',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '查询表';

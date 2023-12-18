@@ -1,8 +1,8 @@
-package cn.koala.query.support;
+package cn.koala.query.api;
 
-import cn.koala.query.Query;
-import cn.koala.query.QueryApi;
-import cn.koala.query.QueryService;
+import cn.koala.query.domain.Query;
+import cn.koala.query.domain.QueryEntity;
+import cn.koala.query.service.QueryService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +34,14 @@ public class DefaultQueryApi implements QueryApi {
   }
 
   @Override
-  public DataResponse<Query> create(Query entity) {
+  public DataResponse<Query> create(QueryEntity entity) {
     service.create(entity);
     return DataResponse.ok(entity);
   }
 
   @Override
-  public Response update(Long id, Query entity) {
-    entity.setIdIfAbsent(id);
+  public Response update(Long id, QueryEntity entity) {
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }

@@ -1,7 +1,8 @@
 package cn.koala.query.repository;
 
-import cn.koala.persist.CrudRepository;
-import cn.koala.query.Query;
+
+import cn.koala.mybatis.repository.CrudRepository;
+import cn.koala.query.domain.Query;
 
 /**
  * 查询仓库接口

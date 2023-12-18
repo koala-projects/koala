@@ -1,8 +1,8 @@
-package cn.koala.query;
+package cn.koala.query.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
-import cn.koala.query.support.QueryEntity;
+import cn.koala.query.domain.Query;
+import cn.koala.query.domain.QueryEntity;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -88,7 +88,7 @@ public interface QueryApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QueryResult.class))}
   )
   @PostMapping
-  DataResponse<Query> create(@Validated(Create.class) @RequestBody Query entity);
+  DataResponse<Query> create(@Validated(Create.class) @RequestBody QueryEntity entity);
 
   /**
    * 更新查询
@@ -104,8 +104,7 @@ public interface QueryApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "查询id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(Query.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody Query entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody QueryEntity entity);
 
   /**
    * 删除查询
@@ -120,7 +119,7 @@ public interface QueryApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "查询id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(Query.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   /**
    * 执行查询

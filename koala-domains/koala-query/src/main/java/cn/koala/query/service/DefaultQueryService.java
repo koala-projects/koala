@@ -1,9 +1,8 @@
-package cn.koala.query.support;
+package cn.koala.query.service;
 
 import cn.koala.exception.BusinessException;
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.query.Query;
-import cn.koala.query.QueryService;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.query.domain.Query;
 import cn.koala.query.repository.QueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +22,10 @@ import java.util.Map;
  */
 @Getter
 @RequiredArgsConstructor
-public class JdbcQueryService extends AbstractMyBatisService<Query, Long> implements QueryService {
+public class DefaultQueryService extends AbstractSmartService<Long, Query, Long> implements QueryService {
 
   private final QueryRepository repository;
+  
   private final NamedParameterJdbcTemplate jdbcTemplate;
 
   @Override
