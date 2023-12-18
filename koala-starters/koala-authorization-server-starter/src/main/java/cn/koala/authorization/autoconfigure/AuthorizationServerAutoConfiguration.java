@@ -3,9 +3,9 @@ package cn.koala.authorization.autoconfigure;
 import cn.koala.authorization.builder.AuthorizationServerSecurityFilterChainPostProcessor;
 import cn.koala.authorization.builder.support.OAuth2AuthorizationServerPostProcessor;
 import cn.koala.authorization.builder.support.OAuth2ResourceOwnerPasswordPostProcessor;
-import cn.koala.authorization.client.RegisteredClientRegister;
-import cn.koala.authorization.client.RegisteredClientRegistrar;
-import cn.koala.authorization.client.support.AdminRegisteredClientRegistrar;
+import cn.koala.authorization.client.domain.AdminRegisteredClientRegistrar;
+import cn.koala.authorization.client.domain.RegisteredClientRegister;
+import cn.koala.authorization.client.domain.RegisteredClientRegistrar;
 import cn.koala.authorization.jackson.KoalaUserMixin;
 import cn.koala.authorization.token.CompositeJwtOAuth2TokenCustomizer;
 import cn.koala.authorization.token.JwtOAuth2TokenCustomizer;
@@ -109,6 +109,7 @@ public class AuthorizationServerAutoConfiguration {
   @ConditionalOnMissingBean(name = "adminRegisteredClientRegistrar")
   public RegisteredClientRegistrar adminRegisteredClientRegistrar(PasswordEncoder passwordEncoder,
                                                                   AuthorizationServerProperties properties) {
+
     return new AdminRegisteredClientRegistrar(passwordEncoder, properties.getGrantType().isPassword());
   }
 
@@ -116,6 +117,7 @@ public class AuthorizationServerAutoConfiguration {
   @ConditionalOnMissingBean(name = "registeredClientRegister")
   public RegisteredClientRegister registeredClientRegister(List<RegisteredClientRegistrar> registrars,
                                                            RegisteredClientRepository registeredClientRepository) {
+    
     return new RegisteredClientRegister(registrars, registeredClientRepository);
   }
 

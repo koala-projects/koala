@@ -1,4 +1,4 @@
-package cn.koala.authorization.support;
+package cn.koala.authorization.service;
 
 import cn.koala.authorization.repository.KoalaUserRepository;
 import lombok.RequiredArgsConstructor;

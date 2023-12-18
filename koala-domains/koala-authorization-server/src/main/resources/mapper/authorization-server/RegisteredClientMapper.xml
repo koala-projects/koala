@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository">
 
-  <sql id="selectRegisteredClient">
+  <sql id="select">
     select t.id,
            t.client_id,
            t.client_secret,
@@ -19,54 +19,127 @@
     from oauth2_registered_client t
   </sql>
 
-  <sql id="orderBy">
+  <sql id="where">
+    <where>
+      <if test="clientId != null and clientId != ''">
+        and t.client_id = #{clientId}
+      </if>
+      <if test="clientIdIssuedAt != null and clientIdIssuedAt != ''">
+        and t.client_id_issued_at = #{clientIdIssuedAt}
+      </if>
+      <if test="clientSecret != null and clientSecret != ''">
+        and t.client_secret = #{clientSecret}
+      </if>
+      <if test="clientSecretExpiresAt != null and clientSecretExpiresAt != ''">
+        and t.client_secret_expires_at = #{clientSecretExpiresAt}
+      </if>
+      <if test="clientName != null and clientName != ''">
+        and t.client_name = #{clientName}
+      </if>
+      <if test="clientAuthenticationMethods != null and clientAuthenticationMethods != ''">
+        and t.client_authentication_methods = #{clientAuthenticationMethods}
+      </if>
+      <if test="authorizationGrantTypes != null and authorizationGrantTypes != ''">
+        and t.authorization_grant_types = #{authorizationGrantTypes}
+      </if>
+      <if test="redirectUris != null and redirectUris != ''">
+        and t.redirect_uris = #{redirectUris}
+      </if>
+      <if test="scopes != null and scopes != ''">
+        and t.scopes = #{scopes}
+      </if>
+      <if test="clientSettings != null and clientSettings != ''">
+        and t.client_settings = #{clientSettings}
+      </if>
+      <if test="tokenSettings != null and tokenSettings != ''">
+        and t.token_settings = #{tokenSettings}
+      </if>
+    </where>
+  </sql>
+
+  <sql id="orders">
     <choose>
-      <when test="orders != null and orders.size() > 0">
-        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
-          <include refid="orderByField"/>
+      <when test="pageable != null and pageable.getSort() != null and pageable.getSort().isSorted()">
+        <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
+                 separator=",">
+          <include refid="order"/>
         </foreach>
       </when>
       <otherwise>
-        order by t.id asc
+        order by t.id
       </otherwise>
     </choose>
   </sql>
 
-  <sql id="orderByField">
-    <if test="order.property == 'code'">
-      t.code
+  <sql id="order">
+    <if test="order.property == 'clientId'">
+      t.client_id
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
-    <if test="order.property == 'name'">
-      t.name
+    <if test="order.property == 'clientIdIssuedAt'">
+      t.client_id_issued_at
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
-    <if test="order.property == 'createdTime'">
-      t.created_time
+    <if test="order.property == 'clientSecret'">
+      t.client_secret
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'clientSecretExpiresAt'">
+      t.client_secret_expires_at
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'clientName'">
+      t.client_name
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'clientAuthenticationMethods'">
+      t.client_authentication_methods
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'authorizationGrantTypes'">
+      t.authorization_grant_types
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'redirectUris'">
+      t.redirect_uris
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'scopes'">
+      t.scopes
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'clientSettings'">
+      t.client_settings
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'tokenSettings'">
+      t.token_settings
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.authorization.client.RegisteredClientEntity">
-    <include refid="selectRegisteredClient"/>
-    <include refid="orderBy"/>
+  <select id="list" resultType="cn.koala.authorization.client.domain.RegisteredClientEntity">
+    <include refid="select"/>
+    <include refid="where"/>
+    <include refid="orders"/>
   </select>
 
-  <select id="load" resultType="cn.koala.authorization.client.RegisteredClientEntity">
-
+  <select id="load" resultType="cn.koala.authorization.client.domain.RegisteredClientEntity">
+    <include refid="select"/>
+    where t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.authorization.client.RegisteredClientEntity"
+  <insert id="create" parameterType="cn.koala.authorization.client.domain.RegisteredClientEntity"
           useGeneratedKeys="true"
           keyProperty="id">
 
   </insert>
 
-  <update id="update" parameterType="cn.koala.authorization.client.RegisteredClientEntity">
+  <update id="update" parameterType="cn.koala.authorization.client.domain.RegisteredClientEntity">
 
   </update>
 
-  <update id="delete" parameterType="cn.koala.authorization.client.RegisteredClientEntity">
+  <update id="delete" parameterType="cn.koala.authorization.client.domain.RegisteredClientEntity">
     delete
     from oauth2_registered_client
     where id = #{id}

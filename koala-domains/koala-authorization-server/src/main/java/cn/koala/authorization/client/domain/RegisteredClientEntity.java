@@ -1,21 +1,22 @@
-package cn.koala.authorization.client;
+package cn.koala.authorization.client.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.domain.Persistable;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 
 /**
- * 注册客户端数据实体
+ * 注册客户端实体
  *
  * @author Houtaroy
  */
-@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class RegisteredClientEntity {
+public class RegisteredClientEntity implements Persistable<String> {
 
   private String id;
 
@@ -40,4 +41,9 @@ public class RegisteredClientEntity {
   private String clientSettings;
 
   private String tokenSettings;
+
+  @Override
+  public boolean isNew() {
+    return !StringUtils.hasText(id);
+  }
 }

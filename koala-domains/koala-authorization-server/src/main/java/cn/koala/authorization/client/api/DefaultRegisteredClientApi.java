@@ -1,8 +1,7 @@
-package cn.koala.authorization.client.support;
+package cn.koala.authorization.client.api;
 
-import cn.koala.authorization.client.RegisteredClientApi;
-import cn.koala.authorization.client.RegisteredClientDTO;
-import cn.koala.authorization.client.RegisteredClientService;
+import cn.koala.authorization.client.domain.RegisteredClientDTO;
+import cn.koala.authorization.client.service.RegisteredClientService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;

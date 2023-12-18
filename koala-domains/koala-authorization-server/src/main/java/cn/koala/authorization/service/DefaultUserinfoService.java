@@ -1,6 +1,5 @@
-package cn.koala.authorization.support;
+package cn.koala.authorization.service;
 
-import cn.koala.authorization.UserinfoService;
 import cn.koala.authorization.repository.KoalaUserRepository;
 import cn.koala.security.support.SecurityHelper;
 import cn.koala.security.userdetails.KoalaUser;

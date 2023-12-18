@@ -1,5 +1,7 @@
-package cn.koala.security.log;
+package cn.koala.security.log.listener;
 
+import cn.koala.security.log.AuthenticateLog;
+import cn.koala.security.log.AuthenticateLogService;
 import cn.koala.util.JacksonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.security.oauth2.server.authorization.authentication.O
 public class OAuth2AuthorizationCodeRequestAuthenticationLogListener {
 
   private final ObjectMapper objectMapper;
+  
   private final AuthenticateLogService service;
 
   @EventListener

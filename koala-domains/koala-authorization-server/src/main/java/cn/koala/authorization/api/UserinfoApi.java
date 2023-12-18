@@ -1,4 +1,4 @@
-package cn.koala.authorization;
+package cn.koala.authorization.api;
 
 import cn.koala.authorization.request.ChangePasswordRequest;
 import cn.koala.security.userdetails.KoalaUser;

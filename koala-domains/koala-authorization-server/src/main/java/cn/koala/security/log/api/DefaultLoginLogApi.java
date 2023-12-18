@@ -1,5 +1,7 @@
-package cn.koala.security.log;
+package cn.koala.security.log.api;
 
+import cn.koala.security.log.LoginLog;
+import cn.koala.security.log.LoginLogService;
 import cn.koala.web.DataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

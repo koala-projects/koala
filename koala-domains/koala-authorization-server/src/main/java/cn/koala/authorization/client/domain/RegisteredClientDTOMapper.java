@@ -1,7 +1,5 @@
-package cn.koala.authorization.client.mapper;
+package cn.koala.authorization.client.domain;
 
-import cn.koala.authorization.client.RegisteredClientDTO;
-import cn.koala.authorization.client.RegisteredClientEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +24,7 @@ import java.util.stream.Collectors;
 @Mapper
 public abstract class RegisteredClientDTOMapper {
 
-  public static final RegisteredClientDTOMapper INSTANCE = Mappers.getMapper(RegisteredClientDTOMapper.class);
+  public static final RegisteredClientDTOMapper MAPPER = Mappers.getMapper(RegisteredClientDTOMapper.class);
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 

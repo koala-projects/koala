@@ -1,5 +1,6 @@
-package cn.koala.authorization.client;
+package cn.koala.authorization.client.api;
 
+import cn.koala.authorization.client.domain.RegisteredClientDTO;
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -35,7 +36,6 @@ import java.util.Map;
  *
  * @author Houtaroy
  */
-@Deprecated
 @RestController
 @RequestMapping("/api/registered-clients")
 @Validated
@@ -50,7 +50,7 @@ public interface RegisteredClientApi {
    * @param pageable   分页条件
    * @return 注册客户端数据传输实体列表
    */
-  @PreAuthorize("hasAuthority('registered-client:page')")
+  @PreAuthorize("hasAuthority('registered-client.read')")
   @Operation(operationId = "listDictionaries", summary = "根据条件分页查询注册客户端")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RegisteredClientPageResult.class))}
@@ -66,7 +66,7 @@ public interface RegisteredClientApi {
    * @param id 注册客户端id
    * @return 注册客户端数据传输实体
    */
-  @PreAuthorize("hasAuthority('registered-client:load')")
+  @PreAuthorize("hasAuthority('registered-client.read')")
   @Operation(operationId = "loadDictionary", summary = "根据id查询注册客户端")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RegisteredClientPageResult.class))}
@@ -81,7 +81,7 @@ public interface RegisteredClientApi {
    * @param dto 注册客户端数据传输实体
    * @return 字典
    */
-  @PreAuthorize("hasAuthority('registered-client:create')")
+  @PreAuthorize("hasAuthority('registered-client.create')")
   @Operation(operationId = "createDictionary", summary = "创建注册客户端")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = RegisteredClientResult.class))}
@@ -96,7 +96,7 @@ public interface RegisteredClientApi {
    * @param dto 注册客户端数据传输实体
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('registered-client:update')")
+  @PreAuthorize("hasAuthority('registered-client.update')")
   @Operation(operationId = "updateDictionary", summary = "更新注册客户端")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}
@@ -111,7 +111,7 @@ public interface RegisteredClientApi {
    * @param id 注册客户端id
    * @return 操作结果
    */
-  @PreAuthorize("hasAuthority('registered-client:delete')")
+  @PreAuthorize("hasAuthority('registered-client.delete')")
   @Operation(operationId = "deleteDictionary", summary = "删除注册客户端")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Response.class))}

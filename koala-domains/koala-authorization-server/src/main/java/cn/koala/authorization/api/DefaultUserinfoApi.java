@@ -1,8 +1,7 @@
-package cn.koala.authorization.support;
+package cn.koala.authorization.api;
 
-import cn.koala.authorization.UserinfoApi;
-import cn.koala.authorization.UserinfoService;
 import cn.koala.authorization.request.ChangePasswordRequest;
+import cn.koala.authorization.service.UserinfoService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;

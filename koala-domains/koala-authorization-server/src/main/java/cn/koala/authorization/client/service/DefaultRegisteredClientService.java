@@ -1,9 +1,8 @@
-package cn.koala.authorization.client.support;
+package cn.koala.authorization.client.service;
 
-import cn.koala.authorization.client.RegisteredClientDTO;
-import cn.koala.authorization.client.RegisteredClientEntity;
-import cn.koala.authorization.client.RegisteredClientService;
-import cn.koala.authorization.client.mapper.RegisteredClientDTOMapper;
+import cn.koala.authorization.client.domain.RegisteredClientDTO;
+import cn.koala.authorization.client.domain.RegisteredClientDTOMapper;
+import cn.koala.authorization.client.domain.RegisteredClientEntity;
 import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
 import cn.koala.util.Assert;
 import com.github.pagehelper.PageHelper;
@@ -39,7 +38,7 @@ public class DefaultRegisteredClientService implements RegisteredClientService {
       .startPage(Math.max(pageable.getPageNumber() + 1, 1), pageable.getPageSize())
       .doSelectPage(() -> this.myBatisRepository.list(parameters));
     return new PageImpl<>(
-      page.getResult().stream().map(RegisteredClientDTOMapper.INSTANCE::map).toList(),
+      page.getResult().stream().map(RegisteredClientDTOMapper.MAPPER::map).toList(),
       pageable,
       page.getTotal()
     );
@@ -47,7 +46,7 @@ public class DefaultRegisteredClientService implements RegisteredClientService {
 
   @Override
   public List<RegisteredClientDTO> list(Map<String, Object> parameters) {
-    return this.myBatisRepository.list(parameters).stream().map(RegisteredClientDTOMapper.INSTANCE::map).toList();
+    return this.myBatisRepository.list(parameters).stream().map(RegisteredClientDTOMapper.MAPPER::map).toList();
   }
 
   @Override

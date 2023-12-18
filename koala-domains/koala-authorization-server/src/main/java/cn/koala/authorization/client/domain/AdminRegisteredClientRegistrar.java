@@ -1,5 +1,4 @@
-package cn.koala.authorization.client.support;
-
+package cn.koala.authorization.client.domain;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -19,7 +18,6 @@ import java.util.UUID;
  *
  * @author Houtaroy
  */
-@Deprecated
 public class AdminRegisteredClientRegistrar implements RegisteredClientRegistrar {
 
   private final PasswordEncoder passwordEncoder;

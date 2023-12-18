@@ -1,4 +1,4 @@
-package cn.koala.authorization.client;
+package cn.koala.authorization.client.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
@@ -13,7 +13,6 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@Deprecated
 @Order(3200)
 @RequiredArgsConstructor
 public class RegisteredClientRegister implements ApplicationRunner {

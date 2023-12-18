@@ -1,4 +1,4 @@
-package cn.koala.authorization.client;
+package cn.koala.authorization.client.domain;
 
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 
@@ -7,7 +7,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  *
  * @author Houtaroy
  */
-@Deprecated
 @FunctionalInterface
 public interface RegisteredClientRegistrar {
 

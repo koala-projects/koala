@@ -1,4 +1,4 @@
-package cn.koala.authorization.client;
+package cn.koala.authorization.client.domain;
 
 import cn.koala.persist.domain.Persistable;
 import lombok.Data;
@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
  *
  * @author Houtaroy
  */
-@Deprecated
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)

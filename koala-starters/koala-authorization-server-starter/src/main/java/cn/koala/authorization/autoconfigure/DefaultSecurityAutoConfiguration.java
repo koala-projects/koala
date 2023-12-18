@@ -1,30 +1,30 @@
 package cn.koala.authorization.autoconfigure;
 
-import cn.koala.authorization.LoginController;
-import cn.koala.authorization.UserinfoApi;
-import cn.koala.authorization.UserinfoService;
+import cn.koala.authorization.api.DefaultUserinfoApi;
+import cn.koala.authorization.api.LoginController;
+import cn.koala.authorization.api.UserinfoApi;
 import cn.koala.authorization.builder.support.FormLoginPostProcessor;
 import cn.koala.authorization.builder.support.LogoutSuccessHandlerPostProcessor;
-import cn.koala.authorization.client.RegisteredClientApi;
-import cn.koala.authorization.client.RegisteredClientService;
+import cn.koala.authorization.client.api.DefaultRegisteredClientApi;
+import cn.koala.authorization.client.api.RegisteredClientApi;
 import cn.koala.authorization.client.repository.RegisteredClientMyBatisRepository;
-import cn.koala.authorization.client.support.DefaultRegisteredClientApi;
-import cn.koala.authorization.client.support.DefaultRegisteredClientService;
+import cn.koala.authorization.client.service.DefaultRegisteredClientService;
+import cn.koala.authorization.client.service.RegisteredClientService;
 import cn.koala.authorization.repository.KoalaUserRepository;
-import cn.koala.authorization.support.DefaultUserDetailsService;
-import cn.koala.authorization.support.DefaultUserinfoApi;
-import cn.koala.authorization.support.DefaultUserinfoService;
+import cn.koala.authorization.service.DefaultUserDetailsService;
+import cn.koala.authorization.service.DefaultUserinfoService;
+import cn.koala.authorization.service.UserinfoService;
 import cn.koala.resource.builder.ResourceServerSecurityFilterChainPostProcessor;
 import cn.koala.resource.builder.support.PermitAllPostProcessor;
 import cn.koala.security.log.AuthenticateLogService;
-import cn.koala.security.log.DefaultAuthenticateLogService;
-import cn.koala.security.log.DefaultLoginLogApi;
-import cn.koala.security.log.DefaultLoginLogService;
-import cn.koala.security.log.LoginLogApi;
 import cn.koala.security.log.LoginLogService;
-import cn.koala.security.log.OAuth2AuthorizationCodeRequestAuthenticationLogListener;
+import cn.koala.security.log.api.DefaultLoginLogApi;
+import cn.koala.security.log.api.LoginLogApi;
+import cn.koala.security.log.listener.OAuth2AuthorizationCodeRequestAuthenticationLogListener;
 import cn.koala.security.log.repository.AuthenticateLogRepository;
 import cn.koala.security.log.repository.LoginLogRepository;
+import cn.koala.security.log.service.DefaultAuthenticateLogService;
+import cn.koala.security.log.service.DefaultLoginLogService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -96,6 +96,7 @@ public class DefaultSecurityAutoConfiguration {
   @ConditionalOnMissingBean
   public RegisteredClientService registeredClientService(RegisteredClientRepository repository,
                                                          RegisteredClientMyBatisRepository myBatisRepository) {
+
     return new DefaultRegisteredClientService(repository, myBatisRepository);
   }
 

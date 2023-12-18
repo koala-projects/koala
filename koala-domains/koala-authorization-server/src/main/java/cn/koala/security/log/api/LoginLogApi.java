@@ -1,6 +1,7 @@
-package cn.koala.security.log;
+package cn.koala.security.log.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
+import cn.koala.security.log.LoginLog;
 import cn.koala.web.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

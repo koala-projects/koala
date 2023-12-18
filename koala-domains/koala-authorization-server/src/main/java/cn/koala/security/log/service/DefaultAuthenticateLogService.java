@@ -1,6 +1,8 @@
-package cn.koala.security.log;
+package cn.koala.security.log.service;
 
 import cn.koala.mybatis.service.AbstractCrudService;
+import cn.koala.security.log.AuthenticateLog;
+import cn.koala.security.log.AuthenticateLogService;
 import cn.koala.security.log.repository.AuthenticateLogRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
