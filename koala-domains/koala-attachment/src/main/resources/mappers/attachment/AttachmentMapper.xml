@@ -3,39 +3,83 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.koala.attachment.repository.AttachmentRepository">
 
-  <sql id="selectAttachment">
+  <sql id="select">
     select t.id,
            t.original_filename,
            t.content_type,
            t.size,
            t.storage_path,
+           t.enabled,
+           t.systemic,
+           t.deleted,
            t.created_by,
-           t.created_time,
+           t.created_date,
            t.last_modified_by,
-           t.last_modified_time,
+           t.last_modified_date,
            t.deleted_by,
-           t.deleted_time
-    from t_attachment t
+           t.deleted_date
+    from k_attachment t
   </sql>
 
-  <sql id="orderBy">
+  <sql id="where">
+    <where>
+      <if test="originalFilename != null and originalFilename != ''">
+        and t.original_filename = #{originalFilename}
+      </if>
+      <if test="contentType != null and contentType != ''">
+        and t.content_type = #{contentType}
+      </if>
+      <if test="size != null and size != ''">
+        and t.size = #{size}
+      </if>
+      <if test="storagePath != null and storagePath != ''">
+        and t.storage_path = #{storagePath}
+      </if>
+      <if test="enabled != null and enabled != ''">
+        and t.enabled = #{enabled}
+      </if>
+      <if test="systemic != null and systemic != ''">
+        and t.systemic = #{systemic}
+      </if>
+      <if test="deleted != null and deleted != ''">
+        and t.deleted = #{deleted}
+      </if>
+      <if test="createdBy != null and createdBy != ''">
+        and t.created_by = #{createdBy}
+      </if>
+      <if test="createdDate != null and createdDate != ''">
+        and t.created_date = #{createdDate}
+      </if>
+      <if test="lastModifiedBy != null and lastModifiedBy != ''">
+        and t.last_modified_by = #{lastModifiedBy}
+      </if>
+      <if test="lastModifiedDate != null and lastModifiedDate != ''">
+        and t.last_modified_date = #{lastModifiedDate}
+      </if>
+      <if test="deletedBy != null and deletedBy != ''">
+        and t.deleted_by = #{deletedBy}
+      </if>
+      <if test="deletedDate != null and deletedDate != ''">
+        and t.deleted_date = #{deletedDate}
+      </if>
+    </where>
+  </sql>
+
+  <sql id="orders">
     <choose>
-      <when test="orders != null and orders.size() > 0">
-        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
-          <include refid="orderByField"/>
+      <when test="pageable != null and pageable.getSort() != null and pageable.getSort().isSorted()">
+        <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
+                 separator=",">
+          <include refid="order"/>
         </foreach>
       </when>
       <otherwise>
-        order by t.created_time desc
+        order by t.created_date desc
       </otherwise>
     </choose>
   </sql>
 
-  <sql id="orderByField">
-    <if test="order.property == 'id'">
-      t.id
-      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
-    </if>
+  <sql id="order">
     <if test="order.property == 'originalFilename'">
       t.original_filename
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
@@ -48,82 +92,103 @@
       t.size
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
+    <if test="order.property == 'storagePath'">
+      t.storage_path
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'enabled'">
+      t.enabled
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'systemic'">
+      t.systemic
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deleted'">
+      t.deleted
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
     <if test="order.property == 'createdBy'">
       t.created_by
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
-    <if test="order.property == 'createdTime'">
-      t.created_time
+    <if test="order.property == 'createdDate'">
+      t.created_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedBy'">
+      t.last_modified_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'lastModifiedDate'">
+      t.last_modified_date
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedBy'">
+      t.deleted_by
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'deletedDate'">
+      t.deleted_date
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.attachment.AttachmentEntity">
-    <include refid="selectAttachment"/>
-    <where>
-      <if test="originalFilename != null and originalFilename != ''">
-        and t.original_filename concat(#{originalFilename}, '%')
-      </if>
-      <if test="contentType != null and contentType != ''">
-        and t.content_type = #{contentType}
-      </if>
-      <if test="size != null and size != ''">
-        and t.size = #{size}
-      </if>
-      <if test="storagePath != null and storagePath != ''">
-        and t.storage_path = #{storagePath}
-      </if>
-      <if test="createdBy != null and createdBy != ''">
-        and t.created_by = #{createdBy}
-      </if>
-      <if test="createdTime != null and createdTime != ''">
-        and t.created_time = #{createdTime}
-      </if>
-    </where>
-    <include refid="orderBy"/>
+  <select id="list" resultType="cn.koala.attachment.domain.AttachmentEntity">
+    <include refid="select"/>
+    <include refid="where"/>
+    <include refid="orders"/>
   </select>
 
-  <select id="load" resultType="cn.koala.attachment.AttachmentEntity">
-    <include refid="selectAttachment"/>
+  <select id="load" resultType="cn.koala.attachment.domain.AttachmentEntity">
+    <include refid="select"/>
     where t.id=#{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.attachment.AttachmentEntity" useGeneratedKeys="true" keyProperty="id">
-    insert into t_attachment
-      value ( #{id},
-      #{originalFilename},
-      #{contentType},
-      #{size},
-      #{storagePath},
-      #{createdBy},
-      #{createdTime},
-      #{lastModifiedBy},
-      #{lastModifiedTime},
-      #{deletedBy},
-      #{deletedTime}
+  <insert id="create" parameterType="cn.koala.attachment.domain.AttachmentEntity" useGeneratedKeys="true"
+          keyProperty="id">
+    insert into k_attachment
+      value (
+             #{id},
+             #{originalFilename},
+             #{contentType},
+             #{size},
+             #{storagePath},
+             #{enabled},
+             #{systemic},
+             #{deleted},
+             #{createdBy},
+             #{createdDate},
+             #{lastModifiedBy},
+             #{lastModifiedDate},
+             #{deletedBy},
+             #{deletedDate}
       )
   </insert>
 
-  <update id="update" parameterType="cn.koala.attachment.AttachmentEntity">
-    update t_attachment
+  <update id="update" parameterType="cn.koala.attachment.domain.AttachmentEntity">
+    update k_attachment
     <trim prefix="set" suffixOverrides=",">
       <if test="originalFilename != null">original_filename=#{originalFilename},</if>
       <if test="contentType != null">content_type=#{contentType},</if>
       <if test="size != null">size=#{size},</if>
       <if test="storagePath != null">storage_path=#{storagePath},</if>
+      <if test="enabled != null">enabled=#{enabled},</if>
+      <if test="systemic != null">systemic=#{systemic},</if>
+      <if test="deleted != null">deleted=#{deleted},</if>
       <if test="createdBy != null">created_by=#{createdBy},</if>
-      <if test="createdTime != null">created_time=#{createdTime},</if>
+      <if test="createdDate != null">created_date=#{createdDate},</if>
       <if test="lastModifiedBy != null">last_modified_by=#{lastModifiedBy},</if>
-      <if test="lastModifiedTime != null">last_modified_time=#{lastModifiedTime},</if>
+      <if test="lastModifiedDate != null">last_modified_date=#{lastModifiedDate},</if>
       <if test="deletedBy != null">deleted_by=#{deletedBy},</if>
-      <if test="deletedTime != null">deleted_time=#{deletedTime},</if>
+      <if test="deletedDate != null">deleted_date=#{deletedDate},</if>
     </trim>
-    where id=#{id}
+    where id = #{id}
   </update>
 
-  <delete id="delete" parameterType="cn.koala.attachment.AttachmentEntity">
+  <delete id="delete" parameterType="cn.koala.attachment.domain.AttachmentEntity">
     delete
-    from t_attachment
+    from k_attachment
     where id = #{id}
   </delete>
 </mapper>

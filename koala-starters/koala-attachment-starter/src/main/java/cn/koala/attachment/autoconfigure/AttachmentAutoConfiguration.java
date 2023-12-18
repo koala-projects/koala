@@ -1,12 +1,12 @@
 package cn.koala.attachment.autoconfigure;
 
-import cn.koala.attachment.AttachmentApi;
 import cn.koala.attachment.AttachmentEntityListener;
-import cn.koala.attachment.AttachmentService;
+import cn.koala.attachment.api.AttachmentApi;
+import cn.koala.attachment.api.DefaultAttachmentApi;
 import cn.koala.attachment.repository.AttachmentRepository;
+import cn.koala.attachment.service.AttachmentService;
+import cn.koala.attachment.service.DefaultAttachmentService;
 import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.attachment.support.DefaultAttachmentApi;
-import cn.koala.attachment.support.DefaultAttachmentService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Import;
 public class AttachmentAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean(name = "attachmentService")
+  @ConditionalOnMissingBean
   public AttachmentService attachmentService(AttachmentRepository repository) {
     return new DefaultAttachmentService(repository);
   }

@@ -1,15 +1,17 @@
-package cn.koala.attachment;
+package cn.koala.attachment.domain;
 
-import cn.koala.persist.domain.Auditable;
-import cn.koala.persist.domain.Persistable;
+import cn.koala.data.domain.Auditable;
+import cn.koala.data.domain.Enableable;
+import cn.koala.data.domain.Sortable;
+import cn.koala.data.domain.Systemic;
 
 /**
  * 附件接口
  *
  * @author Houtaroy
  */
-@Deprecated
-public interface Attachment extends Persistable<Long>, Auditable<Long> {
+public interface Attachment extends Auditable<Long, Long>, Sortable, Enableable, Systemic {
+
   String getOriginalFilename();
 
   void setOriginalFilename(String originalFilename);

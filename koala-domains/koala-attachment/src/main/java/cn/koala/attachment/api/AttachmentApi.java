@@ -1,5 +1,7 @@
-package cn.koala.attachment;
+package cn.koala.attachment.api;
 
+import cn.koala.attachment.domain.Attachment;
+import cn.koala.attachment.domain.AttachmentEntity;
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
@@ -33,7 +35,6 @@ import java.util.Map;
  *
  * @author Koala Code Generator
  */
-@Deprecated
 @RestController
 @RequestMapping("/api/attachments")
 @Tag(name = "06-01 附件管理")

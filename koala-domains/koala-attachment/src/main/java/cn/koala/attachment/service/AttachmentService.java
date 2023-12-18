@@ -1,13 +1,13 @@
-package cn.koala.attachment;
+package cn.koala.attachment.service;
 
-import cn.koala.persist.CrudService;
+import cn.koala.attachment.domain.Attachment;
+import cn.koala.data.service.CrudService;
 
 /**
  * 附件服务接口
  *
  * @author Houtaroy
  */
-@Deprecated
 public interface AttachmentService extends CrudService<Attachment, Long> {
 
 }

@@ -1,34 +1,33 @@
-package cn.koala.attachment;
+package cn.koala.attachment.domain;
 
-import cn.koala.Koala;
+import cn.koala.attachment.util.AttachmentConstants;
+import cn.koala.mybatis.domain.AbstractEntity;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.EntityListeners;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 附件数据实体类
+ * 附件实体类
  *
  * @author Koala Code Generator
  */
-@Deprecated
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Schema(description = "附件数据实体类")
-@EntityListeners(AttachmentEntityListener.class)
-public class AttachmentEntity implements Attachment, Serializable {
+@Schema(description = "附件实体类")
+public class AttachmentEntity extends AbstractEntity<Long, Long> implements Attachment, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = AttachmentConstants.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;
@@ -52,22 +51,4 @@ public class AttachmentEntity implements Attachment, Serializable {
   @Size(max = 255, message = "存储路径长度不能大于500", groups = {Create.class})
   @Schema(description = "存储路径")
   private String storagePath;
-
-  @Schema(description = "创建人ID")
-  private Long createdBy;
-
-  @Schema(description = "创建时间")
-  private Date createdTime;
-
-  @Schema(description = "最后更新人ID")
-  private Long lastModifiedBy;
-
-  @Schema(description = "最后更新时间")
-  private Date lastModifiedTime;
-
-  @Schema(description = "删除人ID")
-  private Long deletedBy;
-
-  @Schema(description = "删除时间")
-  private Date deletedTime;
 }

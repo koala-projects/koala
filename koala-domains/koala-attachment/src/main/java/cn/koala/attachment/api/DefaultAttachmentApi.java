@@ -1,9 +1,8 @@
-package cn.koala.attachment.support;
+package cn.koala.attachment.api;
 
-import cn.koala.attachment.Attachment;
-import cn.koala.attachment.AttachmentApi;
-import cn.koala.attachment.AttachmentEntity;
-import cn.koala.attachment.AttachmentService;
+import cn.koala.attachment.domain.Attachment;
+import cn.koala.attachment.domain.AttachmentEntity;
+import cn.koala.attachment.service.AttachmentService;
 import cn.koala.attachment.storage.AttachmentStorage;
 import cn.koala.exception.BusinessException;
 import cn.koala.util.Assert;
@@ -35,9 +34,9 @@ import java.util.Map;
 @Slf4j
 public class DefaultAttachmentApi implements AttachmentApi {
 
-  protected final AttachmentService service;
+  private final AttachmentService service;
 
-  protected final AttachmentStorage storage;
+  private final AttachmentStorage storage;
 
   @Override
   public DataResponse<Page<Attachment>> page(Map<String, Object> parameters, Pageable pageable) {

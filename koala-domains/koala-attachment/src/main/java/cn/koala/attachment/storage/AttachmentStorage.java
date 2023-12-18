@@ -1,6 +1,6 @@
 package cn.koala.attachment.storage;
 
-import cn.koala.attachment.Attachment;
+import cn.koala.attachment.domain.Attachment;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;

@@ -1,6 +1,6 @@
 package cn.koala.attachment.storage.support;
 
-import cn.koala.attachment.Attachment;
+import cn.koala.attachment.domain.Attachment;
 import cn.koala.attachment.storage.AttachmentFactory;
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
