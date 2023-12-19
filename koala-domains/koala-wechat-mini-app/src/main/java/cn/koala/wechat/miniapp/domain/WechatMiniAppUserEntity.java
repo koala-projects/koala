@@ -1,7 +1,7 @@
-package cn.koala.wechat.miniapp;
+package cn.koala.wechat.miniapp.domain;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
-import cn.koala.Koala;
+import cn.koala.wechat.miniapp.util.WechatMiniAppConstants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -20,7 +20,7 @@ import java.io.Serializable;
 public class WechatMiniAppUserEntity implements WechatMiniAppUser, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = WechatMiniAppConstants.SERIAL_VERSION_UID;
 
   private Long id;
   private String openid;
@@ -34,5 +34,10 @@ public class WechatMiniAppUserEntity implements WechatMiniAppUser, Serializable 
       .unionid(code2SessionResult.getUnionid())
       .sessionKey(code2SessionResult.getSessionKey())
       .build();
+  }
+
+  @Override
+  public boolean isNew() {
+    return id == null;
   }
 }

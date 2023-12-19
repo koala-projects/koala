@@ -12,7 +12,7 @@
     from wechat_mini_app_user t
   </sql>
 
-  <select id="list" parameterType="map" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <select id="list" parameterType="map" resultType="cn.koala.wechat.miniapp.domain.WechatMiniAppUserEntity">
     <include refid="selectWechatMiniAppUser"/>
     <where>
       <if test="openid != null and openid != ''">
@@ -27,18 +27,18 @@
     </where>
   </select>
 
-  <select id="load" resultType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <select id="load" resultType="cn.koala.wechat.miniapp.domain.WechatMiniAppUserEntity">
     <include refid="selectWechatMiniAppUser"/>
     where t.id = #{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity" useGeneratedKeys="true"
+  <insert id="create" parameterType="cn.koala.wechat.miniapp.domain.WechatMiniAppUserEntity" useGeneratedKeys="true"
           keyProperty="id">
     insert into wechat_mini_app_user(id, openid, unionid, session_key, user_id)
     values (#{id}, #{openid}, #{unionid}, #{sessionKey}, #{userId})
   </insert>
 
-  <update id="update" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <update id="update" parameterType="cn.koala.wechat.miniapp.domain.WechatMiniAppUserEntity">
     update wechat_mini_app_user
     <trim prefix="set" suffixOverrides=",">
       <if test="openid != null">openid=#{openid},</if>
@@ -49,7 +49,7 @@
     where id=#{id}
   </update>
 
-  <delete id="delete" parameterType="cn.koala.wechat.miniapp.WechatMiniAppUserEntity">
+  <delete id="delete" parameterType="cn.koala.wechat.miniapp.domain.WechatMiniAppUserEntity">
     delete
     from wechat_mini_app_user
     where id = #{id}

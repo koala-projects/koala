@@ -1,4 +1,4 @@
-package cn.koala.wechat.miniapp.support;
+package cn.koala.wechat.miniapp.domain;
 
 import cn.koala.authorization.client.domain.RegisteredClientRegistrar;
 import cn.koala.wechat.miniapp.authentication.WechatGrantType;

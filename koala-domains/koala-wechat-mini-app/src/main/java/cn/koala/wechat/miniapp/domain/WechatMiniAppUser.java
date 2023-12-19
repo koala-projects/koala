@@ -1,6 +1,6 @@
-package cn.koala.wechat.miniapp;
+package cn.koala.wechat.miniapp.domain;
 
-import cn.koala.persist.domain.Persistable;
+import org.springframework.data.domain.Persistable;
 
 /**
  * 微信小程序用户接口
@@ -8,6 +8,7 @@ import cn.koala.persist.domain.Persistable;
  * @author Houtaroy
  */
 public interface WechatMiniAppUser extends Persistable<Long> {
+  
   String getOpenid();
 
   void setOpenid(String openid);
