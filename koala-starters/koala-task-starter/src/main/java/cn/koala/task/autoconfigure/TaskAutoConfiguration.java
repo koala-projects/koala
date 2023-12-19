@@ -57,8 +57,8 @@ public class TaskAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskService taskService(TaskRepository taskRepository) {
-    return new DefaultTaskService(taskRepository);
+  public TaskService taskService(TaskRepository taskRepository, TaskExecutor executor) {
+    return new DefaultTaskService(taskRepository, executor);
   }
 
   @Bean
