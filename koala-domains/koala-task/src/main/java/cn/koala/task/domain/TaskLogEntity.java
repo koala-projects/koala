@@ -55,6 +55,6 @@ public class TaskLogEntity implements TaskLog, Serializable {
 
   @Override
   public boolean isNew() {
-    return id != null;
+    return false;
   }
 }
