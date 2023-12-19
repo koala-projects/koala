@@ -22,7 +22,7 @@ import java.util.concurrent.ScheduledFuture;
 @RequiredArgsConstructor
 public class DefaultTaskExecutor implements TaskExecutor {
 
-  private final Map<String, ScheduledFuture<?>> instances = new ConcurrentReferenceHashMap<>();
+  private final Map<Long, ScheduledFuture<?>> instances = new ConcurrentReferenceHashMap<>();
 
   private final TaskInstanceFactory instanceFactory;
   private final TaskTriggerFactory triggerFactory;
@@ -32,7 +32,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
   @Override
   public void schedule(Task task) {
     Assert.notNull(task, "任务不存在");
-    String key = task.getName();
+    var key = task.getId();
     Assert.isTrue(!instances.containsKey(key), "任务已在计划中");
     Runnable instance = instanceFactory.from(task);
     Assert.notNull(instance, "任务实例创建失败");
@@ -46,7 +46,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
   @Override
   public void cancel(Task task) {
     Assert.notNull(task, "任务不存在");
-    String key = task.getName();
+    var key = task.getId();
     ScheduledFuture<?> instance = instances.get(key);
     if (instance != null) {
       instance.cancel(false);
