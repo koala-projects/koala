@@ -234,24 +234,6 @@ CREATE TABLE k_dictionary_item
   PRIMARY KEY (id)
 ) COMMENT = '字典项表';
 
--- Log
--- 日志表
-CREATE TABLE k_log
-(
-  `id`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `module`     VARCHAR(20)  NOT NULL COMMENT '日志模块',
-  `content`    VARCHAR(200) NOT NULL COMMENT '日志内容',
-  `user_id`    BIGINT       NOT NULL COMMENT '用户id',
-  `user_ip`    VARCHAR(20)  NOT NULL COMMENT '用户ip',
-  `successful` VARCHAR(20)  NOT NULL COMMENT '是否成功',
-  `request`    TEXT COMMENT '请求',
-  `response`   TEXT COMMENT '响应',
-  `error`      TEXT COMMENT '错误',
-  `cost`       INT          NOT NULL COMMENT '消耗时间',
-  `log_time`   DATETIME     NOT NULL COMMENT '日志时间',
-  PRIMARY KEY (id)
-) COMMENT = '日志表';
-
 -- Database
 -- 数据库表
 CREATE TABLE k_database
@@ -275,42 +257,6 @@ CREATE TABLE k_database
   `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '数据库表';
-
-
--- Task
--- 任务表
-CREATE TABLE k_task
-(
-  `id`                 BIGINT        NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name`               VARCHAR(100)  NOT NULL COMMENT '任务名称',
-  `remark`             VARCHAR(500) COMMENT '任务备注',
-  `task_config`        VARCHAR(2000) NOT NULL COMMENT '任务配置',
-  `trigger_config`     VARCHAR(2000) NOT NULL COMMENT '触发配置',
-  `sort_index`         INT                    DEFAULT 0 COMMENT '排序索引',
-  `is_enabled`         INT           NOT NULL DEFAULT 1 COMMENT '是否启用',
-  `is_systemic`        INT           NOT NULL DEFAULT 0 COMMENT '是否系统',
-  `is_deleted`         INT           NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `created_by`         BIGINT        NOT NULL COMMENT '创建人ID',
-  `created_time`       DATETIME      NOT NULL COMMENT '创建时间',
-  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
-  `last_modified_time` DATETIME COMMENT '最后更新时间',
-  `deleted_by`         BIGINT COMMENT '删除人ID',
-  `deleted_time`       DATETIME COMMENT '删除时间',
-  PRIMARY KEY (id)
-) COMMENT = '任务表';
-
--- 任务日志表
-CREATE TABLE k_task_log
-(
-  `id`          BIGINT   NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `task_id`     BIGINT   NOT NULL COMMENT '任务id',
-  `execution`   INT      NOT NULL COMMENT '执行类型',
-  `task_status` INT      NOT NULL COMMENT '任务状态',
-  `task_error`  TEXT COMMENT '错误信息',
-  `start_time`  DATETIME NOT NULL COMMENT '开始时间',
-  `end_time`    DATETIME COMMENT '结束时间',
-  PRIMARY KEY (id)
-) COMMENT = '任务日志表';
 
 -- Template
 -- 模板组表
@@ -353,18 +299,6 @@ CREATE TABLE k_template
   PRIMARY KEY (id)
 ) COMMENT = '模板表';
 
--- Wechat Mini App
--- 微信小程序用户表
-CREATE TABLE wechat_mini_app_user
-(
-  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `openid`      VARCHAR(100) NOT NULL COMMENT '用户唯一标识',
-  `unionid`     VARCHAR(100) COMMENT '用户在开放平台的唯一标识符',
-  `session_key` VARCHAR(100) NOT NULL COMMENT '会话密钥',
-  `user_id`     INT          NOT NULL COMMENT '系统用户id',
-  PRIMARY KEY (id)
-) COMMENT = '微信小程序用户表';
-
 -- Security
 -- 认证日志表
 CREATE TABLE k_authenticate_log
@@ -378,7 +312,6 @@ CREATE TABLE k_authenticate_log
   `log_time`          DATETIME    NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
 ) COMMENT = '认证日志表';
-
 
 -- 登录日志表
 CREATE TABLE k_login_log
@@ -394,6 +327,24 @@ CREATE TABLE k_login_log
   `log_time`          DATETIME    NOT NULL COMMENT '日志时间',
   PRIMARY KEY (id)
 ) COMMENT = '登录日志表';
+
+-- Log
+-- 日志表
+CREATE TABLE k_log
+(
+  `id`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `module`     VARCHAR(20)  NOT NULL COMMENT '日志模块',
+  `content`    VARCHAR(200) NOT NULL COMMENT '日志内容',
+  `user_id`    BIGINT       NOT NULL COMMENT '用户id',
+  `user_ip`    VARCHAR(20)  NOT NULL COMMENT '用户ip',
+  `successful` VARCHAR(20)  NOT NULL COMMENT '是否成功',
+  `request`    TEXT COMMENT '请求',
+  `response`   TEXT COMMENT '响应',
+  `error`      TEXT COMMENT '错误',
+  `cost`       INT          NOT NULL COMMENT '消耗时间',
+  `log_time`   DATETIME     NOT NULL COMMENT '日志时间',
+  PRIMARY KEY (id)
+) COMMENT = '日志表';
 
 -- Attachment
 -- 附件表
@@ -415,6 +366,53 @@ CREATE TABLE k_attachment
   `deleted_date`       DATETIME COMMENT '删除时间',
   PRIMARY KEY (id)
 ) COMMENT = '附件表';
+
+-- Task
+-- 任务表
+CREATE TABLE k_task
+(
+  `id`                 BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name`               VARCHAR(20) NOT NULL COMMENT '任务名称',
+  `description`        VARCHAR(200) COMMENT '任务描述',
+  `task_config`        TEXT        NOT NULL COMMENT '任务配置',
+  `trigger_config`     TEXT        NOT NULL COMMENT '触发配置',
+  `sort_index`         INT COMMENT '排序索引',
+  `enabled`            VARCHAR(20) NOT NULL DEFAULT 'YES' COMMENT '是否启用',
+  `systemic`           VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否系统',
+  `deleted`            VARCHAR(20) NOT NULL DEFAULT 'NO' COMMENT '是否删除',
+  `created_by`         BIGINT      NOT NULL COMMENT '创建人ID',
+  `created_date`       DATETIME    NOT NULL COMMENT '创建时间',
+  `last_modified_by`   BIGINT COMMENT '最后更新人ID',
+  `last_modified_date` DATETIME COMMENT '最后更新时间',
+  `deleted_by`         BIGINT COMMENT '删除人ID',
+  `deleted_date`       DATETIME COMMENT '删除时间',
+  PRIMARY KEY (id)
+) COMMENT = '任务表';
+
+-- 任务日志表
+CREATE TABLE k_task_log
+(
+  `id`          BIGINT      NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id`     BIGINT      NOT NULL COMMENT '任务id',
+  `task_mode`   VARCHAR(20) NOT NULL COMMENT '任务方式',
+  `task_status` VARCHAR(20) NOT NULL COMMENT '任务状态',
+  `task_error`  TEXT COMMENT '任务错误信息',
+  `start_time`  DATETIME    NOT NULL COMMENT '开始时间',
+  `end_time`    DATETIME COMMENT '结束时间',
+  PRIMARY KEY (id)
+) COMMENT = '任务日志表';
+
+-- Wechat Mini App
+-- 微信小程序用户表
+CREATE TABLE wechat_mini_app_user
+(
+  `id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `openid`      VARCHAR(100) NOT NULL COMMENT '用户唯一标识',
+  `unionid`     VARCHAR(100) COMMENT '用户在开放平台的唯一标识符',
+  `session_key` VARCHAR(100) NOT NULL COMMENT '会话密钥',
+  `user_id`     INT          NOT NULL COMMENT '系统用户id',
+  PRIMARY KEY (id)
+) COMMENT = '微信小程序用户表';
 
 -- Query
 -- 查询表

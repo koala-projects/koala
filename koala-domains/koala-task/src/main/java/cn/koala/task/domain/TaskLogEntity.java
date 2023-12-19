@@ -1,8 +1,6 @@
-package cn.koala.task.support;
+package cn.koala.task.domain;
 
-import cn.koala.Koala;
-import cn.koala.task.Task;
-import cn.koala.task.TaskLog;
+import cn.koala.task.util.TaskConstants;
 import cn.koala.util.LocalDateTimeUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -14,18 +12,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 任务日志数据实体类
+ * 任务日志实体类
  *
  * @author Koala Code Generator
  */
 @Data
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Schema(description = "任务日志数据实体类")
+@Schema(description = "任务日志实体类")
 public class TaskLogEntity implements TaskLog, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = TaskConstants.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;
@@ -33,10 +31,10 @@ public class TaskLogEntity implements TaskLog, Serializable {
   @Schema(description = "任务id")
   private Long taskId;
 
-  private Execution execution;
+  private TaskMode taskMode;
 
   @Schema(description = "任务状态")
-  private Status taskStatus;
+  private TaskStatus taskStatus;
 
   @Schema(description = "错误信息")
   private String taskError;
@@ -47,11 +45,16 @@ public class TaskLogEntity implements TaskLog, Serializable {
   @Schema(description = "结束时间")
   private Date endTime;
 
-  public static TaskLogEntity from(Task task, Execution execution) {
+  public static TaskLogEntity from(Task task, TaskMode taskMode) {
     return TaskLogEntity.builder()
       .taskId(task.getId())
-      .execution(execution)
+      .taskMode(taskMode)
       .startTime(LocalDateTimeUtils.toDate())
       .build();
+  }
+
+  @Override
+  public boolean isNew() {
+    return id != null;
   }
 }

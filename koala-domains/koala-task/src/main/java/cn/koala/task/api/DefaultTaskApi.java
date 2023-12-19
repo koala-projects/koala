@@ -1,11 +1,12 @@
-package cn.koala.task.support;
+package cn.koala.task.api;
 
-import cn.koala.persist.domain.YesNo;
-import cn.koala.task.Task;
-import cn.koala.task.TaskApi;
-import cn.koala.task.TaskExecuteResult;
-import cn.koala.task.TaskExecutor;
-import cn.koala.task.TaskService;
+import cn.koala.data.domain.YesNo;
+import cn.koala.task.domain.Task;
+import cn.koala.task.domain.TaskEntity;
+import cn.koala.task.domain.TaskExecuteResult;
+import cn.koala.task.domain.TaskExecutor;
+import cn.koala.task.domain.TaskStatus;
+import cn.koala.task.service.TaskService;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ import java.util.Map;
  *
  * @author Koala Code Generator
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class DefaultTaskApi implements TaskApi {
 
   private final TaskService service;
@@ -45,7 +46,7 @@ public class DefaultTaskApi implements TaskApi {
 
   @Override
   public Response update(Long id, TaskEntity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }
@@ -58,19 +59,19 @@ public class DefaultTaskApi implements TaskApi {
 
   @Override
   public Response enable(Long id) {
-    service.update(TaskEntity.builder().id(id).isEnabled(YesNo.YES).build());
+    service.update(TaskEntity.builder().id(id).enabled(YesNo.YES).build());
     return Response.SUCCESS;
   }
 
   @Override
   public Response disable(Long id) {
-    service.update(TaskEntity.builder().id(id).isEnabled(YesNo.NO).build());
+    service.update(TaskEntity.builder().id(id).enabled(YesNo.NO).build());
     return Response.SUCCESS;
   }
 
   @Override
   public Response execute(Long id) {
     TaskExecuteResult result = executor.execute(service.load(id));
-    return result.isSucceed() ? Response.SUCCESS : Response.error(result.getMessage());
+    return result.getStatus() == TaskStatus.FINISH ? Response.SUCCESS : Response.error(result.getMessage());
   }
 }

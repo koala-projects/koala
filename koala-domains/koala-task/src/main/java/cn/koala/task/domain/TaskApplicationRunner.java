@@ -1,8 +1,7 @@
-package cn.koala.task.support;
+package cn.koala.task.domain;
 
-import cn.koala.persist.domain.YesNo;
-import cn.koala.task.TaskExecutor;
-import cn.koala.task.TaskService;
+import cn.koala.data.domain.YesNo;
+import cn.koala.task.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -25,6 +24,6 @@ public class TaskApplicationRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-    service.list(Map.of("isEnabled", YesNo.YES.getValue())).forEach(executor::schedule);
+    service.list(Map.of("enabled", YesNo.YES)).forEach(executor::schedule);
   }
 }

@@ -1,8 +1,7 @@
-package cn.koala.task.support;
+package cn.koala.task.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.task.Task;
-import cn.koala.task.TaskService;
+import cn.koala.mybatis.service.AbstractSmartService;
+import cn.koala.task.domain.Task;
 import cn.koala.task.repository.TaskRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultTaskService extends AbstractMyBatisService<Task, Long> implements TaskService {
+public class DefaultTaskService extends AbstractSmartService<Long, Task, Long> implements TaskService {
 
   private final TaskRepository repository;
 }

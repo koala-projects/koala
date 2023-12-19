@@ -1,7 +1,8 @@
-package cn.koala.task;
+package cn.koala.task.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.task.support.TaskLogEntity;
+import cn.koala.task.domain.TaskLog;
+import cn.koala.task.domain.TaskLogEntity;
 import cn.koala.web.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -44,8 +45,8 @@ public interface TaskLogApi {
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TaskLogPageResult.class))}
   )
   @Parameter(in = ParameterIn.QUERY, name = "taskId", description = "任务id", schema = @Schema(type = "integer"))
-  @Parameter(in = ParameterIn.QUERY, name = "execution", description = "执行类型", schema = @Schema(type = "integer"))
-  @Parameter(in = ParameterIn.QUERY, name = "taskStatus", description = "任务状态", schema = @Schema(type = "integer"))
+  @Parameter(in = ParameterIn.QUERY, name = "taskMode", description = "执行类型", schema = @Schema(type = "string"))
+  @Parameter(in = ParameterIn.QUERY, name = "taskStatus", description = "任务状态", schema = @Schema(type = "string"))
   @Parameter(in = ParameterIn.QUERY, name = "startTime", description = "开始时间", schema = @Schema(type = "date-time"))
   @Parameter(in = ParameterIn.QUERY, name = "endTime", description = "结束时间", schema = @Schema(type = "date-time"))
   @PageableAsQueryParam

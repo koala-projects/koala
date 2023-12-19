@@ -1,7 +1,7 @@
 package cn.koala.task.repository;
 
-import cn.koala.persist.CrudRepository;
-import cn.koala.task.TaskLog;
+import cn.koala.mybatis.repository.CrudRepository;
+import cn.koala.task.domain.TaskLog;
 
 /**
  * 任务日志仓库接口

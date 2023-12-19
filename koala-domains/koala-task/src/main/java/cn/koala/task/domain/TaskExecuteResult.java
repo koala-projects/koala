@@ -1,4 +1,4 @@
-package cn.koala.task;
+package cn.koala.task.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TaskExecuteResult {
 
-  public static TaskExecuteResult SUCCESS = new TaskExecuteResult(true, "执行成功");
+  public static TaskExecuteResult SUCCESS = new TaskExecuteResult(TaskStatus.FINISH, "执行成功");
 
-  boolean isSucceed;
+  private TaskStatus status;
 
-  String message;
+  private String message;
 
   public static TaskExecuteResult from(Exception e) {
-    return new TaskExecuteResult(false, e.getLocalizedMessage());
+    return new TaskExecuteResult(TaskStatus.ERROR, e.getLocalizedMessage());
   }
 }

@@ -1,7 +1,5 @@
-package cn.koala.task.support;
+package cn.koala.task.domain;
 
-import cn.koala.task.Task;
-import cn.koala.task.TaskTriggerFactory;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.PeriodicTrigger;
@@ -15,7 +13,7 @@ import java.time.Duration;
  *
  * @author Houtaroy
  */
-public class TaskSchedulingTriggerFactory implements TaskTriggerFactory {
+public class SchedulingTaskTriggerFactory implements TaskTriggerFactory {
 
   @Override
   public Trigger from(Task task) {

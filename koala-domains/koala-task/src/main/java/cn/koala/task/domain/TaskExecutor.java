@@ -1,4 +1,5 @@
-package cn.koala.task;
+package cn.koala.task.domain;
+
 
 /**
  * 任务执行器

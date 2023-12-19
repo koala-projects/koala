@@ -1,8 +1,7 @@
-package cn.koala.task.support;
+package cn.koala.task.service;
 
-import cn.koala.mybatis.AbstractMyBatisService;
-import cn.koala.task.TaskLog;
-import cn.koala.task.TaskLogService;
+import cn.koala.mybatis.service.AbstractCrudService;
+import cn.koala.task.domain.TaskLog;
 import cn.koala.task.repository.TaskLogRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultTaskLogService extends AbstractMyBatisService<TaskLog, Long> implements TaskLogService {
+public class DefaultTaskLogService extends AbstractCrudService<TaskLog, Long> implements TaskLogService {
 
   private final TaskLogRepository repository;
 }

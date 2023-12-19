@@ -3,10 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.koala.task.repository.TaskLogRepository">
 
-  <sql id="selectKTaskLog">
+  <sql id="select">
     select t.id,
            t.task_id,
-           t.execution,
+           t.task_mode,
            t.task_status,
            t.task_error,
            t.start_time,
@@ -14,30 +14,58 @@
     from k_task_log t
   </sql>
 
-  <sql id="orderBy">
+  <sql id="where">
+    <where>
+      <if test="taskId != null and taskId != ''">
+        and t.task_id = #{taskId}
+      </if>
+      <if test="taskMode != null and taskMode != ''">
+        and t.task_mode = #{taskMode}
+      </if>
+      <if test="taskStatus != null and taskStatus != ''">
+        and t.task_status = #{taskStatus}
+      </if>
+      <if test="taskError != null and taskError != ''">
+        and t.task_error = #{taskError}
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and t.start_time = #{startTime}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and t.end_time = #{endTime}
+      </if>
+    </where>
+  </sql>
+
+  <sql id="orders">
     <choose>
-      <when test="orders != null and orders.size() > 0">
-        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
-          <include refid="orderByField"/>
+      <when test="pageable != null and pageable.getSort() != null and pageable.getSort().isSorted()">
+        <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
+                 separator=",">
+          <include refid="order"/>
         </foreach>
       </when>
       <otherwise>
-        order by t.id asc
+        order by t.id
       </otherwise>
     </choose>
   </sql>
 
-  <sql id="orderByField">
+  <sql id="order">
     <if test="order.property == 'taskId'">
       t.task_id
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
-    <if test="order.property == 'execution'">
-      t.execution
+    <if test="order.property == 'taskMode'">
+      t.task_mode
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'taskStatus'">
       t.task_status
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
+    <if test="order.property == 'taskError'">
+      t.task_error
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
     <if test="order.property == 'startTime'">
@@ -50,50 +78,35 @@
     </if>
   </sql>
 
-  <select id="list" resultType="cn.koala.task.support.TaskLogEntity">
-    <include refid="selectKTaskLog"/>
-    <where>
-      <if test="taskId != null and taskId != ''">
-        and t.task_id = #{taskId}
-      </if>
-      <if test="execution != null and execution != ''">
-        and t.execution = #{execution}
-      </if>
-      <if test="taskStatus != null and taskStatus != ''">
-        and t.task_status = #{taskStatus}
-      </if>
-      <if test="startTime != null and startTime != ''">
-        and t.start_time = #{startTime}
-      </if>
-      <if test="endTime != null and endTime != ''">
-        and t.end_time = #{endTime}
-      </if>
-    </where>
-    <include refid="orderBy"/>
+  <select id="list" resultType="cn.koala.task.domain.TaskLogEntity">
+    <include refid="select"/>
+    <include refid="where"/>
+    <include refid="orders"/>
   </select>
 
-  <select id="load" resultType="cn.koala.task.support.TaskLogEntity">
-    <include refid="selectKTaskLog"/>
+  <select id="load" resultType="cn.koala.task.domain.TaskLogEntity">
+    <include refid="select"/>
     where t.id=#{id}
   </select>
 
-  <insert id="create" parameterType="cn.koala.task.support.TaskLogEntity" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" parameterType="cn.koala.task.domain.TaskLogEntity" useGeneratedKeys="true" keyProperty="id">
     insert into k_task_log
-      value ( #{id},
-      #{taskId},
-      #{execution},
-      #{taskStatus},
-      #{taskError},
-      #{startTime},
-      #{endTime}
+      value (
+             #{id},
+             #{taskId},
+             #{taskMode},
+             #{taskStatus},
+             #{taskError},
+             #{startTime},
+             #{endTime}
       )
   </insert>
 
-  <update id="update" parameterType="cn.koala.task.support.TaskLogEntity">
+  <update id="update" parameterType="cn.koala.task.domain.TaskLogEntity">
     update k_task_log
     <trim prefix="set" suffixOverrides=",">
       <if test="taskId != null">task_id=#{taskId},</if>
-      <if test="execution != null">execution=#{execution},</if>
+      <if test="taskMode != null">task_mode=#{taskMode},</if>
       <if test="taskStatus != null">task_status=#{taskStatus},</if>
       <if test="taskError != null">task_error=#{taskError},</if>
       <if test="startTime != null">start_time=#{startTime},</if>
@@ -102,7 +115,7 @@
     where id = #{id}
   </update>
 
-  <delete id="delete" parameterType="cn.koala.task.support.TaskLogEntity">
+  <delete id="delete" parameterType="cn.koala.task.domain.TaskLogEntity">
     delete
     from k_task_log
     where id = #{id}

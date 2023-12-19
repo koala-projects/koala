@@ -1,6 +1,7 @@
-package cn.koala.task;
+package cn.koala.task.service;
 
-import cn.koala.persist.CrudService;
+import cn.koala.data.service.CrudService;
+import cn.koala.task.domain.TaskLog;
 
 /**
  * 任务日志服务接口

@@ -1,8 +1,7 @@
-package cn.koala.task.support;
+package cn.koala.task.api;
 
-import cn.koala.task.TaskLog;
-import cn.koala.task.TaskLogApi;
-import cn.koala.task.TaskLogService;
+import cn.koala.task.domain.TaskLog;
+import cn.koala.task.service.TaskLogService;
 import cn.koala.web.DataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,11 +15,11 @@ import java.util.Map;
  *
  * @author Koala Code Generator
  */
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class DefaultTaskLogApi implements TaskLogApi {
 
-  protected final TaskLogService service;
+  private final TaskLogService service;
 
   @Override
   public DataResponse<Page<TaskLog>> page(Map<String, Object> parameters, Pageable pageable) {

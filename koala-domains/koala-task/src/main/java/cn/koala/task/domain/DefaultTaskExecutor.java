@@ -1,12 +1,6 @@
-package cn.koala.task.support;
+package cn.koala.task.domain;
 
-import cn.koala.task.Task;
-import cn.koala.task.TaskExecuteResult;
-import cn.koala.task.TaskExecutor;
-import cn.koala.task.TaskInstanceFactory;
-import cn.koala.task.TaskLog;
-import cn.koala.task.TaskLogService;
-import cn.koala.task.TaskTriggerFactory;
+import cn.koala.task.service.TaskLogService;
 import cn.koala.util.Assert;
 import cn.koala.util.LocalDateTimeUtils;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +37,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
     Runnable instance = instanceFactory.from(task);
     Assert.notNull(instance, "任务实例创建失败");
     ScheduledFuture<?> future = scheduler.schedule(
-      new TaskLogWrapper(task, TaskLog.Execution.AUTO),
+      new TaskLogWrapper(task, TaskMode.AUTO),
       triggerFactory.from(task)
     );
     instances.put(key, future);
@@ -65,7 +59,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
     Assert.notNull(task, "任务不存在");
     Runnable instance = instanceFactory.from(task);
     Assert.notNull(instance, "任务实例创建失败");
-    return new TaskLogWrapper(task, TaskLog.Execution.MANUAL).doRun();
+    return new TaskLogWrapper(task, TaskMode.MANUAL).doRun();
   }
 
   @RequiredArgsConstructor
@@ -73,7 +67,7 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
     private final Task task;
 
-    private final TaskLog.Execution execution;
+    private final TaskMode mode;
 
     @Override
     public void run() {
@@ -82,15 +76,15 @@ public class DefaultTaskExecutor implements TaskExecutor {
 
     public TaskExecuteResult doRun() {
       Runnable instance = instanceFactory.from(task);
-      TaskLog log = TaskLogEntity.from(task, execution);
+      TaskLog log = TaskLogEntity.from(task, mode);
       try {
         LOGGER.info("任务[name = {}]开始执行", task.getName());
         instance.run();
-        log.setTaskStatus(TaskLog.Status.SUCCESS);
+        log.setTaskStatus(TaskStatus.FINISH);
         LOGGER.info("任务[name = {}]执行成功", task.getName());
         return TaskExecuteResult.SUCCESS;
       } catch (Exception e) {
-        log.setTaskStatus(TaskLog.Status.FAIL);
+        log.setTaskStatus(TaskStatus.ERROR);
         log.setTaskError(e.getLocalizedMessage());
         LOGGER.error("任务[name = {}]执行失败", task.getName(), e);
         return TaskExecuteResult.from(e);

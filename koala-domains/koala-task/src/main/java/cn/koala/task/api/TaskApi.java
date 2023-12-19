@@ -1,8 +1,8 @@
-package cn.koala.task;
+package cn.koala.task.api;
 
 import cn.koala.openapi.PageableAsQueryParam;
-import cn.koala.persist.validator.EditableId;
-import cn.koala.task.support.TaskEntity;
+import cn.koala.task.domain.Task;
+import cn.koala.task.domain.TaskEntity;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
 import cn.koala.web.DataResponse;
@@ -106,8 +106,7 @@ public interface TaskApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "任务id", schema = @Schema(type = "integer"))
   @PutMapping("{id}")
-  Response update(@EditableId(TaskEntity.class) @PathVariable("id") Long id,
-                  @Validated(Update.class) @RequestBody TaskEntity entity);
+  Response update(@PathVariable("id") Long id, @Validated(Update.class) @RequestBody TaskEntity entity);
 
   /**
    * 删除任务
@@ -122,7 +121,7 @@ public interface TaskApi {
   )
   @Parameter(in = ParameterIn.PATH, name = "id", description = "任务id", schema = @Schema(type = "integer"))
   @DeleteMapping("{id}")
-  Response delete(@EditableId(TaskEntity.class) @PathVariable("id") Long id);
+  Response delete(@PathVariable("id") Long id);
 
   @PreAuthorize("hasAuthority('task.update')")
   @Operation(operationId = "enableTask", summary = "启用任务")

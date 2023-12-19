@@ -1,7 +1,5 @@
-package cn.koala.task.support;
+package cn.koala.task.domain;
 
-import cn.koala.task.Task;
-import cn.koala.task.TaskInstanceFactory;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -11,11 +9,11 @@ import org.springframework.context.ApplicationContext;
  *
  * @author Houtaroy
  */
-public class TaskSpringBeanInstanceFactory implements TaskInstanceFactory {
+public class BeanTaskInstanceFactory implements TaskInstanceFactory {
 
   private final ApplicationContext context;
 
-  public TaskSpringBeanInstanceFactory(ApplicationContext context) {
+  public BeanTaskInstanceFactory(ApplicationContext context) {
     this.context = context;
   }
 

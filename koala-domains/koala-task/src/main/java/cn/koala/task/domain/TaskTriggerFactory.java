@@ -1,4 +1,4 @@
-package cn.koala.task;
+package cn.koala.task.domain;
 
 import org.springframework.scheduling.Trigger;
 
