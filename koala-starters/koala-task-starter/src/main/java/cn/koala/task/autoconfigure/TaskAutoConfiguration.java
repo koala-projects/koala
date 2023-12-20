@@ -10,6 +10,7 @@ import cn.koala.task.domain.SchedulingTaskTriggerFactory;
 import cn.koala.task.domain.TaskApplicationRunner;
 import cn.koala.task.domain.TaskExecutor;
 import cn.koala.task.domain.TaskInstanceFactory;
+import cn.koala.task.domain.TaskSchedulingEntityListener;
 import cn.koala.task.domain.TaskTriggerFactory;
 import cn.koala.task.repository.TaskLogRepository;
 import cn.koala.task.repository.TaskRepository;
@@ -57,8 +58,14 @@ public class TaskAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public TaskService taskService(TaskRepository taskRepository, TaskExecutor executor) {
-    return new DefaultTaskService(taskRepository, executor);
+  public TaskSchedulingEntityListener taskSchedulingEntityListener(TaskExecutor taskExecutor) {
+    return new TaskSchedulingEntityListener(taskExecutor);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public TaskService taskService(TaskRepository taskRepository) {
+    return new DefaultTaskService(taskRepository);
   }
 
   @Bean

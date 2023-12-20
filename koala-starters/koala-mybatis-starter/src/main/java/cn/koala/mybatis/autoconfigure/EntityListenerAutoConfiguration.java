@@ -7,6 +7,7 @@ import cn.koala.mybatis.listener.EnableableGlobalEntityListener;
 import cn.koala.mybatis.listener.EntityListenerFactory;
 import cn.koala.mybatis.listener.GlobalEntityListener;
 import cn.koala.mybatis.listener.SystemicGlobalEntityListener;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,7 @@ public class EntityListenerAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(name = "auditingGlobalEntityListener")
+  @ConditionalOnBean(AuditorAware.class)
   public GlobalEntityListener auditingGlobalEntityListener(AuditorAware<?> auditorAware) {
     return new AuditingGlobalEntityListener<>(auditorAware);
   }
@@ -47,6 +49,7 @@ public class EntityListenerAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
+  @ConditionalOnBean(PlatformTransactionManager.class)
   public CrudServiceEntityListenerAspect crudServiceEntityListenerAspect(PlatformTransactionManager transactionManager,
                                                                          EntityListenerFactory entityListenerFactory) {
 

@@ -10,7 +10,6 @@ import cn.koala.mybatis.repository.CrudRepository;
 import cn.koala.util.Assert;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -30,8 +29,6 @@ import java.util.Map;
  */
 @Slf4j
 public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, ID> {
-
-  private AuditorAware<U> auditorAware;
 
   @Override
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {
