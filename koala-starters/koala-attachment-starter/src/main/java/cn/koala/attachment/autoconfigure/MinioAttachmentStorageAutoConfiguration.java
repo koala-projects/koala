@@ -1,7 +1,10 @@
 package cn.koala.attachment.autoconfigure;
 
-import cn.koala.attachment.storage.AttachmentStorage;
-import cn.koala.attachment.storage.support.MinioAttachmentStorage;
+import cn.koala.attachment.domain.AttachmentStorage;
+import cn.koala.attachment.domain.AttachmentStoragePathStrategy;
+import cn.koala.attachment.domain.LocalDateTimeAttachmentStoragePathStrategy;
+import cn.koala.attachment.domain.MinioAttachmentStorage;
+import cn.koala.minio.autoconfigure.MinioProperties;
 import io.minio.MinioClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,7 +22,24 @@ public class MinioAttachmentStorageAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public AttachmentStorage minIOAttachmentStorage(MinioClient client) throws Exception {
-    return new MinioAttachmentStorage(client);
+  public AttachmentStoragePathStrategy attachmentStoragePathStrategy() {
+    return new LocalDateTimeAttachmentStoragePathStrategy();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "minIOAttachmentStorage")
+  public AttachmentStorage minIOAttachmentStorage(
+    MinioClient client,
+    MinioProperties minioProperties,
+    AttachmentProperties attachmentProperties,
+    AttachmentStoragePathStrategy attachmentStoragePathStrategy
+  ) throws Exception {
+
+    return new MinioAttachmentStorage(
+      client,
+      minioProperties.getEndpoint(),
+      attachmentProperties.getBucket(),
+      attachmentStoragePathStrategy
+    );
   }
 }

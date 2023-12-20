@@ -27,4 +27,8 @@ public interface Attachment extends Auditable<Long, Long>, Sortable, Enableable,
   String getStoragePath();
 
   void setStoragePath(String storagePath);
+
+  String getStorageUri();
+
+  void setStorageUri(String storageUrl);
 }

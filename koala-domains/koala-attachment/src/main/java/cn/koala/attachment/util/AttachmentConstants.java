@@ -8,4 +8,6 @@ package cn.koala.attachment.util;
 public interface AttachmentConstants {
 
   Long SERIAL_VERSION_UID = 2023_02_00L;
+
+  String DEFAULT_MINIO_BUCKET = "koala-attachment";
 }

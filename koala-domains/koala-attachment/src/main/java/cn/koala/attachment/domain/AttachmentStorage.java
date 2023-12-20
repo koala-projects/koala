@@ -1,6 +1,5 @@
-package cn.koala.attachment.storage;
+package cn.koala.attachment.domain;
 
-import cn.koala.attachment.domain.Attachment;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -12,9 +11,9 @@ import java.io.InputStream;
  */
 public interface AttachmentStorage {
 
-  Attachment upload(MultipartFile multipartFile) throws Exception;
+  Attachment put(MultipartFile multipartFile) throws Exception;
 
-  InputStream download(Attachment attachment) throws Exception;
+  InputStream get(Attachment attachment) throws Exception;
 
   void remove(Attachment attachment) throws Exception;
 }

@@ -3,9 +3,7 @@ package cn.koala.attachment.api;
 import cn.koala.attachment.domain.Attachment;
 import cn.koala.attachment.domain.AttachmentEntity;
 import cn.koala.attachment.service.AttachmentService;
-import cn.koala.attachment.storage.AttachmentStorage;
 import cn.koala.exception.BusinessException;
-import cn.koala.util.Assert;
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import jakarta.servlet.ServletOutputStream;
@@ -19,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -35,8 +34,6 @@ import java.util.Map;
 public class DefaultAttachmentApi implements AttachmentApi {
 
   private final AttachmentService service;
-
-  private final AttachmentStorage storage;
 
   @Override
   public DataResponse<Page<Attachment>> page(Map<String, Object> parameters, Pageable pageable) {
@@ -55,29 +52,23 @@ public class DefaultAttachmentApi implements AttachmentApi {
   }
 
   @Override
-  public DataResponse<Attachment> upload(MultipartFile attachment) {
-    try {
-      Attachment result = this.storage.upload(attachment);
-      this.service.create(result);
-      return DataResponse.ok(result);
-    } catch (Exception e) {
-      throw new BusinessException("文件上传失败, 请联系服务管理员", e);
-    }
+  public DataResponse<Attachment> upload(MultipartFile multipartFile) {
+    return DataResponse.ok(service.upload(multipartFile));
   }
 
   @Override
   public void download(Long id, HttpServletResponse response) {
-    try {
-      Attachment attachment = this.service.load(id);
-      Assert.notNull(attachment, "附件不存在");
-      try (InputStream inputStream = this.storage.download(attachment);
-           ServletOutputStream outputStream = response.getOutputStream()) {
-        String filename = URLEncoder.encode(attachment.getOriginalFilename(), StandardCharsets.UTF_8);
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=%s".formatted(filename));
-        response.setContentType(attachment.getContentType());
-        IOUtils.copy(inputStream, outputStream);
-      }
-    } catch (Exception e) {
+    var attachmentDownload = service.download(id);
+    try (
+      InputStream inputStream = attachmentDownload.getInputStream();
+      ServletOutputStream outputStream = response.getOutputStream()
+    ) {
+      var attachment = attachmentDownload.getAttachment();
+      String filename = URLEncoder.encode(attachment.getOriginalFilename(), StandardCharsets.UTF_8);
+      response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=%s".formatted(filename));
+      response.setContentType(attachment.getContentType());
+      IOUtils.copy(inputStream, outputStream);
+    } catch (IOException e) {
       throw new BusinessException("文件下载失败, 请联系服务管理员", e);
     }
   }

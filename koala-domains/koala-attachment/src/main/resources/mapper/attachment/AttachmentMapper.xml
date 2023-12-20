@@ -9,6 +9,7 @@
            t.content_type,
            t.size,
            t.storage_path,
+           t.storage_uri,
            t.enabled,
            t.systemic,
            t.deleted,
@@ -34,6 +35,9 @@
       </if>
       <if test="storagePath != null and storagePath != ''">
         and t.storage_path = #{storagePath}
+      </if>
+      <if test="storageUri != null and storageUri != ''">
+        and t.storage_uri = #{storageUri}
       </if>
       <if test="enabled != null and enabled != ''">
         and t.enabled = #{enabled}
@@ -96,6 +100,10 @@
       t.storage_path
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
     </if>
+    <if test="order.property == 'storageUri'">
+      t.storage_uri
+      <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
+    </if>
     <if test="order.property == 'enabled'">
       t.enabled
       <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection"/>
@@ -154,6 +162,7 @@
              #{contentType},
              #{size},
              #{storagePath},
+             #{storageUri},
              #{enabled},
              #{systemic},
              #{deleted},
@@ -173,6 +182,7 @@
       <if test="contentType != null">content_type=#{contentType},</if>
       <if test="size != null">size=#{size},</if>
       <if test="storagePath != null">storage_path=#{storagePath},</if>
+      <if test="storageUri != null">storage_uri=#{storageUri},</if>
       <if test="enabled != null">enabled=#{enabled},</if>
       <if test="systemic != null">systemic=#{systemic},</if>
       <if test="deleted != null">deleted=#{deleted},</if>

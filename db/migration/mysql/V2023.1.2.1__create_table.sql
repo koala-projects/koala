@@ -351,10 +351,11 @@ CREATE TABLE k_log
 CREATE TABLE k_attachment
 (
   `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `original_filename`  VARCHAR(50)  NOT NULL COMMENT '原始文件名',
-  `content_type`       VARCHAR(100) NOT NULL COMMENT '文件类型',
-  `size`               INT          NOT NULL COMMENT '文件大小(KB)',
-  `storage_path`       VARCHAR(100) NOT NULL COMMENT '存储路径',
+  `original_filename`  VARCHAR(20)  NOT NULL COMMENT '原始文件名',
+  `content_type`       VARCHAR(50)  NOT NULL COMMENT '文件类型',
+  `size`               INT          NOT NULL COMMENT '文件大小',
+  `storage_path`       VARCHAR(200) NOT NULL COMMENT '存储路径',
+  `storage_uri`        VARCHAR(200) NOT NULL COMMENT '存储资源标识',
   `enabled`            VARCHAR(20)  NOT NULL DEFAULT 'YES' COMMENT '是否启用',
   `systemic`           VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否系统',
   `deleted`            VARCHAR(20)  NOT NULL DEFAULT 'NO' COMMENT '是否删除',

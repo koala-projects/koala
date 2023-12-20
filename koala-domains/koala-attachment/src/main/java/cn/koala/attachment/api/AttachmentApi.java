@@ -113,7 +113,7 @@ public interface AttachmentApi {
     required = true
   )
   @PostMapping("upload")
-  DataResponse<Attachment> upload(@RequestParam("attachment") MultipartFile attachment);
+  DataResponse<Attachment> upload(@RequestParam("attachment") MultipartFile multipartFile);
 
   /**
    * 根据id下载附件

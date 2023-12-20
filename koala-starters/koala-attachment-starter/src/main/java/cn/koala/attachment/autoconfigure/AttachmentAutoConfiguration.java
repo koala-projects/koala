@@ -1,18 +1,17 @@
 package cn.koala.attachment.autoconfigure;
 
-import cn.koala.attachment.AttachmentEntityListener;
 import cn.koala.attachment.api.AttachmentApi;
 import cn.koala.attachment.api.DefaultAttachmentApi;
+import cn.koala.attachment.domain.AttachmentStorage;
 import cn.koala.attachment.repository.AttachmentRepository;
 import cn.koala.attachment.service.AttachmentService;
 import cn.koala.attachment.service.DefaultAttachmentService;
-import cn.koala.attachment.storage.AttachmentStorage;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
  * 附件自动配置类
@@ -20,31 +19,20 @@ import org.springframework.context.annotation.Import;
  * @author Houtaroy
  */
 @Configuration
-@Import({
-  LocalFileAttachmentStorageAutoConfiguration.class,
-  LocalFileAttachmentWebMvcConfigurer.class,
-  MinioAttachmentStorageAutoConfiguration.class,
-  AttachmentPermissionAutoConfiguration.class
-})
 @EnableConfigurationProperties(AttachmentProperties.class)
 @MapperScan("cn.koala.attachment.repository")
 public class AttachmentAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public AttachmentService attachmentService(AttachmentRepository repository) {
-    return new DefaultAttachmentService(repository);
+  @ConditionalOnBean(AttachmentStorage.class)
+  public AttachmentService attachmentService(AttachmentRepository repository, AttachmentStorage storage) {
+    return new DefaultAttachmentService(repository, storage);
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public AttachmentApi attachmentApi(AttachmentService service, AttachmentStorage storage) {
-    return new DefaultAttachmentApi(service, storage);
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "attachmentEntityListener")
-  public AttachmentEntityListener attachmentEntityListener(AttachmentRepository repository, AttachmentStorage storage) {
-    return new AttachmentEntityListener(repository, storage);
+  public AttachmentApi attachmentApi(AttachmentService service) {
+    return new DefaultAttachmentApi(service);
   }
 }

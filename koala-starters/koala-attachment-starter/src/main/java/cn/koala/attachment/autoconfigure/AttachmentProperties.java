@@ -1,5 +1,6 @@
 package cn.koala.attachment.autoconfigure;
 
+import cn.koala.attachment.util.AttachmentConstants;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -8,8 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author Houtaroy
  */
-@ConfigurationProperties(prefix = "koala.attachment")
 @Data
+@ConfigurationProperties(prefix = "koala.attachment")
 public class AttachmentProperties {
 
   public static final String TYPE_LOCAL = "local";
@@ -27,4 +28,6 @@ public class AttachmentProperties {
   private String root;
 
   private String endpoint = "/attachments";
+
+  private String bucket = AttachmentConstants.DEFAULT_MINIO_BUCKET;
 }
