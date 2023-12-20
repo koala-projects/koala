@@ -7,6 +7,10 @@ import jakarta.persistence.PostUpdate;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * 任务调度实体监听器
+ * <p>
+ * 用于在增删改之后调度任务
+ *
  * @author Houtaroy
  */
 @RequiredArgsConstructor

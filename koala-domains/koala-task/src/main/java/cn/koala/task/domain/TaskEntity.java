@@ -4,6 +4,7 @@ import cn.koala.mybatis.domain.AbstractEntity;
 import cn.koala.task.util.TaskConstants;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.EntityListeners;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -23,6 +24,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@EntityListeners(TaskSchedulingEntityListener.class)
 @Schema(description = "任务实体类")
 public class TaskEntity extends AbstractEntity<Long, Long> implements Task, Serializable {
 
