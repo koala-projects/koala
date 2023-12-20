@@ -29,7 +29,6 @@
     <module>koala-mybatis</module>
     <module>koala-ocr</module>
     <module>koala-open-api</module>
-    <module>koala-persist</module>
     <module>koala-post-office</module>
     <module>koala-powerjob-worker</module>
     <module>koala-query</module>

@@ -19,6 +19,7 @@ import org.springframework.lang.NonNull;
 public class DefaultTaskService extends AbstractSmartService<Long, Task, Long> implements TaskService {
 
   private final TaskRepository repository;
+
   private final TaskExecutor executor;
 
   @Override

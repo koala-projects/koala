@@ -16,6 +16,15 @@
 
   <dependencies>
     <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-data</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.koala</groupId>
+      <artifactId>koala-open-api</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
     </dependency>
@@ -25,16 +34,8 @@
     </dependency>
 
     <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-data</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-open-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-persist</artifactId>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
     </dependency>
   </dependencies>
 </project>

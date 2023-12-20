@@ -28,11 +28,6 @@
       <groupId>cn.koala</groupId>
       <artifactId>koala-mybatis</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>cn.koala</groupId>
-      <artifactId>koala-persist-starter</artifactId>
-    </dependency>
   </dependencies>
 
 </project>

@@ -384,11 +384,6 @@
       </dependency>
       <dependency>
         <groupId>cn.koala</groupId>
-        <artifactId>koala-persist</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
         <artifactId>koala-post-office</artifactId>
         <version>${revision}</version>
       </dependency>
@@ -481,11 +476,6 @@
       <dependency>
         <groupId>cn.koala</groupId>
         <artifactId>koala-ocr-starter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-      <dependency>
-        <groupId>cn.koala</groupId>
-        <artifactId>koala-persist-starter</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>

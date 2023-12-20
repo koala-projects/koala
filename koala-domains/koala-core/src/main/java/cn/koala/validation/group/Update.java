@@ -3,10 +3,9 @@ package cn.koala.validation.group;
 import jakarta.validation.groups.Default;
 
 /**
- * 新增校验组
+ * 更新校验组
  *
  * @author Houtaroy
  */
-@Deprecated
-public interface Create extends Default {
+public interface Update extends Default {
 }

@@ -7,5 +7,6 @@ import jakarta.validation.groups.Default;
  *
  * @author Houtaroy
  */
+@Deprecated
 public interface Delete extends Default {
 }
