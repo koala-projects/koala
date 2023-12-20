@@ -1,4 +1,1 @@
 cn.koala.attachment.autoconfigure.AttachmentAutoConfiguration
-cn.koala.attachment.autoconfigure.LocalFileAttachmentStorageAutoConfiguration
-cn.koala.attachment.autoconfigure.MinioAttachmentStorageAutoConfiguration
-cn.koala.attachment.autoconfigure.AttachmentPermissionAutoConfiguration

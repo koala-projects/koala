@@ -6,6 +6,7 @@ import cn.koala.attachment.domain.LocalDateTimeAttachmentStoragePathStrategy;
 import cn.koala.attachment.domain.MinioAttachmentStorage;
 import cn.koala.minio.autoconfigure.MinioProperties;
 import io.minio.MinioClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Houtaroy
  */
 @Configuration
+@ConditionalOnClass(name = "cn.koala.minio.autoconfigure.MinioProperties")
 @ConditionalOnProperty(value = "koala.attachment.type", havingValue = AttachmentProperties.TYPE_MINIO)
 public class MinioAttachmentStorageAutoConfiguration {
 

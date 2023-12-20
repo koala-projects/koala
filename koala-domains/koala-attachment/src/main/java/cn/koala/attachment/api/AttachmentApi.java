@@ -96,7 +96,7 @@ public interface AttachmentApi {
   /**
    * 上传附件
    *
-   * @param attachment 附件
+   * @param multipartFile 附件
    * @return 附件数据实体
    */
   @PreAuthorize("hasAuthority('attachment.create')")

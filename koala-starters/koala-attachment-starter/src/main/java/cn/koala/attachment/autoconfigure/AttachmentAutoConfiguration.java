@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * 附件自动配置类
@@ -19,6 +20,11 @@ import org.springframework.context.annotation.Configuration;
  * @author Houtaroy
  */
 @Configuration
+@Import({
+  LocalFileAttachmentStorageAutoConfiguration.class,
+  MinioAttachmentStorageAutoConfiguration.class,
+  AttachmentPermissionAutoConfiguration.class
+})
 @EnableConfigurationProperties(AttachmentProperties.class)
 @MapperScan("cn.koala.attachment.repository")
 public class AttachmentAutoConfiguration {
