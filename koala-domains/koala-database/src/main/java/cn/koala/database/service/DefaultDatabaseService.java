@@ -28,7 +28,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Getter
-public class DefaultDatabaseService extends AbstractSmartService<Long, Database, Long> implements DatabaseService {
+public class DefaultDatabaseService extends AbstractSmartService<Database, Long> implements DatabaseService {
 
   public static final int TIME_OUT = 60;
 

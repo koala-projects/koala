@@ -28,7 +28,7 @@ import java.util.Map;
  * @author Houtaroy
  */
 @Slf4j
-public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, ID> {
+public abstract class AbstractSmartService<T, ID> implements CrudService<T, ID> {
 
   @Override
   public Page<T> page(Map<String, Object> parameters, Pageable pageable) {

@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultTaskService extends AbstractSmartService<Long, Task, Long> implements TaskService {
+public class DefaultTaskService extends AbstractSmartService<Task, Long> implements TaskService {
 
   private final TaskRepository repository;
 }

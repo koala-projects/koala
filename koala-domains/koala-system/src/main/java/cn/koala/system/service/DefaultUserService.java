@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultUserService extends AbstractSmartService<Long, User, Long> implements UserService {
+public class DefaultUserService extends AbstractSmartService<User, Long> implements UserService {
 
   private final UserRepository repository;
 

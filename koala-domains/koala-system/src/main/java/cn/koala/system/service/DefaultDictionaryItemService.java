@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public class DefaultDictionaryItemService extends AbstractSmartService<Long, DictionaryItem, Long>
+public class DefaultDictionaryItemService extends AbstractSmartService<DictionaryItem, Long>
   implements DictionaryItemService {
 
   private final DictionaryItemRepository repository;

@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultDutyService extends AbstractSmartService<Long, Duty, Long> implements DutyService {
+public class DefaultDutyService extends AbstractSmartService<Duty, Long> implements DutyService {
 
   private final DutyRepository repository;
 }

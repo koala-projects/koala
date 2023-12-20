@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultDepartmentService extends AbstractSmartService<Long, Department, Long> implements DepartmentService {
+public class DefaultDepartmentService extends AbstractSmartService<Department, Long> implements DepartmentService {
 
   private final DepartmentRepository repository;
 

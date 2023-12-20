@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultAttachmentService extends AbstractSmartService<Long, Attachment, Long>
+public class DefaultAttachmentService extends AbstractSmartService<Attachment, Long>
   implements AttachmentService {
 
   private final AttachmentRepository repository;

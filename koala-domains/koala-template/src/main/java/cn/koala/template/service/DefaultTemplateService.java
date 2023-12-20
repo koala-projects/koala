@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public class DefaultTemplateService extends AbstractSmartService<Long, Template, Long> implements TemplateService {
+public class DefaultTemplateService extends AbstractSmartService<Template, Long> implements TemplateService {
 
   private final TemplateRepository repository;
 }

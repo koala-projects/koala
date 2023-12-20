@@ -22,10 +22,10 @@ import java.util.Map;
  */
 @Getter
 @RequiredArgsConstructor
-public class DefaultQueryService extends AbstractSmartService<Long, Query, Long> implements QueryService {
+public class DefaultQueryService extends AbstractSmartService<Query, Long> implements QueryService {
 
   private final QueryRepository repository;
-  
+
   private final NamedParameterJdbcTemplate jdbcTemplate;
 
   @Override
