@@ -3,6 +3,7 @@ package cn.koala.system.domain;
 import cn.koala.mybatis.domain.AbstractEntity;
 import cn.koala.system.util.SystemConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.EntityListeners;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -22,6 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@EntityListeners(UserEntityListener.class)
 @Schema(description = "用户数据实体")
 public class UserEntity extends AbstractEntity<Long, Long> implements User, Serializable {
 

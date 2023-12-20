@@ -15,6 +15,7 @@ import cn.koala.system.api.PermissionApi;
 import cn.koala.system.api.RoleApi;
 import cn.koala.system.api.UserApi;
 import cn.koala.system.boot.AdminRegister;
+import cn.koala.system.domain.UserEntityListener;
 import cn.koala.system.permission.PermissionRegister;
 import cn.koala.system.permission.PermissionRegistrar;
 import cn.koala.system.permission.SystemPermissionRegistrar;
@@ -140,9 +141,14 @@ public class SystemAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserEntityListener userEntityListener(PasswordEncoder passwordEncoder) {
+    return new UserEntityListener(passwordEncoder);
+  }
 
-    return new DefaultUserService(userRepository, passwordEncoder);
+  @Bean
+  @ConditionalOnMissingBean
+  public UserService userService(UserRepository userRepository) {
+    return new DefaultUserService(userRepository);
   }
 
   @Bean
