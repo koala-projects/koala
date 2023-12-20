@@ -1,8 +1,6 @@
-package cn.koala.persist.support;
+package cn.koala.mybatis.listener;
 
-import cn.koala.persist.EntityListenerFactory;
-import cn.koala.persist.EntityListenerMethod;
-import cn.koala.persist.SystemEntityListener;
+import cn.koala.util.BeanUtils;
 import jakarta.persistence.EntityListeners;
 import lombok.Setter;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +10,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,11 +21,11 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Houtaroy
  */
-@Deprecated
-public class SpringBeanEntityListenerFactory implements EntityListenerFactory, ApplicationContextAware {
+public class BeanEntityListenerFactory implements EntityListenerFactory, ApplicationContextAware {
 
   private final Map<Class<?>, List<Object>> listeners = new ConcurrentHashMap<>();
   private final Map<String, List<EntityListenerMethod>> methods = new ConcurrentHashMap<>();
+
   @Setter
   private ApplicationContext applicationContext;
 
@@ -38,16 +35,17 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
       if (clazz == null) {
         return List.of();
       }
-      List<Object> listeners = getCustomEntityListeners(clazz.getAnnotation(EntityListeners.class));
-      List<SystemEntityListener> systemListeners = getSystemEntityListeners(clazz);
-      List<Object> result = new ArrayList<>(listeners.size() + systemListeners.size());
-      result.addAll(systemListeners);
+      List<Object> listeners = getEntityListeners(clazz.getAnnotation(EntityListeners.class));
+      List<GlobalEntityListener> globalEntityListeners = getGlobalEntityListeners(clazz);
+      List<Object> result = new ArrayList<>(listeners.size() + globalEntityListeners.size());
       result.addAll(listeners);
+      result.addAll(globalEntityListeners);
+      BeanUtils.sort(result);
       return result;
     });
   }
 
-  private List<Object> getCustomEntityListeners(EntityListeners annotation) {
+  private List<Object> getEntityListeners(EntityListeners annotation) {
     if (annotation == null) {
       return List.of();
     }
@@ -55,13 +53,13 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
     for (Class<?> clazz : annotation.value()) {
       result.add(applicationContext.getBean(clazz));
     }
-    return BeanOrderUtils.sort(result);
+    return result;
   }
 
-  private List<SystemEntityListener> getSystemEntityListeners(Class<?> entityClass) {
-    Collection<SystemEntityListener> listeners = applicationContext.getBeansOfType(SystemEntityListener.class).values();
-    List<SystemEntityListener> result = listeners.stream().filter(listener -> listener.support(entityClass)).toList();
-    return BeanOrderUtils.sort(result);
+  private List<GlobalEntityListener> getGlobalEntityListeners(Class<?> entityClass) {
+    return applicationContext.getBeansOfType(GlobalEntityListener.class).values().stream()
+      .filter(listener -> listener.support(entityClass))
+      .toList();
   }
 
   @Override
@@ -89,7 +87,7 @@ public class SpringBeanEntityListenerFactory implements EntityListenerFactory, A
     List<Method> methods = Arrays.stream(listener.getClass().getMethods())
       .filter(method -> method.isAnnotationPresent(jpaAnnotation))
       .toList();
-    List<Method> sortedMethods = BeanOrderUtils.sort(methods);
+    List<Method> sortedMethods = BeanUtils.sort(methods);
     return sortedMethods.stream().map(method -> EntityListenerMethod.of(listener, method)).toList();
   }
 }

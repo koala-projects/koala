@@ -1,8 +1,6 @@
 package cn.koala.mybatis.service;
 
 import cn.koala.data.domain.Auditable;
-import cn.koala.data.domain.Enableable;
-import cn.koala.data.domain.Systemic;
 import cn.koala.data.domain.YesNo;
 import cn.koala.data.service.CrudService;
 import cn.koala.data.util.DomainNames;
@@ -10,12 +8,8 @@ import cn.koala.data.util.DomainUtils;
 import cn.koala.exception.BusinessException;
 import cn.koala.mybatis.repository.CrudRepository;
 import cn.koala.util.Assert;
-import cn.koala.util.LocalDateTimeUtils;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,11 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Persistable;
 import org.springframework.lang.NonNull;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * 增删改查服务抽象类
@@ -37,9 +29,8 @@ import java.util.function.Consumer;
  * @author Houtaroy
  */
 @Slf4j
-public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, ID>, ApplicationContextAware {
+public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, ID> {
 
-  private ApplicationContext applicationContext;
   private AuditorAware<U> auditorAware;
 
   @Override
@@ -61,27 +52,11 @@ public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, I
 
   @Override
   public T load(ID id) {
-    T result = getRepository().load(id).orElseThrow(() -> new BusinessException("数据不存在"));
-    if (result instanceof Auditable<?, ?> auditable && auditable.getDeleted() == YesNo.YES) {
-      throw new BusinessException("数据不存在");
-    }
-    return result;
+    return getRepository().load(id).orElseThrow(() -> new BusinessException("数据不存在"));
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public <S extends T> void create(@NonNull S entity) {
-    if (entity instanceof Enableable enableable && enableable.getEnabled() == null) {
-      enableable.setEnabled(YesNo.YES);
-    }
-    if (entity instanceof Systemic systemic) {
-      systemic.setSystemic(YesNo.NO);
-    }
-    if (entity instanceof Auditable<?, ?>) {
-      Auditable<U, ID> auditable = (Auditable<U, ID>) entity;
-      auditable.setDeleted(YesNo.NO);
-      audit(auditable::setCreatedBy, auditable::setCreatedDate);
-    }
     getRepository().create(entity);
   }
 
@@ -90,15 +65,7 @@ public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, I
   public <S extends T> void update(@NonNull S entity) {
     if (entity instanceof Persistable<?>) {
       T persistence = load(((Persistable<ID>) entity).getId());
-      Assert.isTrue(!DomainUtils.isSystemic(persistence), "系统数据不允许删除");
-    }
-    if (entity instanceof Systemic systemic) {
-      systemic.setSystemic(YesNo.NO);
-    }
-    if (entity instanceof Auditable<?, ?>) {
-      Auditable<U, ID> auditable = (Auditable<U, ID>) entity;
-      auditable.setDeleted(YesNo.NO);
-      audit(auditable::setLastModifiedBy, auditable::setLastModifiedDate);
+      Assert.isTrue(!DomainUtils.isSystemic(persistence), "系统数据不允许修改");
     }
     getRepository().update(entity);
   }
@@ -111,38 +78,11 @@ public abstract class AbstractSmartService<U, T, ID> implements CrudService<T, I
       Assert.isTrue(!DomainUtils.isSystemic(persistence), "系统数据不允许删除");
     }
     if (entity instanceof Auditable<?, ?>) {
-      Auditable<U, ID> auditable = (Auditable<U, ID>) entity;
-      auditable.setDeleted(YesNo.YES);
-      audit(auditable::setDeletedBy, auditable::setDeletedDate);
       getRepository().update(entity);
     } else {
       getRepository().delete(entity);
     }
   }
 
-  protected void audit(Consumer<U> auditorConsumer, Consumer<Date> auditDateConsumer) {
-    U auditor = getAuditorAware().getCurrentAuditor().orElseThrow(() -> new BusinessException("未找到审计用户"));
-    auditorConsumer.accept(auditor);
-    auditDateConsumer.accept(LocalDateTimeUtils.toDate());
-  }
-
   protected abstract CrudRepository<T, ID> getRepository();
-
-  @SuppressWarnings("unchecked")
-  protected AuditorAware<U> getAuditorAware() {
-    try {
-      if (auditorAware == null) {
-        auditorAware = applicationContext.getBean(AuditorAware.class);
-      }
-      return auditorAware;
-    } catch (Exception e) {
-      LOGGER.error("获取AuditorAware失败", e);
-      throw new BusinessException("未找到审计用户");
-    }
-  }
-
-  @Override
-  public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
-  }
 }

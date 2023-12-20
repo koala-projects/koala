@@ -1,4 +1,4 @@
-package cn.koala.persist;
+package cn.koala.mybatis.listener;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -8,7 +8,6 @@ import java.util.List;
  *
  * @author Houtaroy
  */
-@Deprecated
 public interface EntityListenerFactory {
 
   List<Object> getEntityListeners(Class<?> entityClass);

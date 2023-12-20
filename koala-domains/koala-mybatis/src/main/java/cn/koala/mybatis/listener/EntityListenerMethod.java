@@ -1,4 +1,4 @@
-package cn.koala.persist;
+package cn.koala.mybatis.listener;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +11,6 @@ import java.lang.reflect.Method;
  *
  * @author Houtaroy
  */
-@Deprecated
 @Getter
 @SuperBuilder(toBuilder = true)
 public class EntityListenerMethod {

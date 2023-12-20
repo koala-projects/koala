@@ -1,5 +1,6 @@
-package cn.koala.persist;
+package cn.koala.mybatis.listener;
 
+import jakarta.persistence.PostLoad;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
 import jakarta.persistence.PostUpdate;
@@ -29,7 +30,6 @@ import java.util.Optional;
  *
  * @author Houtaroy
  */
-@Deprecated
 @Aspect
 @Order(3200)
 @RequiredArgsConstructor
@@ -42,30 +42,33 @@ public class CrudServiceEntityListenerAspect {
   );
 
   private static final Map<String, Class<? extends Annotation>> JPA_POST_ANNOTATION_MAPPING = Map.of(
+    "load", PostLoad.class,
     "create", PostPersist.class,
     "update", PostUpdate.class,
     "delete", PostRemove.class
   );
 
   private final PlatformTransactionManager transactionManager;
+
   private final EntityListenerFactory entityListenerFactory;
 
-  @Around("execution(* cn.koala.persist.CrudService+.*(..)) "
-    + "&& (execution(* create(..)) || execution(* update(..)) || execution(* delete(..)))")
+  @Around("execution(* cn.koala.data.service.CrudService+.*(..)) "
+    + "&& (execution(* load(..)) || execution(* create(..)) || execution(* update(..)) || execution(* delete(..)))")
   public Object aroundEntityCrudMethod(ProceedingJoinPoint joinPoint) throws Throwable {
     DefaultTransactionDefinition def = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED);
     TransactionStatus status = transactionManager.getTransaction(def);
     try {
-      Class<?> entityClass = determineEntityClass(joinPoint);
+      Class<?> preEntityClass = determineEntityClass(joinPoint);
       Class<? extends Annotation> jpaPreAnnotation = determineJpaPreAnnotation(joinPoint);
       List<EntityListenerMethod> preMethods =
-        entityListenerFactory.getEntityListenerMethods(entityClass, jpaPreAnnotation);
+        entityListenerFactory.getEntityListenerMethods(preEntityClass, jpaPreAnnotation);
       preMethods.forEach(preMethod -> preMethod.invoke(joinPoint.getArgs()));
       Object result = joinPoint.proceed();
+      Class<?> postEntityClass = result != null ? result.getClass() : preEntityClass;
       Class<? extends Annotation> jpaPostAnnotation = determineJpaPostAnnotation(joinPoint);
       List<EntityListenerMethod> postMethods =
-        entityListenerFactory.getEntityListenerMethods(entityClass, jpaPostAnnotation);
-      postMethods.forEach(postMethod -> postMethod.invoke(joinPoint.getArgs()));
+        entityListenerFactory.getEntityListenerMethods(postEntityClass, jpaPostAnnotation);
+      postMethods.forEach(postMethod -> postMethod.invoke(Optional.ofNullable(result).orElse(joinPoint.getArgs())));
       transactionManager.commit(status);
       return result;
     } catch (Throwable throwable) {

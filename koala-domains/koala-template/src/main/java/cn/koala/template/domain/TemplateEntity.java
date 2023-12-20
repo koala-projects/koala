@@ -1,7 +1,7 @@
 package cn.koala.template.domain;
 
-import cn.koala.Koala;
 import cn.koala.mybatis.domain.AbstractEntity;
+import cn.koala.template.util.TemplateConstants;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +28,7 @@ import java.io.Serializable;
 public class TemplateEntity extends AbstractEntity<Long, Long> implements Template, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = TemplateConstants.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;

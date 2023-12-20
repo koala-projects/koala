@@ -3,7 +3,7 @@ package cn.koala.system.permission;
 import cn.koala.data.domain.YesNo;
 import cn.koala.system.domain.Permission;
 import cn.koala.system.domain.PermissionEntity;
-import cn.koala.system.util.SystemNames;
+import cn.koala.system.util.SystemConstants;
 import cn.koala.util.LocalDateTimeUtils;
 import org.springframework.util.Assert;
 
@@ -81,7 +81,7 @@ public class PermissionFactory {
       .enabled(YesNo.YES)
       .systemic(YesNo.NO)
       .deleted(YesNo.NO)
-      .createdBy(SystemNames.ADMIN_ID)
+      .createdBy(SystemConstants.ADMIN_ID)
       .createdDate(LocalDateTimeUtils.toDate())
       .build();
   }

@@ -1,1 +1,2 @@
 cn.koala.mybatis.autoconfigure.MyBatisAutoConfiguration
+cn.koala.mybatis.autoconfigure.EntityListenerAutoConfiguration

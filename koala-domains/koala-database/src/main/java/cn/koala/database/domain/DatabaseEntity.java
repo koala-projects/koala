@@ -1,6 +1,6 @@
 package cn.koala.database.domain;
 
-import cn.koala.Koala;
+import cn.koala.database.util.DatabaseConstants;
 import cn.koala.mybatis.domain.AbstractEntity;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class DatabaseEntity extends AbstractEntity<Long, Long> implements Database, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = DatabaseConstants.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;

@@ -16,5 +16,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("cn.koala.mybatis.common")
 public class MyBatisAutoConfiguration {
-  
+
 }

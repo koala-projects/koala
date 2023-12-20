@@ -1,7 +1,7 @@
 package cn.koala.system.domain;
 
 import cn.koala.mybatis.domain.AbstractEntity;
-import cn.koala.system.util.Versions;
+import cn.koala.system.util.SystemConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class UserEntity extends AbstractEntity<Long, Long> implements User, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Versions.SERIAL;
+  private static final long serialVersionUID = SystemConstants.SERIAL_VERSION_UID;
 
   @Schema(description = "用户登录名")
   @NotBlank(message = "用户登录名不能为空")

@@ -1,7 +1,7 @@
 package cn.koala.system.domain;
 
 import cn.koala.mybatis.domain.AbstractEntity;
-import cn.koala.system.util.Versions;
+import cn.koala.system.util.SystemConstants;
 import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +28,7 @@ import java.io.Serializable;
 public class DutyEntity extends AbstractEntity<Long, Long> implements Duty, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Versions.SERIAL;
+  private static final long serialVersionUID = SystemConstants.SERIAL_VERSION_UID;
 
   @NotBlank(message = "岗位代码不允许为空", groups = {Create.class})
   @Size(max = 20, message = "岗位代码长度不能大于20", groups = {Create.class})

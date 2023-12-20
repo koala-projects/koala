@@ -1,4 +1,4 @@
-package cn.koala.persist.support;
+package cn.koala.util;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -15,12 +15,11 @@ import java.util.stream.Collectors;
  *
  * @author Houtaroy
  */
-@Deprecated
-public abstract class BeanOrderUtils {
+public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
 
   public static <T> List<T> sort(List<T> beans) {
     List<T> result = new ArrayList<>(beans.size());
-    List<T> orders = beans.stream().filter(BeanOrderUtils::isOrderly).collect(Collectors.toList());
+    List<T> orders = beans.stream().filter(BeanUtils::isOrderly).collect(Collectors.toList());
     AnnotationAwareOrderComparator.sort(orders);
     result.addAll(orders);
     result.addAll(beans.stream().filter(bean -> !isOrderly(bean)).toList());

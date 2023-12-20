@@ -1,22 +1,21 @@
 -- 默认部门
-insert into k_department(id, name, parent_id, sort_index, is_systemic, created_by, created_time)
-values (1, '考拉开源', null, 1, 1, 1, now());
+insert into k_department(id, parent_id, name, sort_index, systemic, created_by, created_date)
+values (1, null, '考拉开源', 1, 'YES', 1, now());
 
 -- 演示数据库
-insert into t_database(id, name, url, username, password, catalog, `schema`, is_systemic)
-values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala', 'Koala@2023',
-        'koala_demo', 'koala_demo', 1);
+insert into k_database(id, name, url, username, password, catalog, `schema`, systemic, created_by, created_date)
+values (1, '演示数据库', 'jdbc:mysql://127.0.0.1:3306/koala_demo', 'koala', 'Koala@2023', 'koala_demo', 'koala_demo',
+        'YES', 1, now());
 
 -- 考拉代码模板
 -- 考拉代码-服务端
-insert into t_template_group(id, name, remark, is_systemic)
-values (1, '考拉代码-服务端', '考拉服务端代码生成模板', 1);
+insert into k_template_group(id, name, description, systemic, created_by, created_date)
+values (1, '考拉代码-服务端', '考拉服务端代码生成模板', 'YES', 1, now());
 
-insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (101, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
+insert into k_template(id, group_id, name, description, content, systemic, created_by, created_date)
+values (101, 1, 'api/#(name.pascal.singular)Api.java', '接口代码模板', 'package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
-
 import cn.koala.openapi.PageableAsQueryParam;
 import cn.koala.validation.group.Create;
 import cn.koala.validation.group.Update;
@@ -65,14 +64,12 @@ public interface #(name.pascal.singular)Api {
    * @return #(description)分页结果
    */
   @PreAuthorize("hasAuthority(''#(name.kebab.singular).read'')")
-  @Operation(operationId = "list#(name.pascal.plural)", summary = "根据条件分页查询#(description)")
+  @Operation(operationId = "list#(name.pascal.singular)", summary = "根据条件分页查询#(description)")
   @ApiResponse(responseCode = "200", description = "成功",
     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = #(name.pascal.singular)PageResult.class))}
   )
-#for(property: properties)
-  #if(!parameterIgnoredPropertyNames.contains(property.name.camel.singular))
-  @Parameter(in = ParameterIn.QUERY, name = "#(property.name.camel.singular)", description = "#(property.description)", schema = @Schema(type = "#(property.type.json)"))
-  #end
+#for(parameter: koala.parameters)
+  @Parameter(in = ParameterIn.QUERY, name = "#(parameter.name)", description = "#(parameter.description)", schema = @Schema(type = "#(parameter.type)"))
 #end
   @PageableAsQueryParam
   @GetMapping
@@ -147,12 +144,11 @@ public interface #(name.pascal.singular)Api {
 
   }
 }
-', 1, 1),
-       (102, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
+', 'YES', 1, now()),
+       (102, 1, 'api/#(name.pascal.singular)ApiImpl.java', '接口实现类代码模板', 'package #(package).api;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).service.#(name.pascal.singular)Service;
-
 import cn.koala.web.DataResponse;
 import cn.koala.web.Response;
 import lombok.RequiredArgsConstructor;
@@ -191,7 +187,7 @@ public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Ap
 
   @Override
   public Response update(#(id.type.java) id, #(name.pascal.singular)Entity entity) {
-    entity.setIdIfAbsent(id);
+    entity.setId(id);
     service.update(entity);
     return Response.SUCCESS;
   }
@@ -202,27 +198,31 @@ public class #(name.pascal.singular)ApiImpl implements #(name.pascal.singular)Ap
     return Response.SUCCESS;
   }
 }
-', 1, 1),
-       (103, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
+', 'YES', 1, now()),
+       (103, 1, 'entity/#(name.pascal.singular)Entity.java', '数据实体类代码模板', 'package #(package).entity;
 
-#if(entity.isAbstract)
-import cn.koala.mybatis.AbstractEntity;
+#if(abstract)
+import cn.koala.mybatis.domain.AbstractEntity;
 #else
-import cn.koala.persist.domain.Persistable;
+#for(import: imports)
+#(import)
 #end
+#end
+import cn.koala.validation.group.Create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-#if(entity.isAbstract)
+#if(abstract)
 import lombok.EqualsAndHashCode;
 #end
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -233,48 +233,40 @@ import java.util.Date;
  * @author Koala Code Gen
  */
 @Data
-#if(entity.isAbstract)
+#if(abstract)
 @EqualsAndHashCode(callSuper = true)
 #end
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Schema(description = "#(description)数据实体类")
-public class #(name.pascal.singular)Entity#if(entity.isAbstract) extends AbstractEntity#else  implements Persistable#end<#(id.type.java)> {
-#if(!entity.isAbstract)
+@Schema(description = "#(description)实体")
+#if(abstract)
+public class #(name.pascal.singular)Entity extends AbstractEntity<Long, #(id.type.java)> implements Serializable {
+#else
+public class #(name.pascal.singular)Entity implements#for(implement: implements) #(implement),#end  Serializable {
+#end
+
+  @Serial
+  private static final long serialVersionUID = 2023_02_00L;
+#if(!abstract)
 
   @Schema(description = "#(id.description)")
   private #(id.type.java) id;
 #end
-#for(property: properties)
-  #if(entity.isAbstract)
-    #if(!entity.abstractIgnoredPropertyNames.contains(property.name.camel.singular))
+#for(property: koala.properties)
 
-      #if(entity.validations.containsKey(property.name.camel.singular))
-        #for(validation: entity.validations.get(property.name.camel.singular))
-  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
-        #end
-      #end
   @Schema(description = "#(property.description)")
-  private #(property.type.java) #(property.name.camel.singular);
-    #end
-  #else
-
-	#if(entity.validations.containsKey(property.name.camel.singular))
-        #for(validation: entity.validations.get(property.name.camel.singular))
-  @#(validation.name)(#for(parameter : validation.parameters)#(parameter.key) = #(parameter.value), #end message = "#(validation.message)", groups = {#for(group : validation.groups)#(group).class#if(!for.last), #end #end})
-        #end
-      #end
-  @Schema(description = "#(property.description)")
-  private #(property.type.java) #(property.name.camel.singular);
-  #end
+#for(validation: property.validations)
+  #(validation)
+#end
+  private #(property.type) #(property.name);
 #end
 }
-', 1, 1),
-       (104, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
+', 'YES', 1, now()),
+       (104, 1, 'service/#(name.pascal.singular)Service.java', '服务类代码模板', 'package #(package).service;
 
 import #(package).entity.#(name.pascal.singular)Entity;
 import #(package).repository.#(name.pascal.singular)Repository;
-import cn.koala.mybatis.AbstractMyBatisService;
+import cn.koala.mybatis.service.AbstractSmartService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -287,16 +279,17 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @RequiredArgsConstructor
-public class #(name.pascal.singular)Service extends AbstractMyBatisService<#(name.pascal.singular)Entity, #(id.type.java)> {
+public class #(name.pascal.singular)Service extends AbstractSmartService<Long, #(name.pascal.singular)Entity, #(id.type.java)> {
 
   private final #(name.pascal.singular)Repository repository;
+
+  private final AuditorAware<Long> auditorAware;
 }
-', 1, 1),
-       (105, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
+', 'YES', 1, now()),
+       (105, 1, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
 
 import #(package).entity.#(name.pascal.singular)Entity;
-
-import cn.koala.persist.CrudRepository;
+import cn.koala.mybatis.repository.CrudRepository;
 
 /**
  * #(description)仓库接口
@@ -305,13 +298,13 @@ import cn.koala.persist.CrudRepository;
  */
 public interface #(name.pascal.singular)Repository extends CrudRepository<#(name.pascal.singular)Entity, #(id.type.java)> {
 }
-', 1, 1),
-       (106, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
+', 'YES', 1, now()),
+       (106, 1, '#(name.pascal.singular)Mapper.xml', 'Mapper文件代码模板', '<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="#(package).repository.#(name.pascal.singular)Repository">
 
-  <sql id="select#(name.pascal.singular)">
+  <sql id="select">
     select t.id,
 #for(property: properties)
 		   t.#(property.name.snake.singular)#if(!for.last),#end
@@ -319,53 +312,58 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
     from #(table.name) t
   </sql>
 
-  <sql id="orderBy">
-    <choose>
-      <when test="orders != null and orders.size() > 0">
-        <foreach collection="orders" item="order" index="index" open=" order by " close="" separator=",">
-          <include refid="orderByField"/>
-        </foreach>
-      </when>
-      <otherwise>
-#if(entity.isAbstract)
-        order by t.created_time desc
-#else
-		order by t.id asc
-#end
-      </otherwise>
-    </choose>
-  </sql>
-
-  <sql id="orderByField">
-#for(property: properties)
-    <if test="order.property == ''#(property.name.camel.singular)''">
-        t.#(property.name.snake.singular) <include refid="cn.koala.mybatis.common.CommonRepository.orderDirection" />
-    </if>
-#end
-  </sql>
-
-  <select id="list" resultType="#(package).entity.#(name.pascal.singular)Entity">
-    <include refid="select#(name.pascal.singular)"/>
-    <where>
-#if(entity.isAbstract)
-      t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value}
-#end
+  <sql id="where">
+	<where>
 #for(property: properties)
       <if test="#(property.name.camel.singular) != null and #(property.name.camel.singular) != ''''">
        and t.#(property.name.snake.singular) = #{#(property.name.camel.singular)}
       </if>
 #end
     </where>
-	<include refid="orderBy"/>
+  </sql>
+
+  <sql id="orders">
+    <choose>
+      <when test="pageable != null and pageable.getSort() != null and pageable.getSort().isSorted()">
+        <foreach collection="pageable.getSort().toList()" item="order" index="index" open=" order by " close=""
+                 separator=",">
+          <include refid="order"/>
+        </foreach>
+      </when>
+      <otherwise>
+#if(sortable)
+        order by t.sort_index asc
+#else if(auditable)
+		order by t.created_date desc
+#else
+		order by t.id
+#end
+      </otherwise>
+    </choose>
+  </sql>
+
+  <sql id="order">
+#for(property: properties)
+    <if test="order.property == ''#(property.name.camel.singular)''">
+        t.#(property.name.snake.singular)
+		<include refid="cn.koala.mybatis.common.CommonRepository.orderDirection" />
+    </if>
+#end
+  </sql>
+
+  <select id="list" resultType="#(package).entity.#(name.pascal.singular)Entity">
+    <include refid="select"/>
+	<include refid="where"/>
+	<include refid="orders"/>
   </select>
 
   <select id="load" resultType="#(package).entity.#(name.pascal.singular)Entity">
-    <include refid="select#(name.pascal.singular)"/>
-    where#if(entity.isAbstract) t.is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  t.id=#{id}
+    <include refid="select"/>
+    where t.id = #{id}
   </select>
 
   <insert id="create" parameterType="#(package).entity.#(name.pascal.singular)Entity"  useGeneratedKeys="true" keyProperty="id">
-    insert into t_biological_information_log
+    insert into #(table.name)
       value (
 			 #{id},
 #for(property: properties)
@@ -381,25 +379,17 @@ public interface #(name.pascal.singular)Repository extends CrudRepository<#(name
       <if test="#(property.name.camel.singular) != null">#(property.name.snake.singular)=#{#(property.name.camel.singular)},</if>
 #end
     </trim>
-    where#if(entity.isAbstract) is_deleted = ${@cn.koala.persist.domain.YesNo@NO.value} and#end  id = #{id}
-  </update>
-
-#if(entity.isAbstract)
-  <update id="delete" parameterType="#(package).entity.#(name.pascal.singular)Entity">
-    update #(table.name)
-    set is_deleted   = ${@cn.koala.persist.domain.YesNo@YES.value},
-        deleted_by   = #{deletedBy},
-        deleted_time = #{deletedTime}
     where id = #{id}
   </update>
-#else
+
   <delete id="delete" parameterType="#(package).entity.#(name.pascal.singular)Entity">
-    delete from #(table.name) where id = #{id}
+	delete
+    from #(table.name)
+    where id = #{id}
   </delete>
-#end
 </mapper>
-', 1, 1),
-       (107, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
+', 'YES', 1, now()),
+       (107, 1, 'config/#(name.pascal.singular)PermissionRegistrar.java', '权限注册器代码模板', 'package #(package).config;
 
 import cn.koala.system.permission.CrudPermissionRegistrar;
 import org.springframework.stereotype.Component;
@@ -413,18 +403,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class #(name.pascal.singular)PermissionRegistrar extends CrudPermissionRegistrar {
 
-  public #(name.pascal.singular)PermissionRegistrar() {
+  public #(name.pascal.singular)PermissionRegistrar(){
     super("#(name.kebab.singular)", "#(description)管理", 30000, null);
   }
 }
-', 1, 1);
+', 'YES', 1, now());
 
 -- 考拉代码-客户端
-insert into t_template_group(id, name, remark, is_systemic)
-values (2, '考拉代码-客户端', '考拉客户端代码生成模板', 1);
+insert into k_template_group(id, name, description, systemic, created_by, created_date)
+values (2, '考拉代码-客户端', '考拉客户端代码生成模板', 'YES', 1, now());
 
-insert into t_template(id, name, remark, content, group_id, is_systemic)
-values (201, 'apis/#(name.kebab.singular)/index.ts', '接口请求代码模板', 'import { defHttp } from ''/@/utils/http/axios'';
+insert into k_template(id, group_id, name, description, content, systemic, created_by, created_date)
+values (201, 2, 'apis/#(name.kebab.singular)/index.ts', '接口请求代码模板', 'import { defHttp } from ''/@/utils/http/axios'';
 
 import type SearchParameters from ''../SearchParameters'';
 import type PageResult from ''../PageResult'';
@@ -436,7 +426,7 @@ export function list#(name.pascal.singular)(params: SearchParameters) {
   return defHttp.get<PageResult<#(name.pascal.singular)Entity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
-export function load#(name.pascal.singular)(id: number) {
+export function load#(name.pascal.singular)(id: #(id.type.ts)) {
   return defHttp.get<#(name.pascal.singular)Entity>({ url: `${domain}/${id}` });
 }
 
@@ -444,49 +434,42 @@ export function create#(name.pascal.singular)(data: #(name.pascal.singular)Entit
   return defHttp.post<#(name.pascal.singular)Entity>({ url: domain, data });
 }
 
-export function update#(name.pascal.singular)(id: number, data: #(name.pascal.singular)Entity) {
+export function update#(name.pascal.singular)(id: #(id.type.ts), data: #(name.pascal.singular)Entity) {
   return defHttp.put<null>({ url: `${domain}/${id}`, data });
 }
 
-export function delete#(name.pascal.singular)(id: number) {
+export function delete#(name.pascal.singular)(id: #(id.type.ts)) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
 }
 
-export { #(name.pascal.singular)Entity };
-', 2, 1),
-       (202, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', '#if(entity.isAbstract)
-import type AbstractEntity from ''../AbstractEntity'';
-
-#end
-export default interface #(name.pascal.singular)Entity#if(entity.isAbstract) extends AbstractEntity#end  {
-#for(property: properties)
-  #if(entity.isAbstract)
-    #if(!entity.abstractIgnoredPropertyNames.contains(property.name.camel.singular))
-  #(property.name.camel.singular): #(property.type.ts)
-	#end
-  #else
-  #(property.name.camel.singular): #(property.type.ts)
-  #end
+export type { #(name.pascal.singular)Entity };
+', 'YES', 1, now()),
+       (202, 2, 'apis/#(name.kebab.singular)/#(name.pascal.singular)Entity.ts', '数据实体类代码模板', 'interface #(name.pascal.singular)Entity {
+  id: #(id.type.ts);
+#for(property: koalaAdmin.properties)
+  #(property.name): #(property.type);
 #end
 }
-', 2, 1),
-       (203, 'views/#(name.kebab.singular)/#(name.kebab.singular).data.ts', '页面数据代码模板', 'import { BasicColumn, FormSchema } from ''/@/components/Table'';
+
+export default #(name.pascal.singular)Entity;
+', 'YES', 1, now()),
+       (203, 2, 'views/#(name.kebab.singular)/#(name.kebab.singular).data.ts', '页面数据代码模板', 'import { BasicColumn, FormSchema } from ''/@/components/Table'';
 
 export const columns: BasicColumn[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
     title: ''#(property.description)'',
-    dataIndex: ''#(property.name.camel.singular)'',
+    dataIndex: ''#(property.name)'',
   },
 #end
 ];
 
 export const searchFormSchema: FormSchema[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
-    field: ''#(property.name.camel.singular)'',
+    field: ''#(property.name)'',
     label: ''#(property.description)'',
-    component: ''#(property.type.vben)'',
+    component: ''#(property.component)'',
     colProps: {
   	  xl: 12,
   	  xxl: 8,
@@ -496,20 +479,22 @@ export const searchFormSchema: FormSchema[] = [
 ];
 
 export const formSchema: FormSchema[] = [
-#for(property: properties)
+#for(property: koalaAdmin.properties)
   {
-    field: ''#(property.name.camel.singular)'',
+    field: ''#(property.name)'',
     label: ''#(property.description)'',
-    component: ''#(property.type.vben)'',
+    component: ''#(property.component)'',
   },
 #end
 ];
-', 2, 1),
-       (204, 'views/#(name.kebab.singular)/index.vue', '列表页代码模板', '<script lang="ts" setup>
+', 'YES', 1, now()),
+       (204, 2, 'views/#(name.kebab.singular)/index.vue', '列表页代码模板', '<script lang="ts" setup>
   import { BasicTable, TableAction, useTable } from ''/@/components/Table'';
   import { useModal } from ''/@/components/Modal'';
-  import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
+  import { list#(name.pascal.singular), delete#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
+#if(abstract)
   import { YesNo } from ''/@/enums/YesNo'';
+#end
   import #(name.pascal.singular)Modal from ''./#(name.pascal.singular)Modal.vue'';
   import { columns, searchFormSchema } from ''./#(name.kebab.singular).data'';
 
@@ -567,6 +552,9 @@ export const formSchema: FormSchema[] = [
                 icon: ''clarity:note-edit-line'',
                 tooltip: ''编辑'',
                 auth: ''#(name.kebab.singular).update'',
+#if(abstract)
+				ifShow: record.systemic === YesNo.NO,
+#end
                 onClick: handleEdit.bind(null, record),
               },
               {
@@ -574,6 +562,9 @@ export const formSchema: FormSchema[] = [
                 tooltip: ''删除'',
                 color: ''error'',
                 auth: ''#(name.kebab.singular).delete'',
+#if(abstract)
+				ifShow: record.systemic === YesNo.NO,
+#end
                 popConfirm: {
                   title: ''是否确认删除'',
                   placement: ''left'',
@@ -588,15 +579,16 @@ export const formSchema: FormSchema[] = [
     <#(name.kebab.singular)-modal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
-', 2, 1),
-       (205, 'views/#(name.kebab.singular)/#(name.pascal.singular)Modal.vue', '表单弹窗代码模板', '<script lang="ts" setup>
+', 'YES', 1, now()),
+       (205, 2, 'views/#(name.kebab.singular)/#(name.pascal.singular)Modal.vue', '表单弹窗代码模板', '<script lang="ts" setup>
   import { ref, unref, computed } from ''vue'';
   import { BasicModal, useModalInner } from ''/@/components/Modal'';
   import { BasicForm, useForm } from ''/@/components/Form/index'';
   import { formSchema } from ''./#(name.kebab.singular).data'';
-  import { create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.singular)'';
+  import { #(name.pascal.singular)Entity, create#(name.pascal.singular), update#(name.pascal.singular) } from ''/@/apis/#(name.kebab.plural)'';
+
   const isUpdate = ref(false);
-  const id = ref<number | null>(null);
+  const id = ref<#(id.type.ts) | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? ''新增#(description)'' : ''编辑#(description)''));
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 100,
@@ -618,7 +610,7 @@ export const formSchema: FormSchema[] = [
   const emit = defineEmits([''success'', ''register'']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: #(name.pascal.singular)Entity = await validate();
       setModalProps({ confirmLoading: true });
       if (unref(isUpdate)) {
         await update#(name.pascal.singular)(unref(id)!, values);
@@ -637,4 +629,4 @@ export const formSchema: FormSchema[] = [
     <basic-form @register="registerForm" />
   </basic-modal>
 </template>
-', 2, 1);
+', 'YES', 1, now());

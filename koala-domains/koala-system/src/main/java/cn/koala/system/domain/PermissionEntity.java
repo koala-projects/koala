@@ -1,7 +1,7 @@
 package cn.koala.system.domain;
 
-import cn.koala.Koala;
 import cn.koala.mybatis.domain.AbstractEntity;
+import cn.koala.system.util.SystemConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class PermissionEntity extends AbstractEntity<Long, Long> implements Permission, Serializable {
 
   @Serial
-  private static final long serialVersionUID = Koala.SERIAL_VERSION_UID;
+  private static final long serialVersionUID = SystemConstants.SERIAL_VERSION_UID;
 
   @Schema(description = "主键")
   private Long id;

@@ -1,12 +1,11 @@
-package cn.koala.persist;
+package cn.koala.mybatis.listener;
 
 /**
- * 系统实体监听器
+ * 全局实体监听器
  *
  * @author Houtaroy
  */
-@Deprecated
-public interface SystemEntityListener {
+public interface GlobalEntityListener {
 
   default boolean support(Class<?> entityClass) {
     return true;

@@ -15,7 +15,6 @@ import cn.koala.system.api.PermissionApi;
 import cn.koala.system.api.RoleApi;
 import cn.koala.system.api.UserApi;
 import cn.koala.system.boot.AdminRegister;
-import cn.koala.system.model.UserCreateListener;
 import cn.koala.system.permission.PermissionRegister;
 import cn.koala.system.permission.PermissionRegistrar;
 import cn.koala.system.permission.SystemPermissionRegistrar;
@@ -137,12 +136,6 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public PasswordEncoder passwordEncoder() {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "userCreateListener")
-  public UserCreateListener userCreateListener(PasswordEncoder passwordEncoder) {
-    return new UserCreateListener(passwordEncoder);
   }
 
   @Bean
