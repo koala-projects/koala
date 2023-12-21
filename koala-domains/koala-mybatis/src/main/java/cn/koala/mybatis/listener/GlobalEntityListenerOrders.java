@@ -7,7 +7,9 @@ package cn.koala.mybatis.listener;
  */
 public interface GlobalEntityListenerOrders {
 
-  int SYSTEMIC = 9100;
+  int ENABLEABLE = 9100;
 
-  int AUDITING = 9200;
+  int SYSTEMIC = 9200;
+
+  int AUDITING = 9300;
 }
