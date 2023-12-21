@@ -2,6 +2,7 @@ package cn.koala.wechat.miniapp.domain;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.koala.wechat.miniapp.util.WechatMiniAppConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -36,6 +37,7 @@ public class WechatMiniAppUserEntity implements WechatMiniAppUser, Serializable 
       .build();
   }
 
+  @JsonIgnore
   @Override
   public boolean isNew() {
     return id == null;

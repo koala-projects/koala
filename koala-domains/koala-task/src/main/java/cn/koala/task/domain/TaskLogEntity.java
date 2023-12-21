@@ -2,6 +2,7 @@ package cn.koala.task.domain;
 
 import cn.koala.task.util.TaskConstants;
 import cn.koala.util.LocalDateTimeUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,7 @@ public class TaskLogEntity implements TaskLog, Serializable {
       .build();
   }
 
+  @JsonIgnore
   @Override
   public boolean isNew() {
     return false;

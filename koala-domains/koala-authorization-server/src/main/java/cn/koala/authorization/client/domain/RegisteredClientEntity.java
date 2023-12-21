@@ -1,5 +1,6 @@
 package cn.koala.authorization.client.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -42,6 +43,7 @@ public class RegisteredClientEntity implements Persistable<String> {
 
   private String tokenSettings;
 
+  @JsonIgnore
   @Override
   public boolean isNew() {
     return !StringUtils.hasText(id);

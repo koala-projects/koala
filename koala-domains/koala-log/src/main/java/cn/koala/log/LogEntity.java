@@ -2,6 +2,7 @@ package cn.koala.log;
 
 import cn.koala.data.domain.YesNo;
 import cn.koala.log.util.LogConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -35,6 +36,7 @@ public class LogEntity implements Log, Serializable {
   protected Long cost;
   protected Date logTime;
 
+  @JsonIgnore
   @Override
   public boolean isNew() {
     return false;

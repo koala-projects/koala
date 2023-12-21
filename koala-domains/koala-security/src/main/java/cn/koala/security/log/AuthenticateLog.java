@@ -1,6 +1,7 @@
 package cn.koala.security.log;
 
 import cn.koala.data.domain.YesNo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -35,6 +36,7 @@ public class AuthenticateLog implements Persistable<Long> {
 
   protected Date logTime;
 
+  @JsonIgnore
   @Override
   public boolean isNew() {
     return false;

@@ -5,6 +5,7 @@ import cn.koala.data.domain.Enableable;
 import cn.koala.data.domain.Sortable;
 import cn.koala.data.domain.Systemic;
 import cn.koala.data.domain.YesNo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -57,6 +58,7 @@ public abstract class AbstractEntity<U, ID> implements Auditable<U, ID>, Sortabl
   @Schema(description = "最后删除时间")
   private Date deletedDate;
 
+  @JsonIgnore
   @Override
   public boolean isNew() {
     return id == null;
