@@ -38,7 +38,15 @@
 
     <!--<dependency>-->
     <!--  <groupId>cn.koala</groupId>-->
+    <!--  <artifactId>koala-attachment-starter</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--  <groupId>cn.koala</groupId>-->
     <!--  <artifactId>koala-data-source-starter</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--  <groupId>cn.koala</groupId>-->
+    <!--  <artifactId>koala-minio-starter</artifactId>-->
     <!--</dependency>-->
 
     <dependency>
