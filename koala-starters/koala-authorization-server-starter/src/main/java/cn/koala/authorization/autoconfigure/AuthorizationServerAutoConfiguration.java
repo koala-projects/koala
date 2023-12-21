@@ -23,7 +23,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,7 +58,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties(AuthorizationServerProperties.class)
-@Import(DefaultSecurityAutoConfiguration.class)
 @MapperScan({
   "cn.koala.authorization.repository",
   "cn.koala.authorization.client.repository",
@@ -117,7 +115,7 @@ public class AuthorizationServerAutoConfiguration {
   @ConditionalOnMissingBean(name = "registeredClientRegister")
   public RegisteredClientRegister registeredClientRegister(List<RegisteredClientRegistrar> registrars,
                                                            RegisteredClientRepository registeredClientRepository) {
-    
+
     return new RegisteredClientRegister(registrars, registeredClientRepository);
   }
 

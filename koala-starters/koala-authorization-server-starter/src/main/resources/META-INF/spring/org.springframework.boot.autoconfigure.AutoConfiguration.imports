@@ -1,1 +1,3 @@
 cn.koala.authorization.autoconfigure.AuthorizationServerAutoConfiguration
+cn.koala.authorization.autoconfigure.DefaultSecurityAutoConfiguration
+cn.koala.authorization.autoconfigure.LoginLogPermissionAutoConfiguration
