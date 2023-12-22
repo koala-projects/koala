@@ -37,7 +37,8 @@ public abstract class AbstractEntity<U, ID> implements Auditable<U, ID>, Sortabl
   @Schema(description = "是否系统")
   private YesNo systemic;
 
-  @Schema(description = "是否删除")
+  @JsonIgnore
+  @Schema(description = "是否删除", hidden = true)
   private YesNo deleted;
 
   @Schema(description = "创建者")
@@ -52,10 +53,12 @@ public abstract class AbstractEntity<U, ID> implements Auditable<U, ID>, Sortabl
   @Schema(description = "最后更新时间")
   private Date lastModifiedDate;
 
-  @Schema(description = "最后删除者")
+  @JsonIgnore
+  @Schema(description = "最后删除者", hidden = true)
   private U deletedBy;
 
-  @Schema(description = "最后删除时间")
+  @JsonIgnore
+  @Schema(description = "最后删除时间", hidden = true)
   private Date deletedDate;
 
   @JsonIgnore
