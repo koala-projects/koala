@@ -3,7 +3,6 @@ package cn.koala.mybatis.listener;
 import cn.koala.data.domain.Auditable;
 import cn.koala.data.domain.YesNo;
 import cn.koala.util.Assert;
-import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
@@ -31,11 +30,6 @@ public class AuditingGlobalEntityListener<U> extends AbstractGlobalEntityListene
   @Override
   public int getOrder() {
     return GlobalEntityListenerOrders.AUDITING;
-  }
-
-  @PostLoad
-  public void postLoad(Auditable<U, ?> entity) {
-    Assert.isTrue(entity.getDeleted() == YesNo.NO, "数据不存在");
   }
 
   @PrePersist

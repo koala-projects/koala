@@ -49,7 +49,9 @@ public abstract class AbstractSmartService<T, ID> implements CrudService<T, ID> 
 
   @Override
   public T load(ID id) {
-    return getRepository().load(id).orElseThrow(() -> new BusinessException("数据不存在"));
+    return getRepository().load(id)
+      .filter(persistence -> !DomainUtils.isDeleted(persistence))
+      .orElseThrow(() -> new BusinessException("数据不存在"));
   }
 
   @Override
