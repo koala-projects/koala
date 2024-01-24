@@ -45,7 +45,7 @@ public class #(name.pascal.singular)Entity implements#for(implement: implements)
 #end
 
   @Serial
-  private static final long serialVersionUID = 2023_02_00L;
+  private static final long serialVersionUID = 2024_01_00L;
 #if(!abstract)
 
   @Schema(description = "#(id.description)")

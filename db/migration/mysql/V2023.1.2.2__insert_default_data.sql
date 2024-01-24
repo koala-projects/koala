@@ -246,7 +246,7 @@ public class #(name.pascal.singular)Entity implements#for(implement: implements)
 #end
 
   @Serial
-  private static final long serialVersionUID = 2023_02_00L;
+  private static final long serialVersionUID = 2024_01_00L;
 #if(!abstract)
 
   @Schema(description = "#(id.description)")
@@ -279,11 +279,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @RequiredArgsConstructor
-public class #(name.pascal.singular)Service extends AbstractSmartService<Long, #(name.pascal.singular)Entity, #(id.type.java)> {
+public class #(name.pascal.singular)Service extends AbstractSmartService<#(name.pascal.singular)Entity, #(id.type.java)> {
 
   private final #(name.pascal.singular)Repository repository;
-
-  private final AuditorAware<Long> auditorAware;
 }
 ', 'YES', 1, now()),
        (105, 1, 'repository/#(name.pascal.singular)Repository.java', '仓库接口代码模板', 'package #(package).repository;
