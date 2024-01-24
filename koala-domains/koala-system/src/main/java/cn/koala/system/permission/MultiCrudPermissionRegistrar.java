@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 复合增删改查权限注册登记器
@@ -23,17 +22,18 @@ public class MultiCrudPermissionRegistrar implements PermissionRegistrar {
 
   private final List<Permission> permissions;
 
-  public MultiCrudPermissionRegistrar(String code, String name, Integer startSortIndex, Map<String, String> cruds) {
+  public MultiCrudPermissionRegistrar(String code, String name, Integer sortIndex, List<CrudPermission> crudPermissions) {
     this.code = code;
-    this.order = startSortIndex;
-    this.permissions = new ArrayList<>(cruds.size() * (PermissionFactory.CRUD_MAPPING.size() + 1));
-    this.permissions.add(PermissionFactory.of(null, code, name, startSortIndex.longValue()));
-    long currentSortIndex = startSortIndex + CRUD_SORT_INDEX_STEP;
-    for (String crudCode : cruds.keySet()) {
-      this.permissions.addAll(
-        PermissionFactory.ofCrud(startSortIndex.longValue(), crudCode, cruds.get(crudCode), currentSortIndex)
-      );
-      currentSortIndex += CRUD_SORT_INDEX_STEP;
-    }
+    this.order = sortIndex;
+    this.permissions = new ArrayList<>(crudPermissions.size() * (PermissionFactory.CRUD_MAPPING.size() + 1));
+    this.permissions.add(PermissionFactory.of(null, code, name, sortIndex.longValue()));
+    crudPermissions.forEach(permission ->
+      this.permissions.addAll(PermissionFactory.ofCrud(
+        sortIndex.longValue(),
+        permission.getCode(),
+        permission.getName(),
+        permission.getSortIndex()
+      ))
+    );
   }
 }

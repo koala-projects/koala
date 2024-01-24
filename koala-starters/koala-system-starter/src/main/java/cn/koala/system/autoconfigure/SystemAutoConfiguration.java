@@ -25,6 +25,7 @@ import cn.koala.system.repository.DictionaryRepository;
 import cn.koala.system.repository.DutyRepository;
 import cn.koala.system.repository.PermissionRepository;
 import cn.koala.system.repository.RoleRepository;
+import cn.koala.system.repository.SettingRepository;
 import cn.koala.system.repository.UserRepository;
 import cn.koala.system.service.DefaultDepartmentService;
 import cn.koala.system.service.DefaultDictionaryItemService;
@@ -40,6 +41,16 @@ import cn.koala.system.service.DutyService;
 import cn.koala.system.service.PermissionService;
 import cn.koala.system.service.RoleService;
 import cn.koala.system.service.UserService;
+import cn.koala.system.setting.DefaultSettingApi;
+import cn.koala.system.setting.DefaultSettingService;
+import cn.koala.system.setting.JacksonSettingValueParseStrategy;
+import cn.koala.system.setting.LocalDateTimeSettingValueParseStrategy;
+import cn.koala.system.setting.SettingApi;
+import cn.koala.system.setting.SettingService;
+import cn.koala.system.setting.SettingType;
+import cn.koala.system.setting.SettingValueParseStrategy;
+import cn.koala.system.setting.SimpleSettingValueParseStrategy;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -155,6 +166,56 @@ public class SystemAutoConfiguration {
   @ConditionalOnMissingBean
   public UserApi userApi(UserService userService) {
     return new DefaultUserApi(userService);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "intSettingValueParseStrategy")
+  public SettingValueParseStrategy<?> intSettingValueParseStrategy() {
+    return new SimpleSettingValueParseStrategy<>(SettingType.INT, Integer::parseInt);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "floatSettingValueParseStrategy")
+  public SettingValueParseStrategy<?> floatSettingValueParseStrategy() {
+    return new SimpleSettingValueParseStrategy<>(SettingType.FLOAT, Float::parseFloat);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "stringSettingValueParseStrategy")
+  public SettingValueParseStrategy<?> stringSettingValueParseStrategy() {
+    return new SimpleSettingValueParseStrategy<>(SettingType.STRING, value -> value);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "booleanSettingValueParseStrategy")
+  public SettingValueParseStrategy<?> booleanSettingValueParseStrategy() {
+    return new SimpleSettingValueParseStrategy<>(SettingType.BOOLEAN, Boolean::parseBoolean);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "datetimeSettingValueParseStrategy")
+  public SettingValueParseStrategy<?> datetimeSettingValueParseStrategy() {
+    return new LocalDateTimeSettingValueParseStrategy();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "jsonSettingValueParseStrategy")
+  public SettingValueParseStrategy<?> jsonSettingValueParseStrategy(ObjectMapper objectMapper) {
+    return new JacksonSettingValueParseStrategy(objectMapper);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public SettingService settingService(SettingRepository settingRepository,
+                                       List<SettingValueParseStrategy<?>> settingValueParseStrategies) {
+
+    return new DefaultSettingService(settingRepository, settingValueParseStrategies);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public SettingApi settingApi(SettingService settingService) {
+    return new DefaultSettingApi(settingService);
   }
 
   @Bean
