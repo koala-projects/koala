@@ -1,7 +1,3 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
-
 -- 示例表
 DROP TABLE IF EXISTS t_example;
 CREATE TABLE t_example
